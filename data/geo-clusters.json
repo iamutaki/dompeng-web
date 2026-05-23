@@ -1,22 +1,22 @@
 {
-  "totalEntities": 6299,
-  "entitiesWithCity": 1153,
-  "geocodedEntities": 895,
-  "uniqueCities": 375,
-  "mappedCities": 57,
+  "totalEntities": 6309,
+  "entitiesWithCity": 1163,
+  "geocodedEntities": 903,
+  "uniqueCities": 378,
+  "mappedCities": 58,
   "clusters": [
     {
       "key": "coord:106.8456,-6.2088",
       "label": "Jakarta",
       "province": "DKI JAKARTA",
-      "count": 266,
+      "count": 267,
       "lat": -6.2088,
       "lng": 106.8456,
       "mergedCount": 30,
       "mergedCities": [
         {
           "label": "Jakarta",
-          "count": 176,
+          "count": 177,
           "province": "DKI JAKARTA"
         },
         {
@@ -768,7 +768,7 @@
       "key": "BANDUNG",
       "label": "Bandung",
       "province": null,
-      "count": 22,
+      "count": 23,
       "lat": -6.9175,
       "lng": 107.6191
     },
@@ -1079,6 +1079,14 @@
       "lng": 107.7631
     },
     {
+      "key": "BALIKPAPAN",
+      "label": "Balikpapan",
+      "province": null,
+      "count": 6,
+      "lat": -1.2379,
+      "lng": 116.8529
+    },
+    {
       "key": "coord:123.607,-10.1772",
       "label": "Kupang",
       "province": "NUSA TENGGARA TIMUR",
@@ -1150,6 +1158,14 @@
       ]
     },
     {
+      "key": "MALANG",
+      "label": "Malang",
+      "province": null,
+      "count": 4,
+      "lat": -7.9797,
+      "lng": 112.6304
+    },
+    {
       "key": "SUKABUMI",
       "label": "Sukabumi",
       "province": "DKI JAKARTA",
@@ -1212,14 +1228,6 @@
       "count": 3,
       "lat": -7.4478,
       "lng": 112.7183
-    },
-    {
-      "key": "MALANG",
-      "label": "Malang",
-      "province": null,
-      "count": 3,
-      "lat": -7.9797,
-      "lng": 112.6304
     },
     {
       "key": "JEMBER",
@@ -1354,14 +1362,6 @@
       "lng": 128.1814
     },
     {
-      "key": "BALIKPAPAN",
-      "label": "Balikpapan",
-      "province": "DKI JAKARTA",
-      "count": 2,
-      "lat": -1.2379,
-      "lng": 116.8529
-    },
-    {
       "key": "coord:124.8421,1.4748",
       "label": "Manado",
       "province": null,
@@ -1429,6 +1429,14 @@
       "count": 1,
       "lat": 3.3274,
       "lng": 117.5785
+    },
+    {
+      "key": "JAYAPURA",
+      "label": "Jayapura",
+      "province": null,
+      "count": 1,
+      "lat": -2.533,
+      "lng": 140.717
     },
     {
       "key": "CILEGON",

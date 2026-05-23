@@ -1038,33 +1038,64 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
 
 function buildIndexChart(indexRows) {
   const ctx = document.getElementById("index-chart");
+  if (!ctx) return null;
+
+  const existing = Chart.getChart(ctx);
+  if (existing) existing.destroy();
+
+  const rows = indexRows || [];
+  const labels = rows.map((r) => r.type);
+  const wrap = ctx.closest(".chart-wrap--analytics-index");
+  if (wrap) {
+    const rowHeight = 32;
+    wrap.style.minHeight = `${Math.max(220, rows.length * rowHeight + 56)}px`;
+  }
+
   return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: indexRows.map((r) => r.type),
+      labels,
       datasets: [
         {
           label: "Entri",
-          data: indexRows.map((r) => r.entries),
+          data: rows.map((r) => r.entries),
           backgroundColor: COLORS.intel,
           borderRadius: 2,
+          borderSkipped: false,
         },
         {
           label: "Referensi",
-          data: indexRows.map((r) => r.refs),
+          data: rows.map((r) => r.refs),
           backgroundColor: COLORS.cyan,
           borderRadius: 2,
+          borderSkipped: false,
         },
       ],
     },
     options: {
       ...chartDefaults,
+      indexAxis: "y",
+      plugins: {
+        ...chartDefaults.plugins,
+        legend: {
+          ...chartDefaults.plugins.legend,
+          position: "top",
+          align: "end",
+        },
+      },
       scales: {
         x: {
           ...chartDefaults.scales.x,
-          grid: { display: false },
+          grid: { color: COLORS.grid },
         },
-        y: chartDefaults.scales.y,
+        y: {
+          ...chartDefaults.scales.y,
+          grid: { display: false },
+          ticks: {
+            ...chartDefaults.scales.y.ticks,
+            autoSkip: false,
+          },
+        },
       },
     },
   });
@@ -1643,21 +1674,28 @@ function renderIndexFieldTable(indexRows) {
   }
 }
 
-function renderIntelMetrics(intel, queue) {
+function renderIntelMetrics(intel, queue, indexRows = []) {
   const container = document.getElementById("analytics-intel-metrics");
   if (!container || !intel) return;
   clear(container);
 
   const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || intel.dominantVectorId;
+  const shared = (indexRows || []).filter((r) => r.kind === "shared").length;
+  const unique = (indexRows || []).length - shared;
   const items = [
     { label: "Node graf", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} edge` },
-    { label: "Dokumen sumber", value: fmt(intel.sourceDocuments), hint: "dokumen internet" },
-    { label: "Vektor dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
+    { label: "Dokumen", value: fmt(intel.sourceDocuments), hint: "sumber internet" },
+    { label: "Dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
     { label: "Keterkaitan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/profil` },
     {
-      label: "Pipeline unduhan",
+      label: "Unduhan",
       value: `${intel.pipelineSuccessPct}%`,
-      hint: queue ? `${fmt(queue.pending)} antrian · ${fmt(queue.failed)} gagal` : "status URL",
+      hint: queue ? `${fmt(queue.pending)} antri · ${fmt(queue.failed)} gagal` : "pipeline",
+    },
+    {
+      label: "Tipe field",
+      value: fmt((indexRows || []).length),
+      hint: `${shared} shared · ${unique} unique`,
     },
   ];
 
@@ -1704,7 +1742,7 @@ function renderAnalyticsDashboard(data) {
   renderCoverageTable(data.coverage, data.coverageTotal || 1);
   renderSourceStats(data.sourceStats, data.summary?.documents);
   renderIndexFieldTable(data.indexRows);
-  renderIntelMetrics(data.intel, data.queue);
+  renderIntelMetrics(data.intel, data.queue, data.indexRows);
 }
 
 function renderOverviewDashboard(data) {

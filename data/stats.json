@@ -1,50 +1,50 @@
 {
-  "updated": "2026-05-23 07:52 UTC",
+  "updated": "2026-05-23 08:15 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 6299,
-    "graphEdges": 11809,
-    "sourceDocuments": 363,
+    "graphNodes": 6309,
+    "graphEdges": 11837,
+    "sourceDocuments": 366,
     "activeVectors": 5,
     "dominantVectorPct": 58.4,
     "dominantVectorId": "phone",
     "xrefRatio": 1.13,
-    "pipelineSuccessPct": 46.7,
-    "pipelineBacklogPct": 43.1,
-    "pipelineFailurePct": 9.8,
+    "pipelineSuccessPct": 47.1,
+    "pipelineBacklogPct": 0.0,
+    "pipelineFailurePct": 10.0,
     "entityLinkRate": 0.77
   },
   "summary": {
-    "persons": 6299,
-    "documents": 363,
+    "persons": 6309,
+    "documents": 366,
     "photos": 3,
     "templates": 37,
-    "history": 297,
-    "doneFiles": 484
+    "history": 301,
+    "doneFiles": 490
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 3681,
+      "value": 3684,
       "pct": 58.4
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 862,
+      "value": 865,
       "pct": 13.7
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 426,
+      "value": 429,
       "pct": 6.8
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 332,
+      "value": 335,
       "pct": 5.3
     },
     {
@@ -54,43 +54,43 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 6299,
+  "coverageTotal": 6309,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 5371,
-      "refs": 6278
+      "entries": 5381,
+      "refs": 6288
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 3353,
-      "refs": 3697
+      "entries": 3356,
+      "refs": 3700
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 729,
-      "refs": 864
+      "entries": 732,
+      "refs": 867
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 324,
-      "refs": 324
+      "entries": 327,
+      "refs": 327
     },
     {
       "type": "NPWP",
       "kind": "unique",
-      "entries": 123,
-      "refs": 123
+      "entries": 126,
+      "refs": 126
     },
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 98,
-      "refs": 109
+      "entries": 101,
+      "refs": 112
     },
     {
       "type": "ID pelajar",
@@ -101,22 +101,37 @@
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 398,
-      "refs": 398
+      "entries": 401,
+      "refs": 401
     }
   ],
   "indexTotal": {
-    "entries": 10412,
-    "refs": 11809
+    "entries": 10440,
+    "refs": 11837
   },
   "queue": {
-    "pending": 285,
-    "processing": 3,
-    "done": 309,
-    "failed": 65,
+    "pending": 0,
+    "processing": 0,
+    "done": 312,
+    "failed": 66,
     "total": 662
   },
   "recentDocs": [
+    {
+      "title": "LHKPN Di·· Sa····i 2023",
+      "imported_at": "2026-05-23T08:00:58Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN Fr···a Sil·····a 2021",
+      "imported_at": "2026-05-23T07:59:15Z",
+      "mentions": 2
+    },
+    {
+      "title": "LHKPN Mo···a Si···t 2025",
+      "imported_at": "2026-05-23T07:53:35Z",
+      "mentions": 4
+    },
     {
       "title": "LHKPN Ed·· Az··r + Er···a 2023",
       "imported_at": "2026-05-23T07:48:15Z",
@@ -151,21 +166,6 @@
       "title": "LHKPN As·····i 2025",
       "imported_at": "2026-05-23T07:40:39Z",
       "mentions": 4
-    },
-    {
-      "title": "LHKPN Mah·····a Aw··g 2024",
-      "imported_at": "2026-05-23T07:36:59Z",
-      "mentions": 1
-    },
-    {
-      "title": "LHKPN Ab··l Ma··d 2022",
-      "imported_at": "2026-05-23T07:34:41Z",
-      "mentions": 3
-    },
-    {
-      "title": "LHKPN Sai·····n 2021",
-      "imported_at": "2026-05-23T07:17:41Z",
-      "mentions": 5
     }
   ],
   "showcaseEntities": [
@@ -1303,24 +1303,24 @@
     ]
   },
   "geo": {
-    "totalEntities": 6299,
-    "entitiesWithCity": 1153,
-    "geocodedEntities": 895,
-    "uniqueCities": 375,
-    "mappedCities": 57,
+    "totalEntities": 6309,
+    "entitiesWithCity": 1163,
+    "geocodedEntities": 903,
+    "uniqueCities": 378,
+    "mappedCities": 58,
     "clusters": [
       {
         "key": "coord:106.8456,-6.2088",
         "label": "Jakarta",
         "province": "DKI JAKARTA",
-        "count": 266,
+        "count": 267,
         "lat": -6.2088,
         "lng": 106.8456,
         "mergedCount": 30,
         "mergedCities": [
           {
             "label": "Jakarta",
-            "count": 176,
+            "count": 177,
             "province": "DKI JAKARTA"
           },
           {
@@ -2072,7 +2072,7 @@
         "key": "BANDUNG",
         "label": "Bandung",
         "province": null,
-        "count": 22,
+        "count": 23,
         "lat": -6.9175,
         "lng": 107.6191
       },
@@ -2383,6 +2383,14 @@
         "lng": 107.7631
       },
       {
+        "key": "BALIKPAPAN",
+        "label": "Balikpapan",
+        "province": null,
+        "count": 6,
+        "lat": -1.2379,
+        "lng": 116.8529
+      },
+      {
         "key": "coord:123.607,-10.1772",
         "label": "Kupang",
         "province": "NUSA TENGGARA TIMUR",
@@ -2454,6 +2462,14 @@
         ]
       },
       {
+        "key": "MALANG",
+        "label": "Malang",
+        "province": null,
+        "count": 4,
+        "lat": -7.9797,
+        "lng": 112.6304
+      },
+      {
         "key": "SUKABUMI",
         "label": "Sukabumi",
         "province": "DKI JAKARTA",
@@ -2516,14 +2532,6 @@
         "count": 3,
         "lat": -7.4478,
         "lng": 112.7183
-      },
-      {
-        "key": "MALANG",
-        "label": "Malang",
-        "province": null,
-        "count": 3,
-        "lat": -7.9797,
-        "lng": 112.6304
       },
       {
         "key": "JEMBER",
@@ -2658,14 +2666,6 @@
         "lng": 128.1814
       },
       {
-        "key": "BALIKPAPAN",
-        "label": "Balikpapan",
-        "province": "DKI JAKARTA",
-        "count": 2,
-        "lat": -1.2379,
-        "lng": 116.8529
-      },
-      {
         "key": "coord:124.8421,1.4748",
         "label": "Manado",
         "province": null,
@@ -2735,6 +2735,14 @@
         "lng": 117.5785
       },
       {
+        "key": "JAYAPURA",
+        "label": "Jayapura",
+        "province": null,
+        "count": 1,
+        "lat": -2.533,
+        "lng": 140.717
+      },
+      {
         "key": "CILEGON",
         "label": "Cilegon",
         "province": null,
@@ -2761,20 +2769,20 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 363,
-    "documentsWithUrl": 356,
-    "documentsIdDomain": 350,
+    "documentsTotal": 366,
+    "documentsWithUrl": 359,
+    "documentsIdDomain": 353,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 350
+        "count": 353
       }
     ],
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 345
+        "count": 348
       },
       {
         "type": "unknown",

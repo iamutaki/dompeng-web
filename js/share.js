@@ -16,14 +16,15 @@ function getActiveDashboardTabMeta() {
 }
 
 const SHARE_BRAND_SLOGAN = "NEGARA OPEN SOURCE";
+const SHARE_PROGRAM_SUBTITLE = "PROGRAM PENAMBANG DATA";
 
 function buildDashboardShareText(snapshot) {
   if (!snapshot) {
-    return `DOMPENG Dashboard · «${SHARE_BRAND_SLOGAN}» (satir) — ringkasan data orang, peta kota, dan indeks pencarian (data disamarkan).`;
+    return `DOMPENG · ${SHARE_PROGRAM_SUBTITLE} · «${SHARE_BRAND_SLOGAN}» (satir) — ringkasan data orang, peta kota, dan indeks pencarian (data disamarkan).`;
   }
   const tab = getActiveDashboardTabMeta();
   const parts = [
-    `DOMPENG · ${tab.label} · ${SHARE_BRAND_SLOGAN}`,
+    `DOMPENG · ${tab.label} · ${SHARE_PROGRAM_SUBTITLE}`,
     `${snapshot.persons} profil orang`,
     `${snapshot.mappedCities} kota di peta`,
     `${snapshot.indexEntries} entri indeks`,
@@ -50,7 +51,7 @@ function getSharePayload() {
   syncSharePayload();
   return (
     window.DOMPENG_SHARE || {
-      title: "DOMPENG Dashboard — NEGARA OPEN SOURCE",
+      title: "DOMPENG — Program Penambang Data",
       text: buildDashboardShareText(null),
       url: getDashboardShareUrl(),
     }
@@ -72,7 +73,7 @@ function setShareSnapshotFromData(data) {
     updated: data.updated || "",
   };
   window.DOMPENG_SHARE = {
-    title: "DOMPENG Dashboard — NEGARA OPEN SOURCE",
+    title: "DOMPENG — Program Penambang Data",
     text: buildDashboardShareText(snap),
     url: getDashboardShareUrl(),
     _snap: snap,
@@ -150,12 +151,12 @@ async function copyText(text) {
 
 function flashShareFeedback(button, message) {
   if (!button) return;
-  const label = button.querySelector(".share-control__label") || button;
-  const prev = label.textContent;
-  label.textContent = message;
+  const prev = button.dataset.defaultLabel || button.textContent;
+  if (!button.dataset.defaultLabel) button.dataset.defaultLabel = prev;
+  button.textContent = message;
   button.disabled = true;
   window.setTimeout(() => {
-    label.textContent = prev;
+    button.textContent = button.dataset.defaultLabel || prev;
     button.disabled = false;
   }, 1600);
 }
