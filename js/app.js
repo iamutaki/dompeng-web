@@ -92,10 +92,10 @@ function renderIntelBrief(intel) {
   const container = document.getElementById("intel-brief");
   clear(container);
 
-  const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || "Data profil";
+  const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || "Field entitas";
   const cards = [
     {
-      label: "Total profil orang",
+      label: "Entitas terindeks",
       value: fmt(intel.graphNodes),
       hint: `${fmt(intel.graphEdges)} keterkaitan · ${fmt(intel.sourceDocuments)} dokumen`,
       tone: "intel",
@@ -109,7 +109,7 @@ function renderIntelBrief(intel) {
     {
       label: "Tingkat keterkaitan",
       value: `${intel.xrefRatio}×`,
-      hint: `Rata-rata ${intel.entityLinkRate} identitas per profil`,
+      hint: `Rata-rata ${intel.entityLinkRate} identitas per entitas`,
       tone: "cyan",
     },
     {
@@ -168,12 +168,12 @@ function createVolumeStatCard(card) {
 
 function renderStats(summary, { excludeCodes = [] } = {}) {
   const cards = [
-    { code: "N-01", value: summary.persons, label: "Profil orang", tone: "intel" },
-    { code: "N-02", value: summary.documents, label: "Dokumen internet", tone: "intel" },
+    { code: "N-01", value: summary.persons, label: "Entitas terindeks", tone: "intel" },
+    { code: "N-02", value: summary.documents, label: "Dokumen publik", tone: "intel" },
     { code: "N-03", value: summary.templates, label: "Template ekstraksi" },
     { code: "N-04", value: summary.history, label: "Riwayat file", tone: "cyan" },
     { code: "N-05", value: summary.doneFiles, label: "File selesai diproses" },
-    { code: "N-06", value: summary.photos, label: "Foto profil", tone: "amber" },
+    { code: "N-06", value: summary.photos, label: "Foto tersensor", tone: "amber" },
   ].filter((card) => !excludeCodes.includes(card.code));
 
   const grid = document.getElementById("stats-grid");
@@ -202,7 +202,7 @@ function renderOverviewVolume(data) {
       items: [
         {
           code: "N-02",
-          label: "Dokumen internet",
+          label: "Dokumen publik",
           value: summary.documents,
           tone: "intel",
           hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber`,
@@ -222,10 +222,10 @@ function renderOverviewVolume(data) {
         },
         {
           code: "N-06",
-          label: "Foto profil",
+          label: "Foto tersensor",
           value: summary.photos,
           tone: "amber",
-          hint: `${photoPct}% profil`,
+          hint: `${photoPct}% entitas`,
         },
       ],
     },
@@ -244,13 +244,13 @@ function renderOverviewVolume(data) {
           label: "Referensi",
           value: indexTotal.refs,
           tone: "cyan",
-          hint: "silang antar profil",
+          hint: "silang antar entitas",
         },
         {
           code: "G-01",
           label: "Edge graf",
           value: intel.graphEdges,
-          hint: `${intel.entityLinkRate ?? "—"} id/profil`,
+          hint: `${intel.entityLinkRate ?? "—"} id/entitas`,
         },
         {
           code: "G-02",
@@ -274,7 +274,7 @@ function renderOverviewVolume(data) {
           code: "GEO-2",
           label: "Punya data kota",
           value: geo.entitiesWithCity,
-          hint: `${pct(geo.entitiesWithCity, entityTotal)}% profil`,
+          hint: `${pct(geo.entitiesWithCity, entityTotal)}% entitas`,
         },
         {
           code: "GEO-3",
@@ -334,9 +334,9 @@ function renderUsageBar(coverage, total, barId = "coverage-bar") {
   const labels = document.createElement("div");
   labels.className = "usage-bar-labels";
   const left = document.createElement("span");
-  appendText(left, "Proporsi kelengkapan profil");
+  appendText(left, "Proporsi kelengkapan field");
   const right = document.createElement("span");
-  appendText(right, top.label ? `${top.label} · ${top.pct}% profil` : "");
+  appendText(right, top.label ? `${top.label} · ${top.pct}% entitas` : "");
   labels.append(left, right);
 
   const track = document.createElement("div");
@@ -570,7 +570,7 @@ function renderPreviewDetailSections(entity, container) {
   profile.className = "preview-section";
   const profileHead = document.createElement("h3");
   profileHead.className = "preview-section__title";
-  appendText(profileHead, "Profil");
+  appendText(profileHead, "Struktur entri");
   profile.appendChild(profileHead);
 
   const profileGrid = document.createElement("div");
@@ -717,10 +717,10 @@ function renderPreviewBrief(entities) {
   const avgIds = Math.round(totalIds / rows.length);
 
   const cards = [
-    { label: "Profil sampel", value: fmt(rows.length), hint: "variasi struktur data" },
-    { label: "Rata-rata identitas", value: fmt(avgIds), hint: "per profil" },
+    { label: "Sampel tersensor", value: fmt(rows.length), hint: "variasi struktur data" },
+    { label: "Rata-rata identitas", value: fmt(avgIds), hint: "per entitas" },
     { label: "Dokumen terhubung", value: fmt(totalDocs), hint: "di semua sampel" },
-    { label: "Dengan foto", value: fmt(withPhoto), hint: `dari ${fmt(rows.length)} profil` },
+    { label: "Dengan foto", value: fmt(withPhoto), hint: `dari ${fmt(rows.length)} entitas` },
   ];
 
   for (const card of cards) {
@@ -768,7 +768,7 @@ function renderShowcaseEntities(entities) {
   const moduleCaption = document.getElementById("preview-module-caption");
   if (moduleCaption) {
     moduleCaption.textContent = rows.length
-      ? "Data disamarkan untuk publik · gunakan panel kiri untuk memilih profil"
+      ? "Data disamarkan untuk publik · gunakan panel kiri untuk memilih entri"
       : "Belum ada sampel — jalankan ./summary.sh";
   }
 
@@ -796,7 +796,7 @@ function renderShowcaseEntities(entities) {
   const showEmptyDetail = (message) => {
     if (detailSections) clear(detailSections);
     detailEl.textContent = message;
-    if (detailTitle) detailTitle.textContent = "Detail profil";
+    if (detailTitle) detailTitle.textContent = "Detail entri";
     if (copyBtn) copyBtn.hidden = true;
   };
 
@@ -832,9 +832,9 @@ function renderShowcaseEntities(entities) {
     if (!visibleIndices.length) {
       const empty = document.createElement("p");
       empty.className = "preview-list-empty";
-      empty.textContent = "Tidak ada sampel profil.";
+      empty.textContent = "Tidak ada sampel tersensor.";
       listEl.appendChild(empty);
-      showEmptyDetail("# tidak ada sampel profil");
+      showEmptyDetail("# tidak ada sampel tersensor");
       updateListMeta();
       return;
     }
@@ -899,7 +899,7 @@ function renderShowcaseEntities(entities) {
   }
 
   if (!rows.length) {
-    showEmptyDetail("# tidak ada sampel profil");
+    showEmptyDetail("# tidak ada sampel tersensor");
     updateListMeta();
     return;
   }
@@ -1398,7 +1398,7 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
 
     const count = document.createElement("span");
     count.className = "overview-city-count";
-    appendText(count, `${fmt(city.count)} orang`);
+    appendText(count, `${fmt(city.count)} entitas`);
 
     head.append(name, count);
 
@@ -1461,7 +1461,7 @@ function renderOpsStats(data) {
     },
     {
       code: "D-01",
-      label: "Dokumen internet",
+      label: "Dokumen publik",
       value: summary.documents,
       tone: "intel",
       hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber terindeks`,
@@ -1487,7 +1487,7 @@ function renderOpsStats(data) {
     },
     {
       code: "G-01",
-      label: "Orang berlokasi",
+      label: "Entitas berlokasi",
       value: geo.geocodedEntities,
       tone: "cyan",
       hint: `${fmt(geo.mappedCities)} kota · ${fmt(geo.entitiesWithCity)} punya kota`,
@@ -1529,7 +1529,7 @@ function renderOpsDashboard(data) {
   const capImport = document.getElementById("ops-import-caption");
   if (capImport && data.recentDocs) {
     const totalMentions = data.recentDocs.reduce((sum, doc) => sum + (doc.mentions || 0), 0);
-    capImport.textContent = `${fmt(data.recentDocs.length)} impor terbaru · ${fmt(totalMentions)} orang diekstrak`;
+    capImport.textContent = `${fmt(data.recentDocs.length)} impor terbaru · ${fmt(totalMentions)} entitas diekstrak`;
   }
 
   renderOpsStats(data);
@@ -1750,9 +1750,9 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
   const unique = (indexRows || []).length - shared;
   const items = [
     { label: "Node graf", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} edge` },
-    { label: "Dokumen", value: fmt(intel.sourceDocuments), hint: "sumber internet" },
+    { label: "Dokumen", value: fmt(intel.sourceDocuments), hint: "sumber publik" },
     { label: "Dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
-    { label: "Keterkaitan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/profil` },
+    { label: "Keterkaitan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/entitas` },
     {
       label: "Unduhan",
       value: `${intel.pipelineSuccessPct}%`,
@@ -1794,7 +1794,7 @@ function renderAnalyticsDashboard(data) {
 
   const capCov = document.getElementById("analytics-coverage-caption");
   if (capCov && data.coverageTotal) {
-    capCov.textContent = `${fmt(data.coverageTotal)} profil · ${data.coverage?.length || 0} field`;
+    capCov.textContent = `${fmt(data.coverageTotal)} entitas · ${data.coverage?.length || 0} field`;
   }
 
   const capIdx = document.getElementById("analytics-index-caption");
@@ -1814,7 +1814,7 @@ function renderAnalyticsDashboard(data) {
 function renderOverviewDashboard(data) {
   const capCov = document.getElementById("overview-coverage-caption");
   if (capCov) {
-    capCov.textContent = `Kelengkapan dari ${fmt(data.coverageTotal)} profil orang`;
+    capCov.textContent = `Kelengkapan dari ${fmt(data.coverageTotal)} entitas terindeks`;
   }
 
   const capQueue = document.getElementById("overview-queue-caption");
@@ -1824,7 +1824,7 @@ function renderOverviewDashboard(data) {
 
   const capGeo = document.getElementById("overview-geo-caption");
   if (capGeo && data.geo) {
-    capGeo.textContent = `${fmt(data.geo.geocodedEntities)} orang di ${fmt(data.geo.mappedCities)} kota`;
+    capGeo.textContent = `${fmt(data.geo.geocodedEntities)} entitas di ${fmt(data.geo.mappedCities)} kota`;
   }
 
   renderUsageBar(data.coverage, data.coverageTotal || 1, "overview-coverage-bar");

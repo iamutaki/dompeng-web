@@ -7,21 +7,21 @@
   <meta name="mobile-web-app-capable" content="yes">
   <!-- SEO:HEAD:START -->
   <title>DOMPENG v2.5.2 — NEGARA OPEN SOURCE</title>
-  <meta name="description" content="NEGARA OPEN SOURCE — DOMPENG: 6,354 entitas terindeks, 126 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
+  <meta name="description" content="NEGARA OPEN SOURCE — DOMPENG: 6,374 entitas terindeks, 127 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="/">
   <link rel="image_src" href="/home.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="/">
   <meta property="og:title" content="DOMPENG v2.5.2 — NEGARA OPEN SOURCE">
-  <meta property="og:description" content="NEGARA OPEN SOURCE — DOMPENG: 6,354 entitas terindeks, 126 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
+  <meta property="og:description" content="NEGARA OPEN SOURCE — DOMPENG: 6,374 entitas terindeks, 127 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
   <meta property="og:image" content="/home.png">
   <meta property="og:image:width" content="831">
   <meta property="og:image:height" content="905">
   <meta property="og:image:alt" content="DOMPENG — ringkasan statistik dan peta agregat kota">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DOMPENG v2.5.2 — NEGARA OPEN SOURCE">
-  <meta name="twitter:description" content="NEGARA OPEN SOURCE — DOMPENG: 6,354 entitas terindeks, 126 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
+  <meta name="twitter:description" content="NEGARA OPEN SOURCE — DOMPENG: 6,374 entitas terindeks, 127 kota di peta, indeks pencarian, dan status unduhan dokumen publik.">
   <meta name="twitter:image" content="/home.png">
   <meta name="twitter:image:alt" content="DOMPENG — ringkasan statistik dan peta agregat kota">
   <meta property="og:site_name" content="DOMPENG">
@@ -29,7 +29,7 @@
   <meta name="dompeng:brand" content="NEGARA OPEN SOURCE">
   <meta name="dompeng:subtitle" content="INDEKS DATA PUBLIK">
   <meta name="dompeng:brand-note" content="Bukan institusi pemerintah; dashboard publik ini hanya menampilkan agregat dan sampel tersensor.">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "alternateName": "NEGARA OPEN SOURCE", "slogan": "NEGARA OPEN SOURCE", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "NEGARA OPEN SOURCE — ringkasan entitas dari dokumen publik internet: indeks pencarian, kelengkapan data, dan peta sebaran per kota (identitas disamarkan).", "softwareVersion": "v2.5.2", "dateModified": "2026-05-23", "featureList": ["NEGARA OPEN SOURCE", "Entitas dari dokumen publik internet", "Indeks pencarian identitas tersensor", "Peta agregat per kota", "Sampel publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Entitas terindeks", "value": 6354}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 126}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web", "image": "/home.png"}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "alternateName": "NEGARA OPEN SOURCE", "slogan": "NEGARA OPEN SOURCE", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "NEGARA OPEN SOURCE — ringkasan entitas dari dokumen publik internet: indeks pencarian, kelengkapan data, dan peta sebaran per kota (identitas disamarkan).", "softwareVersion": "v2.5.2", "dateModified": "2026-05-23", "featureList": ["NEGARA OPEN SOURCE", "Entitas dari dokumen publik internet", "Indeks pencarian identitas tersensor", "Peta agregat per kota", "Sampel publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Entitas terindeks", "value": 6374}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 127}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web", "image": "/home.png"}</script>
   <meta name="dompeng:version" content="v2.5.2">
   <!-- SEO:HEAD:END -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +53,7 @@
         <div class="topbar-title-block">
           <span class="dashboard-kicker" title="Bukan lembaga resmi">NEGARA OPEN SOURCE</span>
           <span class="dashboard-title">DOMPENG</span>
-          <span class="dashboard-subtitle">Penambang Data</span>
+          <span class="dashboard-subtitle">Indeks Data Publik</span>
         </div>
       </div>
       <div class="topbar-actions">
@@ -84,8 +84,8 @@
               <button type="button" class="nav-link share-menu__action share-menu__action--muted" role="menuitem" data-share="copy-link">Salin tautan</button>
             </div>
           </div>
-          <span class="status-pill status-pill--live">LIVE</span>
-          <span class="status-pill status-pill--redact">REDACTED</span>
+          <span class="status-pill status-pill--live">AGREGAT</span>
+          <span class="status-pill status-pill--redact">TERSENSOR</span>
         </div>
       </div>
     </header>
@@ -103,6 +103,10 @@
       <section class="tab-panel tab-panel--overview is-active" id="tab-overview" data-tab="overview" role="tabpanel" aria-labelledby="tab-btn-overview">
         <div class="overview-layout">
           <section class="intel-brief intel-brief--dashboard" id="intel-brief" aria-label="Indikator utama"></section>
+          <section class="privacy-brief" aria-label="Catatan privasi publik">
+            <span class="privacy-brief__code">PUB</span>
+            <p>Dashboard ini mempublikasikan agregat dan sampel tersensor dari dokumen publik. Identitas mentah tidak ditampilkan.</p>
+          </section>
 
           <div class="dashboard-board dashboard-board--overview">
             <section class="intel-module" data-module="SIG-01" aria-labelledby="mod-sig-title">
@@ -110,7 +114,7 @@
                 <span class="intel-module__code">SIG-01</span>
                 <div class="intel-module__titles">
                   <h2 class="intel-module__title" id="mod-sig-title">Sinyal data</h2>
-                  <p class="intel-module__meta">Kelengkapan profil · antrian unduhan</p>
+                  <p class="intel-module__meta">Kelengkapan field · antrian unduhan</p>
                 </div>
               </header>
               <div class="intel-module__body intel-grid intel-grid--overview-signal">
@@ -119,9 +123,9 @@
                     <span class="intel-slot__code">COV</span>
                     <h3>Kelengkapan</h3>
                   </header>
-                  <p class="intel-slot__caption" id="overview-coverage-caption">Proporsi field profil</p>
+                  <p class="intel-slot__caption" id="overview-coverage-caption">Proporsi field entitas</p>
                   <div class="chart-wrap chart-wrap--overview-bar">
-                    <canvas id="overview-coverage-chart" aria-label="Kelengkapan profil ringkas"></canvas>
+                    <canvas id="overview-coverage-chart" aria-label="Kelengkapan field ringkas"></canvas>
                   </div>
                   <div class="usage-bar usage-bar--compact" id="overview-coverage-bar"></div>
                 </article>
@@ -155,7 +159,7 @@
                     <span class="intel-slot__code">TOP</span>
                     <h3>Kota</h3>
                   </header>
-                  <p class="intel-slot__caption" id="overview-geo-caption">Orang per kota</p>
+                  <p class="intel-slot__caption" id="overview-geo-caption">Entitas per kota</p>
                   <ol class="overview-city-list" id="overview-top-cities"></ol>
                 </article>
                 <section class="intel-slot intel-slot--metrics" aria-label="Volume data">
@@ -179,13 +183,13 @@
               </p>
               <p><em>Bukan institusi pemerintah; dashboard publik ini hanya menampilkan agregat dan sampel tersensor.</em></p>
               <ul class="seo-stats">
-                <li><strong>6,354</strong> entitas terindeks</li>
-                <li><strong>381</strong> dokumen publik</li>
-                <li><strong>126</strong> kota di peta</li>
-                <li><strong>824</strong> entitas dengan lokasi kota</li>
+                <li><strong>6,374</strong> entitas terindeks</li>
+                <li><strong>387</strong> dokumen publik</li>
+                <li><strong>127</strong> kota di peta</li>
+                <li><strong>839</strong> entitas dengan lokasi kota</li>
               </ul>
               <h3>Kota dengan entitas terbanyak</h3>
-              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 179 entitas</li><li><strong>Pamekasan</strong> — 99 entitas</li><li><strong>Jambi</strong> — 45 entitas</li><li><strong>Sukoharjo</strong> — 32 entitas</li><li><strong>Bandung</strong> — 23 entitas</li><li><strong>Semarang</strong> — 18 entitas</li><li><strong>Medan</strong> — 16 entitas</li><li><strong>Serang</strong> — 14 entitas</li></ol>
+              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 179 entitas</li><li><strong>Pamekasan</strong> — 99 entitas</li><li><strong>Jambi</strong> — 46 entitas</li><li><strong>Sukoharjo</strong> — 32 entitas</li><li><strong>Bandung</strong> — 23 entitas</li><li><strong>Semarang</strong> — 18 entitas</li><li><strong>Medan</strong> — 16 entitas</li><li><strong>Serang</strong> — 14 entitas</li></ol>
               <p><a href="https://github.com/iamutaki/dompeng-web" rel="noopener noreferrer">Kode sumber (GitHub) →</a></p>
             </section>
             <!-- SEO:CRAWLER:END -->
@@ -199,12 +203,12 @@
             <span class="intel-module__code">GEO-07</span>
             <div class="intel-module__titles">
               <h2 class="intel-module__title">Peta sebaran kota</h2>
-              <p class="intel-module__meta">Agregat orang per koordinat · tab Peta di dashboard</p>
+              <p class="intel-module__meta">Agregat entitas per koordinat · tab Peta di dashboard</p>
             </div>
           </header>
           <div class="intel-module__body intel-module__body--map">
             <p class="geo-map-hint"><span class="geo-map-hint__touch">Cubit zoom · geser peta · ketuk titik</span><span class="geo-map-hint__desktop">Scroll zoom · drag pan · hover/klik titik</span> untuk detail kota</p>
-            <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
+            <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran entitas per kota Indonesia"></div>
             <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
           </div>
         </section>
@@ -272,7 +276,7 @@
                 <span class="intel-module__code">IDX-02</span>
                 <div class="intel-module__titles">
                   <h2 class="intel-module__title">Kelengkapan field</h2>
-                  <p class="intel-module__meta" id="analytics-coverage-caption">Detail per jenis data profil</p>
+                  <p class="intel-module__meta" id="analytics-coverage-caption">Detail per jenis field entitas</p>
                 </div>
               </header>
               <div class="intel-module__body intel-module__body--flush">
@@ -363,7 +367,7 @@
                 <span class="intel-module__code">OPS-03</span>
                 <div class="intel-module__titles">
                   <h2 class="intel-module__title" id="mod-ops-title">Operasi impor</h2>
-                  <p class="intel-module__meta" id="ops-import-caption">Dokumen internet terbaru · judul disamarkan</p>
+                  <p class="intel-module__meta" id="ops-import-caption">Dokumen publik terbaru · judul disamarkan</p>
                 </div>
               </header>
               <div class="intel-module__body intel-module__body--flush">
@@ -412,8 +416,8 @@
             <header class="intel-module__head">
               <span class="intel-module__code">PRV-05</span>
               <div class="intel-module__titles">
-                <h2 class="intel-module__title" id="mod-preview-title">Sampel profil</h2>
-                <p class="intel-module__meta" id="preview-module-caption">Contoh data redaksi publik · pilih entri untuk melihat struktur lengkap</p>
+                <h2 class="intel-module__title" id="mod-preview-title">Sampel tersensor</h2>
+                <p class="intel-module__meta" id="preview-module-caption">Contoh struktur data publik · pilih entri untuk melihat format lengkap</p>
               </div>
               <p class="intel-module__aside" id="preview-meta" hidden></p>
             </header>
@@ -425,17 +429,17 @@
                     <span class="sources-pane__code">SAM-L</span>
                     <h3 class="sources-pane__title">Indeks sampel</h3>
                   </header>
-                  <p class="intel-slot__caption preview-pane__caption" id="preview-list-caption">Pilih profil dari daftar</p>
+                  <p class="intel-slot__caption preview-pane__caption" id="preview-list-caption">Pilih entri dari daftar</p>
                   <div class="preview-list-toolbar">
                     <span class="preview-list-meta" id="preview-list-meta" aria-live="polite"></span>
                   </div>
-                  <div class="log-stream log-stream--list" id="preview-log-list" role="listbox" aria-label="Daftar profil sampel"></div>
+                  <div class="log-stream log-stream--list" id="preview-log-list" role="listbox" aria-label="Daftar sampel tersensor"></div>
                 </article>
                 <article class="sources-pane preview-pane--detail">
                   <header class="sources-pane__head sources-pane__head--row">
                     <div class="sources-pane__head-main">
                       <span class="sources-pane__code">SAM-R</span>
-                      <h3 class="sources-pane__title" id="preview-detail-title">Detail profil</h3>
+                      <h3 class="sources-pane__title" id="preview-detail-title">Detail entri</h3>
                     </div>
                     <button type="button" class="preview-action-btn" id="preview-copy-log" hidden>Salin log</button>
                   </header>
@@ -443,7 +447,7 @@
                     <div class="preview-sections" id="preview-detail-sections" aria-label="Ringkasan terstruktur"></div>
                     <details class="preview-raw-log" id="preview-raw-log" open>
                       <summary class="preview-raw-log__summary">Log mentah (plain text)</summary>
-                      <pre class="log-stream log-stream--detail log-stream--raw" id="preview-log-detail" aria-label="Log mentah profil terpilih"></pre>
+                      <pre class="log-stream log-stream--detail log-stream--raw" id="preview-log-detail" aria-label="Log mentah entri terpilih"></pre>
                     </details>
                   </div>
                 </article>
@@ -456,7 +460,7 @@
 
     <footer class="footer footer--dashboard">
       <p>
-        <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · <span class="footer-brand">NEGARA OPEN SOURCE</span> · <span class="footer-subtitle">Penambang Data</span> ·
+        <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · <span class="footer-brand">NEGARA OPEN SOURCE</span> · <span class="footer-subtitle">Indeks Data Publik</span> ·
         <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">SRC</a>
       </p>
     </footer>

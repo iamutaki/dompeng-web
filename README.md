@@ -2,28 +2,28 @@
 
 **Repositori:** [github.com/iamutaki/dompeng-web](https://github.com/iamutaki/dompeng-web)
 
-Dashboard statis berbahasa Indonesia untuk memantau ringkasan database DOMPENG tanpa mengekspos PII mentah. Semua angka dan grafik diambil dari pipeline utama lewat `./summary.sh` di root repo.
+Dashboard statis berbahasa Indonesia untuk memantau ringkasan publik DOMPENG tanpa mengekspos PII mentah. Semua angka dan grafik diambil dari pipeline utama lewat `./summary.sh` di root repo.
 
-**Sekilas:** peta sebaran orang per kota (MapLibre), metrik profil & dokumen, kelengkapan identitas (telepon, email, NIK, dll.), indeks pencarian, status unduhan dokumen, sample profil ter-redaksi, dokumen terbaru, dan catatan versi.
+**Sekilas:** peta agregat entitas per kota (MapLibre), metrik entitas & dokumen publik, kelengkapan field identitas tersensor (telepon, email, NIK, dll.), indeks pencarian, status unduhan dokumen, sampel struktur data tersensor, dokumen terbaru, dan catatan versi.
 
 ## Isi halaman
 
 | Bagian | Isi |
 |--------|-----|
-| **Peta sebaran kota** | Bubble agregat jumlah orang per kota (tab **Peta** di dashboard) |
+| **Peta sebaran kota** | Bubble agregat jumlah entitas per kota (tab **Peta** di dashboard) |
 | **Ringkasan utama** | Kartu metrik cepat (person, dokumen, foto, template, dll.) |
-| **Kelengkapan profil** | Chart batang — berapa profil punya telepon, email, NIK, ID karyawan, foto |
+| **Kelengkapan field** | Chart batang — berapa entitas punya telepon, email, NIK, ID karyawan, foto |
 | **Status unduhan** | Donut antrian URL dokumen (pending, selesai, gagal) |
 | **Indeks pencarian** | Chart entri indeks per tipe (`name`, `phone`, `email`, …) |
-| **Contoh profil** | Sample orang + dokumen internet; nama/judul/telepon/NIK disamarkan |
+| **Sampel tersensor** | Contoh struktur entitas + dokumen publik; nama/judul/telepon/NIK disamarkan |
 | **Dokumen terbaru** | Tabel impor terakhir dengan judul publik ter-redaksi |
 | **Catatan pembaruan** | Cuplikan `CHANGELOGS.md` versi terbaru |
 
 ## Privasi & data
 
 - File `data/stats.json` dan `data/geo-clusters.json` **hanya berisi agregat atau field yang sudah disensor** sebelum ditulis ke `web/`.
-- UI menampilkan badge **Data disamarkan**; sample profil memakai sensor ketat (`faint_*`): nama/NIK/NPWP/telepon/email hanya menyisakan bentuk samar minimal.
-- Koordinat kota di `data/id-city-coords.json` bersifat referensi geografis, bukan data orang.
+- UI menampilkan badge **Agregat** dan **Tersensor**; sampel publik memakai sensor ketat (`faint_*`): nama/NIK/NPWP/telepon/email hanya menyisakan bentuk samar minimal.
+- Koordinat kota di `data/id-city-coords.json` bersifat referensi geografis, bukan data individu.
 
 ## Struktur folder
 
@@ -128,4 +128,4 @@ Folder `web/` di root DOMPENG di-link sebagai submodule ke [iamutaki/dompeng-web
 
 ## Deskripsi singkat (untuk About repo / link)
 
-> Dashboard publik DOMPENG: ringkasan profil orang, peta sebaran per kota, kelengkapan identitas, indeks pencarian, dan status antrian dokumen — data sensitif disamarkan, diperbarui otomatis dari pipeline utama.
+> Dashboard publik DOMPENG: ringkasan entitas tersensor, peta agregat per kota, kelengkapan field, indeks pencarian, dan status antrian dokumen publik — data sensitif disamarkan, diperbarui otomatis dari pipeline utama.

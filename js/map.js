@@ -58,7 +58,7 @@ function clustersToGeoJson(clusters) {
   };
 }
 
-/** Kota dengan koordinat lookup sama digabung jadi satu titik (jumlah orang dijumlahkan). */
+/** Kota dengan koordinat lookup sama digabung jadi satu titik (jumlah entitas dijumlahkan). */
 function mergeCollocatedCities(clusters, precision = COORD_PRECISION) {
   const groups = new Map();
 
@@ -126,7 +126,7 @@ function renderGeoMapStats(container, geo) {
   }
 }
 
-/** Radius bubble from jumlah orang (merged sum atau count kota). */
+/** Radius bubble from jumlah entitas (merged sum atau count kota). */
 const circleRadiusExpr = [
   "interpolate",
   ["linear"],
@@ -296,7 +296,7 @@ function buildPopupHtml(hits, { hint } = {}) {
         `<span class="geo-dot" style="background:${h.color}"></span>`,
         "<span>Cluster gabungan</span>",
         "</div>",
-        `<div class="geo-popup-count">${fmt(h.people)} orang · ${fmt(h.cityCount)} kota</div>`,
+        `<div class="geo-popup-count">${fmt(h.people)} entitas · ${fmt(h.cityCount)} kota</div>`,
         hint ? `<div class="geo-popup-hint">${hint}</div>` : "",
       ].join("");
     }
@@ -308,7 +308,7 @@ function buildPopupHtml(hits, { hint } = {}) {
           return (
             `<li class="geo-popup-item">` +
             `<span class="geo-dot" style="background:${tierColor(city.count)}"></span>` +
-            `<span class="geo-popup-item-text"><strong>${escapeHtml(city.label)}</strong>${prov} · ${fmt(city.count)} orang</span>` +
+            `<span class="geo-popup-item-text"><strong>${escapeHtml(city.label)}</strong>${prov} · ${fmt(city.count)} entitas</span>` +
             `</li>`
           );
         })
@@ -322,7 +322,7 @@ function buildPopupHtml(hits, { hint } = {}) {
         `<span class="geo-dot" style="background:${h.color}"></span>`,
         `<span class="geo-popup-title">${escapeHtml(h.label)}</span>`,
         "</div>",
-        `<div class="geo-popup-count">${fmt(h.people)} orang · ${fmt(h.mergedCities.length)} kota di titik sama</div>`,
+        `<div class="geo-popup-count">${fmt(h.people)} entitas · ${fmt(h.mergedCities.length)} kota di titik sama</div>`,
         `<ul class="geo-popup-list">${rows}</ul>`,
         more,
       ].join("");
@@ -336,7 +336,7 @@ function buildPopupHtml(hits, { hint } = {}) {
       `<span class="geo-popup-title">${escapeHtml(h.label)}</span>`,
       "</div>",
       prov,
-      `<div class="geo-popup-count">${fmt(h.people)} orang</div>`,
+      `<div class="geo-popup-count">${fmt(h.people)} entitas</div>`,
     ].join("");
   }
 
@@ -346,7 +346,7 @@ function buildPopupHtml(hits, { hint } = {}) {
         return (
           `<li class="geo-popup-item">` +
           `<span class="geo-dot" style="background:${h.color}"></span>` +
-          `<span class="geo-popup-item-text"><strong>Cluster</strong> · ${fmt(h.people)} orang · ${fmt(h.cityCount)} kota</span>` +
+          `<span class="geo-popup-item-text"><strong>Cluster</strong> · ${fmt(h.people)} entitas · ${fmt(h.cityCount)} kota</span>` +
           `</li>`
         );
       }
@@ -354,7 +354,7 @@ function buildPopupHtml(hits, { hint } = {}) {
       return (
         `<li class="geo-popup-item">` +
         `<span class="geo-dot" style="background:${h.color}"></span>` +
-        `<span class="geo-popup-item-text"><strong>${escapeHtml(h.label)}</strong>${prov} · ${fmt(h.people)} orang</span>` +
+        `<span class="geo-popup-item-text"><strong>${escapeHtml(h.label)}</strong>${prov} · ${fmt(h.people)} entitas</span>` +
         `</li>`
       );
     })
@@ -560,7 +560,7 @@ function buildGeoMap(container, geo, options = {}) {
       cluster: true,
       clusterMaxZoom: CLUSTER_MAX_ZOOM,
       clusterRadius: CLUSTER_RADIUS,
-      // Gabungkan jumlah orang saat cluster merge (bukan hanya hitung titik).
+      // Gabungkan jumlah entitas saat cluster merge (bukan hanya hitung titik).
       clusterProperties: {
         people_sum: ["+", ["get", "count"]],
       },

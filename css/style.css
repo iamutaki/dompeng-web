@@ -1812,6 +1812,32 @@ body.dashboard-body {
   font-size: 0.5625rem;
 }
 
+.privacy-brief {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(78, 201, 255, 0.24);
+  background: rgba(78, 201, 255, 0.07);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.45;
+}
+
+.privacy-brief__code {
+  flex: 0 0 auto;
+  color: var(--cyan);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.privacy-brief p {
+  margin: 0;
+  color: var(--muted);
+}
+
 /* ── Intel module shell (OSINT board) ── */
 .dashboard-board {
   flex: 1;
@@ -4651,4 +4677,3 @@ body.dashboard-ready .page--dashboard {
     animation: none !important;
   }
 }
-

@@ -1,6 +1,6 @@
 {
   "name": "dompeng-web",
-  "description": "Dashboard publik DOMPENG — ringkasan profil, peta kota, indeks, dan antrian dokumen (data disamarkan)",
+  "description": "Dashboard publik DOMPENG — ringkasan entitas tersensor, peta agregat kota, indeks, dan antrian dokumen publik",
   "private": true,
   "repository": {
     "type": "git",
