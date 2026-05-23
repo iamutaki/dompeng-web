@@ -1,132 +1,87 @@
-# DOMPENG — Dashboard Publik
+# DOMPENG — Dashboard Ringkasan
 
-**Repositori:** [github.com/iamutaki/dompeng-web](https://github.com/iamutaki/dompeng-web)
+**Preview:** [https://dompeng.iamutaki.workers.dev/](https://dompeng.iamutaki.workers.dev/)
 
-Dashboard statis berbahasa Indonesia untuk memantau ringkasan publik DOMPENG tanpa mengekspos PII mentah. Semua angka dan grafik diambil dari pipeline utama lewat `./summary.sh` di root repo.
+Ini adalah **situs web dashboard** untuk melihat **ringkasan hasil pencarian informasi publik (OSINT) dari Mesin Pencari seperto Google/Bing/etc.** yang telah dikumpulkan dan diolah oleh proyek DOMPENG.
 
-**Sekilas:** peta agregat entitas per kota (MapLibre), metrik entitas & dokumen publik, kelengkapan field identitas tersensor (telepon, email, NIK, dll.), indeks pencarian, status unduhan dokumen, sampel struktur data tersensor, dokumen terbaru, dan catatan versi.
+Bukan halaman untuk mengedit data, melainkan **papan ringkasan** agar siapa saja bisa melihat gambaran besar: berapa banyak data yang terkumpul, di mana sebarannya, dan bagaimana kondisi pengumpulan — **tanpa menampilkan data pribadi mentah**.
 
-## Isi halaman
+---
 
-| Bagian | Isi |
-|--------|-----|
-| **Peta sebaran kota** | Bubble agregat jumlah entitas per kota (tab **Peta** di dashboard) |
-| **Ringkasan utama** | Kartu metrik cepat (person, dokumen, foto, template, dll.) |
-| **Alur ringkasan (SIG-01)** | Diagram **Sankey** (ECharts): dokumen → entitas → geo + indeks (proporsi entri) · antrian URL |
-| **Sebaran geospasial (GEO-02)** | Kota teratas, volume ringkas, **radar antrian** (Chart.js): profil % status URL (menunggu, selesai, gagal, diproses) |
-| **Indeks pencarian (IDX-01)** | **Treemap** (ECharts): luas ∝ entri/referensi per tipe · warna silang/unik · toggle metrik · panel kiri 50% tinggi penuh |
-| **Sampel tersensor (SMP-R)** | **Graf relasi** (kiri, ECharts) · **teks plain** (kanan): klik simpul untuk detail relasi/identitas/dokumen |
-| **Dokumen terbaru** | Tabel impor terakhir dengan judul publik ter-redaksi |
-| **Catatan pembaruan** | Cuplikan `CHANGELOGS.md` versi terbaru |
+## Apa itu dashboard ini?
 
-## Privasi & data
+Proyek DOMPENG melakukan pencarian dan pengumpulan informasi dari sumber publik di internet (terutama lewat Google). Hasilnya banyak: profil orang, dokumen, foto, dan tautan terkait.
 
-- File `data/stats.json` dan `data/geo-clusters.json` **hanya berisi agregat atau field yang sudah disensor** sebelum ditulis ke `web/`.
-- UI menampilkan badge **Agregat** dan **Tersensor**; sampel publik memakai sensor ketat (`faint_*`): nama/NIK/NPWP/telepon/email hanya menyisakan bentuk samar minimal.
-- Koordinat kota di `data/id-city-coords.json` bersifat referensi geografis, bukan data individu.
+Dashboard ini **merangkum semuanya dalam bentuk angka, grafik, dan peta** supaya mudah dipahami sekilas — seperti laporan statistik visual, bukan daftar data mentah.
 
-## Struktur folder
+---
 
-```
-web/
-├── index.html              # Dashboard utama (+ blok SEO di-patch oleh summary)
-├── css/style.css           # Tema gelap OSINT
-├── js/app.js               # ECharts (Sankey, batang indeks) + Chart.js (radar/donut) + render panel
-├── js/map.js               # MapLibre — cluster kota
-├── data/
-│   ├── stats.json          # Sumber data dashboard (di-generate)
-│   ├── geo-clusters.json   # Cluster per kota (di-generate)
-│   └── id-city-coords.json # Lookup lat/lon kota/provinsi (manual)
-├── og-image-1200x630.png   # Preview share sosmed / OG / Twitter / JSON-LD
-├── icon-192.png, icon-512.png, manifest.webmanifest
-├── sitemap.xml, robots.txt # SEO (di-generate)
-├── wrangler.toml           # Cloudflare Workers static assets
-├── src/worker.js           # Cache + security headers
-├── deploy.sh               # summary.sh + wrangler deploy
-└── package.json            # Wrangler CLI
-```
+## Apa yang bisa Anda lihat di situs?
 
-ECharts, Chart.js, dan MapLibre GL dimuat dari CDN — preview lokal membutuhkan internet.
+| Bagian | Penjelasan singkat |
+|--------|-------------------|
+| **Peta** | Titik per kota: banyaknya entitas (orang/entitas) yang tercatat di wilayah itu — hanya jumlah, bukan nama individu |
+| **Ringkasan angka** | Kartu hitungan cepat: jumlah orang, dokumen, foto, template, dan sejenisnya |
+| **Alur data** | Diagram alur: dari dokumen ke entitas, lalu ke lokasi dan indeks pencarian |
+| **Sebaran wilayah** | Kota dengan entitas terbanyak, plus status antrian unduhan (menunggu, selesai, gagal, sedang diproses) |
+| **Indeks pencarian** | Gambaran jenis data apa saja yang paling banyak terindeks |
+| **Contoh tersensor** | Cuplikan struktur relasi data — nama, NIK, telepon, email, dll. **disamarkan** agar tidak membocorkan identitas asli |
+| **Dokumen terbaru** | Daftar impor dokumen terakhir (judul/judul publik sudah disensor) |
+| **Catatan pembaruan** | Riwayat perubahan versi proyek |
 
-## Memperbarui data
+---
 
-Dari **root** repo DOMPENG:
+## Pratinjau antarmuka
 
-```bash
-./summary.sh
-```
+Cuplikan layar berikut menunjukkan tab-tab utama dashboard. Buka [preview live](https://dompeng.iamutaki.workers.dev/) untuk versi interaktif.
 
-Menulis antara lain:
+### Ringkasan (OVW)
 
-- `web/data/stats.json` — semua panel + changelog
-- `web/data/geo-clusters.json` — agregat per kota untuk peta
-- `web/sitemap.xml`, `robots.txt`
-- Patch meta SEO di `index.html` (title, description, JSON-LD, konten crawler)
+Kartu indikator, diagram alur data (Sankey), daftar kota teratas, dan volume inventaris — gambaran besar dalam satu layar.
 
-### URL kanonik (SEO)
+![Tab Ringkasan — indikator, alur data, dan sebaran kota](images/01-overview.png)
 
-Set `DOMPENG_SITE_URL` sebelum `./summary.sh` agar canonical, Open Graph, dan sitemap memakai domain production:
+### Peta (GEO)
 
-```bash
-DOMPENG_SITE_URL=https://example.com ./summary.sh
-```
+Peta interaktif: titik per kota menunjukkan jumlah entitas tercatat di wilayah itu (agregat, tanpa nama individu).
 
-## Peta kota (geo clustering)
+![Tab Peta — sebaran geospasial entitas per kota](images/02-map.png)
 
-Cluster dihitung dari `structured_address` level **city** pada person records:
+### Operasi (OPS)
 
-- Satu bubble = jumlah entity di kota itu (tanpa daftar individu)
-- Kota tanpa koordinat di-skip; fallback ke centroid provinsi jika ada di `id-city-coords.json`
+Status antrian unduhan, progres pengumpulan, dan metrik operasional pipeline data.
 
-Tambah kota di `data/id-city-coords.json`, lalu jalankan ulang `./summary.sh`.
+![Tab Operasi — antrian dan status pengumpulan](images/03-operasi.png)
 
-Basemap peta memakai **CARTO Dark Matter** (`basemaps.cartocdn.com`) — CDN global, tanpa API key, tema gelap. Ganti provider lewat `window.DOMPENG_MAP_STYLE` sebelum `map.js` dimuat jika perlu.
+### Sampel (SMP)
 
-## Preview lokal
+Cuplikan struktur relasi data dengan **nama, NIK, telepon, email, dan sejenisnya disamarkan** — hanya untuk memahami bentuk data, bukan identitas asli.
+
+![Tab Sampel — contoh relasi data tersensor](images/04-sampel.png)
+
+### Data (DAT)
+
+Daftar impor dokumen terbaru dan catatan pembaruan versi proyek.
+
+![Tab Data — dokumen terbaru dan riwayat pembaruan](images/05-data.png)
+
+---
+
+## Privasi & keamanan data
+
+- Yang ditampilkan di situs **bukan data asli lengkap**, melainkan **angka agregat** (total, rata-rata, per kota) atau **cuplikan yang sudah disamarkan**.
+- Data sensitif seperti nama lengkap, NIK, NPWP, telepon, dan email hanya muncul dalam bentuk **samaran** — cukup untuk memahami struktur, tidak untuk mengidentifikasi orang tertentu.
+- Koordinat di peta hanya menunjukkan **lokasi kota**, bukan alamat rumah seseorang.
+
+---
+
+### How to run
 
 ```bash
 cd web
 python3 -m http.server 8080
 ```
 
-Buka http://localhost:8080
+## Ringkasan satu kalimat
 
-Alternatif dengan Wrangler (lebih dekat ke production):
-
-```bash
-cd web
-npm install
-npm run dev
-```
-
-## Deploy
-
-### Cloudflare Workers (disarankan di repo ini)
-
-```bash
-DOMPENG_SITE_URL=https://dompeng-dashboard.<account>.workers.dev ./web/deploy.sh
-```
-
-Atau manual: `./summary.sh` → `cd web` → `npm install` → `npm run deploy`.
-
-| File | Fungsi |
-|------|--------|
-| `wrangler.toml` | Nama worker + static assets |
-| `src/worker.js` | Cache + security headers |
-| `.assetsignore` | Exclude `node_modules`, `src/`, tooling dari upload |
-
-Custom domain: Cloudflare Dashboard → Workers → Settings → Domains & Routes.
-
-### GitHub Pages
-
-1. Push isi `web/` ke repo GitHub (standalone atau submodule)
-2. **Settings → Pages** → branch `main`, folder `/ (root)`
-3. Commit hasil `./summary.sh` (`stats.json`, `sitemap.xml`, dll.)
-
-## Submodule
-
-Folder `web/` di root DOMPENG di-link sebagai submodule ke [iamutaki/dompeng-web](https://github.com/iamutaki/dompeng-web). `./summary.sh` tetap menulis ke path `web/`; commit & push di submodule untuk publish dashboard.
-
-## Deskripsi singkat (untuk About repo / link)
-
-> Dashboard publik DOMPENG: ringkasan entitas tersensor, peta agregat per kota, kelengkapan field, indeks pencarian, dan status antrian dokumen publik — data sensitif disamarkan, diperbarui otomatis dari pipeline utama.
+> **Dashboard publik DOMPENG:** ringkasan visual hasil pengumpulan informasi publik dari Mesin Pencari — angka, grafik, dan peta — dengan data pribadi disamarkan, diperbarui otomatis dari proyek utama.

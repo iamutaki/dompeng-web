@@ -1,39 +1,39 @@
 {
-  "updated": "2026-05-23 15:08 UTC",
+  "updated": "2026-05-23 17:02 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 158408,
-    "graphEdges": 321183,
-    "sourceDocuments": 2896,
+    "graphNodes": 173250,
+    "graphEdges": 14842,
+    "sourceDocuments": 2897,
     "activeVectors": 5,
-    "dominantVectorPct": 98.3,
+    "dominantVectorPct": 89.9,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.51,
-    "pipelineSuccessPct": 51.5,
+    "xrefRatio": 1.01,
+    "pipelineSuccessPct": 51.6,
     "pipelineBacklogPct": 38.1,
-    "pipelineFailurePct": 10.4,
-    "entityLinkRate": 1.03
+    "pipelineFailurePct": 10.1,
+    "entityLinkRate": 0.94
   },
   "summary": {
-    "persons": 158408,
-    "documents": 2896,
+    "persons": 173250,
+    "documents": 2897,
     "photos": 21,
     "templates": 37,
-    "history": 333,
-    "doneFiles": 544
+    "history": 335,
+    "doneFiles": 547
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 155702,
-      "pct": 98.3
+      "pct": 89.9
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 3065,
-      "pct": 1.9
+      "pct": 1.8
     },
     {
       "id": "employee_id",
@@ -45,7 +45,7 @@
       "id": "nik",
       "label": "NIK",
       "value": 4436,
-      "pct": 2.8
+      "pct": 2.6
     },
     {
       "id": "photo",
@@ -54,191 +54,76 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 158408,
+  "coverageTotal": 173250,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 91312,
-      "refs": 158277
+      "entries": 14650,
+      "refs": 14842
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 114416,
-      "refs": 155775
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 2443,
-      "refs": 3098
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 3318,
-      "refs": 3318
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "NPWP",
       "kind": "unique",
-      "entries": 148,
-      "refs": 148
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 116,
-      "refs": 127
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "ID pelajar",
       "kind": "unique",
-      "entries": 16,
-      "refs": 16
+      "entries": 0,
+      "refs": 0
     },
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 424,
-      "refs": 424
+      "entries": 0,
+      "refs": 0
     }
   ],
   "indexTotal": {
-    "entries": 212193,
-    "refs": 321183
+    "entries": 14650,
+    "refs": 14842
   },
-  "indexCooccurrence": [
-    {
-      "source": "Nama",
-      "target": "Telepon",
-      "value": 155596
-    },
-    {
-      "source": "Nama",
-      "target": "NIK",
-      "value": 3318
-    },
-    {
-      "source": "Telepon",
-      "target": "NIK",
-      "value": 3271
-    },
-    {
-      "source": "Nama",
-      "target": "Email",
-      "value": 3067
-    },
-    {
-      "source": "Telepon",
-      "target": "Email",
-      "value": 3050
-    },
-    {
-      "source": "Nama",
-      "target": "ID karyawan",
-      "value": 424
-    },
-    {
-      "source": "Telepon",
-      "target": "ID karyawan",
-      "value": 330
-    },
-    {
-      "source": "Email",
-      "target": "NIK",
-      "value": 195
-    },
-    {
-      "source": "Nama",
-      "target": "NPWP",
-      "value": 148
-    },
-    {
-      "source": "NIK",
-      "target": "NPWP",
-      "value": 147
-    },
-    {
-      "source": "Telepon",
-      "target": "NPWP",
-      "value": 143
-    },
-    {
-      "source": "Email",
-      "target": "NPWP",
-      "value": 143
-    },
-    {
-      "source": "Email",
-      "target": "ID karyawan",
-      "value": 131
-    },
-    {
-      "source": "NIK",
-      "target": "ID karyawan",
-      "value": 129
-    },
-    {
-      "source": "Nama",
-      "target": "No. kartu keluarga",
-      "value": 127
-    },
-    {
-      "source": "NIK",
-      "target": "No. kartu keluarga",
-      "value": 116
-    },
-    {
-      "source": "NPWP",
-      "target": "No. kartu keluarga",
-      "value": 114
-    },
-    {
-      "source": "Telepon",
-      "target": "No. kartu keluarga",
-      "value": 112
-    },
-    {
-      "source": "Email",
-      "target": "No. kartu keluarga",
-      "value": 112
-    },
-    {
-      "source": "NPWP",
-      "target": "ID karyawan",
-      "value": 105
-    },
-    {
-      "source": "No. kartu keluarga",
-      "target": "ID karyawan",
-      "value": 79
-    },
-    {
-      "source": "Nama",
-      "target": "ID pelajar",
-      "value": 16
-    },
-    {
-      "source": "Telepon",
-      "target": "ID pelajar",
-      "value": 15
-    },
-    {
-      "source": "Email",
-      "target": "ID pelajar",
-      "value": 1
-    }
-  ],
+  "indexCooccurrence": [],
   "queue": {
     "pending": 252,
-    "processing": 0,
+    "processing": 1,
     "done": 341,
-    "failed": 69,
-    "total": 662
+    "skipped": 0,
+    "failed": 67,
+    "total": 661
   },
   "recentDocs": [
+    {
+      "title": "H···· S······ K········· D···· C··· O······ I·· T· 2024",
+      "imported_at": "2026-05-23T16:46:10Z",
+      "mentions": 14842
+    },
     {
       "title": "I·························",
       "imported_at": "2026-05-23T14:55:13Z",
@@ -282,11 +167,6 @@
     {
       "title": "s·························",
       "imported_at": "2026-05-23T11:26:46Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:26:15Z",
       "mentions": 1
     }
   ],
@@ -1347,16 +1227,71 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.5.3",
+    "latestVersion": "v2.7.0",
     "latestDate": "2026-05-23",
-    "totalReleases": 31,
+    "totalReleases": 33,
     "summary": {
-      "Fixed": 11,
-      "Added": 80,
-      "Changed": 44,
+      "Added": 86,
+      "Fixed": 14,
+      "Changed": 53,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.7.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parse_ikn_cpns.py` — OCR text parser for SSCASN SKD CPNS selection results. Handles: degree prefix detection (S-1, D-III, SMA, SLTA, etc.), field-only education keywords (AKUNTANSI, MANAJEMEN, etc.), education split across adjacent lines, multi-line name continuation, and `no_peserta` as exam identifier (not student_id)",
+              "`scripts/process_ikn_batch.py` — Document + BatchProcessor runner for large-scale selection result imports",
+              "Processed Hasil SKD CPNS Otorita IKN TA 2024 (PENG-5/OIKN.1/2024) — 14,842 persons across 82 jabatan formasi from 1,102-page PDF"
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "Critical: Name/education column swap — Initial parsing assumed education was always inline with person rows. When the PDF table split education to separate lines, the regex mapped the person's name into the education field and vice versa (627 entries affected). Rewrote parser with degree prefix detection and adjacent-line education lookup",
+              "Wrong field: no_peserta stored as student_id — SSCASN participant numbers are exam identifiers, not student IDs. Now stored as extra field `No Peserta`",
+              "Rebuilt all indexes from scratch to remove stale references from deleted bad entries"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added \"Name Mapping Rules\" section with degree prefix detection, adjacent-line education, title-based name confirmation, and no_peserta ≠ student_id rule",
+              "Document `01KSAVNQJTCSQBAS9YE2F3R7C7` replaces deleted `01KSAS3C0X55WXCQSF0SX050WM`"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.6.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/eligible.py` — Document eligibility pipeline:",
+              "`scripts/history.py` — `record-skip` / `check` now distinguishes `processed:<doc_id>` vs `skipped:<reason_code>` (prevents re-OCR of known non-person PDFs)",
+              "`scripts/queue.py` — new status `skipped` (non-person documents) separate from `false` (technical errors); `format_error()` helper for consistent error prefixes (`Non-person:`, `Download:`, `OCR:`, etc.)"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md — pipeline updated: URL precheck (step 4), eligibility assess (step 7), skip path with `record-skip` + queue status `skipped`",
+              "`next.txt` / `next_sequence.txt` — checklist aligned with eligibility pipeline",
+              "`scripts/summary/collect.py` — queue stats include `skipped` count",
+              "`scripts/summary/readme.py` / `scripts/summary/png.py` — dashboard queue section shows `Dilewati (skipped)` segment",
+              "`scripts/classify.py` — `is_template_extractable()` helper for eligibility integration",
+              "`README.md` — quick commands for `eligible.py precheck` and `assess-pdf`",
+              "`templates/_schema.json` — optional `extractable` field documented"
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.5.3",
         "date": "2026-05-23",
@@ -1768,57 +1703,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.6.1",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "Registered `rekap_izin_dpmptsp` template for DPMPTSP permit/izin recap compilations — multi-section documents with applicant names, addresses, phone numbers, and permit details",
-              "Processed Daftar Layanan Perizinan dan Non-Perizinan yang Diterbitkan (PPID Soppeng) — 14 health practitioners extracted (5 Fisioterapi, 5 Perekam Medis, 4 Tenaga Sanitarian). 46-page PDF with 25+ permit types; OCR quality severely degraded for 43/46 pages"
-            ]
-          },
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/title.py`: Added OCR-corrupted suffix alias `A.Mc` → maps to `A.Md` (c↔d common OCR error on scanned documents)",
-              "`scripts/title.py`: Added professional designation suffixes `Physio` (physiotherapist), `Ftr` (fisioterapis), and OCR artifact `Kes` (comma-split from compound titles like S.Tr.Kes) to SUFFIX_TITLES"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "flush_index.sh now indexes 6,852 files across 8 index types"
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v0.6.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "Registered `daftar_umkm` template for UMKM/business directories — multi-column tabular extraction with owner names, business types, and phone numbers",
-              "AGENT.md: Added \"Multi-Column Tabular PDF Extraction (TSV Technique)\" section documenting `pdftotext -tsv` approach for column-aware extraction from interleaved multi-column PDF tables",
-              "Processed Row 1 (line 122): Daftar UMKM Mamin Kelurahan Karangbesuki — 136 business owners extracted with business type facts and 19 phone edges"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "flush_index.sh now indexes 6,853 files across 8 index types"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 158408,
+    "totalEntities": 173250,
     "entitiesWithCity": 2690,
     "geocodedEntities": 1967,
     "uniqueCities": 593,
@@ -2852,14 +2741,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2892,
-    "documentsWithUrl": 2875,
-    "documentsIdDomain": 514,
+    "documentsTotal": 2893,
+    "documentsWithUrl": 2876,
+    "documentsIdDomain": 515,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 514
+        "count": 515
       }
     ],
     "fileTypes": [
@@ -2869,7 +2758,7 @@
       },
       {
         "type": "pdf",
-        "count": 1231
+        "count": 1232
       },
       {
         "type": "unknown",

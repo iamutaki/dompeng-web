@@ -887,23 +887,119 @@ const DOMPENG_ECHART_STORE = {
 
 const PREVIEW_GRAPH_MAX_IDENTIFIERS = 14;
 const PREVIEW_GRAPH_MAX_RELATION_LINKS = 24;
+/** Warna simpul per kategori — dipakai bersama oleh legend ECharts dan itemStyle node. */
+const PREVIEW_GRAPH_KIND_COLOR = {
+  entity: "#00ffd0",
+  identifier: "#5ec8ff",
+  relation: COLORS.purple,
+  document: "#ffc857",
+};
+
 const PREVIEW_GRAPH_CATEGORIES = [
-  { name: "Entitas", color: COLORS.cyan },
-  { name: "Identitas", color: COLORS.intel },
-  { name: "Relasi", color: COLORS.purple },
-  { name: "Dokumen", color: COLORS.amber },
+  { name: "Entitas", itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.entity } },
+  { name: "Identitas", itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.identifier } },
+  { name: "Relasi", itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.relation } },
+  { name: "Dokumen", itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.document } },
 ];
 
 const PREVIEW_GRAPH_RELATION_COLORS = {
   family: "#ff6b9d",
   phone: "#5ec8ff",
   email: "#6ef0c4",
-  document: "#ffc857",
+  document: PREVIEW_GRAPH_KIND_COLOR.document,
   mentions: "#c49bff",
   colleague: "#8eb8ff",
   nik: "#3dffc8",
   npwp: "#ffbf47",
 };
+
+function previewGraphRelationColor(key) {
+  return PREVIEW_GRAPH_RELATION_COLORS[key] || COLORS.purple;
+}
+
+/** Label legenda relasi — pisahkan relasi `document` dari berkas sumber. */
+function previewGraphRelationLegendName(key) {
+  if (key === "document") return "Relasi dokumen";
+  return relationLabel(key);
+}
+
+/**
+ * Legenda SMP-R dari simpul aktual — tiap tipe relasi di graf dapat entri sendiri
+ * (mis. Keluarga), bukan hanya kategori umum "Relasi".
+ */
+function previewGraphLegendData(nodes = []) {
+  const items = [];
+  const hasEntity = nodes.some((n) => n.nodeKind === "entity");
+  const hasIdentifier = nodes.some(
+    (n) => n.nodeKind === "identifier" || n.nodeKind === "identifier_overflow",
+  );
+  const hasDocumentFile = nodes.some((n) => n.nodeKind === "document");
+
+  if (hasEntity) {
+    items.push({
+      name: "Entitas",
+      icon: "circle",
+      itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.entity },
+    });
+  }
+  if (hasIdentifier) {
+    items.push({
+      name: "Identitas",
+      icon: "circle",
+      itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.identifier },
+    });
+  }
+
+  const relationKeys = new Set();
+  for (const n of nodes) {
+    if (
+      n.nodeKind === "relation" ||
+      n.nodeKind === "relation_link" ||
+      n.nodeKind === "relation_overflow"
+    ) {
+      relationKeys.add(n.relationKey || "unknown");
+    }
+  }
+
+  const relationOrder = [
+    "family",
+    "phone",
+    "email",
+    "nik",
+    "npwp",
+    "colleague",
+    "mentions",
+    "document",
+  ];
+  const sortedRelationKeys = [...relationKeys].sort((a, b) => {
+    const ia = relationOrder.indexOf(a);
+    const ib = relationOrder.indexOf(b);
+    if (ia === -1 && ib === -1) {
+      return previewGraphRelationLegendName(a).localeCompare(previewGraphRelationLegendName(b), "id");
+    }
+    if (ia === -1) return 1;
+    if (ib === -1) return -1;
+    return ia - ib;
+  });
+
+  for (const key of sortedRelationKeys) {
+    items.push({
+      name: previewGraphRelationLegendName(key),
+      icon: "circle",
+      itemStyle: { color: previewGraphRelationColor(key) },
+    });
+  }
+
+  if (hasDocumentFile) {
+    items.push({
+      name: "Dokumen",
+      icon: "circle",
+      itemStyle: { color: PREVIEW_GRAPH_KIND_COLOR.document },
+    });
+  }
+
+  return items;
+}
 
 const PREVIEW_GRAPH_NODE_SIZE = {
   entity: 26,
@@ -1731,13 +1827,216 @@ function formatPreviewRelationPanelText(node, entity) {
   return parts.join("\n");
 }
 
+function previewLogAppendSpan(parent, text, role, { color } = {}) {
+  const span = document.createElement("span");
+  span.className = `preview-log-${role}`;
+  if (color) span.style.color = color;
+  span.textContent = String(text ?? "");
+  parent.appendChild(span);
+}
+
+function previewLogAppendLine(parent) {
+  parent.appendChild(document.createTextNode("\n"));
+}
+
+function previewLogAppendKeyValue(parent, key, value) {
+  if (value == null || value === "") return;
+  previewLogAppendSpan(parent, key, "key");
+  previewLogAppendSpan(parent, ": ", "punct");
+  previewLogAppendSpan(parent, String(value), "value");
+  previewLogAppendLine(parent);
+}
+
+function previewLogAppendEntityHeader(parent, ref) {
+  previewLogAppendSpan(parent, `=== ${ref} ===`, "entity", { color: PREVIEW_GRAPH_KIND_COLOR.entity });
+  previewLogAppendLine(parent);
+}
+
+function previewLogAppendSection(parent, title, color) {
+  previewLogAppendSpan(parent, `[${title}]`, "section", { color });
+  previewLogAppendLine(parent);
+}
+
+function previewLogAppendRelationEntry(parent, relationKey, suffix) {
+  previewLogAppendSpan(parent, "  ", "punct");
+  previewLogAppendSpan(parent, `${previewGraphRelationLegendName(relationKey)}${suffix}`, "relation", {
+    color: previewGraphRelationColor(relationKey),
+  });
+  previewLogAppendLine(parent);
+}
+
+function renderEntityLogDom(parent, entity) {
+  previewLogAppendEntityHeader(parent, entity.ref);
+  previewLogAppendKeyValue(parent, "nama", entity.name);
+  previewLogAppendKeyValue(parent, "jenis_kelamin", genderLabel(entity.gender));
+  previewLogAppendKeyValue(parent, "tanggal_lahir", entity.dob);
+  previewLogAppendKeyValue(parent, "tempat_lahir", entity.pob);
+  previewLogAppendKeyValue(parent, "pekerjaan", entity.occupation);
+  previewLogAppendKeyValue(parent, "sektor", sectorLabel(entity.sector));
+  previewLogAppendKeyValue(parent, "status_nikah", entity.maritalStatus);
+  previewLogAppendKeyValue(parent, "foto", entity.hasPhoto ? "ya" : "tidak");
+  previewLogAppendKeyValue(parent, "jumlah_identitas", entity.identifierCount);
+  previewLogAppendKeyValue(parent, "jumlah_relasi", entity.edgeCount);
+  if (entity.resolutionScore != null) {
+    previewLogAppendKeyValue(parent, "skor_resolusi", entity.resolutionScore);
+  }
+  if (entity.notesCount != null) {
+    previewLogAppendKeyValue(parent, "catatan", entity.notesCount);
+  }
+
+  if (entity.identifiers?.length) {
+    previewLogAppendLine(parent);
+    previewLogAppendSection(parent, "identitas", PREVIEW_GRAPH_KIND_COLOR.identifier);
+    for (const ident of entity.identifiers) {
+      previewLogAppendSpan(parent, "  ", "punct");
+      previewLogAppendSpan(parent, ident.type, "ident-type", { color: PREVIEW_GRAPH_KIND_COLOR.identifier });
+      previewLogAppendSpan(parent, ": ", "punct");
+      previewLogAppendSpan(parent, ident.value, "value");
+      previewLogAppendLine(parent);
+    }
+  }
+
+  if (entity.relations && Object.keys(entity.relations).length) {
+    previewLogAppendLine(parent);
+    previewLogAppendSection(parent, "relasi", PREVIEW_GRAPH_KIND_COLOR.relation);
+    for (const [key, count] of Object.entries(entity.relations)) {
+      previewLogAppendRelationEntry(parent, key, `: ${count}`);
+    }
+  }
+
+  if (entity.relationLinks?.length) {
+    previewLogAppendLine(parent);
+    previewLogAppendSection(parent, "relasi · konteks", PREVIEW_GRAPH_KIND_COLOR.relation);
+    for (const link of entity.relationLinks) {
+      const color = previewGraphRelationColor(link.relation);
+      previewLogAppendSpan(parent, "  ", "punct");
+      previewLogAppendSpan(parent, previewGraphRelationLegendName(link.relation), "relation", { color });
+      previewLogAppendSpan(parent, ": ", "punct");
+      previewLogAppendSpan(parent, link.label, "value");
+      previewLogAppendLine(parent);
+    }
+  }
+
+  if (entity.documents?.length) {
+    previewLogAppendLine(parent);
+    previewLogAppendSection(parent, "dokumen", PREVIEW_GRAPH_KIND_COLOR.document);
+    for (const doc of entity.documents) {
+      const when = doc.importedAt ? ` @ ${doc.importedAt}` : "";
+      previewLogAppendSpan(parent, "  ", "punct");
+      previewLogAppendSpan(parent, `${doc.ref}${when}`, "document", { color: PREVIEW_GRAPH_KIND_COLOR.document });
+      previewLogAppendLine(parent);
+      previewLogAppendKeyValue(parent, "    judul", doc.title);
+      previewLogAppendKeyValue(parent, "    konteks", doc.context);
+      previewLogAppendKeyValue(parent, "    berkas", doc.filename);
+    }
+  }
+
+  previewLogAppendLine(parent);
+}
+
+function renderPreviewNodeFocusDom(parent, node, entity) {
+  if (node.nodeKind === "entity") {
+    previewLogAppendSpan(parent, "(hub entitas) ", "punct");
+    previewLogAppendSpan(parent, node.entityRef || entity?.ref || "—", "entity", {
+      color: PREVIEW_GRAPH_KIND_COLOR.entity,
+    });
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  if (node.nodeKind === "relation_link" || node.nodeKind === "relation") {
+    const color = previewGraphRelationColor(node.relationKey);
+    previewLogAppendSection(parent, `relasi · ${previewGraphRelationLegendName(node.relationKey)}`, color);
+    previewLogAppendLine(parent);
+    if (node.nodeKind === "relation_link") {
+      previewLogAppendKeyValue(parent, "konteks", node.relationContext || node.name);
+      previewLogAppendKeyValue(parent, "tipe", node.relationKey);
+    } else {
+      previewLogAppendKeyValue(parent, "jumlah_tautan", node.relationCount);
+      previewLogAppendKeyValue(parent, "tipe", node.relationKey);
+    }
+    previewLogAppendSpan(parent, "entitas: ", "punct");
+    previewLogAppendSpan(parent, entity?.ref || "—", "entity", { color: PREVIEW_GRAPH_KIND_COLOR.entity });
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  if (node.nodeKind === "identifier") {
+    previewLogAppendSection(parent, "identitas", PREVIEW_GRAPH_KIND_COLOR.identifier);
+    previewLogAppendLine(parent);
+    previewLogAppendKeyValue(parent, "tipe", node.identType);
+    previewLogAppendKeyValue(parent, "nilai", node.identValue);
+    previewLogAppendLine(parent);
+    previewLogAppendSpan(parent, "entitas: ", "punct");
+    previewLogAppendSpan(parent, entity?.ref || "—", "entity", { color: PREVIEW_GRAPH_KIND_COLOR.entity });
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  if (node.nodeKind === "identifier_overflow") {
+    previewLogAppendSection(parent, "identitas · ringkasan", PREVIEW_GRAPH_KIND_COLOR.identifier);
+    previewLogAppendLine(parent);
+    previewLogAppendSpan(parent, `  +${fmt(node.overflowCount)} identitas lain tidak digambar`, "muted");
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  if (node.nodeKind === "relation_overflow") {
+    const color = previewGraphRelationColor(node.relationKey);
+    previewLogAppendSection(
+      parent,
+      `relasi · ${previewGraphRelationLegendName(node.relationKey)} · ringkasan`,
+      color,
+    );
+    previewLogAppendLine(parent);
+    previewLogAppendSpan(parent, `  +${fmt(node.overflowCount)} tautan lain tidak digambar`, "muted");
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  if (node.nodeKind === "document") {
+    const doc = (entity?.documents || []).find((d) => d.ref === node.docRef);
+    previewLogAppendSection(parent, `dokumen · ${node.docRef || "—"}`, PREVIEW_GRAPH_KIND_COLOR.document);
+    previewLogAppendLine(parent);
+    previewLogAppendKeyValue(parent, "judul", doc?.title || node.docTitle);
+    previewLogAppendKeyValue(parent, "konteks", doc?.context);
+    previewLogAppendKeyValue(parent, "berkas", doc?.filename);
+    previewLogAppendKeyValue(parent, "impor", doc?.importedAt);
+    previewLogAppendLine(parent);
+    previewLogAppendSpan(parent, "entitas: ", "punct");
+    previewLogAppendSpan(parent, entity?.ref || "—", "entity", { color: PREVIEW_GRAPH_KIND_COLOR.entity });
+    previewLogAppendLine(parent);
+    return;
+  }
+
+  previewLogAppendSpan(parent, node.name || "—", "value");
+  previewLogAppendLine(parent);
+}
+
+function renderPreviewRelationPanelDom(parent, node, entity) {
+  renderEntityLogDom(parent, entity);
+  if (!node) return;
+  previewLogAppendLine(parent);
+  previewLogAppendSpan(parent, "--- simpul terpilih ---", "divider", { color: COLORS.muted });
+  previewLogAppendLine(parent);
+  renderPreviewNodeFocusDom(parent, node, entity);
+}
+
 function renderPreviewRelationText(node, entity) {
   const pre = document.getElementById("preview-log-detail");
   const title = document.getElementById("preview-relation-text-title");
   const hint = document.getElementById("preview-relation-text-hint");
   if (!pre) return;
 
-  pre.textContent = formatPreviewRelationPanelText(node, entity);
+  const plain = formatPreviewRelationPanelText(node, entity);
+  pre.dataset.plainText = plain;
+  pre.replaceChildren();
+  if (entity) {
+    renderPreviewRelationPanelDom(pre, node, entity);
+  } else {
+    pre.textContent = plain;
+  }
+
   if (title) title.textContent = node ? previewNodeTitle(node) : entity?.ref || "Ringkasan entri";
   if (hint) {
     hint.textContent = node
@@ -1763,7 +2062,7 @@ function buildPreviewGraphData(entity) {
     symbolSize: PREVIEW_GRAPH_NODE_SIZE.entity,
     entityRef: entity.ref,
     nodeKind: "entity",
-    itemStyle: previewGraphNodeStyle("#00ffd0", 2),
+    itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_KIND_COLOR.entity, 2),
     label: previewGraphLabelOpts({
       nodeKind: "entity",
       entityRef: entity.ref,
@@ -1793,7 +2092,7 @@ function buildPreviewGraphData(entity) {
       nodeKind: "identifier",
       identType: ident.type,
       identValue: ident.value,
-      itemStyle: previewGraphNodeStyle("#5ec8ff"),
+      itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_KIND_COLOR.identifier),
       label: previewGraphLabelOpts({
         nodeKind: "identifier",
         identType: ident.type,
@@ -1826,7 +2125,7 @@ function buildPreviewGraphData(entity) {
       const relKey = link.relation || "unknown";
       shownRelationCounts[relKey] = (shownRelationCounts[relKey] || 0) + 1;
       const nodeId = `rel-link-${index}`;
-      const color = PREVIEW_GRAPH_RELATION_COLORS[relKey] || COLORS.purple;
+      const color = previewGraphRelationColor(relKey);
       nodes.push({
         id: nodeId,
         name: link.label || relationLabel(relKey),
@@ -1858,7 +2157,7 @@ function buildPreviewGraphData(entity) {
         nodeKind: "relation_overflow",
         relationKey: key,
         overflowCount: overflow,
-        itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_RELATION_COLORS[key] || COLORS.purple, 1),
+        itemStyle: previewGraphNodeStyle(previewGraphRelationColor(key), 1),
         label: previewGraphLabelOpts({
           nodeKind: "relation_overflow",
           relationKey: key,
@@ -1871,7 +2170,7 @@ function buildPreviewGraphData(entity) {
     const relationEntries = Object.entries(entity.relations || {}).sort((a, b) => b[1] - a[1]);
     relationEntries.forEach(([key, count]) => {
       const nodeId = `rel-${key}`;
-      const color = PREVIEW_GRAPH_RELATION_COLORS[key] || COLORS.purple;
+      const color = previewGraphRelationColor(key);
       nodes.push({
         id: nodeId,
         name: relationLabel(key),
@@ -1907,7 +2206,7 @@ function buildPreviewGraphData(entity) {
       nodeKind: "document",
       docRef: doc.ref,
       docTitle: doc.title,
-      itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_RELATION_COLORS.document),
+      itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_KIND_COLOR.document),
       label: previewGraphLabelOpts({
         nodeKind: "document",
         docRef: doc.ref,
@@ -2027,6 +2326,7 @@ function buildPreviewRelationGraph(entity) {
   }
 
   const { nodes, links, categories } = buildPreviewGraphData(entity);
+  const legendItems = previewGraphLegendData(nodes);
   if (caption) {
     caption.textContent = `${fmt(nodes.length - 1)} simpul · label pada graf · ringkasan di panel kanan`;
   }
@@ -2062,8 +2362,9 @@ function buildPreviewRelationGraph(entity) {
         formatter: formatPreviewGraphTooltip,
       },
       legend: {
-        data: categories.map((c) => c.name),
+        data: legendItems,
         bottom: 4,
+        type: legendItems.length > 6 ? "scroll" : "plain",
         textStyle: {
           color: "#9eb4c8",
           fontFamily: "'IBM Plex Mono', monospace",
@@ -2071,6 +2372,7 @@ function buildPreviewRelationGraph(entity) {
         },
         itemWidth: 8,
         itemHeight: 8,
+        itemGap: 10,
       },
       series: [
         {
@@ -2082,7 +2384,7 @@ function buildPreviewRelationGraph(entity) {
           data: nodes,
           links,
           top: 12,
-          bottom: 28,
+          bottom: legendItems.length > 4 ? 40 : 28,
           left: 8,
           right: 8,
           force: {
@@ -2207,7 +2509,11 @@ function renderShowcaseEntities(entities) {
 
   const showEmptyDetail = (message) => {
     previewGraphActiveEntity = null;
-    if (detailEl) detailEl.textContent = message;
+    if (detailEl) {
+      detailEl.replaceChildren();
+      detailEl.textContent = message;
+      delete detailEl.dataset.plainText;
+    }
     renderPreviewRelationText(null, null);
     if (detailTitle) detailTitle.textContent = "Detail entri";
     if (copyBtn) copyBtn.hidden = true;
@@ -2302,7 +2608,8 @@ function renderShowcaseEntities(entities) {
     if (copyBtn._dompengCopyHandler) copyBtn.removeEventListener("click", copyBtn._dompengCopyHandler);
     copyBtn._dompengCopyHandler = async () => {
       if (activeIndex < 0) return;
-      const text = detailEl?.textContent || formatEntityLog(rows[activeIndex]);
+      const text =
+        detailEl?.dataset.plainText || formatPreviewRelationPanelText(null, rows[activeIndex]);
       try {
         await navigator.clipboard.writeText(text);
         const prev = copyBtn.textContent;
@@ -2428,48 +2735,6 @@ function queueCenterLabelPlugin(queue, { compact = false, ops = false } = {}) {
   };
 }
 
-/** Label di luar setiap irisan donut (nama status + volume + %). */
-function queueSliceLabelPlugin(segments, rawValues, { minAngle = 0.2 } = {}) {
-  return {
-    id: "queueSliceLabels",
-    afterDatasetDraw(chart) {
-      const ctx = chart.ctx;
-      const meta = chart.getDatasetMeta(0);
-      const total = rawValues.reduce((acc, value) => acc + value, 0);
-      if (!total || !meta?.data?.length) return;
-
-      ctx.save();
-      ctx.font = '600 10px "IBM Plex Mono", monospace';
-      ctx.fillStyle = "#c5d4e3";
-
-      for (let i = 0; i < meta.data.length; i++) {
-        const arc = meta.data[i];
-        const span = arc.endAngle - arc.startAngle;
-        if (span < minAngle) continue;
-
-        const mid = (arc.startAngle + arc.endAngle) / 2;
-        const labelR = arc.outerRadius + 12;
-        const x = arc.x + Math.cos(mid) * labelR;
-        const y = arc.y + Math.sin(mid) * labelR;
-        const real = rawValues[i] || 0;
-        const pctNum = Math.round((real / total) * 100);
-        const name = segments[i]?.label || "";
-
-        const flip = mid > Math.PI / 2 && mid < (Math.PI * 3) / 2;
-        ctx.textAlign = flip ? "right" : "left";
-        ctx.textBaseline = "middle";
-        ctx.fillText(name, x, y - 6);
-        ctx.font = '500 9px "IBM Plex Mono", monospace';
-        ctx.fillStyle = "#7a8fa8";
-        ctx.fillText(`${fmt(real)} · ${pctNum}%`, x, y + 7);
-        ctx.font = '600 10px "IBM Plex Mono", monospace';
-        ctx.fillStyle = "#c5d4e3";
-      }
-      ctx.restore();
-    },
-  };
-}
-
 /** Segmen donut antrian — selalu tampil meski nilainya 0 (Chart.js mengabaikan slice 0). */
 const QUEUE_CHART_SEGMENTS = [
   { label: "Menunggu", key: "pending", color: COLORS.amber },
@@ -2533,9 +2798,6 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
   };
 
   const chartPlugins = [queueCenterLabelPlugin(queue, { compact: isOverview, ops: isOps })];
-  if (isOps) {
-    chartPlugins.push(queueSliceLabelPlugin(segments, rawValues));
-  }
 
   return new Chart(ctx, {
     type: "doughnut",
@@ -2556,7 +2818,7 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
       responsive: true,
       maintainAspectRatio: false,
       cutout: isOps ? "54%" : isAnalytics ? "56%" : isOverview ? "58%" : "60%",
-      layout: { padding: isOps ? 24 : isAnalytics ? 6 : isOverview ? 8 : 4 },
+      layout: { padding: isOps ? 6 : isAnalytics ? 6 : isOverview ? 8 : 4 },
       plugins,
     },
     plugins: chartPlugins,
@@ -2716,168 +2978,126 @@ function renderOverviewQueueRadar(queue, options = {}) {
 
 let indexChartRowsCache = [];
 
-const INDEX_BAR_COLORS = {
-  entries: "#4ec9ff",
-  refs: "#e6a817",
-};
-
-function indexChartRowByType(type) {
-  return indexChartRowsCache.find((row) => row.type === type);
-}
-
-function indexBarSeriesValue(amount) {
-  const value = Number(amount) || 0;
-  return value > 0 ? value : null;
-}
-
-function formatIndexBarAxisLabel(type) {
-  const row = indexChartRowByType(type);
-  const kind = row?.kind === "unique" ? "u" : "s";
-  return `{${kind}|■} {n|${type}}`;
-}
-
-function formatIndexBarAxisTick(value) {
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}M`;
-  if (value >= 1000) return `${Math.round(value / 1000)}k`;
-  return fmt(value);
-}
-
-function formatIndexBarTooltip(params) {
-  if (!Array.isArray(params) || !params.length) return "";
-  const type = params[0].axisValue;
-  const row = indexChartRowByType(type) || {};
-  const entries = row.entries ?? 0;
-  const refs = row.refs ?? 0;
-  const mode = row.kind === "unique" ? "Unik" : "Silang";
-  const ratio = entries > 0 ? `${(refs / entries).toFixed(2)}×` : "—";
-  const metricLines = params.map((item) => `${item.seriesName}: <b>${fmt(item.value)}</b>`);
-  return [
-    `<b>${type}</b> <span style="opacity:0.75">${mode}</span>`,
-    ...metricLines,
-    `Rasio ref/entri: <b>${ratio}</b>`,
-    '<span style="opacity:0.78;font-size:10px">Entri=kunci/file · Ref=person_id · sumbu log</span>',
-  ].join("<br/>");
-}
-
-/** Bar horizontal berpasangan: entri vs referensi per tipe; sumbu-X log agar tipe kecil tetap terbaca. */
-function buildIndexBarChart(indexRows) {
-  const el = document.getElementById("index-bar-chart");
-  if (!el) return null;
-
-  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.indexBar);
-  if (!chart) {
-    showChartFallbackTable("index-chart-modal");
-    return null;
+function disposeIndexBarChart() {
+  const chart = window[DOMPENG_ECHART_STORE.indexBar];
+  if (!chart) return;
+  try {
+    chart.dispose();
+  } catch {
+    /* ignore */
   }
+  window[DOMPENG_ECHART_STORE.indexBar] = null;
+}
+
+function indexVolumeRatio(entries, refs) {
+  if (!entries) return "—";
+  return `${(refs / entries).toFixed(2)}×`;
+}
+
+function indexVolumeCompact(value) {
+  const n = Number(value) || 0;
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 10_000) return `${Math.round(n / 1000)}k`;
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return fmt(n);
+}
+
+function indexVolumeBarHeight(value, max) {
+  if (!max || !value) return 4;
+  return Math.max(4, Math.round((value / max) * 100));
+}
+
+function createIndexVolumeColumn(row, maxEntries, maxRefs) {
+  const shared = row.kind !== "unique";
+  const entries = row.entries || 0;
+  const refs = row.refs || 0;
+  const ratio = indexVolumeRatio(entries, refs);
+  const ratioHigh = entries > 0 && refs > entries;
+
+  const col = document.createElement("article");
+  col.className = `index-volume-col index-volume-col--${shared ? "shared" : "unique"}`;
+  col.setAttribute("role", "listitem");
+  col.title = `${row.type}: ${fmt(entries)} entri, ${fmt(refs)} referensi, rasio ${ratio}`;
+
+  const bars = document.createElement("div");
+  bars.className = "index-volume-col__bars";
+  bars.setAttribute("aria-hidden", "true");
+
+  for (const [tone, val, max, label] of [
+    ["entries", entries, maxEntries, "Entri"],
+    ["refs", refs, maxRefs, "Referensi"],
+  ]) {
+    const bar = document.createElement("div");
+    bar.className = `index-volume-col__bar index-volume-col__bar--${tone}`;
+    bar.title = `${label}: ${fmt(val)}`;
+
+    const fill = document.createElement("span");
+    fill.className = "index-volume-col__fill";
+    fill.style.height = `${indexVolumeBarHeight(val, max)}%`;
+
+    bar.appendChild(fill);
+    bars.appendChild(bar);
+  }
+
+  const meta = document.createElement("div");
+  meta.className = "index-volume-col__meta";
+
+  const nums = document.createElement("p");
+  nums.className = "index-volume-col__nums";
+  appendText(nums, `${indexVolumeCompact(entries)} · ${indexVolumeCompact(refs)}`);
+
+  const title = document.createElement("h3");
+  title.className = "index-volume-col__title";
+  appendText(title, row.type);
+
+  const foot = document.createElement("p");
+  foot.className = `index-volume-col__foot${ratioHigh ? " index-volume-col__foot--high" : ""}`;
+  const kind = document.createElement("span");
+  kind.className = "index-volume-col__kind";
+  kind.title = shared ? "Indeks silang" : "Indeks unik";
+  appendText(kind, shared ? "S" : "U");
+  appendText(foot, ` · ${ratio}`);
+  foot.prepend(kind);
+
+  meta.append(nums, title, foot);
+  col.append(bars, meta);
+  return col;
+}
+
+/** 8 kolom vertikal: bar tipis entri (cyan) + referensi (amber) per tipe. */
+function buildIndexBarChart(indexRows) {
+  const cols = document.getElementById("index-volume-cols");
+  const emptyEl = document.getElementById("index-volume-empty");
+  if (!cols) return null;
+
+  disposeIndexBarChart();
 
   indexChartRowsCache = [...(indexRows || [])]
     .filter((row) => (row.entries || 0) > 0 || (row.refs || 0) > 0)
     .sort((a, b) => (b.entries || 0) - (a.entries || 0));
 
+  clear(cols);
+
   if (!indexChartRowsCache.length) {
-    chart.setOption(
-      {
-        backgroundColor: "transparent",
-        graphic: {
-          type: "text",
-          left: "center",
-          top: "middle",
-          style: {
-            text: "Tidak ada tipe indeks cocok",
-            fill: COLORS.muted,
-            font: "600 12px 'IBM Plex Mono', monospace",
-          },
-        },
-      },
-      { notMerge: true },
-    );
-    return chart;
+    if (emptyEl) emptyEl.hidden = false;
+    showChartFallbackTable("index-chart-modal");
+    return null;
   }
 
-  const types = indexChartRowsCache.map((row) => row.type);
-  const entriesData = indexChartRowsCache.map((row) => indexBarSeriesValue(row.entries));
-  const refsData = indexChartRowsCache.map((row) => indexBarSeriesValue(row.refs));
+  if (emptyEl) emptyEl.hidden = true;
 
-  chart.setOption(
-    {
-      backgroundColor: "transparent",
-      animationDuration: 380,
-      grid: { left: 4, right: 12, top: 6, bottom: 4, containLabel: true },
-      tooltip: {
-        ...DOMPENG_ECHART_TOOLTIP,
-        trigger: "axis",
-        axisPointer: { type: "shadow", shadowStyle: { color: "rgba(78, 201, 255, 0.1)" } },
-        confine: true,
-        padding: [5, 7],
-        textStyle: {
-          ...DOMPENG_ECHART_TOOLTIP.textStyle,
-          fontSize: 10,
-          lineHeight: 14,
-        },
-        extraCssText:
-          "max-width:200px;white-space:normal;word-break:break-word;box-shadow:0 4px 14px rgba(0,0,0,0.5);",
-        formatter: formatIndexBarTooltip,
-      },
-      xAxis: {
-        type: "log",
-        logBase: 10,
-        min: 1,
-        axisLine: { show: false },
-        axisTick: { show: false },
-        splitLine: { lineStyle: { color: "rgba(28, 42, 58, 0.7)", type: "dashed" } },
-        axisLabel: {
-          color: COLORS.muted,
-          fontFamily: "'IBM Plex Mono', monospace",
-          fontSize: 9,
-          formatter: formatIndexBarAxisTick,
-        },
-      },
-      yAxis: {
-        type: "category",
-        inverse: true,
-        data: types,
-        axisLine: { show: false },
-        axisTick: { show: false },
-        axisLabel: {
-          interval: 0,
-          fontFamily: "'IBM Plex Mono', monospace",
-          fontSize: 10,
-          formatter: formatIndexBarAxisLabel,
-          rich: {
-            s: { color: "#00d4aa", fontSize: 8, padding: [0, 4, 0, 0] },
-            u: { color: "#e6a817", fontSize: 8, padding: [0, 4, 0, 0] },
-            n: { color: "#c5d4e3", fontSize: 10 },
-          },
-        },
-      },
-      series: [
-        {
-          name: "Entri",
-          type: "bar",
-          data: entriesData,
-          barMaxWidth: 12,
-          itemStyle: { color: INDEX_BAR_COLORS.entries, borderRadius: [0, 2, 2, 0] },
-          emphasis: { focus: "series" },
-        },
-        {
-          name: "Referensi",
-          type: "bar",
-          data: refsData,
-          barMaxWidth: 12,
-          itemStyle: { color: INDEX_BAR_COLORS.refs, borderRadius: [0, 2, 2, 0] },
-          emphasis: { focus: "series" },
-        },
-      ],
-    },
-    { notMerge: true },
-  );
+  const maxEntries = Math.max(...indexChartRowsCache.map((row) => row.entries || 0), 1);
+  const maxRefs = Math.max(...indexChartRowsCache.map((row) => row.refs || 0), 1);
 
-  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.indexBar));
-  return chart;
+  for (const row of indexChartRowsCache) {
+    cols.appendChild(createIndexVolumeColumn(row, maxEntries, maxRefs));
+  }
+
+  return cols;
 }
 
 function resizeIndexBarChart() {
-  resizeDompengEchart(DOMPENG_ECHART_STORE.indexBar);
+  /* grid kartu — tidak perlu resize canvas */
 }
 
 function changelogKindLabel(kind) {
