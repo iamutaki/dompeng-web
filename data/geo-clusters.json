@@ -1,716 +1,17 @@
 {
   "totalEntities": 6309,
   "entitiesWithCity": 1163,
-  "geocodedEntities": 903,
+  "geocodedEntities": 793,
   "uniqueCities": 378,
-  "mappedCities": 58,
+  "mappedCities": 124,
   "clusters": [
     {
-      "key": "coord:106.8456,-6.2088",
+      "key": "JAKARTA",
       "label": "Jakarta",
       "province": "DKI JAKARTA",
-      "count": 267,
+      "count": 177,
       "lat": -6.2088,
-      "lng": 106.8456,
-      "mergedCount": 30,
-      "mergedCities": [
-        {
-          "label": "Jakarta",
-          "count": 177,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Brebes",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Ciamis",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Klaten",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Banyumas",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Indramayu",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Kebumen",
-          "count": 6,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Wonogiri",
-          "count": 5,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Pandeglang",
-          "count": 4,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Payakumbuh",
-          "count": 4,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Kuningan",
-          "count": 4,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Purwakarta",
-          "count": 3,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Manna",
-          "count": 3,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Pematang Siantar",
-          "count": 3,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Bukit Tinggi",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Jogjakarta",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Sragen",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Jambur",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Gombang",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Yogya",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Nganjuk",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Singaraja",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Purbalingga",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Pacitan",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Gunung Kidul",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Kutoarjo",
-          "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "A         Jakarta",
-          "count": 1,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Pemalang",
-          "count": 1,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Bojonegoro",
-          "count": 1,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Boyolali",
-          "count": 1,
-          "province": "DKI JAKARTA"
-        }
-      ]
-    },
-    {
-      "key": "coord:114.5944,-3.3186",
-      "label": "Abirau",
-      "province": "KALIMANTAN SELATAN",
-      "count": 168,
-      "lat": -3.3186,
-      "lng": 114.5944,
-      "mergedCount": 107,
-      "mergedCities": [
-        {
-          "label": "Abirau",
-          "count": 6,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Penyambaran",
-          "count": 6,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Balau",
-          "count": 6,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Slta/Sederajat",
-          "count": 4,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mandiangin",
-          "count": 4,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pasar Lama",
-          "count": 4,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Jingah Habang",
-          "count": 4,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Banjarmasin",
-          "count": 4,
-          "province": null
-        },
-        {
-          "label": "Karang Intan",
-          "count": 4,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sekretaris Desa",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Martapura",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pandak Daun",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Asam",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Daun",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sungai Asam",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Slta",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pambakal",
-          "count": 3,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Intan",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Lama",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "S1",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mali-Mali",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sungai Alang",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mandikapau Barat",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Loktangga",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Jingah Habang Ilir",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Tiwingan",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Padang Panjang",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kaur Keuangan",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Pemerintahan",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Simpang Warga Dalam",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan          Cianjur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Awang Bangkal Timur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Pelayanan Dan Kesejahteraan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "081545819343",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan Pandak Daun",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Pelayanan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kaur Umum & Perencanaan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "081617399032",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Senakin",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan          Karang Anyar 02-Desember-1994                               Lihung Rt 03            141/21/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Jingah Habang Ulu",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sei Besar",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan Pandak Daun",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sungai Pinang",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "141/152/06/Pmdes/2021",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mandiangin Timur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kesejahteraaan   Karang Intan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Karang Intan 22-September-1983 Slta Sederajat Lihung Rt 03 141/22/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kaur Keuangan Tanjung",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan Martapura",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Jingah Habang Hilir",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mandikapau Timur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Penunjukan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Panyambaran",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "M. Yusri Akbar",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Masrun",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan          Karang Intan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "141/44/Kep/06.2014/2021",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kaarang Intan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sarah",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "S-1",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kesejahteraan    Martapura",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Martapura / 25-04-1995",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Pemerintahan                  Awang Bangkal Timur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan Banjar",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Ulin",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "20-Mei-1994                Slta Sederajat           Lihung Rt 03             141/19/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Maisuroh",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Kesejahteraan Dan Pelayanan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Staff",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pemilihan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Stara 1",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Keuangan Mandikapau",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Anyar 20-Maret-1991 Slta Sederajat Lihung Rt 03 141/20/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "01/11/2022",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Aranio",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan Martapura",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan Mandiangin",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Guntung Buluh",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sungai Landas",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sma/Sederajad",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "02/01/2024",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sungai Besar",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kaur Umum Dan Perencanaan Sungai Besar",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "188.45/255/Kum/2021",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sebuli",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Akademis Diploma",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Penda Asam",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Desa Sungai Arfat Rt.001",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan Lihung 07-September-1998 S1 Lihung Rt 01 141/21/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan           Karang Intan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Diploma Iv/Strata I",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Bi-Ih",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Timur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Nomor : 100.3.3/Sk.22/Mat/Ki/2024",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Mutasi",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Jabatan",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan Sungai Asam",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kesejahteraan   Sungai Asam",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Perencanaan          Balau",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Bangkal Barat",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Lihung 03-Maret-1993              Slta Sederajat           Lihung Rt 01             141/24/Kep/06",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Sarif Alwi",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pulau Nyiur",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Strata 1",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pelayanan   Balau",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Kasi Pelayanan Dan Kesejahteraan   Simpang Warga Dalam",
-          "count": 1,
-          "province": "KALIMANTAN SELATAN"
-        }
-      ]
+      "lng": 106.8456
     },
     {
       "key": "PAMEKASAN",
@@ -724,10 +25,10 @@
       "key": "coord:103.6131,-1.6101",
       "label": "Jambi",
       "province": "JAMBI",
-      "count": 44,
+      "count": 41,
       "lat": -1.6101,
       "lng": 103.6131,
-      "mergedCount": 5,
+      "mergedCount": 2,
       "mergedCities": [
         {
           "label": "Jambi",
@@ -738,21 +39,6 @@
           "label": "Mandikapau",
           "count": 7,
           "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Pekacangan",
-          "count": 1,
-          "province": "JAMBI"
-        },
-        {
-          "label": "Renah Alai",
-          "count": 1,
-          "province": "Jambi"
-        },
-        {
-          "label": "Cepu",
-          "count": 1,
-          "province": "JAMBI"
         }
       ]
     },
@@ -773,32 +59,6 @@
       "lng": 107.6191
     },
     {
-      "key": "coord:98.6722,3.5952",
-      "label": "Medan",
-      "province": null,
-      "count": 20,
-      "lat": 3.5952,
-      "lng": 98.6722,
-      "mergedCount": 3,
-      "mergedCities": [
-        {
-          "label": "Medan",
-          "count": 16,
-          "province": null
-        },
-        {
-          "label": "Tarutung",
-          "count": 3,
-          "province": "SUMATERA UTARA"
-        },
-        {
-          "label": "Onan Runggu",
-          "count": 1,
-          "province": "SUMATERA UTARA"
-        }
-      ]
-    },
-    {
       "key": "SEMARANG",
       "label": "Semarang",
       "province": null,
@@ -807,45 +67,12 @@
       "lng": 110.4167
     },
     {
-      "key": "coord:101.4478,0.5071",
-      "label": "Pekanbaru",
-      "province": "RIAU",
-      "count": 15,
-      "lat": 0.5071,
-      "lng": 101.4478,
-      "mergedCount": 6,
-      "mergedCities": [
-        {
-          "label": "Pekanbaru",
-          "count": 6,
-          "province": "RIAU"
-        },
-        {
-          "label": "Siak",
-          "count": 4,
-          "province": "RIAU"
-        },
-        {
-          "label": "Batu Bersurat",
-          "count": 2,
-          "province": "RIAU"
-        },
-        {
-          "label": "Riau",
-          "count": 1,
-          "province": null
-        },
-        {
-          "label": "Bengkalis",
-          "count": 1,
-          "province": "RIAU"
-        },
-        {
-          "label": "Sungai Apit",
-          "count": 1,
-          "province": "RIAU"
-        }
-      ]
+      "key": "MEDAN",
+      "label": "Medan",
+      "province": null,
+      "count": 16,
+      "lat": 3.5952,
+      "lng": 98.6722
     },
     {
       "key": "coord:106.1503,-6.12",
@@ -869,83 +96,20 @@
       ]
     },
     {
+      "key": "TEMANGGUNG",
+      "label": "Temanggung",
+      "province": null,
+      "count": 13,
+      "lat": -7.257697521950911,
+      "lng": 110.1363023235599
+    },
+    {
       "key": "SAMARINDA",
       "label": "Samarinda",
       "province": null,
       "count": 13,
       "lat": -0.5022,
       "lng": 117.1536
-    },
-    {
-      "key": "coord:96.7494,4.6951",
-      "label": "Ulee Gle",
-      "province": "Aceh",
-      "count": 13,
-      "lat": 4.6951,
-      "lng": 96.7494,
-      "mergedCount": 12,
-      "mergedCities": [
-        {
-          "label": "Ulee Gle",
-          "count": 2,
-          "province": "Aceh"
-        },
-        {
-          "label": "Paya Pinang",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Lelabu",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Batin Wih Pongas",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Aceh Tengah",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Kalatenang",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Bukit Mulie",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Bale Atu",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Belang Pulo",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Bale Simpang Tiga",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Aceh",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Blang Tampu",
-          "count": 1,
-          "province": "Aceh"
-        }
-      ]
     },
     {
       "key": "YOGYAKARTA",
@@ -972,6 +136,14 @@
       "lng": 105.3062
     },
     {
+      "key": "BANDA ACEH",
+      "label": "Banda Aceh",
+      "province": null,
+      "count": 8,
+      "lat": 5.558704403882444,
+      "lng": 95.32771345826497
+    },
+    {
       "key": "GRESIK",
       "label": "Gresik",
       "province": null,
@@ -988,83 +160,29 @@
       "lng": 110.217
     },
     {
-      "key": "coord:104.4665,0.9186",
-      "label": "Tanjungpinang",
+      "key": "PALANGKA RAYA",
+      "label": "Palangka Raya",
       "province": null,
       "count": 7,
-      "lat": 0.9186,
-      "lng": 104.4665,
+      "lat": -2.0074642796321776,
+      "lng": 113.76747426266772
+    },
+    {
+      "key": "coord:101.4478,0.5071",
+      "label": "Pekanbaru",
+      "province": "RIAU",
+      "count": 7,
+      "lat": 0.5071,
+      "lng": 101.4478,
       "mergedCount": 2,
       "mergedCities": [
         {
-          "label": "Tanjungpinang",
+          "label": "Pekanbaru",
           "count": 6,
-          "province": null
+          "province": "RIAU"
         },
         {
-          "label": "Payalaman",
-          "count": 1,
-          "province": "KEPULAUAN RIAU"
-        }
-      ]
-    },
-    {
-      "key": "coord:109.3425,-0.0263",
-      "label": "Pontianak",
-      "province": null,
-      "count": 7,
-      "lat": -0.0263,
-      "lng": 109.3425,
-      "mergedCount": 3,
-      "mergedCities": [
-        {
-          "label": "Pontianak",
-          "count": 5,
-          "province": null
-        },
-        {
-          "label": "Singkawang",
-          "count": 1,
-          "province": "Kalimantan Barat"
-        },
-        {
-          "label": "Kubu Raya",
-          "count": 1,
-          "province": "Kalimantan Barat"
-        }
-      ]
-    },
-    {
-      "key": "coord:122.513,-3.9985",
-      "label": "Wawotobi",
-      "province": "SULAWESI TENGGARA",
-      "count": 7,
-      "lat": -3.9985,
-      "lng": 122.513,
-      "mergedCount": 5,
-      "mergedCities": [
-        {
-          "label": "Wawotobi",
-          "count": 2,
-          "province": "SULAWESI TENGGARA"
-        },
-        {
-          "label": "Rate-Rate",
-          "count": 2,
-          "province": "SULAWESI TENGGARA"
-        },
-        {
-          "label": "Raha",
-          "count": 1,
-          "province": "Sulawesi Tenggara"
-        },
-        {
-          "label": "Ujung Pandang",
-          "count": 1,
-          "province": "SULAWESI TENGGARA"
-        },
-        {
-          "label": "Kendari",
+          "label": "Riau",
           "count": 1,
           "province": null
         }
@@ -1079,6 +197,70 @@
       "lng": 107.7631
     },
     {
+      "key": "BIREUEN",
+      "label": "Bireuen",
+      "province": null,
+      "count": 6,
+      "lat": 5.093825519117036,
+      "lng": 96.6070350974139
+    },
+    {
+      "key": "TANJUNGPINANG",
+      "label": "Tanjungpinang",
+      "province": null,
+      "count": 6,
+      "lat": 0.9186,
+      "lng": 104.4665
+    },
+    {
+      "key": "BREBES",
+      "label": "Brebes",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -7.06277205117945,
+      "lng": 108.92952648130553
+    },
+    {
+      "key": "CIAMIS",
+      "label": "Ciamis",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -7.290249924234724,
+      "lng": 108.4286452357121
+    },
+    {
+      "key": "KLATEN",
+      "label": "Klaten",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -7.685818105806987,
+      "lng": 110.61945204176338
+    },
+    {
+      "key": "BANYUMAS",
+      "label": "Banyumas",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -7.455508579690273,
+      "lng": 109.17578818103475
+    },
+    {
+      "key": "INDRAMAYU",
+      "label": "Indramayu",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -6.447487543473922,
+      "lng": 108.16902667217846
+    },
+    {
+      "key": "KEBUMEN",
+      "label": "Kebumen",
+      "province": "DKI JAKARTA",
+      "count": 6,
+      "lat": -7.654964269929172,
+      "lng": 109.61735310996204
+    },
+    {
       "key": "BALIKPAPAN",
       "label": "Balikpapan",
       "province": null,
@@ -1087,25 +269,12 @@
       "lng": 116.8529
     },
     {
-      "key": "coord:123.607,-10.1772",
-      "label": "Kupang",
-      "province": "NUSA TENGGARA TIMUR",
-      "count": 6,
-      "lat": -10.1772,
-      "lng": 123.607,
-      "mergedCount": 2,
-      "mergedCities": [
-        {
-          "label": "Kupang",
-          "count": 5,
-          "province": "NUSA TENGGARA TIMUR"
-        },
-        {
-          "label": "Penfui",
-          "count": 1,
-          "province": "NUSA TENGGARA TIMUR"
-        }
-      ]
+      "key": "WONOGIRI",
+      "label": "Wonogiri",
+      "province": "DKI JAKARTA",
+      "count": 5,
+      "lat": -7.91928517416729,
+      "lng": 110.99921317719837
     },
     {
       "key": "DENPASAR",
@@ -1114,6 +283,46 @@
       "count": 5,
       "lat": -8.6705,
       "lng": 115.2126
+    },
+    {
+      "key": "KUPANG",
+      "label": "Kupang",
+      "province": "NUSA TENGGARA TIMUR",
+      "count": 5,
+      "lat": -10.1772,
+      "lng": 123.607
+    },
+    {
+      "key": "CILACAP",
+      "label": "Cilacap",
+      "province": null,
+      "count": 5,
+      "lat": -7.4889272895910715,
+      "lng": 108.88983867499971
+    },
+    {
+      "key": "BANJARBARU",
+      "label": "Banjarbaru",
+      "province": null,
+      "count": 5,
+      "lat": -3.4747673377541806,
+      "lng": 114.79117548120564
+    },
+    {
+      "key": "PONTIANAK",
+      "label": "Pontianak",
+      "province": null,
+      "count": 5,
+      "lat": -0.0263,
+      "lng": 109.3425
+    },
+    {
+      "key": "BANTUL",
+      "label": "Bantul",
+      "province": null,
+      "count": 5,
+      "lat": -7.901333454949657,
+      "lng": 110.35488149436632
     },
     {
       "key": "CIREBON",
@@ -1132,30 +341,12 @@
       "lng": 109.1402
     },
     {
-      "key": "coord:102.2608,-3.7928",
-      "label": "Bengkulu",
-      "province": null,
-      "count": 5,
-      "lat": -3.7928,
-      "lng": 102.2608,
-      "mergedCount": 3,
-      "mergedCities": [
-        {
-          "label": "Bengkulu",
-          "count": 3,
-          "province": null
-        },
-        {
-          "label": "Tangga Batu",
-          "count": 1,
-          "province": "BENGKULU"
-        },
-        {
-          "label": "Padang Kedundong",
-          "count": 1,
-          "province": "BENGKULU"
-        }
-      ]
+      "key": "PANDEGLANG",
+      "label": "Pandeglang",
+      "province": "DKI JAKARTA",
+      "count": 4,
+      "lat": -6.590233346882594,
+      "lng": 105.74297025290407
     },
     {
       "key": "MALANG",
@@ -1174,6 +365,14 @@
       "lng": 106.929
     },
     {
+      "key": "PAYAKUMBUH",
+      "label": "Payakumbuh",
+      "province": "DKI JAKARTA",
+      "count": 4,
+      "lat": -0.22698536472630126,
+      "lng": 100.63211796975128
+    },
+    {
       "key": "SURABAYA",
       "label": "Surabaya",
       "province": null,
@@ -1190,12 +389,52 @@
       "lng": 106.116
     },
     {
+      "key": "KUNINGAN",
+      "label": "Kuningan",
+      "province": "DKI JAKARTA",
+      "count": 4,
+      "lat": -7.00337928092881,
+      "lng": 108.55981098532055
+    },
+    {
       "key": "PALEMBANG",
       "label": "Palembang",
       "province": null,
       "count": 4,
       "lat": -2.9761,
       "lng": 104.7754
+    },
+    {
+      "key": "BANJARMASIN",
+      "label": "Banjarmasin",
+      "province": null,
+      "count": 4,
+      "lat": -3.3186,
+      "lng": 114.5944
+    },
+    {
+      "key": "SIAK",
+      "label": "Siak",
+      "province": "RIAU",
+      "count": 4,
+      "lat": 0.8170147895117068,
+      "lng": 101.87542601370852
+    },
+    {
+      "key": "PEMATANGSIANTAR",
+      "label": "Pematangsiantar",
+      "province": null,
+      "count": 4,
+      "lat": 2.9614175749560467,
+      "lng": 99.05903381327893
+    },
+    {
+      "key": "HULU SUNGAI UTARA",
+      "label": "Hulu Sungai Utara",
+      "province": null,
+      "count": 4,
+      "lat": -2.439262035309605,
+      "lng": 115.15127089150965
     },
     {
       "key": "PADANG",
@@ -1230,6 +469,62 @@
       "lng": 112.7183
     },
     {
+      "key": "BINJAI",
+      "label": "Binjai",
+      "province": null,
+      "count": 3,
+      "lat": 3.6002270139059416,
+      "lng": 98.48921935290738
+    },
+    {
+      "key": "BANJAR",
+      "label": "Banjar",
+      "province": null,
+      "count": 3,
+      "lat": -7.3769887499210665,
+      "lng": 108.5672046175411
+    },
+    {
+      "key": "PIDIE",
+      "label": "Pidie",
+      "province": null,
+      "count": 3,
+      "lat": 5.053555789000035,
+      "lng": 96.0334283739899
+    },
+    {
+      "key": "SINJAI",
+      "label": "Sinjai",
+      "province": null,
+      "count": 3,
+      "lat": -5.209283365946931,
+      "lng": 120.13541509179171
+    },
+    {
+      "key": "BENGKULU",
+      "label": "Bengkulu",
+      "province": null,
+      "count": 3,
+      "lat": -3.7928,
+      "lng": 102.2608
+    },
+    {
+      "key": "PURWAKARTA",
+      "label": "Purwakarta",
+      "province": "DKI JAKARTA",
+      "count": 3,
+      "lat": -6.595259676071498,
+      "lng": 107.430775994088
+    },
+    {
+      "key": "BANGKALAN",
+      "label": "Bangkalan",
+      "province": null,
+      "count": 3,
+      "lat": -7.044336159120006,
+      "lng": 112.92953638360994
+    },
+    {
       "key": "JEMBER",
       "label": "Jember",
       "province": null,
@@ -1246,72 +541,36 @@
       "lng": 110.8243
     },
     {
-      "key": "coord:123.0585,0.5435",
+      "key": "MERAUKE",
+      "label": "Merauke",
+      "province": null,
+      "count": 2,
+      "lat": -7.829209126022099,
+      "lng": 139.6924671786766
+    },
+    {
+      "key": "BANJARNEGARA",
+      "label": "Banjarnegara",
+      "province": null,
+      "count": 2,
+      "lat": -7.351327102062803,
+      "lng": 109.65705151499313
+    },
+    {
+      "key": "MAROS",
       "label": "Maros",
       "province": "GORONTALO",
-      "count": 3,
-      "lat": 0.5435,
-      "lng": 123.0585,
-      "mergedCount": 2,
-      "mergedCities": [
-        {
-          "label": "Maros",
-          "count": 2,
-          "province": "GORONTALO"
-        },
-        {
-          "label": "Marisa",
-          "count": 1,
-          "province": "GORONTALO"
-        }
-      ]
+      "count": 2,
+      "lat": -4.9996246996889075,
+      "lng": 119.72628670335565
     },
     {
-      "key": "coord:112.238,-7.536",
-      "label": "Situbondo",
-      "province": "JAWA TIMUR",
-      "count": 3,
-      "lat": -7.536,
-      "lng": 112.238,
-      "mergedCount": 2,
-      "mergedCities": [
-        {
-          "label": "Situbondo",
-          "count": 2,
-          "province": "JAWA TIMUR"
-        },
-        {
-          "label": "Probolinggo",
-          "count": 1,
-          "province": "JAWA TIMUR"
-        }
-      ]
-    },
-    {
-      "key": "coord:119.8707,-0.8999",
-      "label": "Palu",
-      "province": "SULAWESI TENGAH",
-      "count": 3,
-      "lat": -0.8999,
-      "lng": 119.8707,
-      "mergedCount": 3,
-      "mergedCities": [
-        {
-          "label": "Palu",
-          "count": 1,
-          "province": "SULAWESI TENGAH"
-        },
-        {
-          "label": "Wette",
-          "count": 1,
-          "province": "SULAWESI TENGAH"
-        },
-        {
-          "label": "Sibalaya",
-          "count": 1,
-          "province": "SULAWESI TENGAH"
-        }
-      ]
+      "key": "SUMENEP",
+      "label": "Sumenep",
+      "province": null,
+      "count": 2,
+      "lat": -6.966307060923299,
+      "lng": 114.40313360696307
     },
     {
       "key": "MALUKU UTARA",
@@ -1322,12 +581,36 @@
       "lng": 127.362
     },
     {
+      "key": "SUMEDANG",
+      "label": "Sumedang",
+      "province": null,
+      "count": 2,
+      "lat": -6.824748018353603,
+      "lng": 107.98127183168265
+    },
+    {
+      "key": "SITUBONDO",
+      "label": "Situbondo",
+      "province": "JAWA TIMUR",
+      "count": 2,
+      "lat": -7.801438530042718,
+      "lng": 114.05136405329577
+    },
+    {
       "key": "MADIUN",
       "label": "Madiun",
       "province": "DKI JAKARTA",
       "count": 2,
       "lat": -7.6298,
       "lng": 111.5239
+    },
+    {
+      "key": "SRAGEN",
+      "label": "Sragen",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -7.385336820860583,
+      "lng": 110.97414413327868
     },
     {
       "key": "MAKASSAR",
@@ -1362,6 +645,86 @@
       "lng": 128.1814
     },
     {
+      "key": "SAMPANG",
+      "label": "Sampang",
+      "province": null,
+      "count": 2,
+      "lat": -7.052024464132133,
+      "lng": 113.25634302531333
+    },
+    {
+      "key": "NGANJUK",
+      "label": "Nganjuk",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -7.597495579235766,
+      "lng": 111.9385462072378
+    },
+    {
+      "key": "PURBALINGGA",
+      "label": "Purbalingga",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -7.323229861975122,
+      "lng": 109.40720469770457
+    },
+    {
+      "key": "SAROLANGUN",
+      "label": "Sarolangun",
+      "province": null,
+      "count": 2,
+      "lat": -2.3062600654812617,
+      "lng": 102.67254936960893
+    },
+    {
+      "key": "GROBOGAN",
+      "label": "Grobogan",
+      "province": null,
+      "count": 2,
+      "lat": -7.117636869059132,
+      "lng": 110.92717766001368
+    },
+    {
+      "key": "PURWOREJO",
+      "label": "Purworejo",
+      "province": null,
+      "count": 2,
+      "lat": -7.700380551881616,
+      "lng": 109.96612571432587
+    },
+    {
+      "key": "SALATIGA",
+      "label": "Salatiga",
+      "province": null,
+      "count": 2,
+      "lat": -7.337677561574648,
+      "lng": 110.49837382368315
+    },
+    {
+      "key": "PACITAN",
+      "label": "Pacitan",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -8.124952119730581,
+      "lng": 111.1780856391636
+    },
+    {
+      "key": "WONOSOBO",
+      "label": "Wonosobo",
+      "province": null,
+      "count": 2,
+      "lat": -7.416302371545865,
+      "lng": 109.907354944526
+    },
+    {
+      "key": "PADANG PANJANG",
+      "label": "Padang Panjang",
+      "province": "KALIMANTAN SELATAN",
+      "count": 2,
+      "lat": -0.47245437216216074,
+      "lng": 100.40229566530131
+    },
+    {
       "key": "coord:124.8421,1.4748",
       "label": "Manado",
       "province": null,
@@ -1391,12 +754,60 @@
       "lng": 108.2207
     },
     {
+      "key": "JENEPONTO",
+      "label": "Jeneponto",
+      "province": null,
+      "count": 1,
+      "lat": -5.567027149888587,
+      "lng": 119.69887994925473
+    },
+    {
+      "key": "PROBOLINGGO",
+      "label": "Probolinggo",
+      "province": "JAWA TIMUR",
+      "count": 1,
+      "lat": -7.773810528662421,
+      "lng": 113.20546894160377
+    },
+    {
+      "key": "LAMPUNG TENGAH",
+      "label": "Lampung Tengah",
+      "province": null,
+      "count": 1,
+      "lat": -4.856302771215638,
+      "lng": 105.27207781855606
+    },
+    {
       "key": "LAMPUNG",
       "label": "Lampung",
       "province": null,
       "count": 1,
       "lat": -5.429,
       "lng": 105.262
+    },
+    {
+      "key": "BONTANG",
+      "label": "Bontang",
+      "province": null,
+      "count": 1,
+      "lat": 0.09326488031832886,
+      "lng": 117.45806814325567
+    },
+    {
+      "key": "LEMBATA",
+      "label": "Lembata",
+      "province": null,
+      "count": 1,
+      "lat": -8.381171613765762,
+      "lng": 123.54081786348164
+    },
+    {
+      "key": "PALU",
+      "label": "Palu",
+      "province": "SULAWESI TENGAH",
+      "count": 1,
+      "lat": -0.8999,
+      "lng": 119.8707
     },
     {
       "key": "BEKASI",
@@ -1407,12 +818,52 @@
       "lng": 106.9756
     },
     {
+      "key": "ACEH TENGAH",
+      "label": "Aceh Tengah",
+      "province": "Aceh",
+      "count": 1,
+      "lat": 4.519888081013543,
+      "lng": 96.88130519675553
+    },
+    {
+      "key": "JOMBANG",
+      "label": "Jombang",
+      "province": null,
+      "count": 1,
+      "lat": -7.544634889859412,
+      "lng": 112.26408497780137
+    },
+    {
       "key": "PALANGKARAYA",
       "label": "Palangkaraya",
       "province": "Kalimantan Tengah",
       "count": 1,
       "lat": -2.2109,
       "lng": 113.9213
+    },
+    {
+      "key": "TANJUNG PINANG",
+      "label": "Tanjung Pinang",
+      "province": null,
+      "count": 1,
+      "lat": 0.9195814670053981,
+      "lng": 104.48706427377346
+    },
+    {
+      "key": "KENDAL",
+      "label": "Kendal",
+      "province": null,
+      "count": 1,
+      "lat": -7.038694558164344,
+      "lng": 110.15733769391919
+    },
+    {
+      "key": "LHOKSEUMAWE",
+      "label": "Lhokseumawe",
+      "province": null,
+      "count": 1,
+      "lat": 5.165266839235381,
+      "lng": 97.11119932282992
     },
     {
       "key": "PURWOKERTO",
@@ -1423,6 +874,38 @@
       "lng": 109.2344
     },
     {
+      "key": "INDRAGIRI HULU",
+      "label": "Indragiri Hulu",
+      "province": null,
+      "count": 1,
+      "lat": -0.5414319300525708,
+      "lng": 102.33188543087458
+    },
+    {
+      "key": "PEMALANG",
+      "label": "Pemalang",
+      "province": "DKI JAKARTA",
+      "count": 1,
+      "lat": -7.036804246055557,
+      "lng": 109.39517261663187
+    },
+    {
+      "key": "BENGKALIS",
+      "label": "Bengkalis",
+      "province": "RIAU",
+      "count": 1,
+      "lat": 1.4119064602346694,
+      "lng": 101.6428613308168
+    },
+    {
+      "key": "SOLOK",
+      "label": "Solok",
+      "province": null,
+      "count": 1,
+      "lat": -0.7828670008969798,
+      "lng": 100.62986603657843
+    },
+    {
       "key": "TARAKAN",
       "label": "Tarakan",
       "province": null,
@@ -1431,12 +914,52 @@
       "lng": 117.5785
     },
     {
+      "key": "BOJONEGORO",
+      "label": "Bojonegoro",
+      "province": "DKI JAKARTA",
+      "count": 1,
+      "lat": -7.255575904171538,
+      "lng": 111.80986997600675
+    },
+    {
       "key": "JAYAPURA",
       "label": "Jayapura",
       "province": null,
       "count": 1,
       "lat": -2.533,
       "lng": 140.717
+    },
+    {
+      "key": "NUNUKAN",
+      "label": "Nunukan",
+      "province": null,
+      "count": 1,
+      "lat": 4.009177924112818,
+      "lng": 116.64285776284274
+    },
+    {
+      "key": "KENDARI",
+      "label": "Kendari",
+      "province": null,
+      "count": 1,
+      "lat": -3.9985,
+      "lng": 122.513
+    },
+    {
+      "key": "TABANAN",
+      "label": "Tabanan",
+      "province": null,
+      "count": 1,
+      "lat": -8.430231084613808,
+      "lng": 115.07827426552363
+    },
+    {
+      "key": "POSO",
+      "label": "Poso",
+      "province": null,
+      "count": 1,
+      "lat": -1.678376089576801,
+      "lng": 120.53372247240549
     },
     {
       "key": "CILEGON",
@@ -1455,12 +978,44 @@
       "lng": 116.1167
     },
     {
-      "key": "KUDUS",
-      "label": "Kudus",
-      "province": "JAWA TENGAH",
+      "key": "SINGKAWANG",
+      "label": "Singkawang",
+      "province": "Kalimantan Barat",
       "count": 1,
-      "lat": -7.151,
-      "lng": 110.14
+      "lat": 0.8866504290802595,
+      "lng": 109.03227743444673
+    },
+    {
+      "key": "ACEH",
+      "label": "Aceh",
+      "province": "Aceh",
+      "count": 1,
+      "lat": 4.6951,
+      "lng": 96.7494
+    },
+    {
+      "key": "KOTAMOBAGU",
+      "label": "Kotamobagu",
+      "province": null,
+      "count": 1,
+      "lat": 0.7110773575760976,
+      "lng": 124.31830775993886
+    },
+    {
+      "key": "SLEMAN",
+      "label": "Sleman",
+      "province": null,
+      "count": 1,
+      "lat": -7.716463527037873,
+      "lng": 110.38321299281007
+    },
+    {
+      "key": "BOYOLALI",
+      "label": "Boyolali",
+      "province": "DKI JAKARTA",
+      "count": 1,
+      "lat": -7.416522443495546,
+      "lng": 110.65249878352462
     }
   ]
 }

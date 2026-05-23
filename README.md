@@ -10,7 +10,7 @@ Dashboard statis berbahasa Indonesia untuk memantau ringkasan database DOMPENG t
 
 | Bagian | Isi |
 |--------|-----|
-| **Peta sebaran kota** | Bubble agregat jumlah orang per kota (`/`, link ke `/geo/`) |
+| **Peta sebaran kota** | Bubble agregat jumlah orang per kota (tab **Peta** di dashboard) |
 | **Ringkasan utama** | Kartu metrik cepat (person, dokumen, foto, template, dll.) |
 | **Kelengkapan profil** | Chart batang — berapa profil punya telepon, email, NIK, ID karyawan, foto |
 | **Status unduhan** | Donut antrian URL dokumen (pending, selesai, gagal) |
@@ -19,12 +19,10 @@ Dashboard statis berbahasa Indonesia untuk memantau ringkasan database DOMPENG t
 | **Dokumen terbaru** | Tabel impor terakhir dengan judul publik ter-redaksi |
 | **Catatan pembaruan** | Cuplikan `CHANGELOGS.md` versi terbaru |
 
-Halaman dedicated peta: [`geo/index.html`](geo/index.html) — peta penuh dengan statistik cluster.
-
 ## Privasi & data
 
 - File `data/stats.json` dan `data/geo-clusters.json` **hanya berisi agregat atau field yang sudah disensor** sebelum ditulis ke `web/`.
-- UI menampilkan badge **Data disamarkan**; judul dokumen dan sample profil memakai sensor samar (`faint_*`) — ujung kata/angka tetap terbaca, bukan blok penuh.
+- UI menampilkan badge **Data disamarkan**; sample profil memakai sensor ketat (`faint_*`): nama/NIK/NPWP/telepon/email hanya menyisakan bentuk samar minimal.
 - Koordinat kota di `data/id-city-coords.json` bersifat referensi geografis, bukan data orang.
 
 ## Struktur folder
@@ -32,7 +30,6 @@ Halaman dedicated peta: [`geo/index.html`](geo/index.html) — peta penuh dengan
 ```
 web/
 ├── index.html              # Dashboard utama (+ blok SEO di-patch oleh summary)
-├── geo/index.html          # Peta kota (di-generate)
 ├── css/style.css           # Tema gelap OSINT
 ├── js/app.js               # Chart.js + render panel
 ├── js/map.js               # MapLibre — cluster kota
@@ -40,7 +37,7 @@ web/
 │   ├── stats.json          # Sumber data dashboard (di-generate)
 │   ├── geo-clusters.json   # Cluster per kota (di-generate)
 │   └── id-city-coords.json # Lookup lat/lon kota/provinsi (manual)
-├── og-image.png            # OG/Twitter (disalin dari docs/ saat summary)
+├── home.png                # Preview share sosmed / OG / Twitter / JSON-LD
 ├── sitemap.xml, robots.txt # SEO (di-generate)
 ├── wrangler.toml           # Cloudflare Workers static assets
 ├── src/worker.js           # Cache + security headers
@@ -62,7 +59,7 @@ Menulis antara lain:
 
 - `web/data/stats.json` — semua panel + changelog
 - `web/data/geo-clusters.json` — agregat per kota untuk peta
-- `web/geo/index.html`, `sitemap.xml`, `robots.txt`
+- `web/sitemap.xml`, `robots.txt`
 - Patch meta SEO di `index.html` (title, description, JSON-LD, konten crawler)
 
 ### URL kanonik (SEO)
@@ -114,7 +111,7 @@ Atau manual: `./summary.sh` → `cd web` → `npm install` → `npm run deploy`.
 | File | Fungsi |
 |------|--------|
 | `wrangler.toml` | Nama worker + static assets |
-| `src/worker.js` | Cache headers, redirect `/geo` → `/geo/` |
+| `src/worker.js` | Cache + security headers |
 | `.assetsignore` | Exclude `node_modules`, `src/`, tooling dari upload |
 
 Custom domain: Cloudflare Dashboard → Workers → Settings → Domains & Routes.
@@ -123,7 +120,7 @@ Custom domain: Cloudflare Dashboard → Workers → Settings → Domains & Route
 
 1. Push isi `web/` ke repo GitHub (standalone atau submodule)
 2. **Settings → Pages** → branch `main`, folder `/ (root)`
-3. Commit hasil `./summary.sh` (`stats.json`, `geo/`, `sitemap.xml`, dll.)
+3. Commit hasil `./summary.sh` (`stats.json`, `sitemap.xml`, dll.)
 
 ## Submodule
 

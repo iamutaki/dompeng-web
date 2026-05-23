@@ -725,18 +725,18 @@ function renderPreviewBrief(entities) {
 
   for (const card of cards) {
     const article = document.createElement("article");
-    article.className = "preview-brief-card";
+    article.className = "brief-card";
 
     const label = document.createElement("div");
-    label.className = "preview-brief-label";
+    label.className = "brief-label";
     appendText(label, card.label);
 
     const value = document.createElement("div");
-    value.className = "preview-brief-value";
+    value.className = "brief-value";
     appendText(value, card.value);
 
     const hint = document.createElement("div");
-    hint.className = "preview-brief-hint";
+    hint.className = "brief-hint";
     appendText(hint, card.hint);
 
     article.append(label, value, hint);
@@ -991,23 +991,58 @@ function queueCenterLabelPlugin(queue, { compact = false } = {}) {
   };
 }
 
+/** Segmen donut antrian — selalu tampil meski nilainya 0 (Chart.js mengabaikan slice 0). */
+const QUEUE_CHART_SEGMENTS = [
+  { label: "Menunggu", key: "pending", color: COLORS.amber },
+  { label: "Berhasil", key: "done", color: COLORS.intel },
+  { label: "Gagal", key: "failed", color: COLORS.danger },
+  { label: "Diproses", key: "processing", color: COLORS.cyan, optional: true },
+];
+
+function queueChartSegments(queue) {
+  const core = QUEUE_CHART_SEGMENTS.filter((s) => !s.optional);
+  const extra = QUEUE_CHART_SEGMENTS.filter((s) => s.optional && (queue[s.key] || 0) > 0);
+  return [...core, ...extra];
+}
+
+/** Nilai tampilan minimum agar slice 0 tetap terlihat di donut. */
+function queueChartDisplayValues(rawValues) {
+  const sum = rawValues.reduce((acc, v) => acc + v, 0);
+  if (sum === 0) {
+    return rawValues.map(() => 1);
+  }
+  const floor = sum * 0.012;
+  return rawValues.map((v) => (v > 0 ? v : floor));
+}
+
 function buildQueueChart(queue, canvasId = "queue-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
-  const labels = ["Menunggu", "Berhasil", "Gagal"];
-  const values = [queue.pending, queue.done, queue.failed];
-  const colors = [COLORS.amber, COLORS.intel, COLORS.danger];
-  if (queue.processing > 0) {
-    labels.push("Processing");
-    values.push(queue.processing);
-    colors.push(COLORS.cyan);
-  }
+
+  const existing = Chart.getChart(ctx);
+  if (existing) existing.destroy();
+
+  const segments = queueChartSegments(queue);
+  const labels = segments.map((s) => s.label);
+  const colors = segments.map((s) => s.color);
+  const rawValues = segments.map((s) => queue[s.key] || 0);
+  const displayValues = queueChartDisplayValues(rawValues);
+  const total = rawValues.reduce((acc, v) => acc + v, 0);
 
   const isAnalytics = canvasId === "queue-chart";
   const isOverview = canvasId === "overview-queue-chart";
   const plugins = {
     legend: { display: false },
-    tooltip: chartDefaults.plugins.tooltip,
+    tooltip: {
+      ...chartDefaults.plugins.tooltip,
+      callbacks: {
+        label(ctx) {
+          const real = rawValues[ctx.dataIndex] ?? 0;
+          const pct = total ? Math.round((real / total) * 100) : 0;
+          return `${ctx.label}: ${fmt(real)} (${pct}%)`;
+        },
+      },
+    },
   };
 
   return new Chart(ctx, {
@@ -1016,7 +1051,7 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
       labels,
       datasets: [
         {
-          data: values,
+          data: displayValues,
           backgroundColor: colors,
           borderColor: "#0b1118",
           borderWidth: isAnalytics ? 4 : 3,
@@ -1501,22 +1536,53 @@ function renderOpsDashboard(data) {
   renderRecentDocsTable(data.recentDocs, "ops-recent-docs");
 }
 
+const FILE_TYPE_MERGE_GROUPS = {
+  excel: ["xls", "xlsx", "xlsm", "xlt", "xltx"],
+  word: ["doc", "docx", "docm", "dot", "dotx", "dotm"],
+  powerpoint: ["ppt", "pptx", "pptm", "pot", "potx", "pps", "ppsx"],
+  html: ["html", "htm"],
+  "opendocument-text": ["odt", "fodt", "sxw"],
+  "opendocument-spreadsheet": ["ods", "fods", "sxc"],
+  "opendocument-presentation": ["odp", "fodp", "sxi"],
+};
+
 const FILE_TYPE_LABELS = {
   pdf: "PDF",
-  xlsx: "Excel",
-  xls: "Excel",
+  excel: "Excel",
+  word: "Word",
+  powerpoint: "PowerPoint",
   csv: "CSV",
   html: "HTML",
-  htm: "HTML",
   txt: "Teks",
   json: "JSON",
   image: "Gambar",
   unknown: "Lainnya",
+  "opendocument-text": "OpenDocument (teks)",
+  "opendocument-spreadsheet": "OpenDocument (spreadsheet)",
+  "opendocument-presentation": "OpenDocument (presentasi)",
 };
+
+function mergeFileTypeRows(rows) {
+  const extToGroup = {};
+  for (const [group, exts] of Object.entries(FILE_TYPE_MERGE_GROUPS)) {
+    for (const ext of exts) extToGroup[ext] = group;
+  }
+  const counts = new Map();
+  for (const item of rows || []) {
+    const ext = (item.type || "unknown").toLowerCase();
+    const key = extToGroup[ext] || ext;
+    counts.set(key, (counts.get(key) || 0) + (item.count || 0));
+  }
+  return [...counts.entries()]
+    .map(([type, count]) => ({ type, count }))
+    .sort((a, b) => b.count - a.count);
+}
 
 function fileTypeLabel(type) {
   const key = (type || "unknown").toLowerCase();
-  return FILE_TYPE_LABELS[key] || key.toUpperCase();
+  if (FILE_TYPE_LABELS[key]) return FILE_TYPE_LABELS[key];
+  if (key === "unknown") return "Lainnya";
+  return `.${key}`;
 }
 
 function renderRankedCountTable(rows, tbody, { total, nameKey, formatName, nameClass = "" }) {
@@ -1591,7 +1657,7 @@ function renderSourceStats(sourceStats, documentsTotal) {
     cap.textContent = `${fmt(idDocs)} dokumen .go.id/.org.id · ${fmt(stats.documentsWithUrl || 0)} ber-URL${top}`;
   }
 
-  renderRankedCountTable(stats.fileTypes, typesBody, {
+  renderRankedCountTable(mergeFileTypeRows(stats.fileTypes), typesBody, {
     total: docTotal,
     nameKey: "type",
     formatName: fileTypeLabel,

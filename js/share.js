@@ -16,11 +16,21 @@ function getActiveDashboardTabMeta() {
 }
 
 const SHARE_BRAND_SLOGAN = "NEGARA OPEN SOURCE";
-const SHARE_PROGRAM_SUBTITLE = "PROGRAM PENAMBANG DATA";
+const SHARE_PROGRAM_SUBTITLE = "PENAMBANG DATA";
+/** Path relatif ke origin — sama dengan og:image / twitter:image di head HTML. */
+const SHARE_IMAGE_PATH = "/home.png";
+
+function getShareImageUrl() {
+  try {
+    return new URL(SHARE_IMAGE_PATH, window.location.origin).href;
+  } catch {
+    return SHARE_IMAGE_PATH;
+  }
+}
 
 function buildDashboardShareText(snapshot) {
   if (!snapshot) {
-    return `DOMPENG · ${SHARE_PROGRAM_SUBTITLE} · «${SHARE_BRAND_SLOGAN}» (satir) — ringkasan data orang, peta kota, dan indeks pencarian (data disamarkan).`;
+    return `DOMPENG · ${SHARE_PROGRAM_SUBTITLE} · ${SHARE_BRAND_SLOGAN} — ringkasan data orang, peta kota, dan indeks pencarian (data disamarkan).`;
   }
   const tab = getActiveDashboardTabMeta();
   const parts = [
@@ -51,9 +61,10 @@ function getSharePayload() {
   syncSharePayload();
   return (
     window.DOMPENG_SHARE || {
-      title: "DOMPENG — Program Penambang Data",
+      title: "DOMPENG — Penambang Data",
       text: buildDashboardShareText(null),
       url: getDashboardShareUrl(),
+      image: getShareImageUrl(),
     }
   );
 }
@@ -73,9 +84,10 @@ function setShareSnapshotFromData(data) {
     updated: data.updated || "",
   };
   window.DOMPENG_SHARE = {
-    title: "DOMPENG — Program Penambang Data",
+    title: "DOMPENG — Penambang Data",
     text: buildDashboardShareText(snap),
     url: getDashboardShareUrl(),
+    image: getShareImageUrl(),
     _snap: snap,
   };
   updateSocialShareLinks();

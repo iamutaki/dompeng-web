@@ -6,10 +6,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    if (url.pathname === "/geo") {
-      return Response.redirect(`${url.origin}/geo/`, 301);
-    }
-
     const response = await env.ASSETS.fetch(request);
     if (response.status === 404 || response.status >= 500) {
       return response;
