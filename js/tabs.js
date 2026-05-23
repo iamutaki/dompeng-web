@@ -184,7 +184,11 @@ function initDashboardTabs() {
 
   activateDashboardTab(tabIdFromHash() || "overview", { updateHash: Boolean(tabIdFromHash()) });
 
-  window.addEventListener("resize", () => updateTabBarIndicator({ animate: false }));
+  window.addEventListener("resize", () => {
+    updateTabBarIndicator({ animate: false });
+    const active = bar.querySelector('.tab-btn[aria-selected="true"]')?.dataset.tab;
+    if (active) onDashboardTabShown(active);
+  });
   bar.addEventListener("scroll", () => updateTabBarIndicator({ animate: false }), { passive: true });
 }
 
