@@ -520,17 +520,17 @@ td.timestamp {
 }
 
 .entity-card::after {
-  content: "REDACTED";
+  content: "PRATINJAU";
   position: absolute;
   top: 10px;
   right: 10px;
   font-family: var(--mono);
   font-size: 0.5625rem;
   letter-spacing: 0.1em;
-  color: var(--amber);
-  border: 1px solid rgba(230, 168, 23, 0.35);
+  color: var(--cyan);
+  border: 1px solid rgba(78, 201, 255, 0.35);
   padding: 2px 5px;
-  background: var(--amber-dim);
+  background: rgba(78, 201, 255, 0.08);
 }
 
 .entity-card-head {
@@ -557,9 +557,30 @@ td.timestamp {
 .entity-name {
   font-family: var(--mono);
   font-size: 1.0625rem;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  word-break: break-all;
+  letter-spacing: 0.06em;
+  word-break: break-word;
+}
+
+.faint-pii {
+  color: var(--text);
+  opacity: 0.52;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.entity-name .faint-pii {
+  font-size: 1.0625rem;
+  opacity: 0.58;
+}
+
+.entity-chip .faint-pii {
+  font-size: inherit;
+  opacity: 0.5;
+}
+
+.entity-id-value .faint-pii {
+  font-size: inherit;
+  opacity: 0.48;
 }
 
 .entity-meta {
@@ -608,6 +629,72 @@ td.timestamp {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.entity-docs {
+  display: grid;
+  gap: 8px;
+  padding: 10px 0 4px;
+  border-top: 1px dashed var(--border);
+}
+
+.entity-docs-label {
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+}
+
+.entity-doc-row {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+}
+
+.entity-doc-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+}
+
+.entity-doc-ref {
+  color: var(--intel);
+  letter-spacing: 0.06em;
+}
+
+.entity-doc-date {
+  color: var(--muted);
+}
+
+.entity-doc-title {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.entity-doc-title .faint-pii {
+  opacity: 0.55;
+}
+
+.entity-doc-context,
+.entity-doc-file {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+}
+
+.entity-doc-context .faint-pii,
+.entity-doc-file .faint-pii {
+  opacity: 0.45;
+}
+
+.entity-occupation {
+  margin-top: 6px;
+  font-size: 0.6875rem;
 }
 
 .entity-graph {
@@ -812,3 +899,136 @@ td.timestamp {
   .page { padding-inline: 12px; }
   .topbar { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── Geo map (MapLibre) ── */
+.geo-map {
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0a1018;
+}
+
+.geo-map--compact {
+  height: 360px;
+}
+
+.geo-map--empty {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.topnav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.topnav a {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid rgba(78, 201, 255, 0.25);
+  border-radius: 4px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.topnav a:hover {
+  color: var(--intel);
+  border-color: rgba(0, 212, 170, 0.45);
+}
+
+.geo-popup .maplibregl-popup-content {
+  background: #101822;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: var(--sans);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.geo-popup-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 2px;
+}
+
+.geo-popup-prov {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.geo-popup-count {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--intel);
+}
+
+/* ── SEO static content (crawler-friendly) ── */
+.seo-static {
+  margin-top: 24px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(8, 14, 22, 0.6);
+}
+
+.seo-static h2 {
+  font-size: 1.125rem;
+  margin: 0 0 8px;
+}
+
+.seo-static h3 {
+  font-size: 0.9375rem;
+  margin: 16px 0 8px;
+  color: var(--cyan);
+}
+
+.seo-static p {
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+
+.seo-static a {
+  color: var(--intel);
+}
+
+.seo-stats,
+.seo-city-list {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.seo-stats li,
+.seo-city-list li {
+  margin-bottom: 4px;
+}
+
+.seo-stats strong,
+.seo-city-list strong {
+  color: var(--intel);
+  font-family: var(--mono);
+}
+

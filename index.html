@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOMPENG — Intelligence Dashboard</title>
-  <meta name="description" content="OSINT Person Graph System — intelligence dashboard">
+  <!-- SEO:HEAD:START -->
+  <title>DOMPENG v2.5.1 — OSINT Person Graph &amp; Geospatial Intelligence</title>
+  <meta name="description" content="Dashboard OSINT DOMPENG: 6,131 entity nodes, 226 kota terpetakan, cross-reference index, dan pipeline ingestion dokumen sumber.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DOMPENG v2.5.1 — OSINT Person Graph &amp; Geospatial Intelligence">
+  <meta property="og:description" content="Dashboard OSINT DOMPENG: 6,131 entity nodes, 226 kota terpetakan, cross-reference index, dan pipeline ingestion dokumen sumber.">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DOMPENG v2.5.1 — OSINT Person Graph &amp; Geospatial Intelligence">
+  <meta name="twitter:description" content="Dashboard OSINT DOMPENG: 6,131 entity nodes, 226 kota terpetakan, cross-reference index, dan pipeline ingestion dokumen sumber.">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "OSINT Person Graph System — ekstraksi entity dari dokumen ke graph terstruktur dengan geospatial clustering.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Person graph extraction", "Cross-reference index", "City-level geospatial clustering", "PII-redacted public dashboard"], "additionalProperty": [{"@type": "PropertyValue", "name": "Entity Nodes", "value": 6131}, {"@type": "PropertyValue", "name": "Mapped Cities", "value": 226}]}</script>
+  <meta name="dompeng:version" content="v2.5.1">
+  <!-- SEO:HEAD:END -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+  <script src="js/map.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
@@ -18,87 +34,96 @@
     <header class="topbar">
       <div class="topbar-brand">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-text">DOMPENG · INTELLIGENCE CONSOLE</span>
+        <span class="brand-text">DOMPENG · Dashboard Publik</span>
       </div>
-      <div class="status-row" id="status-row">
-        <span class="status-pill status-pill--live">GRAPH ACTIVE</span>
-        <span class="status-pill status-pill--redact">PII REDACTED</span>
+      <div class="topbar-actions">
+        <div class="status-row" id="status-row">
+          <span class="status-pill status-pill--live">Data aktif</span>
+          <span class="status-pill status-pill--redact">Data disamarkan</span>
+        </div>
+        <nav class="topnav" aria-label="Navigasi utama">
+          <a href="geo/index.html">Peta Kota</a>
+        </nav>
       </div>
     </header>
 
     <header class="hero">
-      <p class="module-id">MODULE · PERSON GRAPH · v1</p>
+      <p class="module-id">Ringkasan database</p>
       <h1>DOMPENG</h1>
-      <p class="subtitle">OSINT entity extraction pipeline — dokumen sumber → person graph terstruktur → cross-reference index.</p>
-      <p class="meta" id="updated">Memuat intelligence feed…</p>
+      <p class="subtitle">Data orang diekstrak dari dokumen sumber, dihubungkan antar dokumen, dan divisualisasikan per kota.</p>
+      <p class="meta" id="updated">Memuat data…</p>
     </header>
 
-    <section class="intel-brief" id="intel-brief" aria-label="Intelligence brief"></section>
+    <section class="intel-brief" id="intel-brief" aria-label="Ringkasan utama"></section>
 
-    <section class="stats-grid" id="stats-grid" aria-label="Graph inventory"></section>
+    <section class="stats-grid" id="stats-grid" aria-label="Jumlah data"></section>
 
     <section class="panel-grid">
-      <article class="panel" data-module="ENT-01">
+      <article class="panel" data-module="coverage">
         <div class="panel-head">
-          <span class="panel-id">ENT-01</span>
-          <h2>Entity Resolution Matrix</h2>
-          <p id="coverage-caption">Distribusi identifier ter-resolve per entity node</p>
+          <h2>Kelengkapan Profil Orang</h2>
+          <p id="coverage-caption">Berapa banyak profil yang punya telepon, email, NIK, dan seterusnya</p>
         </div>
         <div class="chart-wrap chart-wrap--tall">
-          <canvas id="coverage-chart" aria-label="Entity resolution matrix"></canvas>
+          <canvas id="coverage-chart" aria-label="Kelengkapan profil orang"></canvas>
         </div>
         <div class="usage-bar" id="coverage-bar"></div>
       </article>
 
-      <article class="panel" data-module="ING-02">
+      <article class="panel" data-module="queue">
         <div class="panel-head">
-          <span class="panel-id">ING-02</span>
-          <h2>Ingestion Pipeline</h2>
-          <p id="queue-caption">Source URL queue · processing state</p>
+          <h2>Status Unduhan Dokumen</h2>
+          <p id="queue-caption">Antrian URL dokumen yang sedang atau sudah diproses</p>
         </div>
         <div class="queue-layout">
           <div class="chart-wrap chart-wrap--square">
-            <canvas id="queue-chart" aria-label="Ingestion pipeline state"></canvas>
+            <canvas id="queue-chart" aria-label="Status unduhan dokumen"></canvas>
           </div>
           <div class="queue-stats" id="queue-stats"></div>
         </div>
       </article>
     </section>
 
-    <section class="panel" data-module="XRF-03">
+    <section class="panel" data-module="index">
       <div class="panel-head">
-        <span class="panel-id">XRF-03</span>
-        <h2>Cross-Reference Index</h2>
-        <p>Lookup entries vs resolved references across identifier dimensions</p>
+        <h2>Indeks Pencarian</h2>
+        <p>Data yang bisa dicari ulang berdasarkan nama, telepon, NIK, dan field lainnya</p>
       </div>
       <div class="chart-wrap chart-wrap--wide">
-        <canvas id="index-chart" aria-label="Cross-reference index"></canvas>
+        <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
       </div>
       <div class="inline-stats" id="index-stats"></div>
     </section>
 
-    <section class="panel" data-module="GRH-05">
+    <section class="panel" data-module="showcase">
       <div class="panel-head">
-        <span class="panel-id">GRH-05</span>
-        <h2>Entity Graph Showcase</h2>
-        <p>Live person graph samples · all PII fully redacted for public demonstration</p>
+        <h2>Contoh Profil &amp; Dokumen</h2>
+        <p>Sample orang beserta dokumen sumbernya — identitas disamarkan sebagian (mode pratinjau)</p>
       </div>
       <div class="entity-showcase" id="entity-showcase"></div>
     </section>
 
-    <section class="panel" data-module="SIG-04">
+    <section class="panel" data-module="geo">
       <div class="panel-head">
-        <span class="panel-id">SIG-04</span>
-        <h2>Intelligence Feed</h2>
-        <p>Recent source ingestions · titles sanitized for public release</p>
+        <h2>Peta Sebaran per Kota</h2>
+        <p>Jumlah orang per kota dari alamat terstruktur · <a href="geo/index.html">buka peta penuh →</a></p>
+      </div>
+      <div id="geo-map" class="geo-map geo-map--compact" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
+      <div class="inline-stats" id="geo-map-stats"></div>
+    </section>
+
+    <section class="panel" data-module="recent">
+      <div class="panel-head">
+        <h2>Dokumen Terbaru</h2>
+        <p>Dokumen yang baru saja diproses — judul disamarkan untuk tampilan publik</p>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Timestamp</th>
-              <th class="num">Entities</th>
-              <th>Source Signal</th>
+              <th>Tanggal</th>
+              <th class="num">Orang</th>
+              <th>Judul Dokumen</th>
             </tr>
           </thead>
           <tbody id="recent-docs"></tbody>
@@ -106,18 +131,36 @@
       </div>
     </section>
 
-    <section class="panel" data-module="DEV-06">
+    <section class="panel" data-module="changelog">
       <div class="panel-head">
-        <span class="panel-id">DEV-06</span>
-        <h2>Development Log</h2>
-        <p id="changelog-caption">Release intelligence from CHANGELOGS.md · synced on summary run</p>
+        <h2>Catatan Pembaruan</h2>
+        <p id="changelog-caption">Riwayat versi aplikasi · diperbarui saat summary dijalankan</p>
       </div>
       <div class="changelog-summary" id="changelog-summary"></div>
       <div class="changelog-feed" id="changelog-feed"></div>
     </section>
 
+    <!-- SEO:CRAWLER:START -->
+    <section class="seo-static" id="seo-static" aria-label="Ringkasan publik DOMPENG">
+      <h2>DOMPENG — Sistem Data Orang dari Dokumen</h2>
+      <p>
+        Platform untuk mengekstrak profil orang dari dokumen sumber (misalnya LHKPN),
+        menghubungkan data antar dokumen, dan menampilkan sebaran per kota secara agregat.
+      </p>
+      <ul class="seo-stats">
+        <li><strong>6,131</strong> profil orang</li>
+        <li><strong>321</strong> dokumen sumber</li>
+        <li><strong>226</strong> kota di peta</li>
+        <li><strong>826</strong> orang dengan lokasi kota</li>
+      </ul>
+      <h3>Kota dengan orang terbanyak</h3>
+      <ol class="seo-city-list"><li><strong>Jakarta</strong> — 173 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Jambi</strong> — 18 orang</li><li><strong>Semarang</strong> — 13 orang</li><li><strong>Serang</strong> — 13 orang</li><li><strong>Metro</strong> — 11 orang</li></ol>
+      <p><a href="geo/index.html">Lihat peta sebaran per kota →</a></p>
+    </section>
+    <!-- SEO:CRAWLER:END -->
+
     <footer class="footer">
-      <p><span class="footer-tag">AUTO-SYNC</span> Generated by <code>summary.sh</code> · DOMPENG OSINT Graph</p>
+      <p><span class="footer-tag">OTOMATIS</span> Diperbarui oleh <code>summary.sh</code> · DOMPENG</p>
     </footer>
   </div>
 </body>

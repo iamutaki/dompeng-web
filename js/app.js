@@ -12,11 +12,18 @@ const COLORS = {
 const COVERAGE_COLORS = [COLORS.intel, COLORS.purple, COLORS.cyan, COLORS.amber, COLORS.pink];
 
 const VECTOR_LABELS = {
-  phone: "Kontak · tipe A",
-  email: "Kontak · tipe B",
-  nik: "ID · tipe D",
-  employee_id: "ID · tipe C",
-  photo: "Media · foto",
+  phone: "Nomor telepon",
+  email: "Alamat email",
+  nik: "NIK",
+  employee_id: "ID karyawan",
+  photo: "Foto",
+};
+
+const CHANGELOG_KIND_LABELS = {
+  Added: "Fitur baru",
+  Changed: "Perubahan",
+  Fixed: "Perbaikan",
+  Removed: "Dihapus",
 };
 
 const chartDefaults = {
@@ -107,30 +114,30 @@ function renderIntelBrief(intel) {
   const container = document.getElementById("intel-brief");
   clear(container);
 
-  const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || "Vector";
+  const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || "Data profil";
   const cards = [
     {
-      label: "Graph Scale",
+      label: "Total profil orang",
       value: fmt(intel.graphNodes),
-      hint: `${fmt(intel.graphEdges)} cross-refs · ${fmt(intel.sourceDocuments)} sources`,
+      hint: `${fmt(intel.graphEdges)} keterkaitan · ${fmt(intel.sourceDocuments)} dokumen`,
       tone: "intel",
     },
     {
-      label: "Resolution Vector",
+      label: "Data paling lengkap",
       value: `${intel.dominantVectorPct}%`,
-      hint: `${dominantLabel} · ${intel.activeVectors} active dimensions`,
+      hint: `${dominantLabel} · ${intel.activeVectors} jenis data terisi`,
       tone: "intel",
     },
     {
-      label: "X-Ref Density",
+      label: "Tingkat keterkaitan",
       value: `${intel.xrefRatio}×`,
-      hint: `Entity link rate ${intel.entityLinkRate} identifiers/node`,
+      hint: `Rata-rata ${intel.entityLinkRate} identitas per profil`,
       tone: "cyan",
     },
     {
-      label: "Pipeline Health",
+      label: "Status unduhan",
       value: `${intel.pipelineSuccessPct}%`,
-      hint: `Backlog ${intel.pipelineBacklogPct}% · Fail ${intel.pipelineFailurePct}%`,
+      hint: `Antrian ${intel.pipelineBacklogPct}% · Gagal ${intel.pipelineFailurePct}%`,
       tone: intel.pipelineFailurePct > 10 ? "danger" : "amber",
     },
   ];
@@ -159,12 +166,12 @@ function renderIntelBrief(intel) {
 
 function renderStats(summary) {
   const cards = [
-    { code: "N-01", value: summary.persons, label: "Entity Nodes", tone: "intel" },
-    { code: "N-02", value: summary.documents, label: "Source Documents", tone: "intel" },
-    { code: "N-03", value: summary.templates, label: "Extraction Schemas" },
-    { code: "N-04", value: summary.history, label: "Hash Registry", tone: "cyan" },
-    { code: "N-05", value: summary.doneFiles, label: "Archived Sources" },
-    { code: "N-06", value: summary.photos, label: "Biometric Assets", tone: "amber" },
+    { code: "N-01", value: summary.persons, label: "Profil orang", tone: "intel" },
+    { code: "N-02", value: summary.documents, label: "Dokumen sumber", tone: "intel" },
+    { code: "N-03", value: summary.templates, label: "Template ekstraksi" },
+    { code: "N-04", value: summary.history, label: "Riwayat file", tone: "cyan" },
+    { code: "N-05", value: summary.doneFiles, label: "File selesai diproses" },
+    { code: "N-06", value: summary.photos, label: "Foto profil", tone: "amber" },
   ];
 
   const grid = document.getElementById("stats-grid");
@@ -197,9 +204,9 @@ function renderUsageBar(coverage, total) {
   const labels = document.createElement("div");
   labels.className = "usage-bar-labels";
   const left = document.createElement("span");
-  appendText(left, "Resolution vector distribution");
+  appendText(left, "Proporsi kelengkapan profil");
   const right = document.createElement("span");
-  appendText(right, top.label ? `${top.label} · ${top.pct}% coverage` : "");
+  appendText(right, top.label ? `${top.label} · ${top.pct}% profil` : "");
   labels.append(left, right);
 
   const track = document.createElement("div");
@@ -219,12 +226,12 @@ function renderUsageBar(coverage, total) {
 function renderQueueStats(queue) {
   const total = queue.total || 1;
   const items = [
-    { label: "Queued", value: queue.pending, color: COLORS.amber },
-    { label: "Ingested", value: queue.done, color: COLORS.intel },
-    { label: "Failed", value: queue.failed, color: COLORS.danger },
+    { label: "Menunggu", value: queue.pending, color: COLORS.amber },
+    { label: "Berhasil", value: queue.done, color: COLORS.intel },
+    { label: "Gagal", value: queue.failed, color: COLORS.danger },
   ];
   if (queue.processing > 0) {
-    items.push({ label: "Processing", value: queue.processing, color: COLORS.cyan });
+    items.push({ label: "Sedang diproses", value: queue.processing, color: COLORS.cyan });
   }
 
   const container = document.getElementById("queue-stats");
@@ -256,8 +263,8 @@ function renderIndexStats(indexTotal) {
   clear(container);
 
   for (const [amount, caption] of [
-    [indexTotal.entries, "LOOKUP ENTRIES"],
-    [indexTotal.refs, "RESOLVED REFS"],
+    [indexTotal.entries, "ENTRI INDEKS"],
+    [indexTotal.refs, "REFERENSI TERHUBUNG"],
   ]) {
     const stat = document.createElement("div");
     stat.className = "inline-stat";
@@ -275,16 +282,23 @@ function renderIndexStats(indexTotal) {
 
 function relationLabel(key) {
   const labels = {
-    family: "Family",
-    phone: "Kontak A",
-    email: "Kontak B",
-    document: "Source",
-    mentions: "Mention",
-    colleague: "Network",
-    nik: "ID · D",
-    npwp: "ID · E",
+    family: "Keluarga",
+    phone: "Telepon",
+    email: "Email",
+    document: "Dokumen",
+    mentions: "Disebut di dokumen",
+    colleague: "Rekan kerja",
+    nik: "NIK",
+    npwp: "NPWP",
   };
-  return labels[key] || "Link";
+  return labels[key] || "Relasi lain";
+}
+
+function appendFaint(el, text) {
+  const span = document.createElement("span");
+  span.className = "faint-pii";
+  appendText(span, text ?? "—");
+  el.appendChild(span);
 }
 
 function renderShowcaseEntities(entities) {
@@ -303,12 +317,13 @@ function renderShowcaseEntities(entities) {
     appendText(ref, entity.ref);
     const score = document.createElement("span");
     score.className = "entity-score";
-    appendText(score, `RES ${entity.resolutionScore} · ${entity.edgeCount} edges`);
+    const docHint = entity.documentCount ? ` · ${entity.documentCount} dokumen` : "";
+    appendText(score, `${entity.identifierCount} identitas · ${entity.edgeCount} relasi${docHint}`);
     head.append(ref, score);
 
     const name = document.createElement("div");
     name.className = "entity-name";
-    appendText(name, redactDisplay(entity.name || BLOCK.repeat(14)));
+    appendFaint(name, entity.name || "—");
 
     const meta = document.createElement("div");
     meta.className = "entity-meta";
@@ -322,13 +337,17 @@ function renderShowcaseEntities(entities) {
     for (const item of metaItems) {
       const chip = document.createElement("span");
       chip.className = "entity-chip";
-      appendText(chip, String(item));
+      if (item === entity.dob || item === entity.pob) {
+        appendFaint(chip, String(item));
+      } else {
+        appendText(chip, String(item));
+      }
       meta.appendChild(chip);
     }
     if (entity.hasPhoto) {
       const chip = document.createElement("span");
       chip.className = "entity-chip entity-chip--intel";
-      appendText(chip, "BIOMETRIC");
+      appendText(chip, "Ada foto");
       meta.appendChild(chip);
     }
 
@@ -342,7 +361,7 @@ function renderShowcaseEntities(entities) {
       appendText(type, ident.type);
       const value = document.createElement("span");
       value.className = "entity-id-value";
-      appendText(value, redactDisplay(ident.value));
+      appendFaint(value, ident.value);
       row.append(type, value);
       idList.appendChild(row);
     }
@@ -353,8 +372,8 @@ function renderShowcaseEntities(entities) {
     const strong = document.createElement("strong");
     appendText(strong, `${entity.edgeCount}`);
     graphLine.appendChild(strong);
-    graphLine.appendChild(document.createTextNode(" graph links · "));
-    appendText(graphLine, `${entity.identifierCount} resolved identifiers`);
+    graphLine.appendChild(document.createTextNode(" relasi · "));
+    appendText(graphLine, `${entity.identifierCount} identitas terisi`);
     graph.appendChild(graphLine);
 
     const relations = document.createElement("div");
@@ -369,13 +388,63 @@ function renderShowcaseEntities(entities) {
 
     if (entity.occupation) {
       const occ = document.createElement("div");
-      occ.className = "entity-id-value";
-      occ.style.marginTop = "4px";
-      appendText(occ, redactDisplay(entity.occupation));
+      occ.className = "entity-occupation";
+      appendFaint(occ, entity.occupation);
       graph.appendChild(occ);
     }
 
-    card.append(head, name, meta, idList, graph);
+    if (entity.documents?.length) {
+      const docBlock = document.createElement("div");
+      docBlock.className = "entity-docs";
+      const docLabel = document.createElement("div");
+      docLabel.className = "entity-docs-label";
+      appendText(docLabel, "Dokumen sumber");
+      docBlock.appendChild(docLabel);
+
+      for (const doc of entity.documents) {
+        const row = document.createElement("div");
+        row.className = "entity-doc-row";
+
+        const docHead = document.createElement("div");
+        docHead.className = "entity-doc-head";
+        const docRef = document.createElement("span");
+        docRef.className = "entity-doc-ref";
+        appendText(docRef, doc.ref);
+        if (doc.importedAt) {
+          const docDate = document.createElement("span");
+          docDate.className = "entity-doc-date";
+          appendText(docDate, doc.importedAt);
+          docHead.append(docRef, docDate);
+        } else {
+          docHead.appendChild(docRef);
+        }
+
+        const docTitle = document.createElement("div");
+        docTitle.className = "entity-doc-title";
+        appendFaint(docTitle, doc.title);
+
+        row.append(docHead, docTitle);
+
+        if (doc.context) {
+          const ctx = document.createElement("div");
+          ctx.className = "entity-doc-context";
+          appendFaint(ctx, doc.context);
+          row.appendChild(ctx);
+        }
+        if (doc.filename) {
+          const file = document.createElement("div");
+          file.className = "entity-doc-file";
+          appendFaint(file, doc.filename);
+          row.appendChild(file);
+        }
+
+        docBlock.appendChild(row);
+      }
+      card.append(head, name, meta, idList, docBlock, graph);
+    } else {
+      card.append(head, name, meta, idList, graph);
+    }
+
     container.appendChild(card);
   }
 }
@@ -440,7 +509,7 @@ function buildCoverageChart(coverage) {
 
 function buildQueueChart(queue) {
   const ctx = document.getElementById("queue-chart");
-  const labels = ["Queued", "Ingested", "Failed"];
+  const labels = ["Menunggu", "Berhasil", "Gagal"];
   const values = [queue.pending, queue.done, queue.failed];
   const colors = [COLORS.amber, COLORS.intel, COLORS.danger];
   if (queue.processing > 0) {
@@ -483,13 +552,13 @@ function buildIndexChart(indexRows) {
       labels: indexRows.map((r) => r.type),
       datasets: [
         {
-          label: "Entries",
+          label: "Entri",
           data: indexRows.map((r) => r.entries),
           backgroundColor: COLORS.intel,
           borderRadius: 2,
         },
         {
-          label: "Refs",
+          label: "Referensi",
           data: indexRows.map((r) => r.refs),
           backgroundColor: COLORS.cyan,
           borderRadius: 2,
@@ -507,6 +576,10 @@ function buildIndexChart(indexRows) {
       },
     },
   });
+}
+
+function changelogKindLabel(kind) {
+  return CHANGELOG_KIND_LABELS[kind] || kind;
 }
 
 function changelogKindClass(kind) {
@@ -542,24 +615,24 @@ function renderChangelogSummary(changelog) {
 
   const cards = [
     {
-      label: "Latest Release",
+      label: "Versi terbaru",
       value: changelog.latestVersion || "—",
-      hint: changelog.latestDate || "No date",
+      hint: changelog.latestDate || "Tanpa tanggal",
     },
     {
-      label: "Total Releases",
+      label: "Total rilis",
       value: fmt(changelog.totalReleases || 0),
-      hint: `${(changelog.releases || []).length} shown in feed`,
+      hint: `${(changelog.releases || []).length} ditampilkan di bawah`,
     },
     {
-      label: "Features Added",
+      label: "Fitur baru",
       value: fmt(added),
-      hint: "Across full changelog",
+      hint: "Sepanjang riwayat changelog",
     },
     {
-      label: "Fixes Shipped",
+      label: "Perbaikan",
       value: fmt(fixed),
-      hint: `${fmt(changed)} changes logged`,
+      hint: `${fmt(changed)} perubahan tercatat`,
     },
   ];
 
@@ -607,7 +680,7 @@ function renderChangelogFeed(changelog) {
 
     const count = document.createElement("span");
     count.className = "changelog-count";
-    appendText(count, `${itemCount} entries`);
+    appendText(count, `${itemCount} catatan`);
 
     summary.append(left, count);
     details.appendChild(summary);
@@ -618,7 +691,7 @@ function renderChangelogFeed(changelog) {
     for (const section of release.sections) {
       const title = document.createElement("div");
       title.className = `changelog-section-title ${changelogKindClass(section.kind)}`;
-      appendText(title, section.kind);
+      appendText(title, changelogKindLabel(section.kind));
 
       const list = document.createElement("ul");
       list.className = "changelog-items";
@@ -644,12 +717,12 @@ function renderChangelog(changelog) {
   const caption = document.getElementById("changelog-caption");
   if (caption && changelog.latestVersion) {
     caption.textContent =
-      `Release intelligence · latest ${changelog.latestVersion} (${changelog.latestDate}) · ${changelog.totalReleases} total releases`;
+      `Versi terbaru ${changelog.latestVersion} (${changelog.latestDate}) · ${changelog.totalReleases} rilis total`;
   }
 
   const moduleId = document.querySelector(".module-id");
   if (moduleId && changelog.latestVersion) {
-    moduleId.textContent = `MODULE · PERSON GRAPH · ${changelog.latestVersion}`;
+    moduleId.textContent = `Versi ${changelog.latestVersion}`;
   }
 
   const statusRow = document.getElementById("status-row");
@@ -675,16 +748,16 @@ async function init() {
     if (!res.ok) throw new Error(`Gagal memuat data (${res.status})`);
     const data = await res.json();
 
-    document.getElementById("updated").textContent = `SYNC · ${data.updated} · feed redacted`;
+    document.getElementById("updated").textContent = `Diperbarui · ${data.updated} · data disamarkan`;
 
     if (data.intel) {
       renderIntelBrief(data.intel);
     }
 
     document.getElementById("coverage-caption").textContent =
-      `Resolution coverage across ${fmt(data.coverageTotal)} entity nodes`;
+      `Kelengkapan data dari ${fmt(data.coverageTotal)} profil orang`;
     document.getElementById("queue-caption").textContent =
-      `Source URL queue · ${fmt(data.queue.total)} targets tracked`;
+      `Antrian unduhan · ${fmt(data.queue.total)} URL dipantau`;
 
     renderStats(data.summary);
     if (data.showcaseEntities?.length) {
@@ -698,11 +771,15 @@ async function init() {
       renderChangelog(data.changelog);
     }
 
+    if (data.geo?.clusters?.length && typeof initDompengGeoMap === "function") {
+      initDompengGeoMap(data.geo, { fitBounds: true });
+    }
+
     buildCoverageChart(data.coverage);
     buildQueueChart(data.queue);
     buildIndexChart(data.indexRows);
   } catch (err) {
-    document.getElementById("updated").textContent = "FEED OFFLINE";
+    document.getElementById("updated").textContent = "Data belum tersedia";
     showError(`${err.message}. Jalankan ./summary.sh dari repo utama untuk menghasilkan web/data/stats.json.`);
   }
 }
