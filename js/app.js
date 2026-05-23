@@ -142,6 +142,30 @@ function renderIntelBrief(intel) {
   }
 }
 
+function createVolumeStatCard(card) {
+  const article = document.createElement("article");
+  article.className = "stat-card";
+  article.dataset.code = card.code;
+  if (card.tone) article.dataset.tone = card.tone;
+
+  const value = document.createElement("div");
+  value.className = "stat-value";
+  appendText(value, fmt(card.value));
+
+  const label = document.createElement("div");
+  label.className = "stat-label";
+  appendText(label, card.label);
+
+  article.append(value, label);
+  if (card.hint) {
+    const hint = document.createElement("div");
+    hint.className = "stat-hint";
+    appendText(hint, card.hint);
+    article.append(hint);
+  }
+  return article;
+}
+
 function renderStats(summary, { excludeCodes = [] } = {}) {
   const cards = [
     { code: "N-01", value: summary.persons, label: "Profil orang", tone: "intel" },
@@ -153,24 +177,151 @@ function renderStats(summary, { excludeCodes = [] } = {}) {
   ].filter((card) => !excludeCodes.includes(card.code));
 
   const grid = document.getElementById("stats-grid");
+  if (!grid || grid.classList.contains("volume-panel")) return;
   clear(grid);
 
   for (const card of cards) {
-    const article = document.createElement("article");
-    article.className = "stat-card";
-    article.dataset.code = card.code;
-    if (card.tone) article.dataset.tone = card.tone;
+    grid.appendChild(createVolumeStatCard(card));
+  }
+}
 
-    const value = document.createElement("div");
-    value.className = "stat-value";
-    appendText(value, fmt(card.value));
+function renderOverviewVolume(data) {
+  const container = document.getElementById("stats-grid");
+  if (!container) return;
 
-    const label = document.createElement("div");
-    label.className = "stat-label";
-    appendText(label, card.label);
+  const { summary = {}, intel = {}, indexTotal = {}, indexRows = [], geo = {}, queue = {}, coverage = [] } =
+    data;
+  const queueTotal = queue.total || 1;
+  const entityTotal = geo.totalEntities || summary.persons || 1;
+  const photoPct = coverage.find((c) => c.id === "photo")?.pct ?? 0;
+  const topCoverage = [...coverage].sort((a, b) => (b.pct || 0) - (a.pct || 0))[0];
 
-    article.append(value, label);
-    grid.appendChild(article);
+  const groups = [
+    {
+      title: "Inventaris",
+      items: [
+        {
+          code: "N-02",
+          label: "Dokumen internet",
+          value: summary.documents,
+          tone: "intel",
+          hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber`,
+        },
+        {
+          code: "N-03",
+          label: "Template",
+          value: summary.templates,
+          hint: "pola ekstraksi",
+        },
+        {
+          code: "N-05",
+          label: "File selesai",
+          value: summary.doneFiles,
+          tone: "cyan",
+          hint: `riwayat ${fmt(summary.history)}`,
+        },
+        {
+          code: "N-06",
+          label: "Foto profil",
+          value: summary.photos,
+          tone: "amber",
+          hint: `${photoPct}% profil`,
+        },
+      ],
+    },
+    {
+      title: "Indeks & graf",
+      items: [
+        {
+          code: "I-01",
+          label: "Entri indeks",
+          value: indexTotal.entries,
+          tone: "intel",
+          hint: `${fmt(indexRows.length)} tipe field`,
+        },
+        {
+          code: "I-02",
+          label: "Referensi",
+          value: indexTotal.refs,
+          tone: "cyan",
+          hint: "silang antar profil",
+        },
+        {
+          code: "G-01",
+          label: "Edge graf",
+          value: intel.graphEdges,
+          hint: `${intel.entityLinkRate ?? "—"} id/profil`,
+        },
+        {
+          code: "G-02",
+          label: "Vektor aktif",
+          value: intel.activeVectors,
+          hint: topCoverage ? `terkuat ${topCoverage.label}` : "kelengkapan",
+        },
+      ],
+    },
+    {
+      title: "Geo & antrian",
+      items: [
+        {
+          code: "GEO-1",
+          label: "Orang di peta",
+          value: geo.geocodedEntities,
+          tone: "cyan",
+          hint: `${fmt(geo.mappedCities)} kota terpetakan`,
+        },
+        {
+          code: "GEO-2",
+          label: "Punya data kota",
+          value: geo.entitiesWithCity,
+          hint: `${pct(geo.entitiesWithCity, entityTotal)}% profil`,
+        },
+        {
+          code: "GEO-3",
+          label: "Kota unik",
+          value: geo.uniqueCities,
+          hint: `${fmt(geo.mappedCities)} punya koordinat`,
+        },
+        {
+          code: "Q-01",
+          label: "Antrian URL",
+          value: queue.total,
+          tone: "amber",
+          hint: `${fmt(queue.pending)} menunggu · ${fmt(queue.failed)} gagal`,
+        },
+      ],
+    },
+  ];
+
+  clear(container);
+  container.className = "volume-panel";
+
+  for (const group of groups) {
+    const section = document.createElement("section");
+    section.className = "volume-group";
+
+    const title = document.createElement("h4");
+    title.className = "volume-group__title";
+    appendText(title, group.title);
+    section.appendChild(title);
+
+    const grid = document.createElement("div");
+    grid.className = "volume-group__grid";
+    for (const item of group.items) {
+      grid.appendChild(createVolumeStatCard(item));
+    }
+    section.appendChild(grid);
+    container.appendChild(section);
+  }
+
+  const capVol = document.getElementById("overview-volume-caption");
+  if (capVol) {
+    capVol.textContent = [
+      `${fmt(summary.documents)} dok`,
+      `${fmt(indexTotal.entries)} entri`,
+      `${fmt(geo.geocodedEntities)} di peta`,
+      `${pct(queue.done, queueTotal)}% unduhan`,
+    ].join(" · ");
   }
 }
 
@@ -1354,6 +1505,110 @@ function renderOpsDashboard(data) {
   renderRecentDocsTable(data.recentDocs, "ops-recent-docs");
 }
 
+const FILE_TYPE_LABELS = {
+  pdf: "PDF",
+  xlsx: "Excel",
+  xls: "Excel",
+  csv: "CSV",
+  html: "HTML",
+  htm: "HTML",
+  txt: "Teks",
+  json: "JSON",
+  image: "Gambar",
+  unknown: "Lainnya",
+};
+
+function fileTypeLabel(type) {
+  const key = (type || "unknown").toLowerCase();
+  return FILE_TYPE_LABELS[key] || key.toUpperCase();
+}
+
+function renderRankedCountTable(rows, tbody, { total, nameKey, formatName, nameClass = "" }) {
+  if (!tbody) return;
+  clear(tbody);
+
+  const list = rows || [];
+  const denom = total || list[0]?.count || 1;
+  const max = list[0]?.count || 1;
+
+  if (!list.length) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 3;
+    cell.className = "analytics-empty";
+    appendText(cell, "Belum ada data");
+    row.appendChild(cell);
+    tbody.appendChild(row);
+    return;
+  }
+
+  for (const item of list) {
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    if (nameClass) nameCell.className = nameClass;
+    appendText(nameCell, formatName ? formatName(item[nameKey]) : item[nameKey]);
+
+    const countCell = document.createElement("td");
+    countCell.className = "num";
+    appendText(countCell, fmt(item.count));
+
+    const pctCell = document.createElement("td");
+    pctCell.className = "num";
+    const wrap = document.createElement("div");
+    wrap.className = "analytics-bar-cell";
+    const track = document.createElement("span");
+    track.className = "analytics-bar-track";
+    const fill = document.createElement("span");
+    fill.className = "analytics-bar-fill";
+    fill.style.width = `${Math.round((item.count / max) * 100)}%`;
+    track.appendChild(fill);
+    const pctLabel = document.createElement("span");
+    pctLabel.className = "analytics-bar-pct";
+    appendText(pctLabel, `${pct(item.count, denom)}%`);
+    wrap.append(track, pctLabel);
+    pctCell.appendChild(wrap);
+
+    row.append(nameCell, countCell, pctCell);
+    tbody.appendChild(row);
+  }
+}
+
+function formatDomainSuffix(suffix) {
+  const key = (suffix || "").replace(/^\./, "");
+  return key ? `.${key}` : "—";
+}
+
+function renderSourceStats(sourceStats, documentsTotal) {
+  const typesBody = document.getElementById("analytics-file-types-body");
+  const suffixBody = document.getElementById("analytics-domain-suffixes-body");
+  const cap = document.getElementById("analytics-sources-caption");
+  if (!typesBody && !suffixBody) return;
+
+  const stats = sourceStats || {};
+  const docTotal = stats.documentsTotal || documentsTotal || 1;
+  const idDocs = stats.documentsIdDomain || 0;
+  const suffixRows = stats.domainSuffixes || stats.domains || [];
+
+  if (cap) {
+    const top = stats.topSuffix ? ` · terbanyak .${stats.topSuffix}` : "";
+    cap.textContent = `${fmt(idDocs)} dokumen .go.id/.org.id · ${fmt(stats.documentsWithUrl || 0)} ber-URL${top}`;
+  }
+
+  renderRankedCountTable(stats.fileTypes, typesBody, {
+    total: docTotal,
+    nameKey: "type",
+    formatName: fileTypeLabel,
+  });
+
+  renderRankedCountTable(suffixRows, suffixBody, {
+    total: idDocs || docTotal,
+    nameKey: "suffix",
+    formatName: formatDomainSuffix,
+    nameClass: "suffix-cell",
+  });
+}
+
 function renderCoverageTable(coverage, total) {
   const tbody = document.getElementById("analytics-coverage-body");
   if (!tbody) return;
@@ -1482,6 +1737,7 @@ function renderAnalyticsDashboard(data) {
   buildIndexChart(data.indexRows);
   renderIndexStats(data.indexTotal);
   renderCoverageTable(data.coverage, data.coverageTotal || 1);
+  renderSourceStats(data.sourceStats, data.summary?.documents);
   renderIndexFieldTable(data.indexRows);
   renderIntelMetrics(data.intel, data.queue);
 }
@@ -1529,8 +1785,7 @@ async function init() {
       renderIntelBrief(data.intel);
     }
 
-    // N-01 sudah di intel-brief ("Total profil orang") — hindari duplikasi di Ringkasan
-    renderStats(data.summary, { excludeCodes: ["N-01"] });
+    renderOverviewVolume(data);
     renderOverviewDashboard(data);
     renderAnalyticsDashboard(data);
     if (data.showcaseEntities?.length) {
@@ -1548,6 +1803,10 @@ async function init() {
     if (typeof onDashboardTabShown === "function") {
       const active = document.querySelector(".tab-panel.is-active");
       if (active?.dataset.tab) onDashboardTabShown(active.dataset.tab);
+    }
+
+    if (typeof window.setShareSnapshotFromData === "function") {
+      window.setShareSnapshotFromData(data);
     }
 
     if (typeof markDashboardReady === "function") {

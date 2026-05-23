@@ -1,26 +1,31 @@
 {
-  "totalEntities": 6262,
-  "entitiesWithCity": 1117,
-  "geocodedEntities": 878,
-  "uniqueCities": 370,
+  "totalEntities": 6286,
+  "entitiesWithCity": 1140,
+  "geocodedEntities": 894,
+  "uniqueCities": 372,
   "mappedCities": 57,
   "clusters": [
     {
       "key": "coord:106.8456,-6.2088",
       "label": "Jakarta",
       "province": "DKI JAKARTA",
-      "count": 261,
+      "count": 266,
       "lat": -6.2088,
       "lng": 106.8456,
       "mergedCount": 30,
       "mergedCities": [
         {
           "label": "Jakarta",
-          "count": 174,
+          "count": 176,
           "province": "DKI JAKARTA"
         },
         {
           "label": "Brebes",
+          "count": 6,
+          "province": "DKI JAKARTA"
+        },
+        {
+          "label": "Ciamis",
           "count": 6,
           "province": "DKI JAKARTA"
         },
@@ -46,11 +51,6 @@
         },
         {
           "label": "Wonogiri",
-          "count": 5,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Ciamis",
           "count": 5,
           "province": "DKI JAKARTA"
         },
@@ -90,6 +90,11 @@
           "province": "DKI JAKARTA"
         },
         {
+          "label": "Jogjakarta",
+          "count": 2,
+          "province": "DKI JAKARTA"
+        },
+        {
           "label": "Sragen",
           "count": 2,
           "province": "DKI JAKARTA"
@@ -125,6 +130,11 @@
           "province": "DKI JAKARTA"
         },
         {
+          "label": "Pacitan",
+          "count": 2,
+          "province": "DKI JAKARTA"
+        },
+        {
           "label": "Gunung Kidul",
           "count": 2,
           "province": "DKI JAKARTA"
@@ -132,11 +142,6 @@
         {
           "label": "Kutoarjo",
           "count": 2,
-          "province": "DKI JAKARTA"
-        },
-        {
-          "label": "Jogjakarta",
-          "count": 1,
           "province": "DKI JAKARTA"
         },
         {
@@ -155,11 +160,6 @@
           "province": "DKI JAKARTA"
         },
         {
-          "label": "Pacitan",
-          "count": 1,
-          "province": "DKI JAKARTA"
-        },
-        {
           "label": "Boyolali",
           "count": 1,
           "province": "DKI JAKARTA"
@@ -170,10 +170,10 @@
       "key": "coord:114.5944,-3.3186",
       "label": "Abirau",
       "province": "KALIMANTAN SELATAN",
-      "count": 170,
+      "count": 168,
       "lat": -3.3186,
       "lng": 114.5944,
-      "mergedCount": 108,
+      "mergedCount": 107,
       "mergedCities": [
         {
           "label": "Abirau",
@@ -302,11 +302,6 @@
         },
         {
           "label": "Tiwingan",
-          "count": 2,
-          "province": "KALIMANTAN SELATAN"
-        },
-        {
-          "label": "Banjar",
           "count": 2,
           "province": "KALIMANTAN SELATAN"
         },
@@ -729,14 +724,14 @@
       "key": "coord:103.6131,-1.6101",
       "label": "Jambi",
       "province": "JAMBI",
-      "count": 41,
+      "count": 44,
       "lat": -1.6101,
       "lng": 103.6131,
       "mergedCount": 5,
       "mergedCities": [
         {
           "label": "Jambi",
-          "count": 31,
+          "count": 34,
           "province": "JAMBI"
         },
         {
@@ -773,30 +768,22 @@
       "key": "BANDUNG",
       "label": "Bandung",
       "province": null,
-      "count": 21,
+      "count": 22,
       "lat": -6.9175,
       "lng": 107.6191
-    },
-    {
-      "key": "SEMARANG",
-      "label": "Semarang",
-      "province": null,
-      "count": 18,
-      "lat": -6.9667,
-      "lng": 110.4167
     },
     {
       "key": "coord:98.6722,3.5952",
       "label": "Medan",
       "province": null,
-      "count": 15,
+      "count": 20,
       "lat": 3.5952,
       "lng": 98.6722,
       "mergedCount": 3,
       "mergedCities": [
         {
           "label": "Medan",
-          "count": 11,
+          "count": 16,
           "province": null
         },
         {
@@ -810,6 +797,14 @@
           "province": "SUMATERA UTARA"
         }
       ]
+    },
+    {
+      "key": "SEMARANG",
+      "label": "Semarang",
+      "province": null,
+      "count": 18,
+      "lat": -6.9667,
+      "lng": 110.4167
     },
     {
       "key": "coord:101.4478,0.5071",
@@ -872,6 +867,14 @@
           "province": "DKI JAKARTA"
         }
       ]
+    },
+    {
+      "key": "SAMARINDA",
+      "label": "Samarinda",
+      "province": null,
+      "count": 13,
+      "lat": -0.5022,
+      "lng": 117.1536
     },
     {
       "key": "coord:96.7494,4.6951",
@@ -953,28 +956,20 @@
       "lng": 110.3695
     },
     {
+      "key": "BOGOR",
+      "label": "Bogor",
+      "province": "DKI JAKARTA",
+      "count": 11,
+      "lat": -6.5971,
+      "lng": 106.806
+    },
+    {
       "key": "METRO",
       "label": "Metro",
       "province": "Lampung",
       "count": 11,
       "lat": -5.113,
       "lng": 105.3062
-    },
-    {
-      "key": "BOGOR",
-      "label": "Bogor",
-      "province": "DKI JAKARTA",
-      "count": 10,
-      "lat": -6.5971,
-      "lng": 106.806
-    },
-    {
-      "key": "SAMARINDA",
-      "label": "Samarinda",
-      "province": null,
-      "count": 10,
-      "lat": -0.5022,
-      "lng": 117.1536
     },
     {
       "key": "GRESIK",

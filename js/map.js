@@ -8,8 +8,19 @@ const MAP_STYLE_DEFAULT =
 const MAP_STYLE = window.DOMPENG_MAP_STYLE || MAP_STYLE_DEFAULT;
 /** Font stacks yang tersedia di tiles.basemaps.cartocdn.com (Open Sans Bold ≠ 404). */
 const MAP_LABEL_FONT = ["Montserrat Bold", "Open Sans Bold"];
-const MAP_CENTER = [118.0, -2.5];
-const MAP_ZOOM = 4.2;
+/** Fokus default: kepulauan Indonesia (bukan dunia penuh). */
+const MAP_CENTER = [117.5, -2.2];
+const MAP_ZOOM = 4.6;
+/** [barat, selatan] — [timur, utara] — batas kasar wilayah Indonesia. */
+const INDONESIA_BOUNDS = [
+  [94.5, -11.5],
+  [141.5, 6.5],
+];
+const INDONESIA_MAX_BOUNDS = [
+  [88, -13.5],
+  [146, 8.5],
+];
+const INDONESIA_FIT_MAX_ZOOM = 5.25;
 const CLUSTER_MAX_ZOOM = 12;
 const CLUSTER_RADIUS = 72;
 const COORD_PRECISION = 4;
@@ -174,6 +185,35 @@ const circleBlurPaint = (idle) => ["case", featureActive, 0.18, idle];
 const haloRadiusExpr = ["*", circleRadiusExpr, 1.18];
 
 const haloOpacityExpr = ["case", featureActive, 0.38, 0];
+
+function indonesiaLngLatBounds() {
+  return new maplibregl.LngLatBounds(INDONESIA_BOUNDS[0], INDONESIA_BOUNDS[1]);
+}
+
+/**
+ * Pastikan viewport mencakup seluruh Indonesia; perluas dengan titik cluster bila ada.
+ */
+function fitMapToIndonesiaFocus(map, clusters, { animate = true, padding = 48 } = {}) {
+  if (!map) return;
+  const bounds = indonesiaLngLatBounds();
+  for (const city of clusters || []) {
+    const lng = Number(city.lng);
+    const lat = Number(city.lat);
+    if (Number.isFinite(lng) && Number.isFinite(lat)) {
+      bounds.extend([lng, lat]);
+    }
+  }
+  const pad =
+    typeof padding === "number"
+      ? { top: padding, bottom: padding, left: padding, right: padding }
+      : padding;
+  const duration = animate && !prefersReducedMotion() ? 850 : 0;
+  map.fitBounds(bounds, {
+    padding: pad,
+    maxZoom: INDONESIA_FIT_MAX_ZOOM,
+    duration,
+  });
+}
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -503,9 +543,12 @@ function buildGeoMap(container, geo, options = {}) {
     style: MAP_STYLE,
     center: MAP_CENTER,
     zoom: MAP_ZOOM,
+    maxBounds: INDONESIA_MAX_BOUNDS,
     attributionControl: true,
     cooperativeGestures: false,
   });
+
+  map._dompengClusters = clusters;
 
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
@@ -634,12 +677,10 @@ function buildGeoMap(container, geo, options = {}) {
     bindClusterInteractions(map, "city-clusters");
 
     if (options.fitBounds !== false) {
-      const bounds = new maplibregl.LngLatBounds();
-      for (const city of clusters) {
-        bounds.extend([city.lng, city.lat]);
-      }
-      const fitDuration = prefersReducedMotion() ? 0 : 1100;
-      map.fitBounds(bounds, { padding: 48, maxZoom: 7, duration: fitDuration });
+      fitMapToIndonesiaFocus(map, clusters, {
+        animate: !options.skipFitAnimation,
+        padding: { top: 44, bottom: 64, left: 44, right: 44 },
+      });
     }
   });
 
@@ -673,4 +714,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+function fitDompengMapToIndonesia(options = {}) {
+  const map = window.DOMPENG_MAP;
+  if (!map) return;
+  fitMapToIndonesiaFocus(map, map._dompengClusters || [], options);
+}
+
 window.initDompengGeoMap = initDompengGeoMap;
+window.fitDompengMapToIndonesia = fitDompengMapToIndonesia;

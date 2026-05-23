@@ -6,6 +6,8 @@ const DASHBOARD_TABS = [
   { id: "preview", label: "Contoh", hash: "pratinjau" },
 ];
 
+window.DOMPENG_TABS = DASHBOARD_TABS;
+
 const OPS_TAB_HASHES = new Set(["operasi", "ops", "pembaruan", "changelog", "sistem", "sys"]);
 
 function resizeDashboardCharts() {
@@ -17,11 +19,54 @@ function resizeDashboardCharts() {
 }
 
 function resizeGeoMap() {
-  if (!window.DOMPENG_MAP?.resize) return;
+  const map = window.DOMPENG_MAP;
+  if (!map?.resize) return;
+  const refit = () => {
+    if (typeof window.fitDompengMapToIndonesia === "function") {
+      window.fitDompengMapToIndonesia({ animate: false });
+    }
+  };
   window.requestAnimationFrame(() => {
-    window.DOMPENG_MAP.resize();
-    window.setTimeout(() => window.DOMPENG_MAP.resize(), 150);
+    map.resize();
+    refit();
+    window.setTimeout(() => {
+      map.resize();
+      if (typeof window.fitDompengMapToIndonesia === "function") {
+        window.fitDompengMapToIndonesia({ animate: true });
+      }
+    }, 160);
   });
+}
+
+function updateTabBarIndicator({ animate = true } = {}) {
+  const bar = document.getElementById("tab-bar");
+  const indicator = document.getElementById("tab-bar-indicator");
+  if (!bar || !indicator) return;
+
+  const active = bar.querySelector('.tab-btn[aria-selected="true"]');
+  if (!active) {
+    indicator.style.opacity = "0";
+    return;
+  }
+
+  const move = () => {
+    const barRect = bar.getBoundingClientRect();
+    const rect = active.getBoundingClientRect();
+    indicator.style.left = `${rect.left - barRect.left + bar.scrollLeft}px`;
+    indicator.style.width = `${rect.width}px`;
+    indicator.style.opacity = "1";
+    bar.classList.add("tab-bar--ready");
+  };
+
+  if (!animate) {
+    indicator.style.transition = "none";
+    move();
+    void indicator.offsetWidth;
+    indicator.style.transition = "";
+    return;
+  }
+
+  window.requestAnimationFrame(move);
 }
 
 function onDashboardTabShown(tabId) {
@@ -52,11 +97,12 @@ function playPanelEnter(panel) {
 }
 
 function markDashboardReady() {
+  document.body.classList.add("dashboard-ready");
+  updateTabBarIndicator({ animate: false });
+
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.body.classList.add("dashboard-ready");
     return;
   }
-  document.body.classList.add("dashboard-ready");
   const active = document.querySelector(".tab-panel.is-active");
   if (active) playPanelEnter(active);
 }
@@ -85,6 +131,12 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
       history.replaceState(null, "", nextHash);
     }
   }
+
+  if (typeof window.refreshShareUrl === "function") {
+    window.refreshShareUrl();
+  }
+
+  updateTabBarIndicator();
 
   onDashboardTabShown(tab.id);
 }
@@ -131,6 +183,9 @@ function initDashboardTabs() {
   });
 
   activateDashboardTab(tabIdFromHash() || "overview", { updateHash: Boolean(tabIdFromHash()) });
+
+  window.addEventListener("resize", () => updateTabBarIndicator({ animate: false }));
+  bar.addEventListener("scroll", () => updateTabBarIndicator({ animate: false }), { passive: true });
 }
 
 document.addEventListener("DOMContentLoaded", initDashboardTabs);

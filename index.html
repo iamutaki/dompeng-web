@@ -4,18 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SEO:HEAD:START -->
-  <title>DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota</title>
-  <meta name="description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <title>DOMPENG v2.5.1 — Dashboard · NEGARA OPEN SOURCE</title>
+  <meta name="description" content="«NEGARA OPEN SOURCE» (satir) — Dashboard DOMPENG: 6,286 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta property="og:description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <meta property="og:title" content="DOMPENG v2.5.1 — Dashboard · NEGARA OPEN SOURCE">
+  <meta property="og:description" content="«NEGARA OPEN SOURCE» (satir) — Dashboard DOMPENG: 6,286 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta name="twitter:description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Sistem data orang dari dokumen internet — profil, indeks pencarian, dan peta sebaran per kota.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Profil dari dokumen internet", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6262}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 57}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web"}</script>
+  <meta name="twitter:title" content="DOMPENG v2.5.1 — Dashboard · NEGARA OPEN SOURCE">
+  <meta name="twitter:description" content="«NEGARA OPEN SOURCE» (satir) — Dashboard DOMPENG: 6,286 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <meta property="og:site_name" content="DOMPENG Dashboard">
+  <meta name="application-name" content="DOMPENG Dashboard">
+  <meta name="dompeng:brand" content="NEGARA OPEN SOURCE">
+  <meta name="dompeng:brand-note" content="Tagline satir — bukan institusi pemerintah; proyek open source untuk dashboard data orang.">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG Dashboard", "alternateName": "NEGARA OPEN SOURCE", "slogan": "NEGARA OPEN SOURCE", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Dashboard satir «NEGARA OPEN SOURCE» — data orang dari dokumen internet: profil, indeks pencarian, dan peta sebaran per kota (identitas disamarkan).", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Proyek satir «NEGARA OPEN SOURCE»", "Profil dari dokumen internet", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6286}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 57}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web"}</script>
   <meta name="dompeng:version" content="v2.5.1">
   <!-- SEO:HEAD:END -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +30,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
   <script src="js/tabs.js" defer></script>
+  <script src="js/share.js" defer></script>
   <script src="js/map.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
@@ -36,12 +41,38 @@
       <div class="topbar-brand">
         <span class="brand-mark" aria-hidden="true"></span>
         <div class="topbar-title-block">
-          <span class="dashboard-kicker">OSINT · Data Intelligence</span>
-          <span class="dashboard-title">DOMPENG</span>
+          <span class="dashboard-kicker" title="Tagline satir — bukan lembaga resmi">NEGARA OPEN SOURCE</span>
+          <span class="dashboard-title">DOMPENG Dashboard</span>
         </div>
       </div>
       <div class="topbar-actions">
         <p class="meta meta--inline" id="updated">Memuat data…</p>
+        <div class="share-control" id="share-control">
+          <button
+            type="button"
+            class="nav-link share-control__trigger"
+            id="share-btn"
+            aria-label="Bagikan dashboard"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="share-menu"
+          >
+            <span class="tab-btn__code" aria-hidden="true">SHR</span>
+            <span class="share-control__label">Bagikan</span>
+          </button>
+          <div class="share-menu" id="share-menu" role="menu" aria-label="Bagikan ke media sosial" hidden>
+            <p class="share-menu__lead">Bagikan ke</p>
+            <div class="share-menu__grid" role="group" aria-label="Platform media sosial">
+              <a class="nav-link share-menu__platform" role="menuitem" href="#" data-share="whatsapp" target="_blank" rel="noopener noreferrer"><span class="tab-btn__code" aria-hidden="true">WA</span> WhatsApp</a>
+              <a class="nav-link share-menu__platform" role="menuitem" href="#" data-share="telegram" target="_blank" rel="noopener noreferrer"><span class="tab-btn__code" aria-hidden="true">TG</span> Telegram</a>
+              <a class="nav-link share-menu__platform" role="menuitem" href="#" data-share="x" target="_blank" rel="noopener noreferrer"><span class="tab-btn__code" aria-hidden="true">X</span> X</a>
+              <a class="nav-link share-menu__platform" role="menuitem" href="#" data-share="facebook" target="_blank" rel="noopener noreferrer"><span class="tab-btn__code" aria-hidden="true">FB</span> Facebook</a>
+              <a class="nav-link share-menu__platform" role="menuitem" href="#" data-share="linkedin" target="_blank" rel="noopener noreferrer"><span class="tab-btn__code" aria-hidden="true">IN</span> LinkedIn</a>
+            </div>
+            <button type="button" class="nav-link share-menu__action" role="menuitem" data-share="native" hidden>Bagikan lainnya…</button>
+            <button type="button" class="nav-link share-menu__action share-menu__action--muted" role="menuitem" data-share="copy-link">Salin tautan</button>
+          </div>
+        </div>
         <div class="status-row" id="status-row">
           <span class="status-pill status-pill--live">LIVE</span>
           <span class="status-pill status-pill--redact">REDACTED</span>
@@ -49,7 +80,8 @@
       </div>
     </header>
 
-    <nav class="tab-bar tab-bar--intel" id="tab-bar" role="tablist" aria-label="Modul intelijen">
+    <nav class="tab-bar tab-bar--intel" id="tab-bar" role="tablist" aria-label="Navigasi dashboard">
+      <span class="tab-bar__indicator" id="tab-bar-indicator" aria-hidden="true"></span>
       <button type="button" class="tab-btn" role="tab" data-tab="overview" aria-selected="true" aria-controls="tab-overview" id="tab-btn-overview"><span class="tab-btn__code">OVW</span> Ringkasan</button>
       <button type="button" class="tab-btn" role="tab" data-tab="geo" aria-selected="false" aria-controls="tab-geo" id="tab-btn-geo" tabindex="-1"><span class="tab-btn__code">GEO</span> Peta</button>
       <button type="button" class="tab-btn" role="tab" data-tab="analytics" aria-selected="false" aria-controls="tab-analytics" id="tab-btn-analytics" tabindex="-1"><span class="tab-btn__code">IDX</span> Indeks</button>
@@ -121,25 +153,28 @@
                     <span class="intel-slot__code">VOL</span>
                     <h3>Volume</h3>
                   </header>
-                  <div class="stats-grid stats-grid--overview stats-grid--compact" id="stats-grid"></div>
+                  <p class="intel-slot__caption" id="overview-volume-caption">Inventaris · indeks · geo · antrian</p>
+                  <div class="volume-panel" id="stats-grid" aria-label="Ringkasan volume data"></div>
                 </section>
               </div>
             </section>
 
             <!-- SEO:CRAWLER:START -->
             <section class="seo-static intel-module intel-module--seo seo-static--visually-hidden" id="seo-static" aria-label="Ringkasan publik DOMPENG">
-              <h2>DOMPENG — Sistem Data Orang</h2>
+              <p class="seo-brand" aria-label="Tagline satir">NEGARA OPEN SOURCE</p>
+              <h2>DOMPENG Dashboard — NEGARA OPEN SOURCE</h2>
               <p>
-                Platform untuk mengelola profil orang dari dokumen internet, menghubungkan data antar sumber, dan menampilkan sebaran per kota secara agregat.
+                «NEGARA OPEN SOURCE» (satir): dashboard publik open source untuk profil orang dari dokumen internet, menghubungkan data antar sumber, dan menampilkan sebaran per kota secara agregat.
               </p>
+              <p><em>Tagline satir — bukan institusi pemerintah; proyek open source untuk dashboard data orang.</em></p>
               <ul class="seo-stats">
-                <li><strong>6,262</strong> profil orang</li>
-                <li><strong>354</strong> dokumen internet</li>
+                <li><strong>6,286</strong> profil orang</li>
+                <li><strong>361</strong> dokumen internet</li>
                 <li><strong>57</strong> kota di peta</li>
-                <li><strong>878</strong> orang dengan lokasi kota</li>
+                <li><strong>894</strong> orang dengan lokasi kota</li>
               </ul>
               <h3>Kota dengan orang terbanyak</h3>
-              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 261 orang</li><li><strong>Abirau</strong> — 170 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Jambi</strong> — 41 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Semarang</strong> — 18 orang</li><li><strong>Medan</strong> — 15 orang</li></ol>
+              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 266 orang</li><li><strong>Abirau</strong> — 168 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Jambi</strong> — 44 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 22 orang</li><li><strong>Medan</strong> — 20 orang</li><li><strong>Semarang</strong> — 18 orang</li></ol>
               <p><a href="geo/index.html">Lihat peta sebaran per kota →</a></p>
               <p><a href="https://github.com/iamutaki/dompeng-web" rel="noopener noreferrer">Kode sumber dashboard (GitHub) →</a></p>
             </section>
@@ -158,7 +193,7 @@
             </div>
           </header>
           <div class="intel-module__body intel-module__body--map">
-            <p class="geo-map-hint">Scroll zoom · drag pan · hover/klik titik untuk intel kota</p>
+            <p class="geo-map-hint">Scroll zoom · drag pan · hover/klik titik untuk detail kota</p>
             <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
             <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
           </div>
@@ -167,24 +202,52 @@
 
       <section class="tab-panel tab-panel--analytics" id="tab-analytics" data-tab="analytics" role="tabpanel" aria-labelledby="tab-btn-analytics" hidden>
         <div class="dashboard-board dashboard-board--analytics">
-          <section class="intel-module intel-module--index-main" data-module="IDX-01">
-            <header class="intel-module__head">
-              <span class="intel-module__code">IDX-01</span>
-              <div class="intel-module__titles">
-                <h2 class="intel-module__title">Indeks pencarian</h2>
-                <p class="intel-module__meta" id="index-caption">Entri vs referensi per tipe field</p>
+          <div class="analytics-primary-row">
+            <section class="intel-module intel-module--index-chart" data-module="IDX-01">
+              <header class="intel-module__head">
+                <span class="intel-module__code">IDX-01</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title">Indeks pencarian</h2>
+                  <p class="intel-module__meta" id="index-caption">Entri vs referensi per tipe field</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--index-chart">
+                <div class="chart-wrap chart-wrap--analytics-index">
+                  <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
+                </div>
+                <div class="inline-stats inline-stats--compact" id="index-stats"></div>
               </div>
-            </header>
-            <div class="intel-module__body">
-              <div class="chart-wrap chart-wrap--analytics-index">
-                <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
-              </div>
-              <div class="inline-stats inline-stats--compact" id="index-stats"></div>
-            </div>
-          </section>
+            </section>
 
-          <div class="analytics-detail-row">
-            <section class="intel-module" data-module="IDX-02">
+            <section class="intel-module intel-module--index-types" data-module="IDX-03">
+              <header class="intel-module__head">
+                <span class="intel-module__code">IDX-03</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title">Tipe indeks</h2>
+                  <p class="intel-module__meta" id="analytics-index-caption">Shared vs unique · keterkaitan</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--index-types">
+                <div class="table-wrap table-wrap--intel table-wrap--index-types">
+                  <table class="analytics-table">
+                    <thead>
+                      <tr>
+                        <th>Tipe</th>
+                        <th>Mode</th>
+                        <th class="num">Entri</th>
+                        <th class="num">Ref</th>
+                      </tr>
+                    </thead>
+                    <tbody id="analytics-index-body"></tbody>
+                  </table>
+                </div>
+                <div class="intel-metrics intel-metrics--index" id="analytics-intel-metrics" aria-label="Metrik graf"></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="analytics-coverage-row">
+            <section class="intel-module intel-module--index-coverage" data-module="IDX-02">
               <header class="intel-module__head">
                 <span class="intel-module__code">IDX-02</span>
                 <div class="intel-module__titles">
@@ -208,29 +271,45 @@
               </div>
             </section>
 
-            <section class="intel-module" data-module="IDX-03">
+            <section class="intel-module intel-module--index-sources" data-module="IDX-04">
               <header class="intel-module__head">
-                <span class="intel-module__code">IDX-03</span>
+                <span class="intel-module__code">IDX-04</span>
                 <div class="intel-module__titles">
-                  <h2 class="intel-module__title">Tipe indeks &amp; graf</h2>
-                  <p class="intel-module__meta" id="analytics-index-caption">Shared vs unique · keterkaitan</p>
+                  <h2 class="intel-module__title">Sumber dokumen</h2>
+                  <p class="intel-module__meta" id="analytics-sources-caption">Domain .go.id · .org.id · tipe berkas</p>
                 </div>
               </header>
-              <div class="intel-module__body intel-module__body--flush">
-                <div class="table-wrap table-wrap--intel">
-                  <table class="analytics-table">
-                    <thead>
-                      <tr>
-                        <th>Tipe</th>
-                        <th>Mode</th>
-                        <th class="num">Entri</th>
-                        <th class="num">Ref</th>
-                      </tr>
-                    </thead>
-                    <tbody id="analytics-index-body"></tbody>
-                  </table>
-                </div>
-                <div class="intel-metrics" id="analytics-intel-metrics" aria-label="Metrik graf"></div>
+              <div class="intel-module__body intel-module__body--sources-split">
+                <article class="sources-panel sources-panel--types">
+                  <h3 class="sources-panel__title">Tipe berkas</h3>
+                  <div class="table-wrap table-wrap--intel table-wrap--sources">
+                    <table class="analytics-table">
+                      <thead>
+                        <tr>
+                          <th>Tipe</th>
+                          <th class="num">Dokumen</th>
+                          <th class="num">%</th>
+                        </tr>
+                      </thead>
+                      <tbody id="analytics-file-types-body"></tbody>
+                    </table>
+                  </div>
+                </article>
+                <article class="sources-panel sources-panel--suffix">
+                  <h3 class="sources-panel__title">Akhiran domain</h3>
+                  <div class="table-wrap table-wrap--intel table-wrap--sources">
+                    <table class="analytics-table">
+                      <thead>
+                        <tr>
+                          <th>Akhiran</th>
+                          <th class="num">Dokumen</th>
+                          <th class="num">%</th>
+                        </tr>
+                      </thead>
+                      <tbody id="analytics-domain-suffixes-body"></tbody>
+                    </table>
+                  </div>
+                </article>
               </div>
             </section>
           </div>
@@ -352,7 +431,7 @@
 
     <footer class="footer footer--dashboard">
       <p>
-        <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · DOMPENG INTEL ·
+        <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · <span class="footer-brand">NEGARA OPEN SOURCE</span> · DOMPENG Dashboard ·
         <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">SRC</a>
       </p>
     </footer>

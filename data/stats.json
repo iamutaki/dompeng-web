@@ -1,51 +1,51 @@
 {
-  "updated": "2026-05-23 07:21 UTC",
+  "updated": "2026-05-23 07:46 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 6262,
-    "graphEdges": 11721,
-    "sourceDocuments": 354,
+    "graphNodes": 6286,
+    "graphEdges": 11779,
+    "sourceDocuments": 361,
     "activeVectors": 5,
-    "dominantVectorPct": 58.6,
+    "dominantVectorPct": 58.5,
     "dominantVectorId": "phone",
     "xrefRatio": 1.13,
-    "pipelineSuccessPct": 45.3,
-    "pipelineBacklogPct": 44.7,
+    "pipelineSuccessPct": 46.4,
+    "pipelineBacklogPct": 43.5,
     "pipelineFailurePct": 9.7,
     "entityLinkRate": 0.77
   },
   "summary": {
-    "persons": 6262,
-    "documents": 354,
+    "persons": 6286,
+    "documents": 361,
     "photos": 3,
     "templates": 37,
-    "history": 287,
-    "doneFiles": 466
+    "history": 294,
+    "doneFiles": 480
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 3672,
-      "pct": 58.6
+      "value": 3678,
+      "pct": 58.5
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 853,
-      "pct": 13.6
+      "value": 859,
+      "pct": 13.7
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 417,
+      "value": 423,
       "pct": 6.7
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 322,
-      "pct": 5.1
+      "value": 329,
+      "pct": 5.2
     },
     {
       "id": "photo",
@@ -54,43 +54,43 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 6262,
+  "coverageTotal": 6286,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 5337,
-      "refs": 6241
+      "entries": 5358,
+      "refs": 6265
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 3344,
-      "refs": 3688
+      "entries": 3350,
+      "refs": 3694
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 720,
-      "refs": 855
+      "entries": 726,
+      "refs": 861
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 314,
-      "refs": 314
+      "entries": 321,
+      "refs": 321
     },
     {
       "type": "NPWP",
       "kind": "unique",
-      "entries": 114,
-      "refs": 114
+      "entries": 120,
+      "refs": 120
     },
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 93,
-      "refs": 104
+      "entries": 96,
+      "refs": 107
     },
     {
       "type": "ID pelajar",
@@ -101,22 +101,57 @@
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 389,
-      "refs": 389
+      "entries": 395,
+      "refs": 395
     }
   ],
   "indexTotal": {
-    "entries": 10327,
-    "refs": 11721
+    "entries": 10382,
+    "refs": 11779
   },
   "queue": {
-    "pending": 296,
-    "processing": 2,
-    "done": 300,
+    "pending": 288,
+    "processing": 3,
+    "done": 307,
     "failed": 64,
     "total": 662
   },
   "recentDocs": [
+    {
+      "title": "LHKPN An·· Ko···a 2023",
+      "imported_at": "2026-05-23T07:45:46Z",
+      "mentions": 3
+    },
+    {
+      "title": "LHKPN Lu···n 2017",
+      "imported_at": "2026-05-23T07:44:39Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN Di·· An···a 2022",
+      "imported_at": "2026-05-23T07:43:40Z",
+      "mentions": 5
+    },
+    {
+      "title": "LHKPN J· Il··s M 2022",
+      "imported_at": "2026-05-23T07:41:52Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN As·····i 2025",
+      "imported_at": "2026-05-23T07:40:39Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN Mah·····a Aw··g 2024",
+      "imported_at": "2026-05-23T07:36:59Z",
+      "mentions": 1
+    },
+    {
+      "title": "LHKPN Ab··l Ma··d 2022",
+      "imported_at": "2026-05-23T07:34:41Z",
+      "mentions": 3
+    },
     {
       "title": "LHKPN Sai·····n 2021",
       "imported_at": "2026-05-23T07:17:41Z",
@@ -131,41 +166,6 @@
       "title": "LHKPN Sub······n - A·· Ra·· (·· Ba··a Ac··)",
       "imported_at": "2026-05-23T07:11:33Z",
       "mentions": 1
-    },
-    {
-      "title": "LHKPN Ba····g Sa····i 2025",
-      "imported_at": "2026-05-23T07:09:41Z",
-      "mentions": 3
-    },
-    {
-      "title": "LHKPN Ag·· Gi····o 2021",
-      "imported_at": "2026-05-23T07:08:34Z",
-      "mentions": 3
-    },
-    {
-      "title": "LHKPN R· Ji·· Ja··i 2023",
-      "imported_at": "2026-05-23T07:06:28Z",
-      "mentions": 11
-    },
-    {
-      "title": "LHKPN Di···s Sa·····a 2023",
-      "imported_at": "2026-05-23T07:03:43Z",
-      "mentions": 10
-    },
-    {
-      "title": "LHKPN Mu····d Ya··a Ta····n 2019",
-      "imported_at": "2026-05-23T07:01:51Z",
-      "mentions": 4
-    },
-    {
-      "title": "LHKPN Sup·······o 2018",
-      "imported_at": "2026-05-23T06:41:50Z",
-      "mentions": 5
-    },
-    {
-      "title": "LHKPN Agu·····l 2019",
-      "imported_at": "2026-05-23T06:40:39Z",
-      "mentions": 5
     }
   ],
   "showcaseEntities": [
@@ -622,6 +622,58 @@
     },
     {
       "ref": "Orang 9",
+      "name": "MAH·····A AW··G DH··A KU···A",
+      "gender": "Laki-laki",
+      "dob": "1983-0·-··",
+      "pob": "PA····N",
+      "occupation": "SE·························G",
+      "sector": "public",
+      "maritalStatus": "Belum Kawin",
+      "identifiers": [
+        {
+          "type": "NIK",
+          "value": "3374········0001"
+        },
+        {
+          "type": "NPWP",
+          "value": "8901·······7000"
+        },
+        {
+          "type": "ID karyawan",
+          "value": "9····9"
+        },
+        {
+          "type": "Telepon",
+          "value": "6285·····4742"
+        },
+        {
+          "type": "Email",
+          "value": "a·········@gm···.com"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 3,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 1
+      },
+      "documents": [
+        {
+          "ref": "Dokumen 1",
+          "title": "LHKPN Mah·····a Aw··g 2024",
+          "context": "LHKPN 2024",
+          "importedAt": "2026-05-23",
+          "filename": "mage········.pdf"
+        }
+      ],
+      "documentCount": 1,
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 7
+    },
+    {
+      "ref": "Orang 10",
       "name": "HA····I",
       "gender": "male",
       "dob": "1967-0·-··",
@@ -670,7 +722,7 @@
       "resolutionScore": 6
     },
     {
-      "ref": "Orang 10",
+      "ref": "Orang 11",
       "name": "MA··A VE·····A DH··E MA··I",
       "gender": "female",
       "dob": "1984-0·-··",
@@ -722,7 +774,7 @@
       "resolutionScore": 7
     },
     {
-      "ref": "Orang 11",
+      "ref": "Orang 12",
       "name": "DE·· NG···S HA····O",
       "gender": "male",
       "dob": "1977-0·-··",
@@ -762,54 +814,6 @@
       "hasPhoto": false,
       "notesCount": 1,
       "resolutionScore": 4
-    },
-    {
-      "ref": "Orang 12",
-      "name": "NI·· SE····A",
-      "gender": "Perempuan",
-      "dob": "1965-1·-··",
-      "pob": "BA····G",
-      "occupation": null,
-      "sector": null,
-      "maritalStatus": "Menikah",
-      "identifiers": [
-        {
-          "type": "NIK",
-          "value": "3204········0001"
-        },
-        {
-          "type": "NPWP",
-          "value": "4979·······5000"
-        },
-        {
-          "type": "ID karyawan",
-          "value": "9···5"
-        },
-        {
-          "type": "Telepon",
-          "value": "6281···0711"
-        }
-      ],
-      "identifierCount": 4,
-      "edgeCount": 5,
-      "relations": {
-        "phone": 1,
-        "family": 3,
-        "document": 1
-      },
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN Ni·· Se····a 2015",
-          "context": "LHKPN",
-          "importedAt": "2026-05-22",
-          "filename": "band·················.pdf"
-        }
-      ],
-      "documentCount": 1,
-      "hasPhoto": false,
-      "notesCount": 1,
-      "resolutionScore": 6
     }
   ],
   "changelog": {
@@ -1299,28 +1303,33 @@
     ]
   },
   "geo": {
-    "totalEntities": 6262,
-    "entitiesWithCity": 1117,
-    "geocodedEntities": 878,
-    "uniqueCities": 370,
+    "totalEntities": 6286,
+    "entitiesWithCity": 1140,
+    "geocodedEntities": 894,
+    "uniqueCities": 372,
     "mappedCities": 57,
     "clusters": [
       {
         "key": "coord:106.8456,-6.2088",
         "label": "Jakarta",
         "province": "DKI JAKARTA",
-        "count": 261,
+        "count": 266,
         "lat": -6.2088,
         "lng": 106.8456,
         "mergedCount": 30,
         "mergedCities": [
           {
             "label": "Jakarta",
-            "count": 174,
+            "count": 176,
             "province": "DKI JAKARTA"
           },
           {
             "label": "Brebes",
+            "count": 6,
+            "province": "DKI JAKARTA"
+          },
+          {
+            "label": "Ciamis",
             "count": 6,
             "province": "DKI JAKARTA"
           },
@@ -1346,11 +1355,6 @@
           },
           {
             "label": "Wonogiri",
-            "count": 5,
-            "province": "DKI JAKARTA"
-          },
-          {
-            "label": "Ciamis",
             "count": 5,
             "province": "DKI JAKARTA"
           },
@@ -1390,6 +1394,11 @@
             "province": "DKI JAKARTA"
           },
           {
+            "label": "Jogjakarta",
+            "count": 2,
+            "province": "DKI JAKARTA"
+          },
+          {
             "label": "Sragen",
             "count": 2,
             "province": "DKI JAKARTA"
@@ -1425,6 +1434,11 @@
             "province": "DKI JAKARTA"
           },
           {
+            "label": "Pacitan",
+            "count": 2,
+            "province": "DKI JAKARTA"
+          },
+          {
             "label": "Gunung Kidul",
             "count": 2,
             "province": "DKI JAKARTA"
@@ -1432,11 +1446,6 @@
           {
             "label": "Kutoarjo",
             "count": 2,
-            "province": "DKI JAKARTA"
-          },
-          {
-            "label": "Jogjakarta",
-            "count": 1,
             "province": "DKI JAKARTA"
           },
           {
@@ -1455,11 +1464,6 @@
             "province": "DKI JAKARTA"
           },
           {
-            "label": "Pacitan",
-            "count": 1,
-            "province": "DKI JAKARTA"
-          },
-          {
             "label": "Boyolali",
             "count": 1,
             "province": "DKI JAKARTA"
@@ -1470,10 +1474,10 @@
         "key": "coord:114.5944,-3.3186",
         "label": "Abirau",
         "province": "KALIMANTAN SELATAN",
-        "count": 170,
+        "count": 168,
         "lat": -3.3186,
         "lng": 114.5944,
-        "mergedCount": 108,
+        "mergedCount": 107,
         "mergedCities": [
           {
             "label": "Abirau",
@@ -1602,11 +1606,6 @@
           },
           {
             "label": "Tiwingan",
-            "count": 2,
-            "province": "KALIMANTAN SELATAN"
-          },
-          {
-            "label": "Banjar",
             "count": 2,
             "province": "KALIMANTAN SELATAN"
           },
@@ -2029,14 +2028,14 @@
         "key": "coord:103.6131,-1.6101",
         "label": "Jambi",
         "province": "JAMBI",
-        "count": 41,
+        "count": 44,
         "lat": -1.6101,
         "lng": 103.6131,
         "mergedCount": 5,
         "mergedCities": [
           {
             "label": "Jambi",
-            "count": 31,
+            "count": 34,
             "province": "JAMBI"
           },
           {
@@ -2073,30 +2072,22 @@
         "key": "BANDUNG",
         "label": "Bandung",
         "province": null,
-        "count": 21,
+        "count": 22,
         "lat": -6.9175,
         "lng": 107.6191
-      },
-      {
-        "key": "SEMARANG",
-        "label": "Semarang",
-        "province": null,
-        "count": 18,
-        "lat": -6.9667,
-        "lng": 110.4167
       },
       {
         "key": "coord:98.6722,3.5952",
         "label": "Medan",
         "province": null,
-        "count": 15,
+        "count": 20,
         "lat": 3.5952,
         "lng": 98.6722,
         "mergedCount": 3,
         "mergedCities": [
           {
             "label": "Medan",
-            "count": 11,
+            "count": 16,
             "province": null
           },
           {
@@ -2110,6 +2101,14 @@
             "province": "SUMATERA UTARA"
           }
         ]
+      },
+      {
+        "key": "SEMARANG",
+        "label": "Semarang",
+        "province": null,
+        "count": 18,
+        "lat": -6.9667,
+        "lng": 110.4167
       },
       {
         "key": "coord:101.4478,0.5071",
@@ -2172,6 +2171,14 @@
             "province": "DKI JAKARTA"
           }
         ]
+      },
+      {
+        "key": "SAMARINDA",
+        "label": "Samarinda",
+        "province": null,
+        "count": 13,
+        "lat": -0.5022,
+        "lng": 117.1536
       },
       {
         "key": "coord:96.7494,4.6951",
@@ -2253,28 +2260,20 @@
         "lng": 110.3695
       },
       {
+        "key": "BOGOR",
+        "label": "Bogor",
+        "province": "DKI JAKARTA",
+        "count": 11,
+        "lat": -6.5971,
+        "lng": 106.806
+      },
+      {
         "key": "METRO",
         "label": "Metro",
         "province": "Lampung",
         "count": 11,
         "lat": -5.113,
         "lng": 105.3062
-      },
-      {
-        "key": "BOGOR",
-        "label": "Bogor",
-        "province": "DKI JAKARTA",
-        "count": 10,
-        "lat": -6.5971,
-        "lng": 106.806
-      },
-      {
-        "key": "SAMARINDA",
-        "label": "Samarinda",
-        "province": null,
-        "count": 10,
-        "lat": -0.5022,
-        "lng": 117.1536
       },
       {
         "key": "GRESIK",
@@ -2758,6 +2757,44 @@
         "count": 1,
         "lat": -7.151,
         "lng": 110.14
+      }
+    ]
+  },
+  "sourceStats": {
+    "documentsTotal": 361,
+    "documentsWithUrl": 354,
+    "documentsIdDomain": 348,
+    "topSuffix": "go.id",
+    "domainSuffixes": [
+      {
+        "suffix": "go.id",
+        "count": 348
+      }
+    ],
+    "fileTypes": [
+      {
+        "type": "pdf",
+        "count": 343
+      },
+      {
+        "type": "unknown",
+        "count": 13
+      },
+      {
+        "type": "xls",
+        "count": 2
+      },
+      {
+        "type": "php",
+        "count": 1
+      },
+      {
+        "type": "docx",
+        "count": 1
+      },
+      {
+        "type": "xlsx",
+        "count": 1
       }
     ]
   }
