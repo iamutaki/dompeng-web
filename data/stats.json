@@ -1,0 +1,1175 @@
+{
+  "updated": "2026-05-23 04:43 UTC",
+  "redacted": true,
+  "intel": {
+    "graphNodes": 6086,
+    "graphEdges": 11305,
+    "sourceDocuments": 308,
+    "activeVectors": 5,
+    "dominantVectorPct": 59.7,
+    "dominantVectorId": "phone",
+    "xrefRatio": 1.14,
+    "pipelineSuccessPct": 38.7,
+    "pipelineBacklogPct": 52.1,
+    "pipelineFailurePct": 9.1,
+    "entityLinkRate": 0.78
+  },
+  "summary": {
+    "persons": 6086,
+    "documents": 308,
+    "photos": 3,
+    "templates": 37,
+    "history": 241,
+    "doneFiles": 378
+  },
+  "coverage": [
+    {
+      "id": "phone",
+      "label": "Kontak · tipe A",
+      "value": 3632,
+      "pct": 59.7
+    },
+    {
+      "id": "email",
+      "label": "Kontak · tipe B",
+      "value": 811,
+      "pct": 13.3
+    },
+    {
+      "id": "employee_id",
+      "label": "ID · tipe C",
+      "value": 382,
+      "pct": 6.3
+    },
+    {
+      "id": "nik",
+      "label": "ID · tipe D",
+      "value": 276,
+      "pct": 4.5
+    },
+    {
+      "id": "photo",
+      "label": "Media · foto",
+      "value": 3,
+      "pct": 0.0
+    }
+  ],
+  "coverageTotal": 6086,
+  "indexRows": [
+    {
+      "type": "Index · A",
+      "kind": "shared",
+      "entries": 5171,
+      "refs": 6065
+    },
+    {
+      "type": "Index · B",
+      "kind": "shared",
+      "entries": 3303,
+      "refs": 3647
+    },
+    {
+      "type": "Index · C",
+      "kind": "shared",
+      "entries": 677,
+      "refs": 812
+    },
+    {
+      "type": "Index · D",
+      "kind": "unique",
+      "entries": 268,
+      "refs": 268
+    },
+    {
+      "type": "Index · E",
+      "kind": "unique",
+      "entries": 73,
+      "refs": 73
+    },
+    {
+      "type": "Index · F",
+      "kind": "shared",
+      "entries": 59,
+      "refs": 70
+    },
+    {
+      "type": "Index · G",
+      "kind": "unique",
+      "entries": 16,
+      "refs": 16
+    },
+    {
+      "type": "Index · H",
+      "kind": "unique",
+      "entries": 354,
+      "refs": 354
+    }
+  ],
+  "indexTotal": {
+    "entries": 9921,
+    "refs": 11305
+  },
+  "queue": {
+    "pending": 345,
+    "processing": 1,
+    "done": 256,
+    "failed": 60,
+    "total": 662
+  },
+  "recentDocs": [
+    {
+      "title": "LHKPN ██████████████ 2021",
+      "imported_at": "2026-05-23T04:40:03Z",
+      "mentions": 5
+    },
+    {
+      "title": "LHKPN ██████████████ 2021",
+      "imported_at": "2026-05-23T04:38:52Z",
+      "mentions": 2
+    },
+    {
+      "title": "LHKPN ██████████████ 2024",
+      "imported_at": "2026-05-23T04:33:51Z",
+      "mentions": 5
+    },
+    {
+      "title": "LHKPN ██████████████ 2021",
+      "imported_at": "2026-05-23T04:31:22Z",
+      "mentions": 5
+    },
+    {
+      "title": "LHKPN ██████████████",
+      "imported_at": "2026-05-23T04:26:01Z",
+      "mentions": 6
+    },
+    {
+      "title": "LHKPN ██████████████ 2024",
+      "imported_at": "2026-05-23T04:09:58Z",
+      "mentions": 6
+    },
+    {
+      "title": "LHKPN ██████████████ 2024",
+      "imported_at": "2026-05-23T03:47:58Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN ██████████████ 2024",
+      "imported_at": "2026-05-23T03:45:43Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN ██████████████ 2025",
+      "imported_at": "2026-05-23T03:43:20Z",
+      "mentions": 6
+    },
+    {
+      "title": "LHKPN ██████████████ 2024",
+      "imported_at": "2026-05-23T03:34:56Z",
+      "mentions": 1
+    }
+  ],
+  "showcaseEntities": [
+    {
+      "ref": "ENT-0001",
+      "name": "███████████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "███████████████████████",
+      "sector": "public",
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · C",
+          "value": "██████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "██████████████████████"
+        }
+      ],
+      "identifierCount": 6,
+      "edgeCount": 13,
+      "relations": {
+        "document": 2,
+        "phone": 1,
+        "email": 1,
+        "nik": 1,
+        "npwp": 1,
+        "colleague": 1,
+        "family": 6
+      },
+      "hasPhoto": false,
+      "notesCount": 4,
+      "resolutionScore": 6
+    },
+    {
+      "ref": "ENT-0002",
+      "name": "████████████████████",
+      "gender": "Laki-laki",
+      "dob": "████-██-██",
+      "pob": "█████████████████",
+      "occupation": "████████████████",
+      "sector": "public",
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · C",
+          "value": "██████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "██████████████████"
+        }
+      ],
+      "identifierCount": 6,
+      "edgeCount": 9,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "family": 6,
+        "document": 1
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 6
+    },
+    {
+      "ref": "ENT-0003",
+      "name": "██████████████",
+      "gender": "Laki Laki",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████",
+      "sector": null,
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 10,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "family": 5,
+        "colleague": 2,
+        "document": 1
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 5
+    },
+    {
+      "ref": "ENT-0004",
+      "name": "██████████████",
+      "gender": "Laki-laki",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████████████",
+      "sector": "judicial",
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · C",
+          "value": "██████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 8,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "family": 5,
+        "document": 1
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 5
+    },
+    {
+      "ref": "ENT-0005",
+      "name": "██████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████████████",
+      "sector": "public",
+      "maritalStatus": "married",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · C",
+          "value": "██████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 6,
+      "edgeCount": 4,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 2
+      },
+      "hasPhoto": false,
+      "notesCount": 6,
+      "resolutionScore": 6
+    },
+    {
+      "ref": "ENT-0006",
+      "name": "███████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": "█████████████",
+      "occupation": "████████████████",
+      "sector": null,
+      "maritalStatus": "married",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 7,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 1,
+        "family": 4
+      },
+      "hasPhoto": false,
+      "notesCount": 0,
+      "resolutionScore": 5
+    },
+    {
+      "ref": "ENT-0007",
+      "name": "██████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": null,
+      "occupation": null,
+      "sector": null,
+      "maritalStatus": null,
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "█████████████████████"
+        }
+      ],
+      "identifierCount": 4,
+      "edgeCount": 9,
+      "relations": {
+        "document": 1,
+        "phone": 1,
+        "email": 1,
+        "nik": 1,
+        "npwp": 1,
+        "family": 4
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 4
+    },
+    {
+      "ref": "ENT-0008",
+      "name": "███████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████",
+      "sector": null,
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "██████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "█████████████████████"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 5,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 1,
+        "colleague": 2
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 5
+    },
+    {
+      "ref": "ENT-0009",
+      "name": "██████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████████████",
+      "sector": null,
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 4,
+      "edgeCount": 7,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 1,
+        "family": 4
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 4
+    },
+    {
+      "ref": "ENT-0010",
+      "name": "████████████████████████",
+      "gender": "female",
+      "dob": "████-██-██",
+      "pob": "██████████",
+      "occupation": "████████████████",
+      "sector": null,
+      "maritalStatus": "Menikah",
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "ID · F",
+          "value": "████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "█████████████████████"
+        }
+      ],
+      "identifierCount": 5,
+      "edgeCount": 3,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "document": 1
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 5
+    },
+    {
+      "ref": "ENT-0011",
+      "name": "███████████████████",
+      "gender": "male",
+      "dob": "████-██-██",
+      "pob": null,
+      "occupation": null,
+      "sector": null,
+      "maritalStatus": null,
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · E",
+          "value": "███████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "██████████████████████"
+        }
+      ],
+      "identifierCount": 4,
+      "edgeCount": 5,
+      "relations": {
+        "document": 1,
+        "phone": 1,
+        "email": 1,
+        "nik": 1,
+        "npwp": 1
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 4
+    },
+    {
+      "ref": "ENT-0012",
+      "name": "███████████████████",
+      "gender": null,
+      "dob": null,
+      "pob": null,
+      "occupation": "███████████████████",
+      "sector": "public",
+      "maritalStatus": null,
+      "identifiers": [
+        {
+          "type": "ID · D",
+          "value": "████████████████"
+        },
+        {
+          "type": "ID · C",
+          "value": "██████████████████"
+        },
+        {
+          "type": "Kontak · A",
+          "value": "█████████████"
+        },
+        {
+          "type": "Kontak · B",
+          "value": "████████████████████████"
+        }
+      ],
+      "identifierCount": 4,
+      "edgeCount": 10,
+      "relations": {
+        "phone": 1,
+        "email": 1,
+        "colleague": 8
+      },
+      "hasPhoto": false,
+      "notesCount": 1,
+      "resolutionScore": 4
+    }
+  ],
+  "changelog": {
+    "latestVersion": "v2.5.1",
+    "latestDate": "2026-05-23",
+    "totalReleases": 29,
+    "summary": {
+      "Fixed": 8,
+      "Added": 80,
+      "Changed": 44,
+      "Removed": 4
+    },
+    "releases": [
+      {
+        "version": "v2.5.1",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/classify.py`: Minimum match score threshold reduced from 2 to 1. Single-word keywords (e.g., \"lhkpn\") previously could never reach score ≥2, causing template matching to fail for titles containing only a single keyword. `len(kw.split())` for single-word keywords = 1 point, which was below threshold."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.5.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/formulir_pendaftaran.json` — Template for application/registration forms (seleksi, diklat, rekrutmen). Keywords: formulir, pendaftaran, seleksi, lamaran, biodata pribadi, daftar riwayat hidup, kartu pendaftaran. Identifiers: national_id, phone. Person count: few. Can be blank form or filled.",
+              "`templates/pengumuman_hasil_seleksi.json` — Template for selection result announcements (JPT, CPNS, PPPK). Keywords: pengumuman, hasil seleksi, lolos seleksi, memenuhi syarat, seleksi administrasi. Identifiers: name. Person count: many."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.4.1",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added BatchProcessor single-process warning (JANGAN memecah batch ke beberapa subprocess terpisah; satu `bp.flush()` di akhir untuk semua person)."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.4.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/izin_dpmptsp.json` — Template untuk izin terdaftar/operasional tunggal dari DPMPTSP (izin PAUD, TK, lembaga pendidikan). Keywords: izin terdaftar, izin operasional, dpm-ptsp, paud, taman kanak-kanak. Identifiers: phone, employee_id. Person count: few (1 applicant + 1 signatory)."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added download.py path note (script auto-prepends `tmp/`, pass filename only). Added `history.py record` command example. Updated template list to include all 34 registered templates."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.3.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/data_relawan.json` — Template untuk daftar relawan penanggulangan bencana/BPBD. Keywords: data relawan, relawan bencana, relawan bpbd, nama relawan. Identifiers: phone. Person count: many."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.2.1",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/download.py` — `_is_valid_file()` now rejects HTML/XML headers (`<!doctype html>`, `<html`, `<?xml`) before the printable-ASCII fallback check, preventing Cloudflare challenge pages from being accepted as valid downloads. Previously the captcha detection was only triggered when `_is_valid_file` returned False, but HTML pages passed the \"90% printable\" heuristic."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.2.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/biodata_asn.json` — Template untuk biodata ASN/PNS/pejabat (single-person profile dari SIMPEG/sejenis). Keywords: biodata, biodata asn, biodata pns, biodata pejabat, profil asn, profil pns. Identifiers: NIP, phone, email. Person count: single."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.1.1",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Changed",
+            "items": [
+              "`templates/laporan_spak.json` — Expanded keywords to also match SPKP (Survei Persepsi Kualitas Pelayanan) and zona integritas documents. Both SPAK and SPKP share the same structure (lembar pengesahan, signatories with NIP, survey methodology)."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.1.0",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/contact_person.json` — Template untuk daftar contact person/PIC (nama, HP, alamat kantor). Keywords: DAFTAR CONTACT PERSON, NO HP PIC, NAMA PIC, ORIENTASI, REGISTRASI ULANG."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.0.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/idgen.py` — ULID generation utility (`gen_id()` returns 26-char Crockford Base32 ULID, `is_valid_id()` validates ULID format)",
+              "`scripts/migrate_ulid.py` — One-time migration script for SHA256→ULID conversion"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "BREAKING: All person and document IDs are now 26-character ULID (Crockford Base32, e.g., `01JXQVK5RHZP0N3G8WBM7CD4YT`) instead of 64-character hex SHA256. ULIDs are time-sortable (timetamp + randomness), double-click selectable, and 128-bit entropy.",
+              "BREAKING: File naming changed from `{sha256hex}.json` to `{ulid}.json` for persons and documents. Photo files changed from `{sha256hex}.avif` to `{ulid}.avif`.",
+              "BREAKING: Node format in edges changed from `person:{sha256hex}`/`document:{sha256hex}` to `person:{ulid}`/`document:{ulid}`",
+              "`scripts/idgen.py` — Rewritten: `gen_id()` now returns 26-char ULID instead of 64-char SHA256 hex. Added `is_valid_id()` for ULID validation.",
+              "`scripts/document.py` — ID validation uses `is_valid_id()` (26-char Crockford Base32) instead of 64-char hex check",
+              "`scripts/person.py`, `scripts/history.py`, `scripts/face_crop.py`, `scripts/batch_create.py` — Updated docstrings with ULID examples",
+              "`samples/person.json`, `samples/document.json` — Updated with `{ulid}` placeholder instead of `{sha256hex}`",
+              "AGENT.md — Comprehensive update: ID format (ULID, 26-char Crockford Base32, time-sortable), all examples updated, edge format, script CLI examples",
+              "Migrated 4690 person files, 218 document files, 7649 index files, 152 history entries, 2 photo files from SHA256 hex to ULID"
+            ]
+          },
+          {
+            "kind": "Removed",
+            "items": [
+              "64-character hex SHA256 ID format — replaced by 26-character ULID"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v1.0.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/idgen.py` — ID generation utility (originally SHA256, now ULID)",
+              "`scripts/migrate_ids.py` — One-time migration script for UUID→SHA256 conversion, `photos` array→`photo` string, `data/images/`→`data/photos/`",
+              "`scripts/migrate_ulid.py` — One-time migration script for SHA256→ULID conversion"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "BREAKING: All person and document IDs are now 64-character hex SHA256 (e.g., `3f8a1b2c4d5e6f7a...`) instead of prefixed UUIDs (`p-xxx`, `d-xxx`, `i-xxx`). IDs are double-click selectable with no hyphens or prefixes.",
+              "BREAKING: `photos` array field replaced with `photo` single string field. Photo path format: `data/photos/{person_id}.avif`. This is a schema-level change affecting all person JSON files.",
+              "BREAKING: `data/images/` directory renamed to `data/photos/`. Photo files are now named `{person_id}.avif` instead of `i-{uuid}.avif`.",
+              "BREAKING: Node format in edges changed from `person:p-xxx`/`document:d-xxx` to `person:{sha256hex}`/`document:{sha256hex}`",
+              "`scripts/person.py` — Uses `gen_id()` from `idgen.py`, removed `uuid` import, `photos` → `photo` in `_empty_person_data()`, removed `photos` from `ARRAY_FIELDS`",
+              "`scripts/document.py` — Uses `gen_id()`, validates 64-char hex format, `document:{sha256hex}` node format",
+              "`scripts/face_crop.py` — `PHOTOS_DIR = data/photos/`, returns `str` path instead of dict, `process_page()` returns `{\"faces_detected\": N, \"photo\": \"data/photos/...\"}`, `--person-id` CLI arg instead of `--doc-id`",
+              "`scripts/validate.py` — `photos` → `photo` in `VALID_PERSON_FIELDS`",
+              "`scripts/index.py`, `scripts/batch_create.py`, `scripts/history.py` — Updated docstrings with SHA256 hex ID examples",
+              "`samples/person.json` — Updated with SHA256 hex IDs, `photo: null` instead of `photos: []`, `person:{sha256hex}` node format, removed `i-{uuid}` photo ID",
+              "`samples/document.json` — Updated with SHA256 hex IDs and `document:{sha256hex}` edge format",
+              "AGENT.md — Comprehensive update: ID format (SHA256 hex, no prefix), `photo` field (string, not array), `data/photos/` directory, updated all examples, edge format, script CLI examples, index format, and workflow documentation",
+              "Migrated 4690 person files, 218 document files, 7650 index files, 152 history entries, 2 photo files from old UUID format to SHA256 hex"
+            ]
+          },
+          {
+            "kind": "Removed",
+            "items": [
+              "`data/images/` directory (replaced by `data/photos/`)",
+              "Old `p-{uuid}`, `d-{uuid}`, `i-{uuid}` ID format — no longer supported",
+              "`photos` array schema — replaced by `photo` string field"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.15.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/extract_tabular.py` — Template-aware tabular data extraction (two-phase: Phase 1 deterministic/zero-LLM, Phase 2 semantic/LLM-only-if-needed). Maps spreadsheet columns to person fields via template `field_mapping` + `COLUMN_ALIASES`. Handles: name/title stripping, NIK/employee_id auto-detection, phone/email normalization, date parsing, TTL splitting, gender normalization, `_extras` for unmapped columns",
+              "AGENT.md: \"Tabular Extraction\" section (workflow step 2) with Phase 1/Phase 2 explanation, code example, column mapping priority, CLI usage, and special field handling documentation",
+              "AGENT.md: `extract_tabular.py` added to directory listing and script table",
+              "AGENT.md: Rule #25 updated with explicit mention of `extract_tabular.py` for tabular extraction"
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/extract_tabular.py`: Fixed imports — `is_valid_phone` from `normalize.py` (not `validate.py`), `strip_titles` from `title.py`, `VALID_PERSON_FIELDS` from `person.py` (not `validate.py`)",
+              "`scripts/extract_tabular.py`: Fixed `edges` field mapping — template field_mapping `\"no hp\": \"edges\"` now auto-detects phone/email content and normalizes to the correct person field instead of storing raw value"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.14.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parallel_download.py` — Parallel pre-download of pending queue URLs using subprocess workers. 4-8x faster for bulk downloads. Features: skip already-processed hashes, retry-failed mode, dry-run mode, ETA progress display",
+              "AGENT.md: \"Terima Dokumen\" section updated with pre-download workflow using `parallel_download.py`",
+              "AGENT.md: Script table updated with `parallel_download.py` entry",
+              "AGENT.md: Directory listing updated with `parallel_download.py`"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: `index.py` script table entry updated with IndexCache and cache-stats CLI"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.13.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/index.py`: `IndexCache.flush_dirty()` — incremental flush that only writes new/modified index entries to disk (~1ms for 5 entries vs ~660ms for full 7,651 entries). Dirty tracking via `_dirty_unique` and `_dirty_shared` sets cleared after flush",
+              "`scripts/index.py`: `IndexCache.update_for_person()` — extract identifiers from person data+edges and update index cache in one call. Combined with `flush_dirty()`, enables single-person incremental index update without full rebuild",
+              "`scripts/index.py`: `IndexCache.stats()` — now includes `dirty` count per index type",
+              "`scripts/index.py`: `update-person` CLI command — `python3 scripts/index.py update-person p-xxx` incrementally updates index for one person",
+              "`scripts/batch_create.py`: `BatchProcessor.flush()` now calls `cache.flush_dirty()` instead of `cache.flush_to_disk()` — only writes dirty entries",
+              "AGENT.md: Index Lookup section updated with flush comparison table (`flush_dirty` vs `flush_to_disk` vs `flush_index.sh`)",
+              "AGENT.md: Rule #13 updated with incremental flush options and speed comparison"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`scripts/index.py`: `IndexCache` class moved from `scripts/batch_create.py` — now importable independently as `from scripts.index import IndexCache`",
+              "`scripts/batch_create.py`: `IndexCache` imported from `scripts/index.py` instead of defined inline",
+              "`scripts/batch_create.py`: Docstring updated to reference `IndexCache` in `index.py`"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.12.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/batch_create.py` — BatchProcessor class for batch person creation with in-memory index caching. Eliminates subprocess overhead (~100x faster for >10 persons). Features: `IndexCache` (in-memory dict lookup instead of file I/O), automatic dedup via `find_person_by_identifiers()`, incremental index flush, and `--flush` CLI for index rebuild",
+              "AGENT.md: \"Person Creation API\" section rewritten with two modes — Batch (PREFERRED) and Individual (legacy). Includes code examples for BatchProcessor usage pattern",
+              "AGENT.md: Script table updated with `batch_create.py` entry",
+              "AGENT.md: Directory listing updated with `batch_create.py`"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Rule #12 updated — `Batch >10 person → BatchProcessor (PREFERRED)` instead of generic \"Python script\"",
+              "AGENT.md: Rule #13 updated — flush index via `bp.flush()` or `python3 scripts/batch_create.py --flush` as alternative to `./flush_index.sh`",
+              "AGENT.md: Rule #25 updated — added BatchProcessor requirement for batch processing"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.11.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/data_kelompok.json` — Template for community group data documents (fishing groups, farmer groups, etc.) with keywords: `kelompok nelayan`, `ketua kelompok`, `nama pengurus`, `sekretaris`, `kelas kelompok`, `pemula`, `madya`, `utama`",
+              "AGENT.md: Phone Dedup Caveat section — documents sequential batch processing false-merge risk when multiple persons share a phone in the same document"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added `data_kelompok` to templates list"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.10.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/title.py`: `SOCIAL_PREFIXES` list — handles Indonesian honorific address prefixes: `Bpk.` (Bapak/Mr.), `Ibu` (Mrs./Ms.), `Sdr.` (Saudara), `Sdri.` (Saudari). Stripped from `full_name` and stored in `extra` with category `\"other\"` and label `\"Sapaan\"`",
+              "`scripts/title.py`: `is_social_prefix()` function for social prefix detection"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.9.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/face_crop.py`: `smart_crop_region()` — multi-strategy smart crop from rough LLM-identified photo region. Detects face via 3 strategies (full-image, region, expanded region) then crops centered on face with ID photo ratio (3:4). Prevents the failure mode where LLM coordinates capture text/labels instead of actual photo",
+              "`scripts/face_crop.py`: `detect_face_in_region()` — face detection constrained to a sub-region of the image",
+              "`scripts/face_crop.py`: `_adjust_to_id_ratio()` — adjusts crop coordinates to match ID photo aspect ratio",
+              "`scripts/face_crop.py`: `_save_crop()` — internal helper for saving pre-cropped PIL images as AVIF with ID sizing",
+              "`scripts/face_crop.py`: `ID_PHOTO_RATIO` (3/4), `ID_PHOTO_MAX_HEIGHT` (480), `ID_REGION_EXPAND_FACTOR` (1.5) constants",
+              "`scripts/face_crop.py`: `smart-crop` CLI command for smart cropping from rough coordinates",
+              "`scripts/face_crop.py`: `enforce_id_ratio` parameter on `crop_and_save()` for optional ID ratio enforcement"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`scripts/face_crop.py`: Updated module docstring with function reference and ratio documentation",
+              "AGENT.md: Significantly expanded Photo Extraction section with smart cropping workflow, ID ratio enforcement, crop verification steps, and common pitfalls table"
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "Photo crop now enforces ID card/passport ratio (3:4) to produce consistent portrait-style crops",
+              "LLM-identified photo regions now go through smart face detection before cropping, preventing text-only crops"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.8.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/face_crop.py`: Face detection (OpenCV Haar cascade) + crop + resize (max 240px) + AVIF encode (quality 80%) pipeline. CLI: `detect`, `process`, `crop` commands. Module: `detect_faces()`, `crop_and_save()`, `process_page()`, `crop_region()`",
+              "`data/images/` directory for storing face photo crops as `i-{uuid}.avif` files",
+              "`photos` field in person schema (`samples/person.json`): array of face photo entries with id, path, source_document, source_page, dimensions, file_size, added_at",
+              "`photos` added to VALID_PERSON_FIELDS in `scripts/validate.py`",
+              "`photos` added to ARRAY_FIELDS and `_empty_person_data()` in `scripts/person.py` with dedup-by-id merge logic",
+              "AGENT.md: Added \"Photo Extraction Pipeline\" section with three document scenarios (biodata, per-page, tabular)",
+              "AGENT.md: Added workflow step 2 (Photo Extraction) between OCR and person extraction; renumbered steps 2→3, 3→4, 4→5, 5→6, 6→7, 7→8",
+              "AGENT.md: Added `face_crop.py` to scripts reference table",
+              "AGENT.md: Added rule 27 — photo extraction mandatory after OCR",
+              "`next_sequence.txt` and `next.txt`: Added step 6 (PHOTO EXTRACTION) to mandatory checklist; renumbered subsequent steps",
+              "`templates/biodata.json`: Updated photo_attached hint to reference `scripts/face_crop.py`",
+              "Dependency: `opencv-python-headless` 4.13.0 for face detection"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.7.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/title.py`: Added police/military rank prefix stripping — `RANK_PREFIXES` list with 27 Polri/TNI rank abbreviations (IPTU, AIPDA, BRIPDA, AKBP, KOMPOL, AKP, IPDA, AIPTU, BRIPKA, BRIGPOL, BRIPTU, BHARAKA, BHARATU, BHARADA, Lettu, Letda, Kapten, Mayor, Letkol, Kolonel, Serma, Serka, Sertu, Serda, Prada, Pratu, Irjen.Pol, Brigjen.Pol, Kombes.Pol). Stripped from `full_name` and stored in `extra` with `category: \"rank\"` and `label: \"Pangkat X\"`.",
+              "Processed Undangan Klarifikasi Perkara Polresta Balikpapan — 8 persons extracted (4 police investigators, 4 civilians involved in land dispute case). 6 colleague edges for police unit. 3 phone edges."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added rule 2d under Name Sanitization for police/military rank prefix stripping",
+              "`templates/surat_undangan.json`: Added keywords `\"klarifikasi perkara\"` and `\"undangan klarifikasi\"` to match police summons/invitation letters"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.6.1",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "Registered `rekap_izin_dpmptsp` template for DPMPTSP permit/izin recap compilations — multi-section documents with applicant names, addresses, phone numbers, and permit details",
+              "Processed Daftar Layanan Perizinan dan Non-Perizinan yang Diterbitkan (PPID Soppeng) — 14 health practitioners extracted (5 Fisioterapi, 5 Perekam Medis, 4 Tenaga Sanitarian). 46-page PDF with 25+ permit types; OCR quality severely degraded for 43/46 pages"
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/title.py`: Added OCR-corrupted suffix alias `A.Mc` → maps to `A.Md` (c↔d common OCR error on scanned documents)",
+              "`scripts/title.py`: Added professional designation suffixes `Physio` (physiotherapist), `Ftr` (fisioterapis), and OCR artifact `Kes` (comma-split from compound titles like S.Tr.Kes) to SUFFIX_TITLES"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "flush_index.sh now indexes 6,852 files across 8 index types"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.6.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "Registered `daftar_umkm` template for UMKM/business directories — multi-column tabular extraction with owner names, business types, and phone numbers",
+              "AGENT.md: Added \"Multi-Column Tabular PDF Extraction (TSV Technique)\" section documenting `pdftotext -tsv` approach for column-aware extraction from interleaved multi-column PDF tables",
+              "Processed Row 1 (line 122): Daftar UMKM Mamin Kelurahan Karangbesuki — 136 business owners extracted with business type facts and 19 phone edges"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "flush_index.sh now indexes 6,853 files across 8 index types"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.5.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "Registered `data_penelitian` template for research registers, student thesis lists, researcher directories",
+              "Processed Row 2 (line 117): Data Penelitian DisKopUKM Sleman Maret 2024 — 7 researchers extracted with university affiliation, research titles, and phone edges"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "flush_index.sh now indexes 6,708 files across 8 index types"
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v0.4.0",
+        "date": "2026-05-22",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "Processed final 6 pending rows (115–120): LPPD Disparbud Anambas, SOP Email Dinkominfo Temanggung, SK LAPOR SP4N Kobar, Surat Gerakan Pangan Murah Kukar, Data Penelitian DisKopUKM Sleman",
+              "SK Bupati Kotawaringin Barat LAPOR SP4N 2021: 84 pejabat penghubung dari 39 OPD/kecamatan/BUMD — largest single-document extraction to date",
+              "Total queue: 120 rows, 106 true, 14 false, 0 pending",
+              "Total extracted persons in this session: ~745"
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "flush_index.sh now indexes 6,705 files across 8 index types"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
