@@ -16,8 +16,14 @@ function resizeDashboardCharts() {
   if (typeof window.resizeOverviewSankey === "function") {
     window.resizeOverviewSankey();
   }
-  if (typeof window.resizeIndexTreemap === "function") {
-    window.resizeIndexTreemap();
+  if (typeof window.resizeIndexBarChart === "function") {
+    window.resizeIndexBarChart();
+  }
+  if (typeof window.resizeOpsQueueDonut === "function") {
+    window.resizeOpsQueueDonut();
+  }
+  if (typeof window.resizePreviewRelationGraph === "function") {
+    window.resizePreviewRelationGraph();
   }
 }
 
@@ -110,6 +116,9 @@ function onDashboardTabShown(tabId) {
   if (tabId === "preview") {
     const detail = document.getElementById("preview-log-detail");
     if (detail) void detail.offsetHeight;
+    if (typeof window.resizePreviewRelationGraph === "function") {
+      window.requestAnimationFrame(() => window.resizePreviewRelationGraph());
+    }
   }
 }
 

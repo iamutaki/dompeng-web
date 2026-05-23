@@ -1,26 +1,26 @@
 {
-  "updated": "2026-05-23 11:50 UTC",
+  "updated": "2026-05-23 15:08 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 158391,
-    "graphEdges": 239926,
-    "sourceDocuments": 2893,
+    "graphNodes": 158408,
+    "graphEdges": 321183,
+    "sourceDocuments": 2896,
     "activeVectors": 5,
     "dominantVectorPct": 98.3,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.13,
-    "pipelineSuccessPct": 51.1,
-    "pipelineBacklogPct": 38.5,
+    "xrefRatio": 1.51,
+    "pipelineSuccessPct": 51.5,
+    "pipelineBacklogPct": 38.1,
     "pipelineFailurePct": 10.4,
     "entityLinkRate": 1.03
   },
   "summary": {
-    "persons": 158391,
-    "documents": 2893,
+    "persons": 158408,
+    "documents": 2896,
     "photos": 21,
     "templates": 37,
-    "history": 330,
-    "doneFiles": 541
+    "history": 333,
+    "doneFiles": 544
   },
   "coverage": [
     {
@@ -44,7 +44,7 @@
     {
       "id": "nik",
       "label": "NIK",
-      "value": 4434,
+      "value": 4436,
       "pct": 2.8
     },
     {
@@ -54,31 +54,31 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 158391,
+  "coverageTotal": 158408,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 91367,
-      "refs": 118410
+      "entries": 91312,
+      "refs": 158277
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 114420,
-      "refs": 114793
+      "entries": 114416,
+      "refs": 155775
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 2442,
-      "refs": 2693
+      "entries": 2443,
+      "refs": 3098
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 3316,
-      "refs": 3316
+      "entries": 3318,
+      "refs": 3318
     },
     {
       "type": "NPWP",
@@ -89,8 +89,8 @@
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 115,
-      "refs": 126
+      "entries": 116,
+      "refs": 127
     },
     {
       "type": "ID pelajar",
@@ -106,17 +106,154 @@
     }
   ],
   "indexTotal": {
-    "entries": 212248,
-    "refs": 239926
+    "entries": 212193,
+    "refs": 321183
   },
+  "indexCooccurrence": [
+    {
+      "source": "Nama",
+      "target": "Telepon",
+      "value": 155596
+    },
+    {
+      "source": "Nama",
+      "target": "NIK",
+      "value": 3318
+    },
+    {
+      "source": "Telepon",
+      "target": "NIK",
+      "value": 3271
+    },
+    {
+      "source": "Nama",
+      "target": "Email",
+      "value": 3067
+    },
+    {
+      "source": "Telepon",
+      "target": "Email",
+      "value": 3050
+    },
+    {
+      "source": "Nama",
+      "target": "ID karyawan",
+      "value": 424
+    },
+    {
+      "source": "Telepon",
+      "target": "ID karyawan",
+      "value": 330
+    },
+    {
+      "source": "Email",
+      "target": "NIK",
+      "value": 195
+    },
+    {
+      "source": "Nama",
+      "target": "NPWP",
+      "value": 148
+    },
+    {
+      "source": "NIK",
+      "target": "NPWP",
+      "value": 147
+    },
+    {
+      "source": "Telepon",
+      "target": "NPWP",
+      "value": 143
+    },
+    {
+      "source": "Email",
+      "target": "NPWP",
+      "value": 143
+    },
+    {
+      "source": "Email",
+      "target": "ID karyawan",
+      "value": 131
+    },
+    {
+      "source": "NIK",
+      "target": "ID karyawan",
+      "value": 129
+    },
+    {
+      "source": "Nama",
+      "target": "No. kartu keluarga",
+      "value": 127
+    },
+    {
+      "source": "NIK",
+      "target": "No. kartu keluarga",
+      "value": 116
+    },
+    {
+      "source": "NPWP",
+      "target": "No. kartu keluarga",
+      "value": 114
+    },
+    {
+      "source": "Telepon",
+      "target": "No. kartu keluarga",
+      "value": 112
+    },
+    {
+      "source": "Email",
+      "target": "No. kartu keluarga",
+      "value": 112
+    },
+    {
+      "source": "NPWP",
+      "target": "ID karyawan",
+      "value": 105
+    },
+    {
+      "source": "No. kartu keluarga",
+      "target": "ID karyawan",
+      "value": 79
+    },
+    {
+      "source": "Nama",
+      "target": "ID pelajar",
+      "value": 16
+    },
+    {
+      "source": "Telepon",
+      "target": "ID pelajar",
+      "value": 15
+    },
+    {
+      "source": "Email",
+      "target": "ID pelajar",
+      "value": 1
+    }
+  ],
   "queue": {
-    "pending": 255,
+    "pending": 252,
     "processing": 0,
-    "done": 338,
+    "done": 341,
     "failed": 69,
     "total": 662
   },
   "recentDocs": [
+    {
+      "title": "I·························",
+      "imported_at": "2026-05-23T14:55:13Z",
+      "mentions": 2
+    },
+    {
+      "title": "2····························",
+      "imported_at": "2026-05-23T14:30:51Z",
+      "mentions": 7
+    },
+    {
+      "title": "x···········································",
+      "imported_at": "2026-05-23T14:00:02Z",
+      "mentions": 8
+    },
     {
       "title": "s·························",
       "imported_at": "2026-05-23T11:28:00Z",
@@ -150,21 +287,6 @@
     {
       "title": "s·························",
       "imported_at": "2026-05-23T11:26:15Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:26:13Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:26:11Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:26:11Z",
       "mentions": 1
     }
   ],
@@ -230,6 +352,52 @@
         "phone": 9,
         "email": 2
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 2"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 2"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 3"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 4"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 5"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 6"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 7"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 8"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 9"
+        }
+      ],
       "documents": [],
       "documentCount": 0,
       "hasPhoto": false,
@@ -282,6 +450,60 @@
         "colleague": 1,
         "family": 6
       },
+      "relationLinks": [
+        {
+          "relation": "document",
+          "label": "P····· (······ K········ S·····"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "nik",
+          "label": "NIK 1"
+        },
+        {
+          "relation": "npwp",
+          "label": "NPWP 1"
+        },
+        {
+          "relation": "colleague",
+          "label": "T····· F······· A· 8··· J·"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 1"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 2"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 3"
+        },
+        {
+          "relation": "family",
+          "label": "I····"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -346,6 +568,44 @@
         "family": 6,
         "document": 1
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "I····"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -400,6 +660,48 @@
         "colleague": 2,
         "document": 1
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "i····"
+        },
+        {
+          "relation": "family",
+          "label": "a···"
+        },
+        {
+          "relation": "family",
+          "label": "a···"
+        },
+        {
+          "relation": "family",
+          "label": "a···"
+        },
+        {
+          "relation": "family",
+          "label": "a···"
+        },
+        {
+          "relation": "colleague",
+          "label": "r···· k···· d· D···· K··········· D·· P········· S···· K··· S···"
+        },
+        {
+          "relation": "colleague",
+          "label": "r···· k···· d· D···· K··········· D·· P········· S···· K··· S···"
+        },
+        {
+          "relation": "document",
+          "label": "S····· L···· P······· 2···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -453,6 +755,40 @@
         "family": 5,
         "document": 1
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "I····"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -509,6 +845,24 @@
         "email": 1,
         "document": 2
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "document",
+          "label": "W···· L····"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -569,6 +923,40 @@
         "family": 5,
         "document": 1
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "I····"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -625,6 +1013,32 @@
         "email": 1,
         "family": 4
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "S····"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [],
       "documentCount": 0,
       "hasPhoto": false,
@@ -668,6 +1082,44 @@
         "npwp": 1,
         "family": 4
       },
+      "relationLinks": [
+        {
+          "relation": "document",
+          "label": "K····· D···· P··········· M········· D·· D···"
+        },
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "nik",
+          "label": "NIK 1"
+        },
+        {
+          "relation": "npwp",
+          "label": "NPWP 1"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 1"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 2"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 3"
+        },
+        {
+          "relation": "family",
+          "label": "Keluarga 4"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -721,6 +1173,28 @@
         "document": 1,
         "colleague": 2
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "document",
+          "label": "L···· P······· 2··· - K····· B····· P········· K········ S·····"
+        },
+        {
+          "relation": "colleague",
+          "label": "s····· p·············· B······ K········ S·····"
+        },
+        {
+          "relation": "colleague",
+          "label": "s····· p·············· B······ K········ S·····"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -773,6 +1247,20 @@
         "email": 1,
         "document": 1
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "document",
+          "label": "L···· 2···"
+        }
+      ],
       "documents": [
         {
           "ref": "Dokumen 1",
@@ -825,6 +1313,32 @@
         "email": 1,
         "family": 4
       },
+      "relationLinks": [
+        {
+          "relation": "phone",
+          "label": "Telepon 1"
+        },
+        {
+          "relation": "email",
+          "label": "Email 1"
+        },
+        {
+          "relation": "family",
+          "label": "I····"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        },
+        {
+          "relation": "family",
+          "label": "A···"
+        }
+      ],
       "documents": [],
       "documentCount": 0,
       "hasPhoto": false,
@@ -833,16 +1347,29 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.5.2",
+    "latestVersion": "v2.5.3",
     "latestDate": "2026-05-23",
-    "totalReleases": 30,
+    "totalReleases": 31,
     "summary": {
-      "Fixed": 9,
+      "Fixed": 11,
       "Added": 80,
       "Changed": 44,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.5.3",
+        "date": "2026-05-23",
+        "sections": [
+          {
+            "kind": "Fixed",
+            "items": [
+              "`flush_index.sh`: Replaced `rm -f *.json` with `find -delete` to avoid `ARG_MAX` error on directories with 90K+ files",
+              "`flush_index.sh`: Added `safe_filename()` to sanitize index values containing `/` that caused `FileNotFoundError`"
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.5.2",
         "date": "2026-05-23",
@@ -1287,30 +1814,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.5.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "Registered `data_penelitian` template for research registers, student thesis lists, researcher directories",
-              "Processed Row 2 (line 117): Data Penelitian DisKopUKM Sleman Maret 2024 — 7 researchers extracted with university affiliation, research titles, and phone edges"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "flush_index.sh now indexes 6,708 files across 8 index types"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 158391,
+    "totalEntities": 158408,
     "entitiesWithCity": 2690,
     "geocodedEntities": 1967,
     "uniqueCities": 593,
@@ -2344,14 +2852,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2889,
-    "documentsWithUrl": 2872,
-    "documentsIdDomain": 511,
+    "documentsTotal": 2892,
+    "documentsWithUrl": 2875,
+    "documentsIdDomain": 514,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 511
+        "count": 514
       }
     ],
     "fileTypes": [
@@ -2361,7 +2869,7 @@
       },
       {
         "type": "pdf",
-        "count": 1228
+        "count": 1231
       },
       {
         "type": "unknown",

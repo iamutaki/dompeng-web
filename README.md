@@ -14,8 +14,8 @@ Dashboard statis berbahasa Indonesia untuk memantau ringkasan publik DOMPENG tan
 | **Ringkasan utama** | Kartu metrik cepat (person, dokumen, foto, template, dll.) |
 | **Alur ringkasan (SIG-01)** | Diagram **Sankey** (ECharts): dokumen → entitas → geo + indeks (proporsi entri) · antrian URL |
 | **Sebaran geospasial (GEO-02)** | Kota teratas, volume ringkas, **radar antrian** (Chart.js): profil % status URL (menunggu, selesai, gagal, diproses) |
-| **Indeks pencarian (IDX-01)** | **Treemap** (ECharts): proporsi entri per tipe, dikelompokkan silang vs unik |
-| **Sampel tersensor** | Contoh struktur entitas + dokumen publik; nama/judul/telepon/NIK disamarkan |
+| **Indeks pencarian (IDX-01)** | **Treemap** (ECharts): luas ∝ entri/referensi per tipe · warna silang/unik · toggle metrik · panel kiri 50% tinggi penuh |
+| **Sampel tersensor (SMP-R)** | **Graf relasi** (kiri, ECharts) · **teks plain** (kanan): klik simpul untuk detail relasi/identitas/dokumen |
 | **Dokumen terbaru** | Tabel impor terakhir dengan judul publik ter-redaksi |
 | **Catatan pembaruan** | Cuplikan `CHANGELOGS.md` versi terbaru |
 
@@ -31,7 +31,7 @@ Dashboard statis berbahasa Indonesia untuk memantau ringkasan publik DOMPENG tan
 web/
 ├── index.html              # Dashboard utama (+ blok SEO di-patch oleh summary)
 ├── css/style.css           # Tema gelap OSINT
-├── js/app.js               # ECharts (Sankey, graf indeks) + Chart.js (radar antrian, donut ops) + render panel
+├── js/app.js               # ECharts (Sankey, batang indeks) + Chart.js (radar/donut) + render panel
 ├── js/map.js               # MapLibre — cluster kota
 ├── data/
 │   ├── stats.json          # Sumber data dashboard (di-generate)

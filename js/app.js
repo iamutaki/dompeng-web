@@ -420,11 +420,55 @@ function renderDataTable(containerId, columns, rows) {
   container.appendChild(table);
 }
 
-function showChartFallbackTables() {
-  document.body.classList.add("charts-unavailable");
-  for (const detail of document.querySelectorAll(".chart-data-table")) {
-    detail.open = true;
+let chartDataModalLastFocus = null;
+
+function openChartDataModal(modalId) {
+  const dialog = document.getElementById(modalId);
+  if (!dialog || typeof dialog.showModal !== "function") return;
+  chartDataModalLastFocus = document.activeElement;
+  if (!dialog.open) dialog.showModal();
+}
+
+function closeChartDataModal(dialog) {
+  if (!dialog) return;
+  dialog.close();
+  const restore = chartDataModalLastFocus;
+  chartDataModalLastFocus = null;
+  if (restore && typeof restore.focus === "function" && document.contains(restore)) {
+    restore.focus();
   }
+}
+
+function initChartDataModals() {
+  for (const trigger of document.querySelectorAll("[data-chart-modal]")) {
+    if (trigger.dataset.chartModalBound === "true") continue;
+    trigger.dataset.chartModalBound = "true";
+    const modalId = trigger.getAttribute("data-chart-modal");
+    trigger.addEventListener("click", () => openChartDataModal(modalId));
+  }
+
+  for (const dialog of document.querySelectorAll(".chart-data-modal")) {
+    if (dialog.dataset.chartModalBound === "true") continue;
+    dialog.dataset.chartModalBound = "true";
+
+    for (const closeBtn of dialog.querySelectorAll("[data-chart-modal-close]")) {
+      closeBtn.addEventListener("click", () => closeChartDataModal(dialog));
+    }
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closeChartDataModal(dialog);
+    });
+
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeChartDataModal(dialog);
+    });
+  }
+}
+
+/** Buka modal tabel saat chart tidak tersedia (mis. ECharts gagal dimuat). */
+function showChartFallbackTable(modalId) {
+  openChartDataModal(modalId);
 }
 
 function renderAccessibleDataTables(data) {
@@ -837,8 +881,39 @@ const SANKEY_QUEUE_STATUS = [
 
 const DOMPENG_ECHART_STORE = {
   overviewSankey: "DOMPENG_OVERVIEW_SANKEY",
-  indexChord: "DOMPENG_INDEX_CHORD",
+  indexBar: "DOMPENG_INDEX_BAR",
+  previewGraph: "DOMPENG_PREVIEW_GRAPH",
 };
+
+const PREVIEW_GRAPH_MAX_IDENTIFIERS = 14;
+const PREVIEW_GRAPH_MAX_RELATION_LINKS = 24;
+const PREVIEW_GRAPH_CATEGORIES = [
+  { name: "Entitas", color: COLORS.cyan },
+  { name: "Identitas", color: COLORS.intel },
+  { name: "Relasi", color: COLORS.purple },
+  { name: "Dokumen", color: COLORS.amber },
+];
+
+const PREVIEW_GRAPH_RELATION_COLORS = {
+  family: "#ff6b9d",
+  phone: "#5ec8ff",
+  email: "#6ef0c4",
+  document: "#ffc857",
+  mentions: "#c49bff",
+  colleague: "#8eb8ff",
+  nik: "#3dffc8",
+  npwp: "#ffbf47",
+};
+
+const PREVIEW_GRAPH_NODE_SIZE = {
+  entity: 26,
+  identifier: 11,
+  relation: 13,
+  document: 13,
+  overflow: 11,
+};
+
+let previewGraphActiveEntity = null;
 
 const DOMPENG_ECHART_TOOLTIP = {
   backgroundColor: "rgba(11, 17, 24, 0.94)",
@@ -1036,7 +1111,7 @@ function buildOverviewSankey(data) {
 
   const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.overviewSankey);
   if (!chart) {
-    showChartFallbackTables();
+    showChartFallbackTable("overview-sankey-modal");
     return null;
   }
 
@@ -1317,6 +1392,14 @@ function formatEntityLog(entity) {
     }
   }
 
+  if (entity.relationLinks?.length) {
+    lines.push("");
+    lines.push("[relasi · konteks]");
+    for (const link of entity.relationLinks) {
+      lines.push(`  ${relationLabel(link.relation)}: ${link.label}`);
+    }
+  }
+
   if (entity.documents?.length) {
     lines.push("");
     lines.push("[dokumen]");
@@ -1447,24 +1530,6 @@ function renderPreviewDetailSections(entity, container) {
     container.appendChild(idSection);
   }
 
-  if (entity.relations && Object.keys(entity.relations).length) {
-    const relSection = document.createElement("section");
-    relSection.className = "preview-section";
-    const relHead = document.createElement("h3");
-    relHead.className = "preview-section__title";
-    appendText(relHead, "Relasi graf");
-    relSection.appendChild(relHead);
-
-    const relWrap = document.createElement("div");
-    relWrap.className = "preview-relations";
-    const sorted = Object.entries(entity.relations).sort((a, b) => b[1] - a[1]);
-    for (const [key, count] of sorted) {
-      relWrap.append(createPreviewChip(`${relationLabel(key)} · ${count}`, "cyan"));
-    }
-    relSection.appendChild(relWrap);
-    container.appendChild(relSection);
-  }
-
   if (entity.documents?.length) {
     const docSection = document.createElement("section");
     docSection.className = "preview-section";
@@ -1531,55 +1596,566 @@ function renderPreviewDetailSections(entity, container) {
   container.appendChild(metrics);
 }
 
+function previewGraphShortLabel(text, max = 18) {
+  const raw = String(text || "").trim();
+  if (raw.length <= max) return raw;
+  return `${raw.slice(0, max - 1)}…`;
+}
+
+function previewGraphLabelText(d) {
+  if (!d) return "";
+  if (d.nodeKind === "entity") return previewGraphShortLabel(d.entityRef || d.name, 14);
+  if (d.nodeKind === "relation_link") {
+    return previewGraphShortLabel(d.relationContext || relationLabel(d.relationKey), 16);
+  }
+  if (d.nodeKind === "relation") {
+    return `${previewGraphShortLabel(relationLabel(d.relationKey), 10)}\n×${fmt(d.relationCount)}`;
+  }
+  if (d.nodeKind === "identifier") {
+    return `${previewGraphShortLabel(d.identType, 10)}\n${previewGraphShortLabel(d.identValue, 12)}`;
+  }
+  if (d.nodeKind === "document") {
+    return `${previewGraphShortLabel(d.docRef || "Dok", 8)}\n${previewGraphShortLabel(d.docTitle, 12)}`;
+  }
+  if (d.nodeKind === "identifier_overflow") return `+${fmt(d.overflowCount)} id`;
+  if (d.nodeKind === "relation_overflow") return `+${fmt(d.overflowCount)}`;
+  return previewGraphShortLabel(d.name, 14);
+}
+
+function previewGraphLabelOpts(d) {
+  const isHub = d.nodeKind === "entity";
+  return {
+    show: true,
+    position: "right",
+    fontSize: isHub ? 9 : 8,
+    fontWeight: isHub ? 700 : 500,
+    lineHeight: isHub ? 12 : 11,
+    color: isHub ? "#e8f4fc" : "#b8c9db",
+    fontFamily: "'IBM Plex Mono', monospace",
+    formatter: () => previewGraphLabelText(d),
+  };
+}
+
+function previewGraphNodeStyle(fill, borderWidth = 1.5) {
+  return {
+    color: fill,
+    borderColor: "rgba(255, 255, 255, 0.38)",
+    borderWidth,
+    shadowBlur: 6,
+    shadowColor: "rgba(0, 0, 0, 0.45)",
+  };
+}
+
+function previewNodeTitle(node) {
+  if (!node) return "Relasi";
+  if (node.nodeKind === "entity") return node.entityRef || "Entitas";
+  if (node.nodeKind === "relation_link") return relationLabel(node.relationKey);
+  if (node.nodeKind === "relation") return relationLabel(node.relationKey);
+  if (node.nodeKind === "identifier") return node.identType || "Identitas";
+  if (node.nodeKind === "document") return node.docRef || "Dokumen";
+  if (node.nodeKind === "identifier_overflow") return "Identitas lain";
+  if (node.nodeKind === "relation_overflow") return relationLabel(node.relationKey);
+  return node.name || "Simpul";
+}
+
+function formatPreviewNodeFocusText(node, entity) {
+  const lines = [];
+
+  if (node.nodeKind === "entity") {
+    lines.push(`(hub entitas) ${node.entityRef || entity?.ref || "—"}`);
+    return lines.join("\n");
+  }
+
+  if (node.nodeKind === "relation_link" || node.nodeKind === "relation") {
+    lines.push(`[relasi · ${relationLabel(node.relationKey)}]`);
+    lines.push("");
+    if (node.nodeKind === "relation_link") {
+      logField(lines, "konteks", node.relationContext || node.name);
+      logField(lines, "tipe", node.relationKey);
+    } else {
+      logField(lines, "jumlah_tautan", node.relationCount);
+      logField(lines, "tipe", node.relationKey);
+    }
+    lines.push("");
+    lines.push(`entitas: ${entity?.ref || "—"}`);
+    return lines.join("\n");
+  }
+
+  if (node.nodeKind === "identifier") {
+    lines.push("[identitas]");
+    lines.push("");
+    logField(lines, "tipe", node.identType);
+    logField(lines, "nilai", node.identValue);
+    lines.push("");
+    lines.push(`entitas: ${entity?.ref || "—"}`);
+    return lines.join("\n");
+  }
+
+  if (node.nodeKind === "identifier_overflow") {
+    lines.push("[identitas · ringkasan]");
+    lines.push("");
+    lines.push(`  +${fmt(node.overflowCount)} identitas lain tidak digambar`);
+    return lines.join("\n");
+  }
+
+  if (node.nodeKind === "relation_overflow") {
+    lines.push(`[relasi · ${relationLabel(node.relationKey)} · ringkasan]`);
+    lines.push("");
+    lines.push(`  +${fmt(node.overflowCount)} tautan lain tidak digambar`);
+    return lines.join("\n");
+  }
+
+  if (node.nodeKind === "document") {
+    const doc = (entity?.documents || []).find((d) => d.ref === node.docRef);
+    lines.push(`[dokumen · ${node.docRef || "—"}]`);
+    lines.push("");
+    logField(lines, "judul", doc?.title || node.docTitle);
+    logField(lines, "konteks", doc?.context);
+    logField(lines, "berkas", doc?.filename);
+    logField(lines, "impor", doc?.importedAt);
+    lines.push("");
+    lines.push(`entitas: ${entity?.ref || "—"}`);
+    return lines.join("\n");
+  }
+
+  lines.push(node.name || "—");
+  return lines.join("\n");
+}
+
+function formatPreviewRelationPanelText(node, entity) {
+  if (!entity) return "Pilih entri dari daftar kiri.";
+  const parts = [formatEntityLog(entity)];
+  if (node) {
+    parts.push("", "--- simpul terpilih ---", formatPreviewNodeFocusText(node, entity));
+  }
+  return parts.join("\n");
+}
+
+function renderPreviewRelationText(node, entity) {
+  const pre = document.getElementById("preview-log-detail");
+  const title = document.getElementById("preview-relation-text-title");
+  const hint = document.getElementById("preview-relation-text-hint");
+  if (!pre) return;
+
+  pre.textContent = formatPreviewRelationPanelText(node, entity);
+  if (title) title.textContent = node ? previewNodeTitle(node) : entity?.ref || "Ringkasan entri";
+  if (hint) {
+    hint.textContent = node
+      ? "Ringkasan lengkap + fokus simpul"
+      : entity
+        ? "Ringkasan lengkap entri tersensor"
+        : "";
+  }
+}
+
+/** Bangun nodes + links force-graph untuk panel SMP-R. */
+function buildPreviewGraphData(entity) {
+  if (!entity) return { nodes: [], links: [], categories: PREVIEW_GRAPH_CATEGORIES };
+
+  const nodes = [];
+  const links = [];
+  const entityId = "entity-hub";
+
+  nodes.push({
+    id: entityId,
+    name: entity.ref || "Entitas",
+    category: 0,
+    symbolSize: PREVIEW_GRAPH_NODE_SIZE.entity,
+    entityRef: entity.ref,
+    nodeKind: "entity",
+    itemStyle: previewGraphNodeStyle("#00ffd0", 2),
+    label: previewGraphLabelOpts({
+      nodeKind: "entity",
+      entityRef: entity.ref,
+      name: entity.ref,
+    }),
+  });
+
+  const seenIds = new Set();
+  const identifiers = [];
+  for (const ident of entity.identifiers || []) {
+    const key = `${ident.type}\0${ident.value}`;
+    if (seenIds.has(key)) continue;
+    seenIds.add(key);
+    identifiers.push(ident);
+  }
+
+  const idSlice = identifiers.slice(0, PREVIEW_GRAPH_MAX_IDENTIFIERS);
+  const idOverflow = identifiers.length - idSlice.length;
+
+  idSlice.forEach((ident, index) => {
+    const nodeId = `ident-${index}`;
+    nodes.push({
+      id: nodeId,
+      name: ident.type,
+      category: 1,
+      symbolSize: PREVIEW_GRAPH_NODE_SIZE.identifier,
+      nodeKind: "identifier",
+      identType: ident.type,
+      identValue: ident.value,
+      itemStyle: previewGraphNodeStyle("#5ec8ff"),
+      label: previewGraphLabelOpts({
+        nodeKind: "identifier",
+        identType: ident.type,
+        identValue: ident.value,
+      }),
+    });
+    links.push({ source: entityId, target: nodeId, linkKind: "has_identifier" });
+  });
+
+  if (idOverflow > 0) {
+    const overflowId = "ident-overflow";
+    nodes.push({
+      id: overflowId,
+      name: `+${idOverflow} identitas`,
+      category: 1,
+      symbolSize: PREVIEW_GRAPH_NODE_SIZE.overflow,
+      nodeKind: "identifier_overflow",
+      overflowCount: idOverflow,
+      itemStyle: previewGraphNodeStyle("rgba(94, 200, 255, 0.65)"),
+      label: previewGraphLabelOpts({ nodeKind: "identifier_overflow", overflowCount: idOverflow }),
+    });
+    links.push({ source: entityId, target: overflowId, linkKind: "has_identifier" });
+  }
+
+  const relationLinks = (entity.relationLinks || []).slice(0, PREVIEW_GRAPH_MAX_RELATION_LINKS);
+  const shownRelationCounts = {};
+
+  if (relationLinks.length) {
+    relationLinks.forEach((link, index) => {
+      const relKey = link.relation || "unknown";
+      shownRelationCounts[relKey] = (shownRelationCounts[relKey] || 0) + 1;
+      const nodeId = `rel-link-${index}`;
+      const color = PREVIEW_GRAPH_RELATION_COLORS[relKey] || COLORS.purple;
+      nodes.push({
+        id: nodeId,
+        name: link.label || relationLabel(relKey),
+        category: 2,
+        symbolSize: PREVIEW_GRAPH_NODE_SIZE.relation,
+        nodeKind: "relation_link",
+        relationKey: relKey,
+        relationContext: link.label,
+        itemStyle: previewGraphNodeStyle(color),
+        label: previewGraphLabelOpts({
+          nodeKind: "relation_link",
+          relationKey: relKey,
+          relationContext: link.label,
+        }),
+      });
+      links.push({ source: entityId, target: nodeId, linkKind: "has_relation" });
+    });
+
+    for (const [key, total] of Object.entries(entity.relations || {})) {
+      const shown = shownRelationCounts[key] || 0;
+      const overflow = total - shown;
+      if (overflow <= 0) continue;
+      const overflowId = `rel-overflow-${key}`;
+      nodes.push({
+        id: overflowId,
+        name: `+${overflow} ${relationLabel(key)}`,
+        category: 2,
+        symbolSize: PREVIEW_GRAPH_NODE_SIZE.overflow,
+        nodeKind: "relation_overflow",
+        relationKey: key,
+        overflowCount: overflow,
+        itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_RELATION_COLORS[key] || COLORS.purple, 1),
+        label: previewGraphLabelOpts({
+          nodeKind: "relation_overflow",
+          relationKey: key,
+          overflowCount: overflow,
+        }),
+      });
+      links.push({ source: entityId, target: overflowId, linkKind: "has_relation", value: overflow });
+    }
+  } else {
+    const relationEntries = Object.entries(entity.relations || {}).sort((a, b) => b[1] - a[1]);
+    relationEntries.forEach(([key, count]) => {
+      const nodeId = `rel-${key}`;
+      const color = PREVIEW_GRAPH_RELATION_COLORS[key] || COLORS.purple;
+      nodes.push({
+        id: nodeId,
+        name: relationLabel(key),
+        category: 2,
+        symbolSize: PREVIEW_GRAPH_NODE_SIZE.relation,
+        nodeKind: "relation",
+        relationKey: key,
+        relationCount: count,
+        itemStyle: previewGraphNodeStyle(color),
+        label: previewGraphLabelOpts({
+          nodeKind: "relation",
+          relationKey: key,
+          relationCount: count,
+        }),
+      });
+      links.push({
+        source: entityId,
+        target: nodeId,
+        linkKind: "has_relation",
+        value: count,
+        lineStyle: { width: Math.min(6, 1.5 + Math.log10(Math.max(count, 1)) * 2) },
+      });
+    });
+  }
+
+  (entity.documents || []).forEach((doc, index) => {
+    const nodeId = `doc-${index}`;
+    nodes.push({
+      id: nodeId,
+      name: doc.ref || `Dokumen ${index + 1}`,
+      category: 3,
+      symbolSize: PREVIEW_GRAPH_NODE_SIZE.document,
+      nodeKind: "document",
+      docRef: doc.ref,
+      docTitle: doc.title,
+      itemStyle: previewGraphNodeStyle(PREVIEW_GRAPH_RELATION_COLORS.document),
+      label: previewGraphLabelOpts({
+        nodeKind: "document",
+        docRef: doc.ref,
+        docTitle: doc.title,
+      }),
+    });
+    links.push({ source: entityId, target: nodeId, linkKind: "source_document" });
+    const docRel = nodes.find(
+      (n) =>
+        (n.nodeKind === "relation" || n.nodeKind === "relation_link") && n.relationKey === "document",
+    );
+    if (docRel) {
+      links.push({ source: nodeId, target: docRel.id, linkKind: "document_relation", lineStyle: { type: "dashed", opacity: 0.45 } });
+    }
+  });
+
+  return { nodes, links, categories: PREVIEW_GRAPH_CATEGORIES };
+}
+
+function formatPreviewGraphTooltip(params) {
+  const d = params.data || {};
+  if (params.dataType === "edge") {
+    const kind = d.linkKind || "";
+    const targetId = String(d.target || "");
+    if (kind === "has_identifier") return "Entitas → identitas tersensor";
+    if (kind === "has_relation") {
+      const relKey = targetId.replace(/^rel-/, "");
+      return `Entitas → ${relationLabel(relKey)} · <strong>${fmt(d.value || 0)}</strong> tautan`;
+    }
+    if (kind === "source_document") return "Entitas → dokumen sumber";
+    if (kind === "document_relation") return "Dokumen ↔ relasi dokumen";
+    return `${d.source} → ${d.target}`;
+  }
+
+  if (d.nodeKind === "entity") {
+    return [`<strong>${d.entityRef || d.name}</strong>`, "Hub entitas sampel"].join("<br/>");
+  }
+  if (d.nodeKind === "identifier") {
+    return [`<strong>${d.identType}</strong>`, previewGraphShortLabel(d.identValue, 40)].join("<br/>");
+  }
+  if (d.nodeKind === "identifier_overflow") {
+    return `<strong>+${fmt(d.overflowCount)}</strong> identitas lain (tidak digambar)`;
+  }
+  if (d.nodeKind === "relation") {
+    return [`<strong>${relationLabel(d.relationKey)}</strong>`, `${fmt(d.relationCount)} relasi di graf`].join("<br/>");
+  }
+  if (d.nodeKind === "relation_link") {
+    return [`<strong>${relationLabel(d.relationKey)}</strong>`, previewGraphShortLabel(d.relationContext, 48)].join("<br/>");
+  }
+  if (d.nodeKind === "relation_overflow") {
+    return [`<strong>${relationLabel(d.relationKey)}</strong>`, `+${fmt(d.overflowCount)} tautan lain (tidak digambar)`].join("<br/>");
+  }
+  if (d.nodeKind === "document") {
+    return [`<strong>${d.docRef || d.name}</strong>`, previewGraphShortLabel(d.docTitle, 48)].join("<br/>");
+  }
+  return d.name || "";
+}
+
+function bindPreviewGraphClick(chart) {
+  if (!chart || chart._dompengPreviewClickBound) return;
+  chart._dompengPreviewClickBound = true;
+  chart.on("click", (params) => {
+    if (params.dataType !== "node" || !params.data) return;
+    renderPreviewRelationText(params.data, previewGraphActiveEntity);
+    chart.dispatchAction({
+      type: "focusNodeAdjacency",
+      seriesIndex: params.seriesIndex,
+      dataIndex: params.dataIndex,
+    });
+    const cap = document.getElementById("preview-graph-caption");
+    if (cap) cap.textContent = `Terpilih: ${previewNodeTitle(params.data)} · klik area kosong untuk reset`;
+  });
+  if (chart._dompengPreviewZrBound) return;
+  chart._dompengPreviewZrBound = true;
+  chart.getZr().on("click", (event) => {
+    if (event.target) return;
+    chart.dispatchAction({ type: "unfocusNodeAdjacency", seriesIndex: 0 });
+    renderPreviewRelationText(null, previewGraphActiveEntity);
+    const cap = document.getElementById("preview-graph-caption");
+    if (cap && previewGraphActiveEntity) {
+      const n = buildPreviewGraphData(previewGraphActiveEntity).nodes.length - 1;
+      cap.textContent = `${fmt(n)} simpul · ringkasan lengkap di panel kanan`;
+    }
+  });
+}
+
+function buildPreviewRelationGraph(entity) {
+  const el = document.getElementById("preview-relation-graph");
+  const caption = document.getElementById("preview-graph-caption");
+  if (!el) return null;
+
+  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.previewGraph);
+  if (!chart) return null;
+
+  previewGraphActiveEntity = entity || null;
+
+  if (!entity) {
+    chart.setOption(
+      {
+        backgroundColor: "transparent",
+        graphic: {
+          type: "text",
+          left: "center",
+          top: "middle",
+          style: {
+            text: "Pilih entri di daftar kiri",
+            fill: COLORS.muted,
+            font: "600 12px 'IBM Plex Mono', monospace",
+          },
+        },
+      },
+      { notMerge: true },
+    );
+    if (caption) caption.textContent = "Pilih entri untuk melihat graf relasi";
+    renderPreviewRelationText(null, null);
+    return chart;
+  }
+
+  const { nodes, links, categories } = buildPreviewGraphData(entity);
+  if (caption) {
+    caption.textContent = `${fmt(nodes.length - 1)} simpul · label pada graf · ringkasan di panel kanan`;
+  }
+  renderPreviewRelationText(null, entity);
+
+  if (!nodes.length) {
+    chart.setOption(
+      {
+        backgroundColor: "transparent",
+        graphic: {
+          type: "text",
+          left: "center",
+          top: "middle",
+          style: {
+            text: "Tidak ada relasi untuk digambar",
+            fill: COLORS.muted,
+            font: "600 12px 'IBM Plex Mono', monospace",
+          },
+        },
+      },
+      { notMerge: true },
+    );
+    return chart;
+  }
+
+  chart.setOption(
+    {
+      backgroundColor: "transparent",
+      animationDuration: 480,
+      tooltip: {
+        ...DOMPENG_ECHART_TOOLTIP,
+        trigger: "item",
+        formatter: formatPreviewGraphTooltip,
+      },
+      legend: {
+        data: categories.map((c) => c.name),
+        bottom: 4,
+        textStyle: {
+          color: "#9eb4c8",
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: 9,
+        },
+        itemWidth: 8,
+        itemHeight: 8,
+      },
+      series: [
+        {
+          type: "graph",
+          layout: "force",
+          roam: true,
+          draggable: true,
+          categories,
+          data: nodes,
+          links,
+          top: 12,
+          bottom: 28,
+          left: 8,
+          right: 8,
+          force: {
+            repulsion: nodes.length > 14 ? 200 : 160,
+            gravity: 0.12,
+            edgeLength: [36, 96],
+            friction: 0.58,
+          },
+          lineStyle: {
+            color: "source",
+            curveness: 0.18,
+            opacity: 0.72,
+            width: 1.5,
+          },
+          emphasis: {
+            focus: "adjacency",
+            scale: 1.35,
+            lineStyle: { width: 3, opacity: 0.95 },
+            itemStyle: {
+              shadowBlur: 14,
+              shadowColor: "rgba(78, 201, 255, 0.5)",
+              borderWidth: 2.5,
+            },
+          },
+          blur: {
+            itemStyle: { opacity: 0.22 },
+            lineStyle: { opacity: 0.12 },
+          },
+          label: {
+            show: true,
+            fontFamily: "'IBM Plex Mono', monospace",
+          },
+          labelLayout: {
+            hideOverlap: true,
+          },
+        },
+      ],
+    },
+    { notMerge: true },
+  );
+
+  bindPreviewGraphClick(chart);
+  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.previewGraph));
+  return chart;
+}
+
+function resizePreviewRelationGraph() {
+  resizeDompengEchart(DOMPENG_ECHART_STORE.previewGraph);
+}
+
 function renderPreviewBrief(entities) {
-  const brief = document.getElementById("preview-brief");
-  if (!brief) return;
-  clear(brief);
+  const meta = document.getElementById("preview-meta");
+  if (!meta) return;
 
   const rows = entities || [];
   if (!rows.length) {
-    brief.hidden = true;
+    meta.hidden = true;
+    meta.textContent = "";
     return;
   }
-  brief.hidden = false;
 
   const totalDocs = rows.reduce((sum, e) => sum + (e.documentCount || 0), 0);
   const totalIds = rows.reduce((sum, e) => sum + (e.identifierCount || 0), 0);
   const withPhoto = rows.filter((e) => e.hasPhoto).length;
   const avgIds = Math.round(totalIds / rows.length);
 
-  const cards = [
-    { label: "Sampel tersensor", value: fmt(rows.length), hint: "variasi struktur data" },
-    { label: "Rata-rata identitas", value: fmt(avgIds), hint: "per entitas" },
-    { label: "Dokumen terhubung", value: fmt(totalDocs), hint: "di semua sampel" },
-    { label: "Dengan foto", value: fmt(withPhoto), hint: `dari ${fmt(rows.length)} entitas` },
-  ];
-
-  for (const card of cards) {
-    const article = document.createElement("article");
-    article.className = "brief-card";
-
-    const label = document.createElement("div");
-    label.className = "brief-label";
-    appendText(label, card.label);
-
-    const value = document.createElement("div");
-    value.className = "brief-value";
-    appendText(value, card.value);
-
-    const hint = document.createElement("div");
-    hint.className = "brief-hint";
-    appendText(hint, card.hint);
-
-    article.append(label, value, hint);
-    brief.appendChild(article);
-  }
+  meta.hidden = false;
+  meta.textContent = `${fmt(rows.length)} sampel · rata-rata ${fmt(avgIds)} identitas · ${fmt(totalDocs)} dok · ${fmt(withPhoto)} foto`;
 }
 
 function renderShowcaseEntities(entities) {
   const listEl = document.getElementById("preview-log-list");
   const detailEl = document.getElementById("preview-log-detail");
-  const detailSections = document.getElementById("preview-detail-sections");
   const detailTitle = document.getElementById("preview-detail-title");
   const listMeta = document.getElementById("preview-list-meta");
   const copyBtn = document.getElementById("preview-copy-log");
@@ -1589,16 +2165,10 @@ function renderShowcaseEntities(entities) {
   let activeIndex = -1;
   let visibleIndices = [];
 
-  const previewMeta = document.getElementById("preview-meta");
-  if (previewMeta) {
-    previewMeta.textContent = rows.length ? `${fmt(rows.length)} sampel` : "—";
-    previewMeta.hidden = rows.length === 0;
-  }
-
   const moduleCaption = document.getElementById("preview-module-caption");
   if (moduleCaption) {
     moduleCaption.textContent = rows.length
-      ? "Data disamarkan untuk publik · gunakan panel kiri untuk memilih entri"
+      ? "Graf relasi (kiri) · detail teks per simpul (kanan) · data disamarkan"
       : "Belum ada sampel — jalankan ./summary.sh";
   }
 
@@ -1636,10 +2206,12 @@ function renderShowcaseEntities(entities) {
   };
 
   const showEmptyDetail = (message) => {
-    if (detailSections) clear(detailSections);
-    detailEl.textContent = message;
+    previewGraphActiveEntity = null;
+    if (detailEl) detailEl.textContent = message;
+    renderPreviewRelationText(null, null);
     if (detailTitle) detailTitle.textContent = "Detail entri";
     if (copyBtn) copyBtn.hidden = true;
+    buildPreviewRelationGraph(null);
   };
 
   const setActiveEntity = (rowIndex, { focusList = false } = {}) => {
@@ -1647,8 +2219,8 @@ function renderShowcaseEntities(entities) {
     activeIndex = rowIndex;
     const entity = rows[rowIndex];
 
-    detailEl.textContent = formatEntityLog(entity);
-    renderPreviewDetailSections(entity, detailSections);
+    previewGraphActiveEntity = entity;
+    buildPreviewRelationGraph(entity);
     if (detailTitle) {
       detailTitle.textContent = `${entity.ref} · ${entity.identifierCount} id · ${entity.edgeCount} rel`;
     }
@@ -1730,7 +2302,7 @@ function renderShowcaseEntities(entities) {
     if (copyBtn._dompengCopyHandler) copyBtn.removeEventListener("click", copyBtn._dompengCopyHandler);
     copyBtn._dompengCopyHandler = async () => {
       if (activeIndex < 0) return;
-      const text = formatEntityLog(rows[activeIndex]);
+      const text = detailEl?.textContent || formatEntityLog(rows[activeIndex]);
       try {
         await navigator.clipboard.writeText(text);
         const prev = copyBtn.textContent;
@@ -1795,7 +2367,6 @@ function buildCoverageChart(coverage, canvasId = "coverage-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
-    showChartFallbackTables();
     return null;
   }
 
@@ -1834,24 +2405,66 @@ function buildCoverageChart(coverage, canvasId = "coverage-chart") {
   });
 }
 
-function queueCenterLabelPlugin(queue, { compact = false } = {}) {
+function queueCenterLabelPlugin(queue, { compact = false, ops = false } = {}) {
   return {
     id: "queueCenterLabel",
     beforeDraw(chart) {
       const { width, height, ctx } = chart;
       const total = (queue.pending || 0) + (queue.done || 0) + (queue.failed || 0) + (queue.processing || 0);
       const pct = total ? Math.round((queue.done / total) * 100) : 0;
-      const pctSize = compact ? Math.min(18, width * 0.14) : Math.min(22, width * 0.12);
-      const labelSize = compact ? Math.max(8, width * 0.055) : 9;
+      const pctSize = ops ? Math.min(20, width * 0.13) : compact ? Math.min(18, width * 0.14) : Math.min(22, width * 0.12);
+      const labelSize = ops ? Math.max(8, width * 0.05) : compact ? Math.max(8, width * 0.055) : 9;
       ctx.save();
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = `700 ${pctSize}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = "#00d4aa";
-      ctx.fillText(`${pct}%`, width / 2, height / 2 - (compact ? 5 : 6));
+      ctx.fillText(ops ? fmt(total) : `${pct}%`, width / 2, height / 2 - (ops ? 6 : compact ? 5 : 6));
       ctx.font = `600 ${labelSize}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = "#7a8fa8";
-      ctx.fillText("SELESAI", width / 2, height / 2 + (compact ? 12 : 14));
+      ctx.fillText(ops ? "URL" : "SELESAI", width / 2, height / 2 + (ops ? 13 : compact ? 12 : 14));
+      ctx.restore();
+    },
+  };
+}
+
+/** Label di luar setiap irisan donut (nama status + volume + %). */
+function queueSliceLabelPlugin(segments, rawValues, { minAngle = 0.2 } = {}) {
+  return {
+    id: "queueSliceLabels",
+    afterDatasetDraw(chart) {
+      const ctx = chart.ctx;
+      const meta = chart.getDatasetMeta(0);
+      const total = rawValues.reduce((acc, value) => acc + value, 0);
+      if (!total || !meta?.data?.length) return;
+
+      ctx.save();
+      ctx.font = '600 10px "IBM Plex Mono", monospace';
+      ctx.fillStyle = "#c5d4e3";
+
+      for (let i = 0; i < meta.data.length; i++) {
+        const arc = meta.data[i];
+        const span = arc.endAngle - arc.startAngle;
+        if (span < minAngle) continue;
+
+        const mid = (arc.startAngle + arc.endAngle) / 2;
+        const labelR = arc.outerRadius + 12;
+        const x = arc.x + Math.cos(mid) * labelR;
+        const y = arc.y + Math.sin(mid) * labelR;
+        const real = rawValues[i] || 0;
+        const pctNum = Math.round((real / total) * 100);
+        const name = segments[i]?.label || "";
+
+        const flip = mid > Math.PI / 2 && mid < (Math.PI * 3) / 2;
+        ctx.textAlign = flip ? "right" : "left";
+        ctx.textBaseline = "middle";
+        ctx.fillText(name, x, y - 6);
+        ctx.font = '500 9px "IBM Plex Mono", monospace';
+        ctx.fillStyle = "#7a8fa8";
+        ctx.fillText(`${fmt(real)} · ${pctNum}%`, x, y + 7);
+        ctx.font = '600 10px "IBM Plex Mono", monospace';
+        ctx.fillStyle = "#c5d4e3";
+      }
       ctx.restore();
     },
   };
@@ -1860,7 +2473,7 @@ function queueCenterLabelPlugin(queue, { compact = false } = {}) {
 /** Segmen donut antrian — selalu tampil meski nilainya 0 (Chart.js mengabaikan slice 0). */
 const QUEUE_CHART_SEGMENTS = [
   { label: "Menunggu", key: "pending", color: COLORS.amber },
-  { label: "Berhasil", key: "done", color: COLORS.intel },
+  { label: "Selesai", key: "done", color: COLORS.intel },
   { label: "Gagal", key: "failed", color: COLORS.danger },
   { label: "Diproses", key: "processing", color: COLORS.cyan, optional: true },
 ];
@@ -1887,7 +2500,6 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
-    showChartFallbackTables();
     return null;
   }
 
@@ -1905,6 +2517,7 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
 
   const isAnalytics = canvasId === "queue-chart";
   const isOverview = canvasId === "overview-queue-chart";
+  const isOps = canvasId === "ops-queue-donut";
   const plugins = {
     legend: { display: false },
     tooltip: {
@@ -1919,6 +2532,11 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
     },
   };
 
+  const chartPlugins = [queueCenterLabelPlugin(queue, { compact: isOverview, ops: isOps })];
+  if (isOps) {
+    chartPlugins.push(queueSliceLabelPlugin(segments, rawValues));
+  }
+
   return new Chart(ctx, {
     type: "doughnut",
     data: {
@@ -1928,21 +2546,28 @@ function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
           data: displayValues,
           backgroundColor: colors,
           borderColor: "#0b1118",
-          borderWidth: isAnalytics ? 4 : 3,
-          hoverOffset: isAnalytics ? 8 : 5,
-          spacing: isAnalytics ? 2 : 1,
+          borderWidth: isOps ? 3 : isAnalytics ? 4 : 3,
+          hoverOffset: isOps ? 6 : isAnalytics ? 8 : 5,
+          spacing: isOps ? 2 : isAnalytics ? 2 : 1,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: isAnalytics ? "56%" : isOverview ? "58%" : "60%",
-      layout: { padding: isAnalytics ? 6 : isOverview ? 8 : 4 },
+      cutout: isOps ? "54%" : isAnalytics ? "56%" : isOverview ? "58%" : "60%",
+      layout: { padding: isOps ? 24 : isAnalytics ? 6 : isOverview ? 8 : 4 },
       plugins,
     },
-    plugins: [queueCenterLabelPlugin(queue, { compact: isOverview })],
+    plugins: chartPlugins,
   });
+}
+
+function resizeOpsQueueDonut() {
+  const canvas = document.getElementById("ops-queue-donut");
+  if (!canvas || typeof Chart === "undefined") return;
+  const chart = Chart.getChart(canvas);
+  if (chart?.resize) chart.resize();
 }
 
 /** Radar profil antrian di ringkasan GEO (sumbu = status URL, nilai = % dari total). */
@@ -2089,111 +2714,67 @@ function renderOverviewQueueRadar(queue, options = {}) {
   if (chart && canvas) canvas.hidden = false;
 }
 
-const INDEX_TREEMAP_SHARED_TONES = ["#00d4aa", "#00b894", "#00a07a", "#4ec9ff", "#3ab8e8"];
-const INDEX_TREEMAP_UNIQUE_TONES = ["#e6a817", "#d49a14", "#c28a11", "#ff7eb3", "#e86a9f"];
+let indexChartRowsCache = [];
 
-function indexTreemapLeafColor(kind, index) {
-  const palette = kind === "unique" ? INDEX_TREEMAP_UNIQUE_TONES : INDEX_TREEMAP_SHARED_TONES;
-  return palette[index % palette.length];
+const INDEX_BAR_COLORS = {
+  entries: "#4ec9ff",
+  refs: "#e6a817",
+};
+
+function indexChartRowByType(type) {
+  return indexChartRowsCache.find((row) => row.type === type);
 }
 
-function indexTreemapLeaf(row, totalEntries, kindIndex) {
-  const entries = row.entries || 0;
-  const refs = row.refs || 0;
-  const ratio = entries > 0 ? refs / entries : 0;
-  return {
-    name: row.type,
-    value: entries,
-    entries,
-    refs,
-    ratio,
-    rowKind: row.kind,
-    pctTotal: totalEntries > 0 ? (entries / totalEntries) * 100 : 0,
-    itemStyle: {
-      color: indexTreemapLeafColor(row.kind, kindIndex),
-      borderColor: "rgba(255, 255, 255, 0.14)",
-      borderWidth: 1,
-    },
-  };
+function indexBarSeriesValue(amount) {
+  const value = Number(amount) || 0;
+  return value > 0 ? value : null;
 }
 
-/** Hierarki treemap: Silang / Unik → tipe (luas = entri). */
-function buildIndexTreemapData(indexRows) {
-  const rows = (indexRows || []).filter((row) => (row.entries || 0) > 0);
-  const totalEntries = rows.reduce((sum, row) => sum + (row.entries || 0), 0);
-  const shared = { name: "Silang", children: [] };
-  const unique = { name: "Unik", children: [] };
-  let sharedIdx = 0;
-  let uniqueIdx = 0;
-
-  for (const row of rows) {
-    if (row.kind === "unique") {
-      unique.children.push(indexTreemapLeaf(row, totalEntries, uniqueIdx++));
-    } else {
-      shared.children.push(indexTreemapLeaf(row, totalEntries, sharedIdx++));
-    }
-  }
-
-  shared.children.sort((a, b) => b.value - a.value);
-  unique.children.sort((a, b) => b.value - a.value);
-
-  const data = [];
-  if (shared.children.length) {
-    data.push({
-      ...shared,
-      itemStyle: { color: "rgba(0, 212, 170, 0.22)", borderColor: "rgba(0, 212, 170, 0.45)", borderWidth: 2 },
-    });
-  }
-  if (unique.children.length) {
-    data.push({
-      ...unique,
-      itemStyle: { color: "rgba(230, 168, 23, 0.2)", borderColor: "rgba(230, 168, 23, 0.45)", borderWidth: 2 },
-    });
-  }
-
-  return { data, totalEntries };
+function formatIndexBarAxisLabel(type) {
+  const row = indexChartRowByType(type);
+  const kind = row?.kind === "unique" ? "u" : "s";
+  return `{${kind}|■} {n|${type}}`;
 }
 
-function formatIndexTreemapTooltip(params) {
-  const d = params.data || {};
-  if (d.children?.length) {
-    const groupEntries = d.children.reduce((sum, child) => sum + (child.value || 0), 0);
-    return [
-      `<strong>${params.name}</strong>`,
-      `${fmt(groupEntries)} entri · ${d.children.length} tipe`,
-    ].join("<br/>");
-  }
+function formatIndexBarAxisTick(value) {
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(value >= 10_000_000 ? 0 : 1)}M`;
+  if (value >= 1000) return `${Math.round(value / 1000)}k`;
+  return fmt(value);
+}
 
-  const mode = d.rowKind === "unique" ? "Unik" : "Silang";
-  const ratio = d.entries > 0 ? `${d.ratio.toFixed(2)}×` : "—";
+function formatIndexBarTooltip(params) {
+  if (!Array.isArray(params) || !params.length) return "";
+  const type = params[0].axisValue;
+  const row = indexChartRowByType(type) || {};
+  const entries = row.entries ?? 0;
+  const refs = row.refs ?? 0;
+  const mode = row.kind === "unique" ? "Unik" : "Silang";
+  const ratio = entries > 0 ? `${(refs / entries).toFixed(2)}×` : "—";
+  const metricLines = params.map((item) => `${item.seriesName}: <b>${fmt(item.value)}</b>`);
   return [
-    `<strong>${d.name}</strong>`,
-    `Mode: ${mode}`,
-    `Entri: <strong>${fmt(d.entries)}</strong> (${(d.pctTotal || 0).toFixed(1)}% total)`,
-    `Referensi: <strong>${fmt(d.refs)}</strong>`,
-    `Rasio ref/entri: <strong>${ratio}</strong>`,
+    `<b>${type}</b> <span style="opacity:0.75">${mode}</span>`,
+    ...metricLines,
+    `Rasio ref/entri: <b>${ratio}</b>`,
+    '<span style="opacity:0.78;font-size:10px">Entri=kunci/file · Ref=person_id · sumbu log</span>',
   ].join("<br/>");
 }
 
-function indexTreemapLeafLabel(params) {
-  const d = params.data || {};
-  if (d.children?.length) return "";
-  if ((d.pctTotal || 0) < 1.8) return d.name.length <= 10 ? d.name : "";
-  if ((d.pctTotal || 0) < 5) return d.name;
-  return `${d.name}\n${fmt(d.entries)}`;
-}
-
-function buildIndexTreemap(indexRows) {
-  const el = document.getElementById("index-treemap-chart");
+/** Bar horizontal berpasangan: entri vs referensi per tipe; sumbu-X log agar tipe kecil tetap terbaca. */
+function buildIndexBarChart(indexRows) {
+  const el = document.getElementById("index-bar-chart");
   if (!el) return null;
 
-  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.indexTreemap);
+  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.indexBar);
   if (!chart) {
-    showChartFallbackTables();
+    showChartFallbackTable("index-chart-modal");
     return null;
   }
 
-  if (!(indexRows || []).length) {
+  indexChartRowsCache = [...(indexRows || [])]
+    .filter((row) => (row.entries || 0) > 0 || (row.refs || 0) > 0)
+    .sort((a, b) => (b.entries || 0) - (a.entries || 0));
+
+  if (!indexChartRowsCache.length) {
     chart.setOption(
       {
         backgroundColor: "transparent",
@@ -2213,92 +2794,90 @@ function buildIndexTreemap(indexRows) {
     return chart;
   }
 
-  const { data } = buildIndexTreemapData(indexRows);
-  const labelFont = "'IBM Plex Mono', monospace";
+  const types = indexChartRowsCache.map((row) => row.type);
+  const entriesData = indexChartRowsCache.map((row) => indexBarSeriesValue(row.entries));
+  const refsData = indexChartRowsCache.map((row) => indexBarSeriesValue(row.refs));
 
   chart.setOption(
     {
       backgroundColor: "transparent",
-      animationDuration: 480,
-      animationEasing: "cubicOut",
+      animationDuration: 380,
+      grid: { left: 4, right: 12, top: 6, bottom: 4, containLabel: true },
       tooltip: {
         ...DOMPENG_ECHART_TOOLTIP,
-        trigger: "item",
-        formatter: formatIndexTreemapTooltip,
+        trigger: "axis",
+        axisPointer: { type: "shadow", shadowStyle: { color: "rgba(78, 201, 255, 0.1)" } },
+        confine: true,
+        padding: [5, 7],
+        textStyle: {
+          ...DOMPENG_ECHART_TOOLTIP.textStyle,
+          fontSize: 10,
+          lineHeight: 14,
+        },
+        extraCssText:
+          "max-width:200px;white-space:normal;word-break:break-word;box-shadow:0 4px 14px rgba(0,0,0,0.5);",
+        formatter: formatIndexBarTooltip,
+      },
+      xAxis: {
+        type: "log",
+        logBase: 10,
+        min: 1,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: "rgba(28, 42, 58, 0.7)", type: "dashed" } },
+        axisLabel: {
+          color: COLORS.muted,
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: 9,
+          formatter: formatIndexBarAxisTick,
+        },
+      },
+      yAxis: {
+        type: "category",
+        inverse: true,
+        data: types,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          interval: 0,
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: 10,
+          formatter: formatIndexBarAxisLabel,
+          rich: {
+            s: { color: "#00d4aa", fontSize: 8, padding: [0, 4, 0, 0] },
+            u: { color: "#e6a817", fontSize: 8, padding: [0, 4, 0, 0] },
+            n: { color: "#c5d4e3", fontSize: 10 },
+          },
+        },
       },
       series: [
         {
-          type: "treemap",
-          roam: false,
-          nodeClick: false,
-          breadcrumb: { show: false },
-          left: 2,
-          right: 2,
-          top: 2,
-          bottom: 2,
-          label: {
-            show: true,
-            formatter: indexTreemapLeafLabel,
-            color: "#e8f0f8",
-            fontFamily: labelFont,
-            fontSize: 11,
-            fontWeight: 600,
-            lineHeight: 14,
-          },
-          upperLabel: {
-            show: true,
-            height: 26,
-            color: "#f0f6fc",
-            fontFamily: labelFont,
-            fontSize: 11,
-            fontWeight: 700,
-          },
-          itemStyle: {
-            borderRadius: 3,
-            gapWidth: 3,
-          },
-          emphasis: {
-            focus: "descendant",
-            label: { fontSize: 12 },
-            itemStyle: {
-              borderColor: "rgba(78, 201, 255, 0.75)",
-              borderWidth: 2,
-              shadowBlur: 12,
-              shadowColor: "rgba(78, 201, 255, 0.35)",
-            },
-          },
-          levels: [
-            {
-              itemStyle: {
-                borderColor: "rgba(0, 0, 0, 0.45)",
-                borderWidth: 2,
-                gapWidth: 4,
-              },
-              upperLabel: { show: true },
-            },
-            {
-              colorSaturation: [0.72, 1],
-              itemStyle: {
-                borderColor: "rgba(255, 255, 255, 0.1)",
-                borderWidth: 1,
-                gapWidth: 2,
-              },
-              label: { fontSize: 10 },
-            },
-          ],
-          data,
+          name: "Entri",
+          type: "bar",
+          data: entriesData,
+          barMaxWidth: 12,
+          itemStyle: { color: INDEX_BAR_COLORS.entries, borderRadius: [0, 2, 2, 0] },
+          emphasis: { focus: "series" },
+        },
+        {
+          name: "Referensi",
+          type: "bar",
+          data: refsData,
+          barMaxWidth: 12,
+          itemStyle: { color: INDEX_BAR_COLORS.refs, borderRadius: [0, 2, 2, 0] },
+          emphasis: { focus: "series" },
         },
       ],
     },
     { notMerge: true },
   );
 
-  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.indexTreemap));
+  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.indexBar));
   return chart;
 }
 
-function resizeIndexTreemap() {
-  resizeDompengEchart(DOMPENG_ECHART_STORE.indexTreemap);
+function resizeIndexBarChart() {
+  resizeDompengEchart(DOMPENG_ECHART_STORE.indexBar);
 }
 
 function changelogKindLabel(kind) {
@@ -2740,12 +3319,15 @@ function refreshIndexViews(data) {
   const capIndex = document.getElementById("index-caption");
   const totals = hasFilter ? sumIndexTotals(filtered) : data.indexTotal;
   if (capIndex && totals) {
-    capIndex.textContent = `${fmt(totals.entries)} entri · ${fmt(totals.refs)} referensi`;
+    const ratio = totals.entries > 0 ? (totals.refs / totals.entries).toFixed(2) : "—";
+    capIndex.textContent = hasFilter
+      ? `${fmt(filtered.length)} tipe · ${fmt(totals.entries)} entri · rasio ${ratio}×`
+      : `${fmt(totals.entries)} entri · ${fmt(totals.refs)} referensi · rasio ${ratio}×`;
   }
 
   renderIndexFieldTable(filtered);
-  buildIndexTreemap(filtered);
-  window.requestAnimationFrame(resizeIndexTreemap);
+  buildIndexBarChart(filtered);
+  window.requestAnimationFrame(resizeIndexBarChart);
   renderIndexStats(totals || { entries: 0, refs: 0 });
   renderIntelMetrics(data.intel, data.queue, filtered);
 
@@ -2830,104 +3412,86 @@ function initPreviewFilters() {
   }
 }
 
-function renderOpsStats(data, { statusFilter = getQueueFilter() } = {}) {
-  const grid = document.getElementById("ops-stats-grid");
+function renderOpsStatsLegend(queue, { statusFilter = "all" } = {}) {
+  const list = document.getElementById("ops-stats-legend");
+  if (!list) return;
+  clear(list);
+
+  const segments = queueChartSegments(queue, { statusFilter });
+  const total = segments.reduce((sum, segment) => sum + (queue[segment.key] || 0), 0) || 1;
+
+  for (const segment of segments) {
+    const value = queue[segment.key] || 0;
+    const li = document.createElement("li");
+    li.className = "ops-stats-legend__item";
+    if (statusFilter !== "all" && segment.key === statusFilter) {
+      li.dataset.highlight = "true";
+    }
+
+    const dot = document.createElement("span");
+    dot.className = "ops-stats-legend__dot";
+    dot.style.background = segment.color;
+
+    const label = document.createElement("span");
+    label.className = "ops-stats-legend__label";
+    appendText(label, segment.label);
+
+    const meta = document.createElement("span");
+    meta.className = "ops-stats-legend__meta";
+    appendText(meta, `${fmt(value)} · ${pct(value, total)}%`);
+
+    li.append(dot, label, meta);
+    list.appendChild(li);
+  }
+}
+
+function renderOpsStatsKpis(data) {
+  const grid = document.getElementById("ops-stats-kpis");
   if (!grid) return;
 
-  const { summary = {}, queue = {}, intel = {}, indexTotal = {}, geo = {} } = data;
-  const queueTotal = queue.total || 1;
-
+  const { summary = {}, intel = {}, indexTotal = {}, geo = {} } = data;
   const cards = [
-    {
-      code: "Q-01",
-      key: "pending",
-      label: "Antrian menunggu",
-      value: queue.pending,
-      tone: "amber",
-      hint: `${pct(queue.pending, queueTotal)}% · ${fmt(queue.processing || 0)} diproses`,
-    },
-    {
-      code: "Q-02",
-      key: "done",
-      label: "Unduhan selesai",
-      value: queue.done,
-      tone: "intel",
-      hint: intel.pipelineSuccessPct != null ? `Pipeline ${intel.pipelineSuccessPct}% sukses` : `${pct(queue.done, queueTotal)}%`,
-    },
-    {
-      code: "Q-03",
-      key: "failed",
-      label: "Unduhan gagal",
-      value: queue.failed,
-      tone: queue.failed > 0 ? "danger" : undefined,
-      hint: intel.pipelineFailurePct != null ? `Kegagalan ${intel.pipelineFailurePct}%` : `${pct(queue.failed, queueTotal)}%`,
-    },
-    {
-      code: "Q-04",
-      key: "processing",
-      label: "Sedang diproses",
-      value: queue.processing,
-      tone: "cyan",
-      hint: `${pct(queue.processing || 0, queueTotal)}% dari antrian`,
-      hidden: !(queue.processing > 0),
-    },
     {
       code: "D-01",
       label: "Dokumen publik",
       value: summary.documents,
       tone: "intel",
-      hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber terindeks`,
-      queueOnly: false,
+      hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber`,
     },
     {
       code: "D-02",
-      label: "Template ekstraksi",
+      label: "Template",
       value: summary.templates,
-      hint: "Pola parsing dokumen",
+      hint: "Pola ekstraksi",
     },
     {
       code: "D-03",
       label: "File selesai",
       value: summary.doneFiles,
       tone: "cyan",
-      hint: `Riwayat ${fmt(summary.history)} file`,
+      hint: `Riwayat ${fmt(summary.history)}`,
     },
     {
       code: "I-01",
       label: "Entri indeks",
       value: indexTotal.entries,
-      hint: `${fmt(indexTotal.refs)} referensi silang`,
+      hint: `${fmt(indexTotal.refs)} referensi`,
     },
     {
       code: "G-01",
-      label: "Entitas berlokasi",
+      label: "Entitas geo",
       value: geo.geocodedEntities,
       tone: "cyan",
-      hint: `${fmt(geo.mappedCities)} kota · ${fmt(geo.entitiesWithCity)} punya kota`,
+      hint: `${fmt(geo.mappedCities)} kota`,
     },
   ];
 
-  const visible = cards.filter((card) => {
-    if (card.hidden) return false;
-    if (statusFilter === "all") return true;
-    return card.key === statusFilter;
-  });
-
   clear(grid);
-  if (!visible.length) {
-    const empty = document.createElement("p");
-    empty.className = "overview-city-empty";
-    appendText(empty, "Tidak ada metrik untuk status ini.");
-    grid.appendChild(empty);
-    return;
-  }
-
-  for (const card of visible) {
+  for (const card of cards) {
     const article = document.createElement("article");
-    article.className = "stat-card";
+    article.className = "stat-card stat-card--compact";
     article.dataset.code = card.code;
     if (card.tone) article.dataset.tone = card.tone;
-    if (card.key && card.key === statusFilter) article.dataset.highlight = "true";
 
     const value = document.createElement("div");
     value.className = "stat-value";
@@ -2946,6 +3510,16 @@ function renderOpsStats(data, { statusFilter = getQueueFilter() } = {}) {
     }
     grid.appendChild(article);
   }
+}
+
+function renderOpsStats(data, { statusFilter = getQueueFilter() } = {}) {
+  const { queue = {} } = data;
+  const chart = buildQueueChart(queue, "ops-queue-donut", { statusFilter });
+  if (chart) {
+    window.requestAnimationFrame(resizeOpsQueueDonut);
+  }
+  renderOpsStatsLegend(queue, { statusFilter });
+  renderOpsStatsKpis(data);
 }
 
 function renderOpsDashboard(data) {
@@ -3247,11 +3821,6 @@ function renderAnalyticsDashboard(data) {
     capIndex.textContent = `${fmt(data.indexTotal.entries)} entri · ${fmt(data.indexTotal.refs)} referensi`;
   }
 
-  const capCov = document.getElementById("analytics-coverage-caption");
-  if (capCov && data.coverageTotal) {
-    capCov.textContent = `${fmt(data.coverageTotal)} entitas · ${data.coverage?.length || 0} field`;
-  }
-
   const capIdx = document.getElementById("analytics-index-caption");
   if (capIdx && data.indexRows?.length) {
     const shared = data.indexRows.filter((r) => r.kind === "shared").length;
@@ -3259,7 +3828,6 @@ function renderAnalyticsDashboard(data) {
   }
 
   refreshIndexViews(data);
-  renderCoverageTable(data.coverage, data.coverageTotal || 1);
   renderSourceStats(data.sourceStats, data.summary?.documents);
 }
 
@@ -3334,7 +3902,9 @@ function showError(message) {
 }
 
 window.resizeOverviewSankey = resizeOverviewSankey;
-window.resizeIndexTreemap = resizeIndexTreemap;
+window.resizeIndexBarChart = resizeIndexBarChart;
+window.resizeOpsQueueDonut = resizeOpsQueueDonut;
+window.resizePreviewRelationGraph = resizePreviewRelationGraph;
 
 async function init() {
   try {
@@ -3375,6 +3945,7 @@ async function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("DOMContentLoaded", initDashboardViewMode);
+document.addEventListener("DOMContentLoaded", initChartDataModals);
 window.ensureDompengGeoMap = ensureDompengGeoMap;
 window.refreshIndexViews = refreshIndexViews;
 window.refreshGeoCityViews = refreshGeoCityViews;
