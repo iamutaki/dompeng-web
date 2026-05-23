@@ -1,8 +1,8 @@
 {
-  "totalEntities": 6286,
-  "entitiesWithCity": 1140,
-  "geocodedEntities": 894,
-  "uniqueCities": 372,
+  "totalEntities": 6299,
+  "entitiesWithCity": 1153,
+  "geocodedEntities": 895,
+  "uniqueCities": 375,
   "mappedCities": 57,
   "clusters": [
     {
@@ -878,13 +878,18 @@
     },
     {
       "key": "coord:96.7494,4.6951",
-      "label": "Paya Pinang",
+      "label": "Ulee Gle",
       "province": "Aceh",
-      "count": 12,
+      "count": 13,
       "lat": 4.6951,
       "lng": 96.7494,
       "mergedCount": 12,
       "mergedCities": [
+        {
+          "label": "Ulee Gle",
+          "count": 2,
+          "province": "Aceh"
+        },
         {
           "label": "Paya Pinang",
           "count": 1,
@@ -907,11 +912,6 @@
         },
         {
           "label": "Kalatenang",
-          "count": 1,
-          "province": "Aceh"
-        },
-        {
-          "label": "Ulee Gle",
           "count": 1,
           "province": "Aceh"
         },

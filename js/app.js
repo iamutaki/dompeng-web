@@ -501,22 +501,6 @@ function formatEntityLog(entity) {
   return lines.join("\n");
 }
 
-function previewEntityMatchesSearch(entity, query) {
-  if (!query) return true;
-  const hay = [
-    entity.ref,
-    entity.name,
-    entity.occupation,
-    entity.sector,
-    entity.maritalStatus,
-    ...(entity.identifiers || []).map((id) => `${id.type} ${id.value}`),
-    ...(entity.documents || []).map((doc) => `${doc.title} ${doc.context} ${doc.filename}`),
-  ]
-    .join(" ")
-    .toLowerCase();
-  return hay.includes(query);
-}
-
 function createPreviewChip(text, tone = "default") {
   const chip = document.createElement("span");
   chip.className = `preview-chip preview-chip--${tone}`;
@@ -765,7 +749,6 @@ function renderShowcaseEntities(entities) {
   const detailEl = document.getElementById("preview-log-detail");
   const detailSections = document.getElementById("preview-detail-sections");
   const detailTitle = document.getElementById("preview-detail-title");
-  const searchInput = document.getElementById("preview-search");
   const listMeta = document.getElementById("preview-list-meta");
   const copyBtn = document.getElementById("preview-copy-log");
   if (!listEl || !detailEl) return;
@@ -774,7 +757,6 @@ function renderShowcaseEntities(entities) {
   let activeIndex = -1;
   let visibleIndices = [];
   let listKeyHandler = null;
-  let searchHandler = null;
   let copyHandler = null;
 
   const previewMeta = document.getElementById("preview-meta");
@@ -796,11 +778,6 @@ function renderShowcaseEntities(entities) {
     if (!listMeta) return;
     if (!rows.length) {
       listMeta.textContent = "0 entri";
-      return;
-    }
-    const query = searchInput?.value.trim();
-    if (query && visibleIndices.length !== rows.length) {
-      listMeta.textContent = `${fmt(visibleIndices.length)} / ${fmt(rows.length)} cocok`;
       return;
     }
     listMeta.textContent = `${fmt(rows.length)} entri · ↑↓ navigasi`;
@@ -850,17 +827,14 @@ function renderShowcaseEntities(entities) {
 
   const renderListItems = () => {
     clear(listEl);
-    const query = searchInput?.value.trim().toLowerCase() || "";
-    visibleIndices = rows
-      .map((_, index) => index)
-      .filter((index) => previewEntityMatchesSearch(rows[index], query));
+    visibleIndices = rows.map((_, index) => index);
 
     if (!visibleIndices.length) {
       const empty = document.createElement("p");
       empty.className = "preview-list-empty";
-      empty.textContent = query ? "Tidak ada sampel yang cocok dengan pencarian." : "Tidak ada sampel profil.";
+      empty.textContent = "Tidak ada sampel profil.";
       listEl.appendChild(empty);
-      showEmptyDetail(query ? "# tidak ada hasil pencarian" : "# tidak ada sampel profil");
+      showEmptyDetail("# tidak ada sampel profil");
       updateListMeta();
       return;
     }
@@ -904,13 +878,6 @@ function renderShowcaseEntities(entities) {
   };
   listEl.addEventListener("keydown", listKeyHandler);
 
-  if (searchInput) {
-    if (searchHandler) searchInput.removeEventListener("input", searchHandler);
-    searchHandler = () => applyFilter({ preserveSelection: true });
-    searchInput.addEventListener("input", searchHandler);
-    searchInput.value = "";
-  }
-
   if (copyBtn) {
     if (copyHandler) copyBtn.removeEventListener("click", copyHandler);
     copyHandler = async () => {
@@ -933,12 +900,10 @@ function renderShowcaseEntities(entities) {
 
   if (!rows.length) {
     showEmptyDetail("# tidak ada sampel profil");
-    if (searchInput) searchInput.disabled = true;
     updateListMeta();
     return;
   }
 
-  if (searchInput) searchInput.disabled = false;
   applyFilter({ preserveSelection: false });
 }
 
