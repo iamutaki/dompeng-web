@@ -26,6 +26,9 @@ const CHANGELOG_KIND_LABELS = {
   Removed: "Dihapus",
 };
 
+let dashboardDataCache = null;
+let dashboardViewMode = localStorage.getItem("dompeng:view-mode") === "technical" ? "technical" : "public";
+
 const chartDefaults = {
   responsive: true,
   maintainAspectRatio: false,
@@ -88,12 +91,65 @@ function appendText(el, text) {
   el.appendChild(document.createTextNode(text));
 }
 
+function isTechnicalMode() {
+  return dashboardViewMode === "technical";
+}
+
+function applyDashboardViewMode({ rerender = false } = {}) {
+  document.body.dataset.viewMode = dashboardViewMode;
+  const toggle = document.getElementById("view-mode-toggle");
+  if (toggle) {
+    const technical = isTechnicalMode();
+    toggle.textContent = technical ? "MODE TEKNIS" : "MODE PUBLIK";
+    toggle.setAttribute("aria-pressed", technical ? "true" : "false");
+  }
+  if (rerender && dashboardDataCache) {
+    renderDashboardData(dashboardDataCache);
+  }
+}
+
+function initDashboardViewMode() {
+  applyDashboardViewMode();
+  const toggle = document.getElementById("view-mode-toggle");
+  if (!toggle) return;
+  toggle.addEventListener("click", () => {
+    dashboardViewMode = isTechnicalMode() ? "public" : "technical";
+    localStorage.setItem("dompeng:view-mode", dashboardViewMode);
+    applyDashboardViewMode({ rerender: true });
+  });
+}
+
 function renderIntelBrief(intel) {
   const container = document.getElementById("intel-brief");
   clear(container);
 
   const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || "Field entitas";
-  const cards = [
+  const cards = isTechnicalMode() ? [
+    {
+      label: "Node graf",
+      value: fmt(intel.graphNodes),
+      hint: `${fmt(intel.graphEdges)} edge · ${fmt(intel.sourceDocuments)} source docs`,
+      tone: "intel",
+    },
+    {
+      label: "Dominan",
+      value: `${intel.dominantVectorPct}%`,
+      hint: `${intel.dominantVectorId} · ${intel.activeVectors} vector aktif`,
+      tone: "intel",
+    },
+    {
+      label: "Xref ratio",
+      value: `${intel.xrefRatio}×`,
+      hint: `${intel.entityLinkRate} id/entity`,
+      tone: "cyan",
+    },
+    {
+      label: "Pipeline",
+      value: `${intel.pipelineSuccessPct}%`,
+      hint: `Backlog ${intel.pipelineBacklogPct}% · fail ${intel.pipelineFailurePct}%`,
+      tone: intel.pipelineFailurePct > 10 ? "danger" : "amber",
+    },
+  ] : [
     {
       label: "Entitas terindeks",
       value: fmt(intel.graphNodes),
@@ -172,6 +228,95 @@ function renderOverviewSummary(data) {
     queueHealth.textContent = `${backlogPct}% antrian · ${failurePct}% gagal`;
     queueHealth.dataset.tone = failurePct > 10 ? "warn" : "ok";
   }
+
+  const updatedTime = Date.parse(`${data.updated || ""}`.replace(" UTC", "Z"));
+  const staleDays = Number.isFinite(updatedTime) ? Math.floor((Date.now() - updatedTime) / 86400000) : 0;
+  if (health && staleDays >= 7) {
+    health.textContent = `Perlu pembaruan · ${staleDays} hari`;
+    health.dataset.tone = "warn";
+  }
+}
+
+function renderDataTable(containerId, columns, rows) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  clear(container);
+
+  const table = document.createElement("table");
+  table.className = "mini-data-table";
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  for (const col of columns) {
+    const th = document.createElement("th");
+    if (col.numeric) th.className = "num";
+    appendText(th, col.label);
+    headRow.appendChild(th);
+  }
+  thead.appendChild(headRow);
+
+  const tbody = document.createElement("tbody");
+  for (const row of rows) {
+    const tr = document.createElement("tr");
+    for (const col of columns) {
+      const td = document.createElement("td");
+      if (col.numeric) td.className = "num";
+      appendText(td, row[col.key] ?? "—");
+      tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
+  }
+  table.append(thead, tbody);
+  container.appendChild(table);
+}
+
+function renderAccessibleDataTables(data) {
+  const coverageTotal = data.coverageTotal || 1;
+  renderDataTable(
+    "overview-coverage-table",
+    [
+      { key: "label", label: "Field" },
+      { key: "value", label: "Entitas", numeric: true },
+      { key: "pct", label: "%" , numeric: true },
+    ],
+    (data.coverage || []).map((item) => ({
+      label: item.label,
+      value: fmt(item.value),
+      pct: `${pct(item.value, coverageTotal)}%`,
+    })),
+  );
+
+  const queue = data.queue || {};
+  const queueTotal = queue.total || 1;
+  renderDataTable(
+    "overview-queue-table",
+    [
+      { key: "label", label: "Status" },
+      { key: "value", label: "URL", numeric: true },
+      { key: "pct", label: "%", numeric: true },
+    ],
+    [
+      ["Menunggu", queue.pending || 0],
+      ["Diproses", queue.processing || 0],
+      ["Selesai", queue.done || 0],
+      ["Gagal", queue.failed || 0],
+    ].map(([label, value]) => ({ label, value: fmt(value), pct: `${pct(value, queueTotal)}%` })),
+  );
+
+  renderDataTable(
+    "index-chart-table",
+    [
+      { key: "type", label: "Tipe" },
+      { key: "kind", label: "Mode" },
+      { key: "entries", label: "Entri", numeric: true },
+      { key: "refs", label: "Referensi", numeric: true },
+    ],
+    (data.indexRows || []).map((row) => ({
+      type: row.type,
+      kind: row.kind === "unique" ? "Unik" : "Silang",
+      entries: fmt(row.entries),
+      refs: fmt(row.refs),
+    })),
+  );
 }
 
 function createVolumeStatCard(card) {
@@ -968,6 +1113,10 @@ function renderRecentDocsTable(docs, tbodyId, limit = 0) {
 function buildCoverageChart(coverage, canvasId = "coverage-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
+  if (typeof Chart === "undefined") {
+    document.body.classList.add("charts-unavailable");
+    return null;
+  }
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -1050,6 +1199,10 @@ function queueChartDisplayValues(rawValues) {
 function buildQueueChart(queue, canvasId = "queue-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
+  if (typeof Chart === "undefined") {
+    document.body.classList.add("charts-unavailable");
+    return null;
+  }
 
   const existing = Chart.getChart(ctx);
   if (existing) existing.destroy();
@@ -1106,6 +1259,10 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
 function buildIndexChart(indexRows) {
   const ctx = document.getElementById("index-chart");
   if (!ctx) return null;
+  if (typeof Chart === "undefined") {
+    document.body.classList.add("charts-unavailable");
+    return null;
+  }
 
   const existing = Chart.getChart(ctx);
   if (existing) existing.destroy();
@@ -1429,6 +1586,8 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
       if (typeof activateDashboardTab === "function") {
         activateDashboardTab("geo");
       }
+      const detail = encodeURIComponent(city.key || city.label);
+      history.replaceState(null, "", `#peta:${detail}`);
       window.setTimeout(() => {
         if (typeof window.focusDompengMapCity === "function") {
           window.focusDompengMapCity(city.key || city.label);
@@ -1792,7 +1951,22 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
   const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || intel.dominantVectorId;
   const shared = (indexRows || []).filter((r) => r.kind === "shared").length;
   const unique = (indexRows || []).length - shared;
-  const items = [
+  const items = isTechnicalMode() ? [
+    { label: "Nodes", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} edges` },
+    { label: "Source docs", value: fmt(intel.sourceDocuments), hint: "indexed documents" },
+    { label: "Dominant", value: `${intel.dominantVectorPct}%`, hint: intel.dominantVectorId },
+    { label: "Xref", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/entity` },
+    {
+      label: "Pipeline",
+      value: `${intel.pipelineSuccessPct}%`,
+      hint: queue ? `${fmt(queue.pending)} pending · ${fmt(queue.failed)} failed` : "pipeline",
+    },
+    {
+      label: "Fields",
+      value: fmt((indexRows || []).length),
+      hint: `${shared} shared · ${unique} unique`,
+    },
+  ] : [
     { label: "Entitas", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} referensi silang` },
     { label: "Dokumen", value: fmt(intel.sourceDocuments), hint: "sumber publik" },
     { label: "Dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
@@ -1878,6 +2052,40 @@ function renderOverviewDashboard(data) {
   buildQueueChart(data.queue, "overview-queue-chart");
 }
 
+function ensureDompengGeoMap({ focus = null } = {}) {
+  const geo = window.DOMPENG_PENDING_GEO;
+  if (!geo?.clusters?.length || typeof initDompengGeoMap !== "function") return null;
+  let map = window.DOMPENG_MAP;
+  if (!map) {
+    map = initDompengGeoMap(geo, { fitBounds: true });
+  } else if (map.resize) {
+    map.resize();
+  }
+  if (focus && typeof window.focusDompengMapCity === "function") {
+    window.setTimeout(() => window.focusDompengMapCity(focus), 220);
+  }
+  return map;
+}
+
+function renderDashboardData(data) {
+  if (data.intel) {
+    renderIntelBrief(data.intel);
+  }
+
+  renderOverviewSummary(data);
+  renderOverviewVolume(data);
+  renderOverviewDashboard(data);
+  renderAccessibleDataTables(data);
+  renderAnalyticsDashboard(data);
+  if (data.showcaseEntities?.length) {
+    renderShowcaseEntities(data.showcaseEntities);
+  }
+  renderOpsDashboard(data);
+  if (data.changelog) {
+    renderChangelog(data.changelog);
+  }
+}
+
 function showError(message) {
   const page = document.querySelector(".page");
   const banner = document.createElement("div");
@@ -1891,28 +2099,12 @@ async function init() {
     const res = await fetch("data/stats.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`Gagal memuat data (${res.status})`);
     const data = await res.json();
+    dashboardDataCache = data;
+    window.DOMPENG_PENDING_GEO = data.geo;
 
     document.getElementById("updated").textContent = `Diperbarui · ${data.updated} · data disamarkan`;
 
-    if (data.intel) {
-      renderIntelBrief(data.intel);
-    }
-
-    renderOverviewSummary(data);
-    renderOverviewVolume(data);
-    renderOverviewDashboard(data);
-    renderAnalyticsDashboard(data);
-    if (data.showcaseEntities?.length) {
-      renderShowcaseEntities(data.showcaseEntities);
-    }
-    renderOpsDashboard(data);
-    if (data.changelog) {
-      renderChangelog(data.changelog);
-    }
-
-    if (data.geo?.clusters?.length && typeof initDompengGeoMap === "function") {
-      initDompengGeoMap(data.geo, { fitBounds: true });
-    }
+    renderDashboardData(data);
 
     if (typeof onDashboardTabShown === "function") {
       const active = document.querySelector(".tab-panel.is-active");
@@ -1935,3 +2127,5 @@ async function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", initDashboardViewMode);
+window.ensureDompengGeoMap = ensureDompengGeoMap;

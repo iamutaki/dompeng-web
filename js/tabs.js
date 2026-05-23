@@ -20,6 +20,10 @@ function resizeDashboardCharts() {
 }
 
 function resizeGeoMap() {
+  const detail = dashboardHashState().detail;
+  if (typeof window.ensureDompengGeoMap === "function") {
+    window.ensureDompengGeoMap({ focus: detail });
+  }
   const map = window.DOMPENG_MAP;
   if (!map?.resize) return;
   const refit = () => {
@@ -127,7 +131,9 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
   }
 
   if (updateHash) {
-    const nextHash = `#${tab.hash}`;
+    const current = dashboardHashState();
+    const detail = current.id === tab.id ? current.detail : "";
+    const nextHash = detail ? `#${tab.hash}:${encodeURIComponent(detail)}` : `#${tab.hash}`;
     if (window.location.hash !== nextHash) {
       history.replaceState(null, "", nextHash);
     }
@@ -143,12 +149,26 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
 }
 
 function tabIdFromHash() {
-  const hash = window.location.hash.replace(/^#/, "").toLowerCase();
+  const hash = window.location.hash.replace(/^#/, "").split(":", 1)[0].toLowerCase();
   if (!hash) return null;
   if (OPS_TAB_HASHES.has(hash)) return "ops";
   if (hash === "analisis") return "analytics";
   const match = DASHBOARD_TABS.find((tab) => tab.hash === hash || tab.id === hash);
   return match?.id ?? null;
+}
+
+function dashboardHashState() {
+  const raw = window.location.hash.replace(/^#/, "");
+  const [hash, ...rest] = raw.split(":");
+  const base = hash.toLowerCase();
+  let id = null;
+  if (OPS_TAB_HASHES.has(base)) id = "ops";
+  else if (base === "analisis") id = "analytics";
+  else id = DASHBOARD_TABS.find((tab) => tab.hash === base || tab.id === base)?.id ?? null;
+  return {
+    id,
+    detail: rest.length ? decodeURIComponent(rest.join(":")) : "",
+  };
 }
 
 function initDashboardTabs() {
@@ -199,3 +219,4 @@ window.onDashboardTabShown = onDashboardTabShown;
 window.playPanelEnter = playPanelEnter;
 window.markDashboardReady = markDashboardReady;
 window.activateDashboardTab = activateDashboardTab;
+window.dashboardHashState = dashboardHashState;
