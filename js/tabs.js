@@ -3,7 +3,8 @@ const DASHBOARD_TABS = [
   { id: "geo", label: "Peta Kota", hash: "peta" },
   { id: "analytics", label: "Indeks", hash: "indeks" },
   { id: "ops", label: "Operasi", hash: "operasi" },
-  { id: "preview", label: "Contoh", hash: "pratinjau" },
+  { id: "preview", label: "Sampel", hash: "pratinjau" },
+  { id: "data", label: "Data", hash: "data" },
 ];
 
 window.DOMPENG_TABS = DASHBOARD_TABS;
@@ -197,3 +198,4 @@ document.addEventListener("DOMContentLoaded", initDashboardTabs);
 window.onDashboardTabShown = onDashboardTabShown;
 window.playPanelEnter = playPanelEnter;
 window.markDashboardReady = markDashboardReady;
+window.activateDashboardTab = activateDashboardTab;

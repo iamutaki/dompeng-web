@@ -720,5 +720,49 @@ function fitDompengMapToIndonesia(options = {}) {
   fitMapToIndonesiaFocus(map, map._dompengClusters || [], options);
 }
 
+function focusDompengMapCity(cityKeyOrLabel) {
+  const map = window.DOMPENG_MAP;
+  if (!map) return false;
+  const key = String(cityKeyOrLabel || "").toUpperCase();
+  const city = (map._dompengClusters || []).find((item) => {
+    return String(item.key || "").toUpperCase() === key || String(item.label || "").toUpperCase() === key;
+  });
+  if (!city) return false;
+
+  const coordinates = [Number(city.lng), Number(city.lat)];
+  if (!Number.isFinite(coordinates[0]) || !Number.isFinite(coordinates[1])) return false;
+
+  map.easeTo({
+    center: coordinates,
+    zoom: Math.max(map.getZoom(), 7),
+    duration: prefersReducedMotion() ? 0 : 520,
+  });
+
+  const popupCity = {
+    isMerged: false,
+    key: city.key,
+    label: city.label || "Kota",
+    province: city.province || "",
+    people: city.count || 0,
+    cityCount: city.mergedCount || 1,
+    mergedCities: city.mergedCities || [],
+    color: tierColor(city.count || 0),
+    coordinates,
+  };
+
+  new maplibregl.Popup({
+    closeButton: true,
+    closeOnClick: true,
+    maxWidth: "300px",
+    className: "geo-popup",
+    offset: 12,
+  })
+    .setLngLat(coordinates)
+    .setHTML(buildPopupHtml([popupCity], { hint: "Dipilih dari ringkasan kota" }))
+    .addTo(map);
+  return true;
+}
+
 window.initDompengGeoMap = initDompengGeoMap;
 window.fitDompengMapToIndonesia = fitDompengMapToIndonesia;
+window.focusDompengMapCity = focusDompengMapCity;

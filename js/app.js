@@ -142,6 +142,38 @@ function renderIntelBrief(intel) {
   }
 }
 
+function renderOverviewSummary(data) {
+  const lead = document.getElementById("overview-summary-lead");
+  const updated = document.getElementById("overview-summary-updated");
+  const health = document.getElementById("overview-health");
+  const queueHealth = document.getElementById("overview-health-queue");
+  if (!lead) return;
+
+  const summary = data.summary || {};
+  const geo = data.geo || {};
+  const queue = data.queue || {};
+  const queueTotal = queue.total || 1;
+  const failurePct = pct(queue.failed || 0, queueTotal);
+  const backlogPct = pct((queue.pending || 0) + (queue.processing || 0), queueTotal);
+  const bits = [
+    `${fmt(summary.persons || 0)} entitas`,
+    `${fmt(geo.mappedCities || 0)} kota`,
+    `${fmt(summary.documents || 0)} dokumen publik`,
+  ].filter(Boolean);
+  lead.textContent = bits.join(" · ");
+  if (updated) {
+    updated.textContent = data.updated ? `Diperbarui ${data.updated}` : "Belum ada waktu pembaruan";
+  }
+  if (health) {
+    health.textContent = data.redacted ? "Data valid · tersensor" : "Periksa status data";
+    health.dataset.tone = data.redacted ? "ok" : "warn";
+  }
+  if (queueHealth) {
+    queueHealth.textContent = `${backlogPct}% antrian · ${failurePct}% gagal`;
+    queueHealth.dataset.tone = failurePct > 10 ? "warn" : "ok";
+  }
+}
+
 function createVolumeStatCard(card) {
   const article = document.createElement("article");
   article.className = "stat-card";
@@ -198,7 +230,7 @@ function renderOverviewVolume(data) {
 
   const groups = [
     {
-      title: "Inventaris",
+      title: "Dataset",
       items: [
         {
           code: "N-02",
@@ -230,7 +262,7 @@ function renderOverviewVolume(data) {
       ],
     },
     {
-      title: "Indeks & graf",
+      title: "Indeks",
       items: [
         {
           code: "I-01",
@@ -250,7 +282,7 @@ function renderOverviewVolume(data) {
           code: "G-01",
           label: "Edge graf",
           value: intel.graphEdges,
-          hint: `${intel.entityLinkRate ?? "—"} id/entitas`,
+          hint: `${intel.entityLinkRate ?? "—"} identitas/entitas`,
         },
         {
           code: "G-02",
@@ -261,7 +293,7 @@ function renderOverviewVolume(data) {
       ],
     },
     {
-      title: "Geo & antrian",
+      title: "Operasi",
       items: [
         {
           code: "GEO-1",
@@ -1389,8 +1421,20 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
     const li = document.createElement("li");
     li.className = "overview-city-item";
 
-    const head = document.createElement("div");
+    const head = document.createElement("button");
+    head.type = "button";
     head.className = "overview-city-head";
+    head.title = `Buka ${city.label} di peta`;
+    head.addEventListener("click", () => {
+      if (typeof activateDashboardTab === "function") {
+        activateDashboardTab("geo");
+      }
+      window.setTimeout(() => {
+        if (typeof window.focusDompengMapCity === "function") {
+          window.focusDompengMapCity(city.key || city.label);
+        }
+      }, 180);
+    });
 
     const name = document.createElement("span");
     name.className = "overview-city-name";
@@ -1724,7 +1768,7 @@ function renderIndexFieldTable(indexRows) {
     const kind = document.createElement("td");
     const kindTag = document.createElement("span");
     kindTag.className = `index-kind index-kind--${row.kind === "unique" ? "unique" : "shared"}`;
-    appendText(kindTag, row.kind === "unique" ? "UNIQUE" : "SHARED");
+    appendText(kindTag, row.kind === "unique" ? "UNIK" : "SILANG");
     kind.appendChild(kindTag);
 
     const entries = document.createElement("td");
@@ -1749,10 +1793,10 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
   const shared = (indexRows || []).filter((r) => r.kind === "shared").length;
   const unique = (indexRows || []).length - shared;
   const items = [
-    { label: "Node graf", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} edge` },
+    { label: "Entitas", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} referensi silang` },
     { label: "Dokumen", value: fmt(intel.sourceDocuments), hint: "sumber publik" },
     { label: "Dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
-    { label: "Keterkaitan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/entitas` },
+    { label: "Keterhubungan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} identitas/entitas` },
     {
       label: "Unduhan",
       value: `${intel.pipelineSuccessPct}%`,
@@ -1761,7 +1805,7 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
     {
       label: "Tipe field",
       value: fmt((indexRows || []).length),
-      hint: `${shared} shared · ${unique} unique`,
+      hint: `${shared} silang · ${unique} unik`,
     },
   ];
 
@@ -1800,7 +1844,7 @@ function renderAnalyticsDashboard(data) {
   const capIdx = document.getElementById("analytics-index-caption");
   if (capIdx && data.indexRows?.length) {
     const shared = data.indexRows.filter((r) => r.kind === "shared").length;
-    capIdx.textContent = `${shared} shared · ${data.indexRows.length - shared} unique`;
+    capIdx.textContent = `${shared} tipe silang · ${data.indexRows.length - shared} tipe unik`;
   }
 
   buildIndexChart(data.indexRows);
@@ -1854,6 +1898,7 @@ async function init() {
       renderIntelBrief(data.intel);
     }
 
+    renderOverviewSummary(data);
     renderOverviewVolume(data);
     renderOverviewDashboard(data);
     renderAnalyticsDashboard(data);

@@ -18,7 +18,7 @@ function getActiveDashboardTabMeta() {
 const SHARE_BRAND_SLOGAN = "NEGARA OPEN SOURCE";
 const SHARE_PROGRAM_SUBTITLE = "INDEKS DATA PUBLIK";
 /** Path relatif ke origin — sama dengan og:image / twitter:image di head HTML. */
-const SHARE_IMAGE_PATH = "/home.png";
+const SHARE_IMAGE_PATH = "/og-image-1200x630.png";
 
 function getShareImageUrl() {
   try {
@@ -237,6 +237,10 @@ function initDashboardShare() {
 
     if (action === "native") {
       await runNativeShare(trigger);
+    } else if (action === "copy-summary") {
+      const payload = getSharePayload();
+      const ok = await copyText(`${payload.text}\n${payload.url}`);
+      flashShareFeedback(trigger, ok ? "Ringkasan disalin" : "Gagal");
     } else if (action === "copy-link") {
       const ok = await copyText(getSharePayload().url);
       flashShareFeedback(trigger, ok ? "Tautan disalin" : "Gagal");

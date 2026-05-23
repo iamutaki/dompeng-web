@@ -37,7 +37,8 @@ web/
 │   ├── stats.json          # Sumber data dashboard (di-generate)
 │   ├── geo-clusters.json   # Cluster per kota (di-generate)
 │   └── id-city-coords.json # Lookup lat/lon kota/provinsi (manual)
-├── home.png                # Preview share sosmed / OG / Twitter / JSON-LD
+├── og-image-1200x630.png   # Preview share sosmed / OG / Twitter / JSON-LD
+├── icon-192.png, icon-512.png, manifest.webmanifest
 ├── sitemap.xml, robots.txt # SEO (di-generate)
 ├── wrangler.toml           # Cloudflare Workers static assets
 ├── src/worker.js           # Cache + security headers
