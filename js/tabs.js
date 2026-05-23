@@ -3,12 +3,17 @@ const DASHBOARD_TABS = [
   { id: "geo", label: "Peta Kota", hash: "peta" },
   { id: "analytics", label: "Analisis", hash: "analisis" },
   { id: "preview", label: "Contoh", hash: "pratinjau" },
-  { id: "changelog", label: "Pembaruan", hash: "pembaruan" },
 ];
 
 function resizeDashboardCharts() {
   if (typeof Chart === "undefined") return;
-  for (const id of ["coverage-chart", "queue-chart", "index-chart"]) {
+  for (const id of [
+    "coverage-chart",
+    "queue-chart",
+    "index-chart",
+    "overview-coverage-chart",
+    "overview-queue-chart",
+  ]) {
     const chart = Chart.getChart(id);
     if (chart) chart.resize();
   }
@@ -24,9 +29,39 @@ function resizeGeoMap() {
 
 function onDashboardTabShown(tabId) {
   if (tabId === "geo") resizeGeoMap();
-  if (tabId === "analytics") {
+  if (tabId === "analytics" || tabId === "overview") {
     window.requestAnimationFrame(resizeDashboardCharts);
   }
+  if (tabId === "preview") {
+    const showcase = document.getElementById("entity-showcase");
+    if (showcase) void showcase.offsetHeight;
+  }
+}
+
+function playPanelEnter(panel) {
+  if (!panel) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  panel.classList.remove("is-entering");
+  void panel.offsetWidth;
+  panel.classList.add("is-entering");
+
+  const onEnd = (event) => {
+    if (event.target !== panel || event.animationName !== "motion-panel-in") return;
+    panel.classList.remove("is-entering");
+    panel.removeEventListener("animationend", onEnd);
+  };
+  panel.addEventListener("animationend", onEnd);
+}
+
+function markDashboardReady() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.body.classList.add("dashboard-ready");
+    return;
+  }
+  document.body.classList.add("dashboard-ready");
+  const active = document.querySelector(".tab-panel.is-active");
+  if (active) playPanelEnter(active);
 }
 
 function activateDashboardTab(tabId, { updateHash = true } = {}) {
@@ -41,8 +76,10 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
   }
 
   for (const panel of panels) {
-    panel.classList.toggle("is-active", panel.dataset.tab === tab.id);
-    panel.hidden = panel.dataset.tab !== tab.id;
+    const active = panel.dataset.tab === tab.id;
+    panel.classList.toggle("is-active", active);
+    panel.hidden = !active;
+    if (active) playPanelEnter(panel);
   }
 
   if (updateHash) {
@@ -58,6 +95,7 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
 function tabIdFromHash() {
   const hash = window.location.hash.replace(/^#/, "").toLowerCase();
   if (!hash) return null;
+  if (hash === "pembaruan" || hash === "changelog") return "overview";
   const match = DASHBOARD_TABS.find((tab) => tab.hash === hash || tab.id === hash);
   return match?.id ?? null;
 }
@@ -100,3 +138,5 @@ function initDashboardTabs() {
 document.addEventListener("DOMContentLoaded", initDashboardTabs);
 
 window.onDashboardTabShown = onDashboardTabShown;
+window.playPanelEnter = playPanelEnter;
+window.markDashboardReady = markDashboardReady;

@@ -1,51 +1,51 @@
 {
-  "updated": "2026-05-23 06:01 UTC",
+  "updated": "2026-05-23 06:33 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 6147,
-    "graphEdges": 11459,
-    "sourceDocuments": 328,
+    "graphNodes": 6190,
+    "graphEdges": 11557,
+    "sourceDocuments": 339,
     "activeVectors": 5,
-    "dominantVectorPct": 59.3,
+    "dominantVectorPct": 59.1,
     "dominantVectorId": "phone",
     "xrefRatio": 1.14,
-    "pipelineSuccessPct": 41.7,
-    "pipelineBacklogPct": 49.1,
-    "pipelineFailurePct": 9.1,
+    "pipelineSuccessPct": 43.1,
+    "pipelineBacklogPct": 47.1,
+    "pipelineFailurePct": 9.5,
     "entityLinkRate": 0.78
   },
   "summary": {
-    "persons": 6147,
-    "documents": 328,
+    "persons": 6190,
+    "documents": 339,
     "photos": 3,
     "templates": 37,
-    "history": 261,
-    "doneFiles": 418
+    "history": 271,
+    "doneFiles": 435
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 3648,
-      "pct": 59.3
+      "value": 3657,
+      "pct": 59.1
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 827,
+      "value": 836,
       "pct": 13.5
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 396,
-      "pct": 6.4
+      "value": 403,
+      "pct": 6.5
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 293,
-      "pct": 4.8
+      "value": 307,
+      "pct": 5.0
     },
     {
       "id": "photo",
@@ -54,43 +54,43 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 6147,
+  "coverageTotal": 6190,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 5229,
-      "refs": 6126
+      "entries": 5272,
+      "refs": 6169
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 3319,
-      "refs": 3663
+      "entries": 3328,
+      "refs": 3672
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 693,
-      "refs": 828
+      "entries": 702,
+      "refs": 837
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 285,
-      "refs": 285
+      "entries": 299,
+      "refs": 299
     },
     {
       "type": "NPWP",
       "kind": "unique",
-      "entries": 89,
-      "refs": 89
+      "entries": 98,
+      "refs": 98
     },
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 73,
-      "refs": 84
+      "entries": 80,
+      "refs": 91
     },
     {
       "type": "ID pelajar",
@@ -101,71 +101,71 @@
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 368,
-      "refs": 368
+      "entries": 375,
+      "refs": 375
     }
   ],
   "indexTotal": {
-    "entries": 10072,
-    "refs": 11459
+    "entries": 10170,
+    "refs": 11557
   },
   "queue": {
-    "pending": 325,
-    "processing": 1,
-    "done": 276,
-    "failed": 60,
+    "pending": 312,
+    "processing": 2,
+    "done": 285,
+    "failed": 63,
     "total": 662
   },
   "recentDocs": [
     {
-      "title": "LHKPN ██████████████ 2024",
-      "imported_at": "2026-05-23T05:59:52Z",
+      "title": "LHKPN T· Ma···n 2023",
+      "imported_at": "2026-05-23T06:31:53Z",
       "mentions": 4
     },
     {
-      "title": "LHKPN ██████████████ 2021",
-      "imported_at": "2026-05-23T05:57:42Z",
-      "mentions": 2
+      "title": "LHKPN Ba····g Suk·······a 2024 + Ta···k Wa··d Ar···a",
+      "imported_at": "2026-05-23T06:30:48Z",
+      "mentions": 5
     },
     {
-      "title": "LHKPN ██████████████ 2025",
-      "imported_at": "2026-05-23T05:53:57Z",
-      "mentions": 1
+      "title": "LHKPN Mul······y 2022",
+      "imported_at": "2026-05-23T06:26:53Z",
+      "mentions": 4
     },
     {
-      "title": "LHKPN ██████████████ 2023",
-      "imported_at": "2026-05-23T05:30:17Z",
+      "title": "LHKPN Ha··t Ya··a 2020",
+      "imported_at": "2026-05-23T06:26:00Z",
       "mentions": 3
     },
     {
-      "title": "LHKPN ██████████████ 2017",
-      "imported_at": "2026-05-23T05:27:53Z",
-      "mentions": 3
+      "title": "LHKPN Me·····r To····u 2024",
+      "imported_at": "2026-05-23T06:24:58Z",
+      "mentions": 4
     },
     {
-      "title": "LHKPN ██████████████ 2022",
-      "imported_at": "2026-05-23T05:25:50Z",
+      "title": "LHKPN Sub······n Re····t - HA···L IK··N (·· Ta··)",
+      "imported_at": "2026-05-23T06:23:28Z",
+      "mentions": 1
+    },
+    {
+      "title": "LHKPN Bah·····n 2024",
+      "imported_at": "2026-05-23T06:22:10Z",
+      "mentions": 4
+    },
+    {
+      "title": "LHKPN Mu·····d De·· Id··m 2021",
+      "imported_at": "2026-05-23T06:18:39Z",
+      "mentions": 5
+    },
+    {
+      "title": "LHKPN E·· Se·····n Mok······t 2025",
+      "imported_at": "2026-05-23T06:12:23Z",
+      "mentions": 6
+    },
+    {
+      "title": "LHKPN Sy····l Il·· 2020",
+      "imported_at": "2026-05-23T06:07:34Z",
       "mentions": 2
-    },
-    {
-      "title": "LHKPN ██████████████",
-      "imported_at": "2026-05-23T05:24:39Z",
-      "mentions": 1
-    },
-    {
-      "title": "LHKPN ██████████████ 2024",
-      "imported_at": "2026-05-23T05:14:56Z",
-      "mentions": 4
-    },
-    {
-      "title": "LHKPN ██████████████",
-      "imported_at": "2026-05-23T05:14:02Z",
-      "mentions": 1
-    },
-    {
-      "title": "LHKPN ██████████████ 2021",
-      "imported_at": "2026-05-23T05:13:02Z",
-      "mentions": 4
     }
   ],
   "showcaseEntities": [
@@ -219,7 +219,7 @@
         {
           "ref": "Dokumen 1",
           "title": "LHKPN De·· Ng···s Ha····o - Pa···u Kap·····n Sa····, Ka·· Ba···l",
-          "context": "PANEWU (CAMAT) KAPANEWON SANDEN",
+          "context": "PA···U (C····) KAP·····N SA···N",
           "importedAt": "2026-05-21",
           "filename": "LHKP······.pdf"
         },
@@ -337,7 +337,7 @@
         {
           "ref": "Dokumen 1",
           "title": "Ik·····r LHKPN Dis·······l Ka·· Si·· 2024",
-          "context": "Subjek LHKPN Periodik 2024",
+          "context": "Su···k LHKPN Pe·····k 2024",
           "importedAt": "2026-05-21",
           "filename": "1352·············.pdf"
         }
@@ -446,7 +446,7 @@
         {
           "ref": "Dokumen 1",
           "title": "Ik·····r LHKPN 2024 a.·· SI··I",
-          "context": "Wajib LHKPN",
+          "context": "Wa··b LHKPN",
           "importedAt": "2026-05-21",
           "filename": "LHKP······················.pdf"
         },
@@ -465,55 +465,55 @@
     },
     {
       "ref": "Orang 6",
-      "name": "UJ··G LAS·····A",
-      "gender": "male",
-      "dob": "1972-0·-··",
-      "pob": "UJ··G PA····G",
-      "occupation": "KE·········S",
-      "sector": null,
-      "maritalStatus": "married",
+      "name": "E·· SE·····N MOK······T",
+      "gender": "Laki-laki",
+      "dob": "1985-0·-··",
+      "pob": "SU·····I UT··A",
+      "occupation": "PA········································A",
+      "sector": "judicial",
+      "maritalStatus": null,
       "identifiers": [
         {
           "type": "NIK",
-          "value": "7402········0001"
+          "value": "8101········0007"
         },
         {
           "type": "NPWP",
-          "value": "1459·······1000"
+          "value": "7129·······1000"
         },
         {
           "type": "No. KK",
-          "value": "7402········0007"
+          "value": "8101········0004"
         },
         {
           "type": "Telepon",
-          "value": "6285·····4472"
+          "value": "6281·····6424"
         },
         {
           "type": "Email",
-          "value": "u················@gm···.com"
+          "value": "e·············@gm···.com"
         }
       ],
       "identifierCount": 5,
-      "edgeCount": 7,
+      "edgeCount": 8,
       "relations": {
         "phone": 1,
         "email": 1,
-        "document": 1,
-        "family": 4
+        "family": 5,
+        "document": 1
       },
       "documents": [
         {
           "ref": "Dokumen 1",
-          "title": "Ik·····r LHKPN 2024 a.·· UJ··G LAS·····A",
-          "context": "Wajib LHKPN",
-          "importedAt": "2026-05-21",
-          "filename": "DATA··················.pdf"
+          "title": "LHKPN E·· Se·····n Mok······t 2025",
+          "context": "LHKPN 2025",
+          "importedAt": "2026-05-23",
+          "filename": "pn_n·········.pdf"
         }
       ],
       "documentCount": 1,
       "hasPhoto": false,
-      "notesCount": 0,
+      "notesCount": 1,
       "resolutionScore": 7
     },
     {
@@ -557,7 +557,7 @@
         {
           "ref": "Dokumen 1",
           "title": "LHKPN I Wa··n Bu··a - Ke···a Di··s Pemb·······n Mas······t d·· De·· Ko·· De·····r",
-          "context": "KEPALA DINAS PEMBERDAYAAN MASYARAKAT DAN DESA",
+          "context": "KE···A DI··S PEMB·······N MAS······T D·· DE··",
           "importedAt": "2026-05-21",
           "filename": "Ikht·····················.pdf"
         }
@@ -610,7 +610,7 @@
         {
           "ref": "Dokumen 1",
           "title": "IK·····R LHKPN - PEM······H KAB·····N SE···A - PE·····K 2024",
-          "context": "LHKPN Periodik 2024 - KEPALA BIDANG PEMERINTAH KABUPATEN SELUMA",
+          "context": "LHKPN Pe·····k 2024 - KE···A BI···G PEM······H KAB·····N SE···A",
           "importedAt": "2026-05-21",
           "filename": "A63V····································.pdf"
         }
@@ -659,7 +659,7 @@
         {
           "ref": "Dokumen 1",
           "title": "LHKPN HA····I - Kh···s (A··l Men·····) 2024",
-          "context": "LHKPN Khusus 2024 - Asda I Setda Kab. Serang",
+          "context": "LHKPN Kh···s 2024 - As·· I Se··a Ka·· Se···g",
           "importedAt": "2026-05-21",
           "filename": "lapo·························································.pdf"
         }
@@ -711,7 +711,7 @@
         {
           "ref": "Dokumen 1",
           "title": "LHKPN MA··A VE·····A DH··E MA··I - Pe·····k 2024",
-          "context": "LHKPN Periodik 2024 - Bendahara Badan Kesbangpol Prov. NTT",
+          "context": "LHKPN Pe·····k 2024 - Ben·····a Ba··n Kes······l Pr··. N··",
           "importedAt": "2026-05-21",
           "filename": "4pwi····································.pdf"
         }
@@ -1299,11 +1299,11 @@
     ]
   },
   "geo": {
-    "totalEntities": 6147,
-    "entitiesWithCity": 1010,
-    "geocodedEntities": 829,
-    "uniqueCities": 335,
-    "mappedCities": 54,
+    "totalEntities": 6190,
+    "entitiesWithCity": 1046,
+    "geocodedEntities": 849,
+    "uniqueCities": 348,
+    "mappedCities": 56,
     "clusters": [
       {
         "key": "coord:106.8456,-6.2088",
@@ -1470,7 +1470,7 @@
         "key": "coord:114.5944,-3.3186",
         "label": "Abirau",
         "province": "KALIMANTAN SELATAN",
-        "count": 169,
+        "count": 170,
         "lat": -3.3186,
         "lng": 114.5944,
         "mergedCount": 108,
@@ -1509,6 +1509,11 @@
             "label": "Jingah Habang",
             "count": 4,
             "province": "KALIMANTAN SELATAN"
+          },
+          {
+            "label": "Banjarmasin",
+            "count": 4,
+            "province": null
           },
           {
             "label": "Karang Intan",
@@ -1554,11 +1559,6 @@
             "label": "Pambakal",
             "count": 3,
             "province": "KALIMANTAN SELATAN"
-          },
-          {
-            "label": "Banjarmasin",
-            "count": 3,
-            "province": "Kalimantan Tengah"
           },
           {
             "label": "Intan",
@@ -2026,25 +2026,17 @@
         "lng": 113.4667
       },
       {
-        "key": "SUKOHARJO",
-        "label": "Sukoharjo",
-        "province": null,
-        "count": 29,
-        "lat": -7.6807,
-        "lng": 110.8383
-      },
-      {
         "key": "coord:103.6131,-1.6101",
         "label": "Jambi",
         "province": "JAMBI",
-        "count": 28,
+        "count": 30,
         "lat": -1.6101,
         "lng": 103.6131,
         "mergedCount": 5,
         "mergedCities": [
           {
             "label": "Jambi",
-            "count": 18,
+            "count": 20,
             "province": "JAMBI"
           },
           {
@@ -2068,6 +2060,14 @@
             "province": "JAMBI"
           }
         ]
+      },
+      {
+        "key": "SUKOHARJO",
+        "label": "Sukoharjo",
+        "province": null,
+        "count": 29,
+        "lat": -7.6807,
+        "lng": 110.8383
       },
       {
         "key": "BANDUNG",
@@ -2095,6 +2095,32 @@
             "label": "Banten",
             "count": 1,
             "province": "DKI JAKARTA"
+          }
+        ]
+      },
+      {
+        "key": "coord:98.6722,3.5952",
+        "label": "Medan",
+        "province": null,
+        "count": 14,
+        "lat": 3.5952,
+        "lng": 98.6722,
+        "mergedCount": 3,
+        "mergedCities": [
+          {
+            "label": "Medan",
+            "count": 10,
+            "province": null
+          },
+          {
+            "label": "Tarutung",
+            "count": 3,
+            "province": "SUMATERA UTARA"
+          },
+          {
+            "label": "Onan Runggu",
+            "count": 1,
+            "province": "SUMATERA UTARA"
           }
         ]
       },
@@ -2214,6 +2240,14 @@
         ]
       },
       {
+        "key": "YOGYAKARTA",
+        "label": "Yogyakarta",
+        "province": null,
+        "count": 11,
+        "lat": -7.7956,
+        "lng": 110.3695
+      },
+      {
         "key": "METRO",
         "label": "Metro",
         "province": "Lampung",
@@ -2222,54 +2256,20 @@
         "lng": 105.3062
       },
       {
+        "key": "BOGOR",
+        "label": "Bogor",
+        "province": "DKI JAKARTA",
+        "count": 10,
+        "lat": -6.5971,
+        "lng": 106.806
+      },
+      {
         "key": "SAMARINDA",
         "label": "Samarinda",
         "province": null,
         "count": 10,
         "lat": -0.5022,
         "lng": 117.1536
-      },
-      {
-        "key": "coord:98.6722,3.5952",
-        "label": "Medan",
-        "province": null,
-        "count": 9,
-        "lat": 3.5952,
-        "lng": 98.6722,
-        "mergedCount": 3,
-        "mergedCities": [
-          {
-            "label": "Medan",
-            "count": 5,
-            "province": null
-          },
-          {
-            "label": "Tarutung",
-            "count": 3,
-            "province": "SUMATERA UTARA"
-          },
-          {
-            "label": "Onan Runggu",
-            "count": 1,
-            "province": "SUMATERA UTARA"
-          }
-        ]
-      },
-      {
-        "key": "BOGOR",
-        "label": "Bogor",
-        "province": "DKI JAKARTA",
-        "count": 8,
-        "lat": -6.5971,
-        "lng": 106.806
-      },
-      {
-        "key": "YOGYAKARTA",
-        "label": "Yogyakarta",
-        "province": "DKI JAKARTA",
-        "count": 8,
-        "lat": -7.7956,
-        "lng": 110.3695
       },
       {
         "key": "GRESIK",
@@ -2408,6 +2408,32 @@
         "lng": 109.1402
       },
       {
+        "key": "coord:102.2608,-3.7928",
+        "label": "Bengkulu",
+        "province": null,
+        "count": 5,
+        "lat": -3.7928,
+        "lng": 102.2608,
+        "mergedCount": 3,
+        "mergedCities": [
+          {
+            "label": "Bengkulu",
+            "count": 3,
+            "province": null
+          },
+          {
+            "label": "Tangga Batu",
+            "count": 1,
+            "province": "BENGKULU"
+          },
+          {
+            "label": "Padang Kedundong",
+            "count": 1,
+            "province": "BENGKULU"
+          }
+        ]
+      },
+      {
         "key": "SUKABUMI",
         "label": "Sukabumi",
         "province": "DKI JAKARTA",
@@ -2430,6 +2456,14 @@
         "count": 4,
         "lat": -2.131,
         "lng": 106.116
+      },
+      {
+        "key": "PALEMBANG",
+        "label": "Palembang",
+        "province": null,
+        "count": 4,
+        "lat": -2.9761,
+        "lng": 104.7754
       },
       {
         "key": "PADANG",
@@ -2462,14 +2496,6 @@
         "count": 3,
         "lat": -7.9797,
         "lng": 112.6304
-      },
-      {
-        "key": "PALEMBANG",
-        "label": "Palembang",
-        "province": null,
-        "count": 3,
-        "lat": -2.9761,
-        "lng": 104.7754
       },
       {
         "key": "JEMBER",
@@ -2564,32 +2590,6 @@
         ]
       },
       {
-        "key": "coord:102.2608,-3.7928",
-        "label": "Bengkulu",
-        "province": "BENGKULU",
-        "count": 3,
-        "lat": -3.7928,
-        "lng": 102.2608,
-        "mergedCount": 3,
-        "mergedCities": [
-          {
-            "label": "Bengkulu",
-            "count": 1,
-            "province": "BENGKULU"
-          },
-          {
-            "label": "Tangga Batu",
-            "count": 1,
-            "province": "BENGKULU"
-          },
-          {
-            "label": "Padang Kedundong",
-            "count": 1,
-            "province": "BENGKULU"
-          }
-        ]
-      },
-      {
         "key": "MALUKU UTARA",
         "label": "Maluku Utara",
         "province": "DKI JAKARTA",
@@ -2604,6 +2604,14 @@
         "count": 2,
         "lat": -7.6298,
         "lng": 111.5239
+      },
+      {
+        "key": "MAKASSAR",
+        "label": "Makassar",
+        "province": null,
+        "count": 2,
+        "lat": -5.1477,
+        "lng": 119.4327
       },
       {
         "key": "CIMAHI",
@@ -2636,6 +2644,27 @@
         "count": 2,
         "lat": -1.2379,
         "lng": 116.8529
+      },
+      {
+        "key": "coord:124.8421,1.4748",
+        "label": "Manado",
+        "province": null,
+        "count": 2,
+        "lat": 1.4748,
+        "lng": 124.8421,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Manado",
+            "count": 1,
+            "province": null
+          },
+          {
+            "label": "Sulawesi Utara",
+            "count": 1,
+            "province": null
+          }
+        ]
       },
       {
         "key": "TASIKMALAYA",
@@ -2686,12 +2715,12 @@
         "lng": 109.2344
       },
       {
-        "key": "MANADO",
-        "label": "Manado",
+        "key": "TARAKAN",
+        "label": "Tarakan",
         "province": null,
         "count": 1,
-        "lat": 1.4748,
-        "lng": 124.8421
+        "lat": 3.3274,
+        "lng": 117.5785
       },
       {
         "key": "CILEGON",

@@ -2,6 +2,14 @@
   "name": "dompeng-web",
   "description": "Dashboard publik DOMPENG — ringkasan profil, peta kota, indeks, dan antrian dokumen (data disamarkan)",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamutaki/dompeng-web.git"
+  },
+  "homepage": "https://github.com/iamutaki/dompeng-web#readme",
+  "bugs": {
+    "url": "https://github.com/iamutaki/dompeng-web/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",

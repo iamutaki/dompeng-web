@@ -80,28 +80,6 @@ function dateLabel(iso) {
   return iso.slice(0, 10);
 }
 
-const BLOCK = "█";
-const PHONE_PATTERNS = [
-  /\+62\d{9,12}/g,
-  /\b62\d{9,12}\b/g,
-  /\b08\d{8,11}\b/g,
-  /\b0\d{9,12}\b/g,
-];
-const NIK_PATTERN = /\b\d{16}\b/g;
-
-function maskText(text) {
-  return BLOCK.repeat(String(text).length);
-}
-
-function redactDisplay(text) {
-  let out = String(text ?? "");
-  for (const pattern of PHONE_PATTERNS) {
-    out = out.replace(pattern, (match) => maskText(match));
-  }
-  out = out.replace(NIK_PATTERN, BLOCK.repeat(16));
-  return out;
-}
-
 function clear(el) {
   while (el.firstChild) el.removeChild(el.firstChild);
 }
@@ -167,7 +145,7 @@ function renderIntelBrief(intel) {
 function renderStats(summary) {
   const cards = [
     { code: "N-01", value: summary.persons, label: "Profil orang", tone: "intel" },
-    { code: "N-02", value: summary.documents, label: "Dokumen sumber", tone: "intel" },
+    { code: "N-02", value: summary.documents, label: "Dokumen internet", tone: "intel" },
     { code: "N-03", value: summary.templates, label: "Template ekstraksi" },
     { code: "N-04", value: summary.history, label: "Riwayat file", tone: "cyan" },
     { code: "N-05", value: summary.doneFiles, label: "File selesai diproses" },
@@ -196,9 +174,10 @@ function renderStats(summary) {
   }
 }
 
-function renderUsageBar(coverage, total) {
+function renderUsageBar(coverage, total, barId = "coverage-bar") {
   const top = coverage.reduce((a, b) => (b.pct > a.pct ? b : a), coverage[0] || { pct: 0, label: "" });
-  const bar = document.getElementById("coverage-bar");
+  const bar = document.getElementById(barId);
+  if (!bar) return;
   clear(bar);
 
   const labels = document.createElement("div");
@@ -223,7 +202,7 @@ function renderUsageBar(coverage, total) {
   bar.append(labels, track);
 }
 
-function renderQueueStats(queue) {
+function renderQueueStats(queue, containerId = "queue-stats") {
   const total = queue.total || 1;
   const items = [
     { label: "Menunggu", value: queue.pending, color: COLORS.amber },
@@ -234,7 +213,8 @@ function renderQueueStats(queue) {
     items.push({ label: "Sedang diproses", value: queue.processing, color: COLORS.cyan });
   }
 
-  const container = document.getElementById("queue-stats");
+  const container = document.getElementById(containerId);
+  if (!container) return;
   clear(container);
 
   for (const item of items) {
@@ -306,9 +286,22 @@ function renderShowcaseEntities(entities) {
   if (!container) return;
   clear(container);
 
+  const previewMeta = document.getElementById("preview-meta");
+  if (previewMeta) {
+    const n = entities?.length || 0;
+    previewMeta.textContent = `${fmt(n)} contoh profil · gulir untuk melihat semua`;
+    previewMeta.hidden = n === 0;
+  }
+
   for (const entity of entities) {
     const card = document.createElement("article");
-    card.className = "entity-card";
+    card.className = "entity-card entity-card--row";
+
+    const main = document.createElement("div");
+    main.className = "entity-row-main";
+
+    const identity = document.createElement("div");
+    identity.className = "entity-row-identity";
 
     const head = document.createElement("div");
     head.className = "entity-card-head";
@@ -353,6 +346,8 @@ function renderShowcaseEntities(entities) {
       meta.appendChild(chip);
     }
 
+    identity.append(head, name, meta);
+
     const idList = document.createElement("div");
     idList.className = "entity-id-list";
     for (const ident of entity.identifiers || []) {
@@ -367,6 +362,10 @@ function renderShowcaseEntities(entities) {
       row.append(type, value);
       idList.appendChild(row);
     }
+
+    const idsCol = document.createElement("div");
+    idsCol.className = "entity-row-ids";
+    idsCol.appendChild(idList);
 
     const graph = document.createElement("div");
     graph.className = "entity-graph";
@@ -395,13 +394,24 @@ function renderShowcaseEntities(entities) {
       graph.appendChild(occ);
     }
 
+    const graphCol = document.createElement("div");
+    graphCol.className = "entity-row-graph";
+    graphCol.appendChild(graph);
+
+    main.append(identity, idsCol, graphCol);
+    card.appendChild(main);
+
     if (entity.documents?.length) {
-      const docBlock = document.createElement("div");
-      docBlock.className = "entity-docs";
+      const docsRow = document.createElement("div");
+      docsRow.className = "entity-row-docs";
+
       const docLabel = document.createElement("div");
       docLabel.className = "entity-docs-label";
-      appendText(docLabel, "Dokumen sumber");
-      docBlock.appendChild(docLabel);
+      appendText(docLabel, "Dokumen internet");
+      docsRow.appendChild(docLabel);
+
+      const docList = document.createElement("div");
+      docList.className = "entity-row-doc-list";
 
       for (const doc of entity.documents) {
         const row = document.createElement("div");
@@ -440,11 +450,11 @@ function renderShowcaseEntities(entities) {
           row.appendChild(file);
         }
 
-        docBlock.appendChild(row);
+        docList.appendChild(row);
       }
-      card.append(head, name, meta, idList, docBlock, graph);
-    } else {
-      card.append(head, name, meta, idList, graph);
+
+      docsRow.appendChild(docList);
+      card.appendChild(docsRow);
     }
 
     container.appendChild(card);
@@ -453,6 +463,7 @@ function renderShowcaseEntities(entities) {
 
 function renderRecentDocs(docs) {
   const tbody = document.getElementById("recent-docs");
+  if (!tbody) return;
   clear(tbody);
 
   for (const doc of docs) {
@@ -468,15 +479,16 @@ function renderRecentDocs(docs) {
 
     const title = document.createElement("td");
     title.className = "title-cell censored";
-    appendText(title, redactDisplay(doc.title));
+    appendFaint(title, doc.title || "—");
 
     row.append(imported, mentions, title);
     tbody.appendChild(row);
   }
 }
 
-function buildCoverageChart(coverage) {
-  const ctx = document.getElementById("coverage-chart");
+function buildCoverageChart(coverage, canvasId = "coverage-chart") {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return null;
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -509,8 +521,30 @@ function buildCoverageChart(coverage) {
   });
 }
 
-function buildQueueChart(queue) {
-  const ctx = document.getElementById("queue-chart");
+function queueCenterLabelPlugin(queue) {
+  return {
+    id: "queueCenterLabel",
+    beforeDraw(chart) {
+      const { width, height, ctx } = chart;
+      const total = (queue.pending || 0) + (queue.done || 0) + (queue.failed || 0) + (queue.processing || 0);
+      const pct = total ? Math.round((queue.done / total) * 100) : 0;
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = '700 1.35rem "IBM Plex Mono", monospace';
+      ctx.fillStyle = "#00d4aa";
+      ctx.fillText(`${pct}%`, width / 2, height / 2 - 6);
+      ctx.font = '600 0.5625rem "IBM Plex Mono", monospace';
+      ctx.fillStyle = "#7a8fa8";
+      ctx.fillText("SELESAI", width / 2, height / 2 + 14);
+      ctx.restore();
+    },
+  };
+}
+
+function buildQueueChart(queue, canvasId = "queue-chart") {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return null;
   const labels = ["Menunggu", "Berhasil", "Gagal"];
   const values = [queue.pending, queue.done, queue.failed];
   const colors = [COLORS.amber, COLORS.intel, COLORS.danger];
@@ -519,6 +553,12 @@ function buildQueueChart(queue) {
     values.push(queue.processing);
     colors.push(COLORS.cyan);
   }
+
+  const isAnalytics = canvasId === "queue-chart";
+  const plugins = {
+    legend: { display: false },
+    tooltip: chartDefaults.plugins.tooltip,
+  };
 
   return new Chart(ctx, {
     type: "doughnut",
@@ -529,20 +569,20 @@ function buildQueueChart(queue) {
           data: values,
           backgroundColor: colors,
           borderColor: "#0b1118",
-          borderWidth: 3,
-          hoverOffset: 4,
+          borderWidth: isAnalytics ? 4 : 3,
+          hoverOffset: isAnalytics ? 6 : 4,
+          spacing: isAnalytics ? 2 : 0,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: "64%",
-      plugins: {
-        legend: { display: false },
-        tooltip: chartDefaults.plugins.tooltip,
-      },
+      cutout: isAnalytics ? "58%" : "64%",
+      layout: isAnalytics ? { padding: 4 } : undefined,
+      plugins,
     },
+    plugins: isAnalytics ? [queueCenterLabelPlugin(queue)] : [],
   });
 }
 
@@ -736,6 +776,108 @@ function renderChangelog(changelog) {
   }
 }
 
+function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
+  const container = document.getElementById(containerId);
+  if (!container || !geo?.clusters?.length) return;
+  clear(container);
+
+  const cities = [...geo.clusters].sort((a, b) => (b.count || 0) - (a.count || 0)).slice(0, limit);
+  const max = cities[0]?.count || 1;
+
+  for (const city of cities) {
+    const li = document.createElement("li");
+    li.className = "overview-city-item";
+
+    const head = document.createElement("div");
+    head.className = "overview-city-head";
+
+    const name = document.createElement("span");
+    name.className = "overview-city-name";
+    appendText(name, city.label);
+
+    const count = document.createElement("span");
+    count.className = "overview-city-count";
+    appendText(count, `${fmt(city.count)} orang`);
+
+    head.append(name, count);
+
+    const track = document.createElement("div");
+    track.className = "overview-city-track";
+    const fill = document.createElement("span");
+    fill.className = "overview-city-fill";
+    fill.style.width = `${Math.max(6, Math.round((city.count / max) * 100))}%`;
+    track.appendChild(fill);
+
+    if (city.mergedCount > 1) {
+      const meta = document.createElement("span");
+      meta.className = "overview-city-meta";
+      appendText(meta, `${city.mergedCount} kota · koordinat sama`);
+      li.append(head, track, meta);
+    } else {
+      const prov = city.province ? city.province : "";
+      if (prov) {
+        const meta = document.createElement("span");
+        meta.className = "overview-city-meta";
+        appendText(meta, prov);
+        li.append(head, track, meta);
+      } else {
+        li.append(head, track);
+      }
+    }
+
+    container.appendChild(li);
+  }
+}
+
+function renderOverviewRecentDocs(docs, limit = 8) {
+  const tbody = document.getElementById("overview-recent-docs");
+  if (!tbody) return;
+  clear(tbody);
+
+  for (const doc of (docs || []).slice(0, limit)) {
+    const row = document.createElement("tr");
+
+    const imported = document.createElement("td");
+    imported.className = "timestamp";
+    appendText(imported, dateLabel(doc.imported_at));
+
+    const mentions = document.createElement("td");
+    mentions.className = "num";
+    appendText(mentions, fmt(doc.mentions));
+
+    const title = document.createElement("td");
+    title.className = "title-cell censored";
+    appendFaint(title, doc.title || "—");
+
+    row.append(imported, mentions, title);
+    tbody.appendChild(row);
+  }
+}
+
+function renderOverviewDashboard(data) {
+  const capCov = document.getElementById("overview-coverage-caption");
+  if (capCov) {
+    capCov.textContent = `Kelengkapan dari ${fmt(data.coverageTotal)} profil orang`;
+  }
+
+  const capQueue = document.getElementById("overview-queue-caption");
+  if (capQueue && data.queue) {
+    capQueue.textContent = `${fmt(data.queue.total)} URL · ${pct(data.queue.done, data.queue.total)}% selesai`;
+  }
+
+  const capGeo = document.getElementById("overview-geo-caption");
+  if (capGeo && data.geo) {
+    capGeo.textContent = `${fmt(data.geo.geocodedEntities)} orang di ${fmt(data.geo.mappedCities)} kota`;
+  }
+
+  renderUsageBar(data.coverage, data.coverageTotal || 1, "overview-coverage-bar");
+  renderQueueStats(data.queue, "overview-queue-stats");
+  renderTopCities(data.geo);
+  renderOverviewRecentDocs(data.recentDocs);
+  buildCoverageChart(data.coverage, "overview-coverage-chart");
+  buildQueueChart(data.queue, "overview-queue-chart");
+}
+
 function showError(message) {
   const page = document.querySelector(".page");
   const banner = document.createElement("div");
@@ -762,6 +904,7 @@ async function init() {
       `Antrian unduhan · ${fmt(data.queue.total)} URL dipantau`;
 
     renderStats(data.summary);
+    renderOverviewDashboard(data);
     if (data.showcaseEntities?.length) {
       renderShowcaseEntities(data.showcaseEntities);
     }
@@ -784,6 +927,12 @@ async function init() {
     if (typeof onDashboardTabShown === "function") {
       const active = document.querySelector(".tab-panel.is-active");
       if (active?.dataset.tab) onDashboardTabShown(active.dataset.tab);
+    }
+
+    if (typeof markDashboardReady === "function") {
+      markDashboardReady();
+    } else {
+      document.body.classList.add("dashboard-ready");
     }
   } catch (err) {
     document.getElementById("updated").textContent = "Data belum tersedia";

@@ -1,5 +1,7 @@
 # DOMPENG — Dashboard Publik
 
+**Repositori:** [github.com/iamutaki/dompeng-web](https://github.com/iamutaki/dompeng-web)
+
 Dashboard statis berbahasa Indonesia untuk memantau ringkasan database DOMPENG tanpa mengekspos PII mentah. Semua angka dan grafik diambil dari pipeline utama lewat `./summary.sh` di root repo.
 
 **Sekilas:** peta sebaran orang per kota (MapLibre), metrik profil & dokumen, kelengkapan identitas (telepon, email, NIK, dll.), indeks pencarian, status unduhan dokumen, sample profil ter-redaksi, dokumen terbaru, dan catatan versi.
@@ -13,7 +15,7 @@ Dashboard statis berbahasa Indonesia untuk memantau ringkasan database DOMPENG t
 | **Kelengkapan profil** | Chart batang — berapa profil punya telepon, email, NIK, ID karyawan, foto |
 | **Status unduhan** | Donut antrian URL dokumen (pending, selesai, gagal) |
 | **Indeks pencarian** | Chart entri indeks per tipe (`name`, `phone`, `email`, …) |
-| **Contoh profil** | Sample orang + dokumen sumber; nama/judul/telepon/NIK disamarkan |
+| **Contoh profil** | Sample orang + dokumen internet; nama/judul/telepon/NIK disamarkan |
 | **Dokumen terbaru** | Tabel impor terakhir dengan judul publik ter-redaksi |
 | **Catatan pembaruan** | Cuplikan `CHANGELOGS.md` versi terbaru |
 
@@ -22,7 +24,7 @@ Halaman dedicated peta: [`geo/index.html`](geo/index.html) — peta penuh dengan
 ## Privasi & data
 
 - File `data/stats.json` dan `data/geo-clusters.json` **hanya berisi agregat atau field yang sudah disensor** sebelum ditulis ke `web/`.
-- UI menampilkan badge **Data disamarkan**; teks bebas (judul, nama sample) melewati redaksi pola telepon/NIK.
+- UI menampilkan badge **Data disamarkan**; judul dokumen dan sample profil memakai sensor samar (`faint_*`) — ujung kata/angka tetap terbaca, bukan blok penuh.
 - Koordinat kota di `data/id-city-coords.json` bersifat referensi geografis, bukan data orang.
 
 ## Struktur folder
@@ -123,9 +125,9 @@ Custom domain: Cloudflare Dashboard → Workers → Settings → Domains & Route
 2. **Settings → Pages** → branch `main`, folder `/ (root)`
 3. Commit hasil `./summary.sh` (`stats.json`, `geo/`, `sitemap.xml`, dll.)
 
-## Submodule (opsional)
+## Submodule
 
-Folder `web/` bisa dipisah ke repo `dompeng-web` dan di-link sebagai submodule — `./summary.sh` tetap menulis ke path `web/` di root. Commit & push di repo web untuk publish.
+Folder `web/` di root DOMPENG di-link sebagai submodule ke [iamutaki/dompeng-web](https://github.com/iamutaki/dompeng-web). `./summary.sh` tetap menulis ke path `web/`; commit & push di submodule untuk publish dashboard.
 
 ## Deskripsi singkat (untuk About repo / link)
 

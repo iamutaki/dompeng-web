@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SEO:HEAD:START -->
   <title>DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota</title>
-  <meta name="description" content="Dashboard DOMPENG: 6,147 profil orang, 54 kota di peta, indeks pencarian, dan status unduhan dokumen sumber.">
+  <meta name="description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta property="og:description" content="Dashboard DOMPENG: 6,147 profil orang, 54 kota di peta, indeks pencarian, dan status unduhan dokumen sumber.">
+  <meta property="og:description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta name="twitter:description" content="Dashboard DOMPENG: 6,147 profil orang, 54 kota di peta, indeks pencarian, dan status unduhan dokumen sumber.">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Sistem data orang dari dokumen sumber — profil, indeks pencarian, dan peta sebaran per kota.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Ekstraksi profil dari dokumen", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6147}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 54}]}</script>
+  <meta name="twitter:description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Sistem data orang dari dokumen internet — profil, indeks pencarian, dan peta sebaran per kota.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Profil dari dokumen internet", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6190}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 56}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web"}</script>
   <meta name="dompeng:version" content="v2.5.1">
   <!-- SEO:HEAD:END -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,13 +54,119 @@
       <button type="button" class="tab-btn" role="tab" data-tab="geo" aria-selected="false" aria-controls="tab-geo" id="tab-btn-geo" tabindex="-1">Peta Kota</button>
       <button type="button" class="tab-btn" role="tab" data-tab="analytics" aria-selected="false" aria-controls="tab-analytics" id="tab-btn-analytics" tabindex="-1">Analisis</button>
       <button type="button" class="tab-btn" role="tab" data-tab="preview" aria-selected="false" aria-controls="tab-preview" id="tab-btn-preview" tabindex="-1">Contoh</button>
-      <button type="button" class="tab-btn" role="tab" data-tab="changelog" aria-selected="false" aria-controls="tab-changelog" id="tab-btn-changelog" tabindex="-1">Pembaruan</button>
     </nav>
 
     <main class="dashboard-main">
       <section class="tab-panel tab-panel--overview is-active" id="tab-overview" data-tab="overview" role="tabpanel" aria-labelledby="tab-btn-overview">
-        <section class="intel-brief intel-brief--dashboard" id="intel-brief" aria-label="Ringkasan utama"></section>
-        <section class="stats-grid stats-grid--dashboard" id="stats-grid" aria-label="Jumlah data"></section>
+        <div class="overview-layout">
+          <section class="intel-brief intel-brief--dashboard" id="intel-brief" aria-label="Ringkasan utama"></section>
+
+          <div class="overview-grid">
+            <section class="overview-zone overview-zone--processing" aria-labelledby="overview-zone-processing-title">
+              <header class="overview-zone-head">
+                <h2 class="overview-zone-title" id="overview-zone-processing-title">Kelengkapan &amp; unduhan</h2>
+                <p class="overview-zone-desc">Kualitas profil dan antrian dokumen internet</p>
+              </header>
+              <div class="overview-zone-body overview-zone-body--split">
+                <article class="panel panel--overview panel--overview-coverage">
+                  <div class="panel-head panel-head--compact">
+                    <h3>Kelengkapan Profil</h3>
+                    <p id="overview-coverage-caption">Proporsi profil dengan telepon, email, NIK, dan lainnya</p>
+                  </div>
+                  <div class="chart-wrap chart-wrap--overview-bar">
+                    <canvas id="overview-coverage-chart" aria-label="Kelengkapan profil ringkas"></canvas>
+                  </div>
+                  <div class="usage-bar usage-bar--compact" id="overview-coverage-bar"></div>
+                </article>
+
+                <article class="panel panel--overview panel--overview-queue">
+                  <div class="panel-head panel-head--compact">
+                    <h3>Status Unduhan</h3>
+                    <p id="overview-queue-caption">Antrian dokumen internet</p>
+                  </div>
+                  <div class="overview-queue-layout">
+                    <div class="chart-wrap chart-wrap--overview-donut">
+                      <canvas id="overview-queue-chart" aria-label="Status unduhan ringkas"></canvas>
+                    </div>
+                    <div class="queue-stats" id="overview-queue-stats"></div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="overview-zone overview-zone--distribution" aria-labelledby="overview-zone-distribution-title">
+              <header class="overview-zone-head">
+                <h2 class="overview-zone-title" id="overview-zone-distribution-title">Sebaran &amp; volume</h2>
+                <p class="overview-zone-desc">Kota teratas dan ringkasan jumlah data</p>
+              </header>
+              <div class="overview-zone-body overview-zone-body--split">
+                <article class="panel panel--overview panel--overview-cities">
+                  <div class="panel-head panel-head--compact">
+                    <h3>Kota Teratas</h3>
+                    <p id="overview-geo-caption">Orang terpetakan per kota</p>
+                  </div>
+                  <ol class="overview-city-list" id="overview-top-cities"></ol>
+                </article>
+                <section class="stats-grid stats-grid--overview" id="stats-grid" aria-label="Jumlah data"></section>
+              </div>
+            </section>
+
+            <section class="overview-zone overview-zone--activity" aria-labelledby="overview-zone-activity-title">
+              <header class="overview-zone-head">
+                <h2 class="overview-zone-title" id="overview-zone-activity-title">Aktivitas terbaru</h2>
+                <p class="overview-zone-desc">Impor dokumen internet terakhir</p>
+              </header>
+              <article class="panel panel--overview panel--overview-recent">
+                <div class="panel-head panel-head--compact">
+                  <h3>Dokumen Terbaru</h3>
+                  <p>Judul disamarkan untuk publik</p>
+                </div>
+                <div class="table-wrap table-wrap--overview">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th class="num">Orang</th>
+                        <th>Judul</th>
+                      </tr>
+                    </thead>
+                    <tbody id="overview-recent-docs"></tbody>
+                  </table>
+                </div>
+              </article>
+            </section>
+
+            <section class="overview-zone overview-zone--updates" aria-labelledby="overview-zone-updates-title">
+              <header class="overview-zone-head">
+                <h2 class="overview-zone-title" id="overview-zone-updates-title">Pembaruan</h2>
+                <p class="overview-zone-desc" id="changelog-caption">Riwayat versi · diperbarui saat summary dijalankan</p>
+              </header>
+              <article class="panel panel--overview panel--overview-changelog">
+                <div class="changelog-summary" id="changelog-summary"></div>
+                <div class="changelog-feed" id="changelog-feed"></div>
+              </article>
+            </section>
+
+            <!-- SEO:CRAWLER:START -->
+            <section class="seo-static panel panel--overview panel--overview-about seo-static--visually-hidden" id="seo-static" aria-label="Ringkasan publik DOMPENG">
+              <h2>DOMPENG — Sistem Data Orang</h2>
+              <p>
+                Platform untuk mengelola profil orang dari dokumen internet, menghubungkan data antar sumber, dan menampilkan sebaran per kota secara agregat.
+              </p>
+              <ul class="seo-stats">
+                <li><strong>6,190</strong> profil orang</li>
+                <li><strong>339</strong> dokumen internet</li>
+                <li><strong>56</strong> kota di peta</li>
+                <li><strong>849</strong> orang dengan lokasi kota</li>
+              </ul>
+              <h3>Kota dengan orang terbanyak</h3>
+              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 260 orang</li><li><strong>Abirau</strong> — 170 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Jambi</strong> — 30 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Serang</strong> — 14 orang</li><li><strong>Medan</strong> — 14 orang</li></ol>
+              <p><a href="geo/index.html">Lihat peta sebaran per kota →</a></p>
+              <p><a href="https://github.com/iamutaki/dompeng-web" rel="noopener noreferrer">Kode sumber dashboard (GitHub) →</a></p>
+            </section>
+            <!-- SEO:CRAWLER:END -->
+          </div>
+        </div>
       </section>
 
       <section class="tab-panel tab-panel--geo" id="tab-geo" data-tab="geo" role="tabpanel" aria-labelledby="tab-btn-geo" hidden>
@@ -69,7 +175,7 @@
             <h2>Peta Sebaran per Kota</h2>
             <p>Jumlah orang per kota · <a class="nav-link" href="geo/index.html">buka peta penuh →</a></p>
           </div>
-          <p class="geo-map-hint">Ctrl+scroll (⌘+scroll) untuk zoom peta · gulir panel jika konten panjang · hover/klik titik untuk detail kota</p>
+          <p class="geo-map-hint">Scroll untuk zoom · drag untuk geser · hover/klik titik untuk detail kota</p>
           <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
           <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
         </article>
@@ -77,36 +183,36 @@
 
       <section class="tab-panel tab-panel--analytics" id="tab-analytics" data-tab="analytics" role="tabpanel" aria-labelledby="tab-btn-analytics" hidden>
         <div class="analytics-grid">
-          <article class="panel panel--chart" data-module="coverage">
+          <article class="panel panel--chart panel--analytics-coverage" data-module="coverage">
             <div class="panel-head panel-head--compact">
               <h2>Kelengkapan Profil</h2>
               <p id="coverage-caption">Berapa banyak profil yang punya telepon, email, NIK, dan seterusnya</p>
             </div>
-            <div class="chart-wrap chart-wrap--fill">
+            <div class="chart-wrap chart-wrap--analytics-bar">
               <canvas id="coverage-chart" aria-label="Kelengkapan profil orang"></canvas>
             </div>
             <div class="usage-bar usage-bar--compact" id="coverage-bar"></div>
           </article>
 
-          <article class="panel panel--chart" data-module="queue">
+          <article class="panel panel--chart panel--analytics-queue" data-module="queue">
             <div class="panel-head panel-head--compact">
               <h2>Status Unduhan</h2>
               <p id="queue-caption">Antrian URL dokumen yang sedang atau sudah diproses</p>
             </div>
-            <div class="queue-layout queue-layout--compact">
-              <div class="chart-wrap chart-wrap--fill chart-wrap--square">
+            <div class="queue-layout queue-layout--analytics">
+              <div class="chart-wrap chart-wrap--analytics-donut">
                 <canvas id="queue-chart" aria-label="Status unduhan dokumen"></canvas>
               </div>
-              <div class="queue-stats" id="queue-stats"></div>
+              <div class="queue-stats queue-stats--analytics" id="queue-stats"></div>
             </div>
           </article>
 
-          <article class="panel panel--chart panel--chart-wide" data-module="index">
+          <article class="panel panel--chart panel--analytics-index" data-module="index">
             <div class="panel-head panel-head--compact">
               <h2>Indeks Pencarian</h2>
               <p>Field yang bisa dicari ulang — nama, telepon, NIK, dan lainnya</p>
             </div>
-            <div class="chart-wrap chart-wrap--fill">
+            <div class="chart-wrap chart-wrap--analytics-index">
               <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
             </div>
             <div class="inline-stats inline-stats--compact" id="index-stats"></div>
@@ -115,70 +221,25 @@
       </section>
 
       <section class="tab-panel tab-panel--preview" id="tab-preview" data-tab="preview" role="tabpanel" aria-labelledby="tab-btn-preview" hidden>
-        <div class="preview-grid">
-          <article class="panel panel--scroll" data-module="showcase">
+        <article class="panel panel--scroll panel--preview-full" data-module="showcase">
+          <header class="preview-head">
             <div class="panel-head panel-head--compact">
               <h2>Contoh Profil &amp; Dokumen</h2>
-              <p>Sample orang beserta dokumen sumber — identitas disamarkan sebagian</p>
+              <p>Sample orang beserta dokumen internet — identitas disamarkan sebagian</p>
             </div>
-            <div class="entity-showcase entity-showcase--tab" id="entity-showcase"></div>
-          </article>
-
-          <article class="panel panel--scroll" data-module="recent">
-            <div class="panel-head panel-head--compact">
-              <h2>Dokumen Terbaru</h2>
-              <p>Dokumen yang baru diproses — judul disamarkan untuk tampilan publik</p>
-            </div>
-            <div class="table-wrap table-wrap--fill">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tanggal</th>
-                    <th class="num">Orang</th>
-                    <th>Judul Dokumen</th>
-                  </tr>
-                </thead>
-                <tbody id="recent-docs"></tbody>
-              </table>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="tab-panel tab-panel--changelog" id="tab-changelog" data-tab="changelog" role="tabpanel" aria-labelledby="tab-btn-changelog" hidden>
-        <article class="panel panel--scroll panel--changelog" data-module="changelog">
-          <div class="panel-head panel-head--compact">
-            <h2>Catatan Pembaruan</h2>
-            <p id="changelog-caption">Riwayat versi aplikasi · diperbarui saat summary dijalankan</p>
-          </div>
-          <div class="changelog-summary" id="changelog-summary"></div>
-          <div class="changelog-feed" id="changelog-feed"></div>
+            <p class="preview-meta" id="preview-meta" hidden></p>
+          </header>
+          <div class="entity-showcase entity-showcase--rows entity-showcase--preview" id="entity-showcase"></div>
         </article>
       </section>
     </main>
 
     <footer class="footer footer--dashboard">
-      <p><span class="footer-tag">OTOMATIS</span> Diperbarui oleh <code>summary.sh</code> · DOMPENG</p>
-    </footer>
-
-    <!-- SEO:CRAWLER:START -->
-    <section class="seo-static" id="seo-static" aria-label="Ringkasan publik DOMPENG">
-      <h2>DOMPENG — Sistem Data Orang dari Dokumen</h2>
       <p>
-        Platform untuk mengekstrak profil orang dari dokumen sumber (misalnya LHKPN),
-        menghubungkan data antar dokumen, dan menampilkan sebaran per kota secara agregat.
+        <span class="footer-tag">OTOMATIS</span> Diperbarui oleh <code>summary.sh</code> · DOMPENG ·
+        <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">GitHub</a>
       </p>
-      <ul class="seo-stats">
-        <li><strong>6,147</strong> profil orang</li>
-        <li><strong>328</strong> dokumen sumber</li>
-        <li><strong>54</strong> kota di peta</li>
-        <li><strong>829</strong> orang dengan lokasi kota</li>
-      </ul>
-      <h3>Kota dengan orang terbanyak</h3>
-      <ol class="seo-city-list"><li><strong>Jakarta</strong> — 260 orang</li><li><strong>Abirau</strong> — 169 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Jambi</strong> — 28 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Serang</strong> — 14 orang</li><li><strong>Pekanbaru</strong> — 14 orang</li></ol>
-      <p><a href="geo/index.html">Lihat peta sebaran per kota →</a></p>
-    </section>
-    <!-- SEO:CRAWLER:END -->
+    </footer>
   </div>
 </body>
 </html>
