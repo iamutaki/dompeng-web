@@ -1,5 +1,6 @@
 {
   "name": "dompeng-web",
+  "description": "Dashboard publik DOMPENG — ringkasan profil, peta kota, indeks, dan antrian dokumen (data disamarkan)",
   "private": true,
   "type": "module",
   "scripts": {

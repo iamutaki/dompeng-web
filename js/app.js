@@ -38,7 +38,7 @@ const chartDefaults = {
         usePointStyle: true,
         pointStyle: "rect",
         padding: 16,
-        font: { family: "'IBM Plex Mono', monospace", size: 10 },
+        font: { family: "'IBM Plex Mono', monospace", size: 11, weight: "600" },
       },
     },
     tooltip: {
@@ -47,19 +47,19 @@ const chartDefaults = {
       borderWidth: 1,
       titleColor: "#d8e2ef",
       bodyColor: COLORS.muted,
-      titleFont: { family: "'IBM Plex Mono', monospace", size: 11 },
-      bodyFont: { family: "'IBM Plex Mono', monospace", size: 11 },
+      titleFont: { family: "'IBM Plex Mono', monospace", size: 12, weight: "600" },
+      bodyFont: { family: "'IBM Plex Mono', monospace", size: 11, weight: "500" },
       padding: 10,
     },
   },
   scales: {
     x: {
-      ticks: { color: COLORS.muted, font: { family: "'IBM Plex Mono', monospace", size: 10 } },
+      ticks: { color: COLORS.muted, font: { family: "'IBM Plex Mono', monospace", size: 11, weight: "500" } },
       grid: { color: COLORS.grid },
       border: { color: "#1c2a3a" },
     },
     y: {
-      ticks: { color: COLORS.muted, font: { family: "'IBM Plex Mono', monospace", size: 10 } },
+      ticks: { color: COLORS.muted, font: { family: "'IBM Plex Mono', monospace", size: 11, weight: "500" } },
       grid: { color: COLORS.grid },
       border: { color: "#1c2a3a" },
     },
@@ -315,11 +315,13 @@ function renderShowcaseEntities(entities) {
     const ref = document.createElement("span");
     ref.className = "entity-ref";
     appendText(ref, entity.ref);
-    const score = document.createElement("span");
+    head.appendChild(ref);
+
+    const score = document.createElement("div");
     score.className = "entity-score";
     const docHint = entity.documentCount ? ` · ${entity.documentCount} dokumen` : "";
     appendText(score, `${entity.identifierCount} identitas · ${entity.edgeCount} relasi${docHint}`);
-    head.append(ref, score);
+    head.appendChild(score);
 
     const name = document.createElement("div");
     name.className = "entity-name";
@@ -720,9 +722,9 @@ function renderChangelog(changelog) {
       `Versi terbaru ${changelog.latestVersion} (${changelog.latestDate}) · ${changelog.totalReleases} rilis total`;
   }
 
-  const moduleId = document.querySelector(".module-id");
-  if (moduleId && changelog.latestVersion) {
-    moduleId.textContent = `Versi ${changelog.latestVersion}`;
+  const kicker = document.querySelector(".dashboard-kicker");
+  if (kicker && changelog.latestVersion) {
+    kicker.textContent = `Versi ${changelog.latestVersion}`;
   }
 
   const statusRow = document.getElementById("status-row");
@@ -778,6 +780,11 @@ async function init() {
     buildCoverageChart(data.coverage);
     buildQueueChart(data.queue);
     buildIndexChart(data.indexRows);
+
+    if (typeof onDashboardTabShown === "function") {
+      const active = document.querySelector(".tab-panel.is-active");
+      if (active?.dataset.tab) onDashboardTabShown(active.dataset.tab);
+    }
   } catch (err) {
     document.getElementById("updated").textContent = "Data belum tersedia";
     showError(`${err.message}. Jalankan ./summary.sh dari repo utama untuk menghasilkan web/data/stats.json.`);
