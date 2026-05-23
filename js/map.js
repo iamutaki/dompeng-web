@@ -1,4 +1,12 @@
-const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark";
+/**
+ * Basemap: CARTO Dark Matter (CDN global, tanpa API key, kuota lebih longgar untuk traffic publik).
+ * Alternatif: set window.DOMPENG_MAP_STYLE sebelum map.js dimuat.
+ * @see https://carto.com/attributions/
+ */
+const MAP_STYLE_DEFAULT =
+  "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
+const MAP_STYLE = window.DOMPENG_MAP_STYLE || MAP_STYLE_DEFAULT;
+const MAP_LABEL_FONT = ["Open Sans Bold"];
 const MAP_CENTER = [118.0, -2.5];
 const MAP_ZOOM = 4.2;
 const CLUSTER_MAX_ZOOM = 12;
@@ -416,7 +424,7 @@ function buildGeoMap(container, geo, options = {}) {
       filter: ["has", "point_count"],
       layout: {
         "text-field": countLabelExpr,
-        "text-font": ["Noto Sans Bold"],
+        "text-font": MAP_LABEL_FONT,
         "text-size": 13,
         "text-allow-overlap": true,
         "text-ignore-placement": true,

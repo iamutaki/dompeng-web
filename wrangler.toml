@@ -2,7 +2,7 @@
 # Deploy: cd web && npm run deploy
 # Docs: https://developers.cloudflare.com/workers/static-assets/
 
-name = "dompeng-dashboard"
+name = "dompeng"
 main = "src/worker.js"
 compatibility_date = "2025-05-23"
 

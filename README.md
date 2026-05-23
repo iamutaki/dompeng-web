@@ -80,6 +80,8 @@ Cluster dihitung dari `structured_address` level **city** pada person records:
 
 Tambah kota di `data/id-city-coords.json`, lalu jalankan ulang `./summary.sh`.
 
+Basemap peta memakai **CARTO Dark Matter** (`basemaps.cartocdn.com`) — CDN global, tanpa API key, tema gelap. Ganti provider lewat `window.DOMPENG_MAP_STYLE` sebelum `map.js` dimuat jika perlu.
+
 ## Preview lokal
 
 ```bash
