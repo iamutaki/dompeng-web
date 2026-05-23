@@ -145,212 +145,38 @@ const countLabelExpr = [
 
 const QUERY_LAYERS = ["city-clusters-merged", "city-points"];
 const QUERY_RADIUS = 14;
-const BUBBLE_CIRCLE_LAYERS = ["city-clusters-merged", "city-points"];
-const BUBBLE_ENTRY_MS = 900;
-/** Satu siklus: bleep · bleep · bleep · jeda */
-const SIGNAL_CYCLE_MS = 3200;
-const SIGNAL_BLEEP_MS = 200;
-const SIGNAL_GAP_MS = 130;
-const SIGNAL_BEEPS = 3;
+const BUBBLE_OPACITY = 0.9;
 
-const circleOpacityBase = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  1,
-  0.9,
-];
+const featureActive = ["boolean", ["feature-state", "active"], false];
 
-/** Radius + bleep hanya pada titik dengan feature-state `active` (satu hover). */
-const circleRadiusActive = [
+const circleRadiusHover = [
   "case",
-  ["boolean", ["feature-state", "active"], false],
-  ["*", circleRadiusExpr, ["coalesce", ["feature-state", "scale"], 1.18]],
+  featureActive,
+  ["*", circleRadiusExpr, 1.08],
   circleRadiusExpr,
 ];
 
-const signalRingOpacity = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  ["*", ["coalesce", ["feature-state", "ping"], 0], 0.24],
-  0,
-];
+const circleOpacityPaint = ["case", featureActive, 1, BUBBLE_OPACITY];
 
-const signalRingStrokeOpacity = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  ["*", ["coalesce", ["feature-state", "ping"], 0], 0.92],
-  0,
-];
+const circleStrokeWidthMerged = ["case", featureActive, 2.5, 2];
 
-const signalRingRadius = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  [
-    "*",
-    circleRadiusExpr,
-    ["+", 1, ["*", 0.48, ["coalesce", ["feature-state", "ping"], 0]]],
-  ],
-  circleRadiusExpr,
-];
-
-const signalRingStrokeWidth = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  ["+", 1, ["*", 3.2, ["coalesce", ["feature-state", "ping"], 0]]],
-  0,
-];
-
-const signalRingBlur = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  ["+", 0.15, ["*", 0.35, ["coalesce", ["feature-state", "ping"], 0]]],
-  0,
-];
-
-const circleStrokeWidthMerged = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  3.5,
-  2,
-];
-
-const circleStrokeWidthPoint = [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  2.75,
-  1.5,
-];
+const circleStrokeWidthPoint = ["case", featureActive, 2, 1.5];
 
 const circleStrokeColorHover = [
   "case",
-  ["boolean", ["feature-state", "active"], false],
+  featureActive,
   "rgba(232, 240, 248, 0.95)",
-  "rgba(0, 212, 170, 0.9)",
+  "rgba(0, 212, 170, 0.88)",
 ];
 
-const circleBlurActive = (idle) => [
-  "case",
-  ["boolean", ["feature-state", "active"], false],
-  0.35,
-  idle,
-];
+const circleBlurPaint = (idle) => ["case", featureActive, 0.18, idle];
+
+const haloRadiusExpr = ["*", circleRadiusExpr, 1.18];
+
+const haloOpacityExpr = ["case", featureActive, 0.38, 0];
 
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-function easeOutCubic(t) {
-  return 1 - (1 - t) ** 3;
-}
-
-/** Envelope satu bleep: naik cepat, turun eksponensial (radar ping). */
-function bleepEnvelope(u) {
-  if (u <= 0 || u >= 1) return 0;
-  if (u < 0.14) return easeOutCubic(u / 0.14);
-  return Math.exp(-((u - 0.14) / 0.86) * 5.2);
-}
-
-/**
- * Tiga bleep berurutan lalu jeda — pola sinyal radar.
- * @returns {number} 0..1
- */
-function signalBleepStrength(elapsedMs, opts = {}) {
-  const {
-    cycleMs = SIGNAL_CYCLE_MS,
-    bleepMs = SIGNAL_BLEEP_MS,
-    gapMs = SIGNAL_GAP_MS,
-    bleeps = SIGNAL_BEEPS,
-  } = opts;
-  const t = elapsedMs % cycleMs;
-  let peak = 0;
-  for (let i = 0; i < bleeps; i++) {
-    const start = i * (bleepMs + gapMs);
-    const local = t - start;
-    if (local >= 0 && local < bleepMs) {
-      peak = Math.max(peak, bleepEnvelope(local / bleepMs));
-    }
-  }
-  return peak;
-}
-
-function stopBubbleMotion(map) {
-  if (map._dompengBubbleAnim) {
-    cancelAnimationFrame(map._dompengBubbleAnim);
-    map._dompengBubbleAnim = 0;
-  }
-}
-
-function resetBubbleOpacityPaint(map) {
-  for (const layerId of BUBBLE_CIRCLE_LAYERS) {
-    if (!map.getLayer(layerId)) continue;
-    map.setPaintProperty(layerId, "circle-opacity", circleOpacityBase);
-  }
-}
-
-/** Update bleep pada satu titik aktif (hover). */
-function updateActiveSignalPulse(map, sourceId) {
-  const target = map._dompengHoverState;
-  if (!target) return;
-
-  const elapsed = performance.now() - target.signalStartedAt;
-  const ping = signalBleepStrength(elapsed, {
-    cycleMs: 1200,
-    bleepMs: 150,
-    gapMs: 70,
-    bleeps: 3,
-  });
-  const scale = 1.1 + ping * 0.32;
-
-  try {
-    map.setFeatureState(
-      { source: sourceId, id: target.id },
-      { active: true, ping, scale },
-    );
-  } catch {
-    map._dompengHoverState = null;
-  }
-}
-
-/** Fade-in awal, lalu opacity per-feature (hover) + pulse radius pada titik aktif. */
-function startBubbleMotion(map, sourceId) {
-  stopBubbleMotion(map);
-  if (prefersReducedMotion()) {
-    resetBubbleOpacityPaint(map);
-    return;
-  }
-
-  const start = performance.now();
-  let entryDone = false;
-
-  const tick = (now) => {
-    if (!map.getLayer("city-clusters-merged")) {
-      stopBubbleMotion(map);
-      return;
-    }
-
-    const elapsed = now - start;
-    const entryT = Math.min(1, elapsed / BUBBLE_ENTRY_MS);
-
-    if (!entryDone) {
-      const entry = easeOutCubic(entryT);
-      const opacity = Math.min(0.96, 0.06 + entry * 0.86);
-      for (const layerId of BUBBLE_CIRCLE_LAYERS) {
-        if (!map.getLayer(layerId)) continue;
-        map.setPaintProperty(layerId, "circle-opacity", opacity);
-      }
-      if (entryT >= 1) {
-        entryDone = true;
-        resetBubbleOpacityPaint(map);
-      }
-    } else if (map._dompengHoverState) {
-      updateActiveSignalPulse(map, sourceId);
-    }
-
-    map._dompengBubbleAnim = requestAnimationFrame(tick);
-  };
-
-  map._dompengBubbleAnim = requestAnimationFrame(tick);
-  map.once("remove", () => stopBubbleMotion(map));
 }
 
 function peopleFromProps(props) {
@@ -501,9 +327,19 @@ function buildPopupHtml(hits, { hint } = {}) {
   ].join("");
 }
 
+function featureActiveId(hit) {
+  if (!hit) return null;
+  const id = hit.isMerged ? hit.clusterId : hit.key;
+  return id == null || id === "" ? null : id;
+}
+
 function clearBubbleHover(map, sourceId) {
   const prev = map._dompengHoverState;
   if (!prev) return;
+  if (map._dompengClickPinned?.id === prev.id) {
+    map._dompengHoverState = null;
+    return;
+  }
   try {
     map.removeFeatureState({ source: sourceId, id: prev.id });
   } catch {
@@ -512,14 +348,40 @@ function clearBubbleHover(map, sourceId) {
   map._dompengHoverState = null;
 }
 
+function clearClickPin(map, sourceId) {
+  const pinned = map._dompengClickPinned;
+  if (!pinned) return;
+  try {
+    map.removeFeatureState({ source: sourceId, id: pinned.id });
+  } catch {
+    /* feature may have clustered away */
+  }
+  map._dompengClickPinned = null;
+}
+
+function pinClickFeature(map, sourceId, hit) {
+  const id = featureActiveId(hit);
+  if (id == null) return;
+  clearClickPin(map, sourceId);
+  clearBubbleHover(map, sourceId);
+  try {
+    map.setFeatureState({ source: sourceId, id }, { active: true });
+    map._dompengClickPinned = { id };
+  } catch {
+    /* ignore stale cluster ids */
+  }
+}
+
 function applyBubbleHover(map, sourceId, hit) {
+  if (map._dompengClickPinned) return;
+
   if (!hit) {
     clearBubbleHover(map, sourceId);
     return;
   }
 
-  const id = hit.isMerged ? hit.clusterId : hit.key;
-  if (id == null || id === "") return;
+  const id = featureActiveId(hit);
+  if (id == null) return;
 
   const prev = map._dompengHoverState;
   if (prev?.id === id) return;
@@ -527,8 +389,8 @@ function applyBubbleHover(map, sourceId, hit) {
   clearBubbleHover(map, sourceId);
 
   try {
-    map.setFeatureState({ source: sourceId, id }, { active: true, ping: 0, scale: 1.1 });
-    map._dompengHoverState = { id, signalStartedAt: performance.now() };
+    map.setFeatureState({ source: sourceId, id }, { active: true });
+    map._dompengHoverState = { id };
   } catch {
     /* ignore stale cluster ids */
   }
@@ -551,6 +413,10 @@ function bindClusterInteractions(map, sourceId) {
     offset: 12,
   });
 
+  clickPopup.on("close", () => {
+    clearClickPin(map, sourceId);
+  });
+
   let hoverRaf = 0;
 
   map.on("mousemove", (event) => {
@@ -558,6 +424,12 @@ function bindClusterInteractions(map, sourceId) {
     hoverRaf = requestAnimationFrame(() => {
       hoverRaf = 0;
       const hits = queryHitsAt(map, event.point);
+      if (clickPopup.isOpen()) {
+        hoverPopup.remove();
+        map.getCanvas().style.cursor = hits.length ? "pointer" : "";
+        clearBubbleHover(map, sourceId);
+        return;
+      }
       if (!hits.length) {
         map.getCanvas().style.cursor = "";
         hoverPopup.remove();
@@ -588,9 +460,11 @@ function bindClusterInteractions(map, sourceId) {
   });
 
   map.on("click", (event) => {
+    hoverPopup.remove();
     const hits = queryHitsAt(map, event.point);
     if (!hits.length) {
       clickPopup.remove();
+      clearClickPin(map, sourceId);
       return;
     }
 
@@ -606,9 +480,11 @@ function bindClusterInteractions(map, sourceId) {
         });
       });
       clickPopup.remove();
+      clearClickPin(map, sourceId);
       return;
     }
 
+    pinClickFeature(map, sourceId, hits[0]);
     clickPopup
       .setLngLat(hits[0].coordinates)
       .setHTML(
@@ -647,25 +523,20 @@ function buildGeoMap(container, geo, options = {}) {
       },
     });
 
-    const signalRingPaint = {
-      "circle-color": "rgba(0, 212, 170, 0)",
-      "circle-stroke-color": "rgba(0, 212, 170, 0.9)",
-      "circle-radius": signalRingRadius,
-      "circle-stroke-width": signalRingStrokeWidth,
-      "circle-opacity": signalRingOpacity,
-      "circle-stroke-opacity": signalRingStrokeOpacity,
-      "circle-blur": signalRingBlur,
-    };
-
     map.addLayer({
-      id: "city-clusters-signal",
+      id: "city-clusters-halo",
       type: "circle",
       source: "city-clusters",
       filter: ["has", "point_count"],
-      paint: signalRingPaint,
+      paint: {
+        "circle-color": "rgba(0, 212, 170, 0.55)",
+        "circle-radius": haloRadiusExpr,
+        "circle-opacity": haloOpacityExpr,
+        "circle-blur": 0.35,
+        "circle-stroke-width": 0,
+      },
     });
 
-    // Cluster gabungan — zoom out
     map.addLayer({
       id: "city-clusters-merged",
       type: "circle",
@@ -673,11 +544,11 @@ function buildGeoMap(container, geo, options = {}) {
       filter: ["has", "point_count"],
       paint: {
         "circle-color": circleColorExpr,
-        "circle-radius": circleRadiusActive,
+        "circle-radius": circleRadiusHover,
         "circle-stroke-width": circleStrokeWidthMerged,
         "circle-stroke-color": circleStrokeColorHover,
-        "circle-opacity": prefersReducedMotion() ? 0.92 : 0.05,
-        "circle-blur": circleBlurActive(0.12),
+        "circle-opacity": circleOpacityPaint,
+        "circle-blur": circleBlurPaint(0.1),
       },
     });
 
@@ -712,13 +583,16 @@ function buildGeoMap(container, geo, options = {}) {
     });
 
     map.addLayer({
-      id: "city-points-signal",
+      id: "city-points-halo",
       type: "circle",
       source: "city-clusters",
       filter: ["!", ["has", "point_count"]],
       paint: {
-        ...signalRingPaint,
-        "circle-stroke-color": "rgba(78, 201, 255, 0.88)",
+        "circle-color": "rgba(78, 201, 255, 0.5)",
+        "circle-radius": haloRadiusExpr,
+        "circle-opacity": haloOpacityExpr,
+        "circle-blur": 0.3,
+        "circle-stroke-width": 0,
       },
     });
 
@@ -729,11 +603,11 @@ function buildGeoMap(container, geo, options = {}) {
       filter: ["!", ["has", "point_count"]],
       paint: {
         "circle-color": circleColorExpr,
-        "circle-radius": circleRadiusActive,
+        "circle-radius": circleRadiusHover,
         "circle-stroke-width": circleStrokeWidthPoint,
         "circle-stroke-color": circleStrokeColorHover,
-        "circle-opacity": prefersReducedMotion() ? 0.92 : 0.05,
-        "circle-blur": circleBlurActive(0.08),
+        "circle-opacity": circleOpacityPaint,
+        "circle-blur": circleBlurPaint(0.06),
       },
     });
 
@@ -758,7 +632,6 @@ function buildGeoMap(container, geo, options = {}) {
     });
 
     bindClusterInteractions(map, "city-clusters");
-    startBubbleMotion(map, "city-clusters");
 
     if (options.fitBounds !== false) {
       const bounds = new maplibregl.LngLatBounds();

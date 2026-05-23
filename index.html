@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- SEO:HEAD:START -->
   <title>DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota</title>
-  <meta name="description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <meta name="description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta property="og:description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <meta property="og:description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="DOMPENG v2.5.1 — Dashboard Data Orang &amp; Peta Kota">
-  <meta name="twitter:description" content="Dashboard DOMPENG: 6,190 profil orang, 56 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Sistem data orang dari dokumen internet — profil, indeks pencarian, dan peta sebaran per kota.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Profil dari dokumen internet", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6190}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 56}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web"}</script>
+  <meta name="twitter:description" content="Dashboard DOMPENG: 6,262 profil orang, 57 kota di peta, indeks pencarian, dan status unduhan dokumen internet.">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DOMPENG", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "Sistem data orang dari dokumen internet — profil, indeks pencarian, dan peta sebaran per kota.", "softwareVersion": "v2.5.1", "dateModified": "2026-05-23", "featureList": ["Profil dari dokumen internet", "Indeks pencarian nama dan identitas", "Peta sebaran per kota", "Dashboard publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Profil orang", "value": 6262}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 57}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "https://github.com/iamutaki/dompeng-web"}</script>
   <meta name="dompeng:version" content="v2.5.1">
   <!-- SEO:HEAD:END -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,131 +36,110 @@
       <div class="topbar-brand">
         <span class="brand-mark" aria-hidden="true"></span>
         <div class="topbar-title-block">
-          <span class="dashboard-kicker">Ringkasan database</span>
+          <span class="dashboard-kicker">OSINT · Data Intelligence</span>
           <span class="dashboard-title">DOMPENG</span>
         </div>
       </div>
       <div class="topbar-actions">
         <p class="meta meta--inline" id="updated">Memuat data…</p>
         <div class="status-row" id="status-row">
-          <span class="status-pill status-pill--live">Data aktif</span>
-          <span class="status-pill status-pill--redact">Data disamarkan</span>
+          <span class="status-pill status-pill--live">LIVE</span>
+          <span class="status-pill status-pill--redact">REDACTED</span>
         </div>
       </div>
     </header>
 
-    <nav class="tab-bar" id="tab-bar" role="tablist" aria-label="Modul dashboard">
-      <button type="button" class="tab-btn" role="tab" data-tab="overview" aria-selected="true" aria-controls="tab-overview" id="tab-btn-overview">Ringkasan</button>
-      <button type="button" class="tab-btn" role="tab" data-tab="geo" aria-selected="false" aria-controls="tab-geo" id="tab-btn-geo" tabindex="-1">Peta Kota</button>
-      <button type="button" class="tab-btn" role="tab" data-tab="analytics" aria-selected="false" aria-controls="tab-analytics" id="tab-btn-analytics" tabindex="-1">Analisis</button>
-      <button type="button" class="tab-btn" role="tab" data-tab="preview" aria-selected="false" aria-controls="tab-preview" id="tab-btn-preview" tabindex="-1">Contoh</button>
+    <nav class="tab-bar tab-bar--intel" id="tab-bar" role="tablist" aria-label="Modul intelijen">
+      <button type="button" class="tab-btn" role="tab" data-tab="overview" aria-selected="true" aria-controls="tab-overview" id="tab-btn-overview"><span class="tab-btn__code">OVW</span> Ringkasan</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="geo" aria-selected="false" aria-controls="tab-geo" id="tab-btn-geo" tabindex="-1"><span class="tab-btn__code">GEO</span> Peta</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="analytics" aria-selected="false" aria-controls="tab-analytics" id="tab-btn-analytics" tabindex="-1"><span class="tab-btn__code">IDX</span> Indeks</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="ops" aria-selected="false" aria-controls="tab-ops" id="tab-btn-ops" tabindex="-1"><span class="tab-btn__code">OPS</span> Operasi</button>
+      <button type="button" class="tab-btn" role="tab" data-tab="preview" aria-selected="false" aria-controls="tab-preview" id="tab-btn-preview" tabindex="-1"><span class="tab-btn__code">SAM</span> Contoh</button>
     </nav>
 
     <main class="dashboard-main">
       <section class="tab-panel tab-panel--overview is-active" id="tab-overview" data-tab="overview" role="tabpanel" aria-labelledby="tab-btn-overview">
         <div class="overview-layout">
-          <section class="intel-brief intel-brief--dashboard" id="intel-brief" aria-label="Ringkasan utama"></section>
+          <section class="intel-brief intel-brief--dashboard" id="intel-brief" aria-label="Indikator utama"></section>
 
-          <div class="overview-grid">
-            <section class="overview-zone overview-zone--processing" aria-labelledby="overview-zone-processing-title">
-              <header class="overview-zone-head">
-                <h2 class="overview-zone-title" id="overview-zone-processing-title">Kelengkapan &amp; unduhan</h2>
-                <p class="overview-zone-desc">Kualitas profil dan antrian dokumen internet</p>
+          <div class="dashboard-board dashboard-board--overview">
+            <section class="intel-module" data-module="SIG-01" aria-labelledby="mod-sig-title">
+              <header class="intel-module__head">
+                <span class="intel-module__code">SIG-01</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title" id="mod-sig-title">Sinyal data</h2>
+                  <p class="intel-module__meta">Kelengkapan profil · antrian unduhan</p>
+                </div>
               </header>
-              <div class="overview-zone-body overview-zone-body--split">
-                <article class="panel panel--overview panel--overview-coverage">
-                  <div class="panel-head panel-head--compact">
-                    <h3>Kelengkapan Profil</h3>
-                    <p id="overview-coverage-caption">Proporsi profil dengan telepon, email, NIK, dan lainnya</p>
-                  </div>
+              <div class="intel-module__body intel-grid intel-grid--overview-signal">
+                <article class="intel-slot intel-slot--chart">
+                  <header class="intel-slot__head">
+                    <span class="intel-slot__code">COV</span>
+                    <h3>Kelengkapan</h3>
+                  </header>
+                  <p class="intel-slot__caption" id="overview-coverage-caption">Proporsi field profil</p>
                   <div class="chart-wrap chart-wrap--overview-bar">
                     <canvas id="overview-coverage-chart" aria-label="Kelengkapan profil ringkas"></canvas>
                   </div>
                   <div class="usage-bar usage-bar--compact" id="overview-coverage-bar"></div>
                 </article>
-
-                <article class="panel panel--overview panel--overview-queue">
-                  <div class="panel-head panel-head--compact">
-                    <h3>Status Unduhan</h3>
-                    <p id="overview-queue-caption">Antrian dokumen internet</p>
-                  </div>
-                  <div class="overview-queue-layout">
+                <article class="intel-slot intel-slot--chart intel-slot--queue">
+                  <header class="intel-slot__head">
+                    <span class="intel-slot__code">QUE</span>
+                    <h3>Unduhan</h3>
+                  </header>
+                  <p class="intel-slot__caption" id="overview-queue-caption">Antrian dokumen</p>
+                  <div class="overview-queue-layout overview-queue-layout--vertical">
                     <div class="chart-wrap chart-wrap--overview-donut">
                       <canvas id="overview-queue-chart" aria-label="Status unduhan ringkas"></canvas>
                     </div>
-                    <div class="queue-stats" id="overview-queue-stats"></div>
+                    <div class="queue-stats queue-stats--compact queue-stats--overview" id="overview-queue-stats"></div>
                   </div>
                 </article>
               </div>
             </section>
 
-            <section class="overview-zone overview-zone--distribution" aria-labelledby="overview-zone-distribution-title">
-              <header class="overview-zone-head">
-                <h2 class="overview-zone-title" id="overview-zone-distribution-title">Sebaran &amp; volume</h2>
-                <p class="overview-zone-desc">Kota teratas dan ringkasan jumlah data</p>
+            <section class="intel-module" data-module="GEO-02" aria-labelledby="mod-geo-title">
+              <header class="intel-module__head">
+                <span class="intel-module__code">GEO-02</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title" id="mod-geo-title">Sebaran geospasial</h2>
+                  <p class="intel-module__meta">Kota teratas · volume agregat</p>
+                </div>
               </header>
-              <div class="overview-zone-body overview-zone-body--split">
-                <article class="panel panel--overview panel--overview-cities">
-                  <div class="panel-head panel-head--compact">
-                    <h3>Kota Teratas</h3>
-                    <p id="overview-geo-caption">Orang terpetakan per kota</p>
-                  </div>
+              <div class="intel-module__body intel-grid intel-grid--geo">
+                <article class="intel-slot intel-slot--list">
+                  <header class="intel-slot__head">
+                    <span class="intel-slot__code">TOP</span>
+                    <h3>Kota</h3>
+                  </header>
+                  <p class="intel-slot__caption" id="overview-geo-caption">Orang per kota</p>
                   <ol class="overview-city-list" id="overview-top-cities"></ol>
                 </article>
-                <section class="stats-grid stats-grid--overview" id="stats-grid" aria-label="Jumlah data"></section>
+                <section class="intel-slot intel-slot--metrics" aria-label="Volume data">
+                  <header class="intel-slot__head">
+                    <span class="intel-slot__code">VOL</span>
+                    <h3>Volume</h3>
+                  </header>
+                  <div class="stats-grid stats-grid--overview stats-grid--compact" id="stats-grid"></div>
+                </section>
               </div>
-            </section>
-
-            <section class="overview-zone overview-zone--activity" aria-labelledby="overview-zone-activity-title">
-              <header class="overview-zone-head">
-                <h2 class="overview-zone-title" id="overview-zone-activity-title">Aktivitas terbaru</h2>
-                <p class="overview-zone-desc">Impor dokumen internet terakhir</p>
-              </header>
-              <article class="panel panel--overview panel--overview-recent">
-                <div class="panel-head panel-head--compact">
-                  <h3>Dokumen Terbaru</h3>
-                  <p>Judul disamarkan untuk publik</p>
-                </div>
-                <div class="table-wrap table-wrap--overview">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Tanggal</th>
-                        <th class="num">Orang</th>
-                        <th>Judul</th>
-                      </tr>
-                    </thead>
-                    <tbody id="overview-recent-docs"></tbody>
-                  </table>
-                </div>
-              </article>
-            </section>
-
-            <section class="overview-zone overview-zone--updates" aria-labelledby="overview-zone-updates-title">
-              <header class="overview-zone-head">
-                <h2 class="overview-zone-title" id="overview-zone-updates-title">Pembaruan</h2>
-                <p class="overview-zone-desc" id="changelog-caption">Riwayat versi · diperbarui saat summary dijalankan</p>
-              </header>
-              <article class="panel panel--overview panel--overview-changelog">
-                <div class="changelog-summary" id="changelog-summary"></div>
-                <div class="changelog-feed" id="changelog-feed"></div>
-              </article>
             </section>
 
             <!-- SEO:CRAWLER:START -->
-            <section class="seo-static panel panel--overview panel--overview-about seo-static--visually-hidden" id="seo-static" aria-label="Ringkasan publik DOMPENG">
+            <section class="seo-static intel-module intel-module--seo seo-static--visually-hidden" id="seo-static" aria-label="Ringkasan publik DOMPENG">
               <h2>DOMPENG — Sistem Data Orang</h2>
               <p>
                 Platform untuk mengelola profil orang dari dokumen internet, menghubungkan data antar sumber, dan menampilkan sebaran per kota secara agregat.
               </p>
               <ul class="seo-stats">
-                <li><strong>6,190</strong> profil orang</li>
-                <li><strong>339</strong> dokumen internet</li>
-                <li><strong>56</strong> kota di peta</li>
-                <li><strong>849</strong> orang dengan lokasi kota</li>
+                <li><strong>6,262</strong> profil orang</li>
+                <li><strong>354</strong> dokumen internet</li>
+                <li><strong>57</strong> kota di peta</li>
+                <li><strong>878</strong> orang dengan lokasi kota</li>
               </ul>
               <h3>Kota dengan orang terbanyak</h3>
-              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 260 orang</li><li><strong>Abirau</strong> — 170 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Jambi</strong> — 30 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Serang</strong> — 14 orang</li><li><strong>Medan</strong> — 14 orang</li></ol>
+              <ol class="seo-city-list"><li><strong>Jakarta</strong> — 261 orang</li><li><strong>Abirau</strong> — 170 orang</li><li><strong>Pamekasan</strong> — 98 orang</li><li><strong>Jambi</strong> — 41 orang</li><li><strong>Sukoharjo</strong> — 29 orang</li><li><strong>Bandung</strong> — 21 orang</li><li><strong>Semarang</strong> — 18 orang</li><li><strong>Medan</strong> — 15 orang</li></ol>
               <p><a href="geo/index.html">Lihat peta sebaran per kota →</a></p>
               <p><a href="https://github.com/iamutaki/dompeng-web" rel="noopener noreferrer">Kode sumber dashboard (GitHub) →</a></p>
             </section>
@@ -170,74 +149,211 @@
       </section>
 
       <section class="tab-panel tab-panel--geo" id="tab-geo" data-tab="geo" role="tabpanel" aria-labelledby="tab-btn-geo" hidden>
-        <article class="panel panel--map-fill" data-module="geo">
-          <div class="panel-head panel-head--compact">
-            <h2>Peta Sebaran per Kota</h2>
-            <p>Jumlah orang per kota · <a class="nav-link" href="geo/index.html">buka peta penuh →</a></p>
+        <section class="intel-module intel-module--fill" data-module="GEO-07">
+          <header class="intel-module__head">
+            <span class="intel-module__code">GEO-07</span>
+            <div class="intel-module__titles">
+              <h2 class="intel-module__title">Peta sebaran kota</h2>
+              <p class="intel-module__meta">Agregat orang per koordinat · <a class="nav-link" href="geo/index.html">peta penuh</a></p>
+            </div>
+          </header>
+          <div class="intel-module__body intel-module__body--map">
+            <p class="geo-map-hint">Scroll zoom · drag pan · hover/klik titik untuk intel kota</p>
+            <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
+            <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
           </div>
-          <p class="geo-map-hint">Scroll untuk zoom · drag untuk geser · hover/klik titik untuk detail kota</p>
-          <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran orang per kota Indonesia"></div>
-          <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
-        </article>
+        </section>
       </section>
 
       <section class="tab-panel tab-panel--analytics" id="tab-analytics" data-tab="analytics" role="tabpanel" aria-labelledby="tab-btn-analytics" hidden>
-        <div class="analytics-grid">
-          <article class="panel panel--chart panel--analytics-coverage" data-module="coverage">
-            <div class="panel-head panel-head--compact">
-              <h2>Kelengkapan Profil</h2>
-              <p id="coverage-caption">Berapa banyak profil yang punya telepon, email, NIK, dan seterusnya</p>
-            </div>
-            <div class="chart-wrap chart-wrap--analytics-bar">
-              <canvas id="coverage-chart" aria-label="Kelengkapan profil orang"></canvas>
-            </div>
-            <div class="usage-bar usage-bar--compact" id="coverage-bar"></div>
-          </article>
-
-          <article class="panel panel--chart panel--analytics-queue" data-module="queue">
-            <div class="panel-head panel-head--compact">
-              <h2>Status Unduhan</h2>
-              <p id="queue-caption">Antrian URL dokumen yang sedang atau sudah diproses</p>
-            </div>
-            <div class="queue-layout queue-layout--analytics">
-              <div class="chart-wrap chart-wrap--analytics-donut">
-                <canvas id="queue-chart" aria-label="Status unduhan dokumen"></canvas>
+        <div class="dashboard-board dashboard-board--analytics">
+          <section class="intel-module intel-module--index-main" data-module="IDX-01">
+            <header class="intel-module__head">
+              <span class="intel-module__code">IDX-01</span>
+              <div class="intel-module__titles">
+                <h2 class="intel-module__title">Indeks pencarian</h2>
+                <p class="intel-module__meta" id="index-caption">Entri vs referensi per tipe field</p>
               </div>
-              <div class="queue-stats queue-stats--analytics" id="queue-stats"></div>
+            </header>
+            <div class="intel-module__body">
+              <div class="chart-wrap chart-wrap--analytics-index">
+                <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
+              </div>
+              <div class="inline-stats inline-stats--compact" id="index-stats"></div>
             </div>
-          </article>
+          </section>
 
-          <article class="panel panel--chart panel--analytics-index" data-module="index">
-            <div class="panel-head panel-head--compact">
-              <h2>Indeks Pencarian</h2>
-              <p>Field yang bisa dicari ulang — nama, telepon, NIK, dan lainnya</p>
+          <div class="analytics-detail-row">
+            <section class="intel-module" data-module="IDX-02">
+              <header class="intel-module__head">
+                <span class="intel-module__code">IDX-02</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title">Kelengkapan field</h2>
+                  <p class="intel-module__meta" id="analytics-coverage-caption">Detail per jenis data profil</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--flush">
+                <div class="table-wrap table-wrap--intel">
+                  <table class="analytics-table">
+                    <thead>
+                      <tr>
+                        <th>Field</th>
+                        <th class="num">Profil</th>
+                        <th class="num">%</th>
+                      </tr>
+                    </thead>
+                    <tbody id="analytics-coverage-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="intel-module" data-module="IDX-03">
+              <header class="intel-module__head">
+                <span class="intel-module__code">IDX-03</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title">Tipe indeks &amp; graf</h2>
+                  <p class="intel-module__meta" id="analytics-index-caption">Shared vs unique · keterkaitan</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--flush">
+                <div class="table-wrap table-wrap--intel">
+                  <table class="analytics-table">
+                    <thead>
+                      <tr>
+                        <th>Tipe</th>
+                        <th>Mode</th>
+                        <th class="num">Entri</th>
+                        <th class="num">Ref</th>
+                      </tr>
+                    </thead>
+                    <tbody id="analytics-index-body"></tbody>
+                  </table>
+                </div>
+                <div class="intel-metrics" id="analytics-intel-metrics" aria-label="Metrik graf"></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel tab-panel--ops" id="tab-ops" data-tab="ops" role="tabpanel" aria-labelledby="tab-btn-ops" hidden>
+        <div class="dashboard-board dashboard-board--ops">
+          <div class="ops-column">
+            <section class="intel-module intel-module--ops-stats" data-module="OPS-01" aria-labelledby="mod-ops-stats-title">
+              <header class="intel-module__head">
+                <span class="intel-module__code">OPS-01</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title" id="mod-ops-stats-title">Statistik operasi</h2>
+                  <p class="intel-module__meta" id="ops-stats-caption">Antrian · inventaris · indeks</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--ops-stats">
+                <div class="ops-stats-grid" id="ops-stats-grid" aria-label="Metrik operasi pipeline"></div>
+              </div>
+            </section>
+
+            <section class="intel-module intel-module--ops" data-module="OPS-03" aria-labelledby="mod-ops-title">
+              <header class="intel-module__head">
+                <span class="intel-module__code">OPS-03</span>
+                <div class="intel-module__titles">
+                  <h2 class="intel-module__title" id="mod-ops-title">Operasi impor</h2>
+                  <p class="intel-module__meta" id="ops-import-caption">Dokumen internet terbaru · judul disamarkan</p>
+                </div>
+              </header>
+              <div class="intel-module__body intel-module__body--flush">
+                <div class="table-wrap table-wrap--intel table-wrap--ops">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tanggal</th>
+                        <th class="num">Orang</th>
+                        <th>Judul</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ops-recent-docs"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section class="intel-module intel-module--changelog" data-module="SYS-04" aria-labelledby="mod-sys-title">
+            <header class="intel-module__head">
+              <span class="intel-module__code">SYS-04</span>
+              <div class="intel-module__titles">
+                <h2 class="intel-module__title" id="mod-sys-title">Sistem &amp; versi</h2>
+                <p class="intel-module__meta" id="changelog-caption">Log versi · pipeline summary</p>
+              </div>
+            </header>
+            <div class="intel-module__body intel-module__body--changelog">
+              <div class="changelog-hero" id="changelog-hero" aria-label="Versi aktif"></div>
+              <div class="changelog-kpis" id="changelog-summary"></div>
+              <div class="changelog-feed-panel">
+                <header class="changelog-feed-head">
+                  <span class="changelog-feed-head__label">Riwayat rilis</span>
+                  <span class="changelog-feed-head__count" id="changelog-feed-count"></span>
+                </header>
+                <div class="changelog-feed changelog-feed--timeline" id="changelog-feed"></div>
+              </div>
             </div>
-            <div class="chart-wrap chart-wrap--analytics-index">
-              <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
-            </div>
-            <div class="inline-stats inline-stats--compact" id="index-stats"></div>
-          </article>
+          </section>
         </div>
       </section>
 
       <section class="tab-panel tab-panel--preview" id="tab-preview" data-tab="preview" role="tabpanel" aria-labelledby="tab-btn-preview" hidden>
-        <article class="panel panel--scroll panel--preview-full" data-module="showcase">
-          <header class="preview-head">
-            <div class="panel-head panel-head--compact">
-              <h2>Contoh Profil &amp; Dokumen</h2>
-              <p>Sample orang beserta dokumen internet — identitas disamarkan sebagian</p>
+        <section class="intel-module intel-module--fill intel-module--preview" data-module="PRV-05">
+          <header class="intel-module__head intel-module__head--preview">
+            <span class="intel-module__code">PRV-05</span>
+            <div class="intel-module__titles">
+              <h2 class="intel-module__title">Sampel profil</h2>
+              <p class="intel-module__meta" id="preview-module-caption">Contoh data redaksi publik · pilih entri untuk melihat struktur lengkap</p>
             </div>
-            <p class="preview-meta" id="preview-meta" hidden></p>
+            <p class="intel-module__aside" id="preview-meta" hidden></p>
           </header>
-          <div class="entity-showcase entity-showcase--rows entity-showcase--preview" id="entity-showcase"></div>
-        </article>
+          <div class="preview-brief" id="preview-brief" aria-label="Ringkasan koleksi sampel"></div>
+          <div class="intel-module__body intel-module__body--preview-split">
+            <div class="preview-split">
+              <article class="preview-pane preview-pane--list">
+                <header class="preview-pane-head">
+                  <span class="preview-pane-code">SAM-L</span>
+                  <span class="preview-pane-title">Indeks sampel</span>
+                </header>
+                <div class="preview-list-toolbar">
+                  <label class="preview-search-wrap">
+                    <span class="sr-only">Cari sampel profil</span>
+                    <input type="search" id="preview-search" class="preview-search" placeholder="Cari ref atau nama…" autocomplete="off" spellcheck="false" />
+                  </label>
+                  <span class="preview-list-meta" id="preview-list-meta" aria-live="polite"></span>
+                </div>
+                <div class="log-stream log-stream--list" id="preview-log-list" role="listbox" aria-label="Daftar profil sampel"></div>
+              </article>
+              <article class="preview-pane preview-pane--detail">
+                <header class="preview-pane-head preview-pane-head--detail">
+                  <div class="preview-pane-head-main">
+                    <span class="preview-pane-code">SAM-R</span>
+                    <span class="preview-pane-title" id="preview-detail-title">Detail profil</span>
+                  </div>
+                  <button type="button" class="preview-action-btn" id="preview-copy-log" hidden>Salin log</button>
+                </header>
+                <div class="preview-detail-scroll" id="preview-detail-scroll">
+                  <div class="preview-sections" id="preview-detail-sections" aria-label="Ringkasan terstruktur"></div>
+                  <details class="preview-raw-log" id="preview-raw-log" open>
+                    <summary class="preview-raw-log__summary">Log mentah (plain text)</summary>
+                    <pre class="log-stream log-stream--detail log-stream--raw" id="preview-log-detail" aria-label="Log mentah profil terpilih"></pre>
+                  </details>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
 
     <footer class="footer footer--dashboard">
       <p>
-        <span class="footer-tag">OTOMATIS</span> Diperbarui oleh <code>summary.sh</code> · DOMPENG ·
-        <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · DOMPENG INTEL ·
+        <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">SRC</a>
       </p>
     </footer>
   </div>

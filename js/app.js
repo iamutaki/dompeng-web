@@ -142,7 +142,7 @@ function renderIntelBrief(intel) {
   }
 }
 
-function renderStats(summary) {
+function renderStats(summary, { excludeCodes = [] } = {}) {
   const cards = [
     { code: "N-01", value: summary.persons, label: "Profil orang", tone: "intel" },
     { code: "N-02", value: summary.documents, label: "Dokumen internet", tone: "intel" },
@@ -150,7 +150,7 @@ function renderStats(summary) {
     { code: "N-04", value: summary.history, label: "Riwayat file", tone: "cyan" },
     { code: "N-05", value: summary.doneFiles, label: "File selesai diproses" },
     { code: "N-06", value: summary.photos, label: "Foto profil", tone: "amber" },
-  ];
+  ].filter((card) => !excludeCodes.includes(card.code));
 
   const grid = document.getElementById("stats-grid");
   clear(grid);
@@ -238,8 +238,9 @@ function renderQueueStats(queue, containerId = "queue-stats") {
   }
 }
 
-function renderIndexStats(indexTotal) {
-  const container = document.getElementById("index-stats");
+function renderIndexStats(indexTotal, containerId = "index-stats") {
+  const container = document.getElementById(containerId);
+  if (!container) return;
   clear(container);
 
   for (const [amount, caption] of [
@@ -281,192 +282,522 @@ function appendFaint(el, text) {
   el.appendChild(span);
 }
 
-function renderShowcaseEntities(entities) {
-  const container = document.getElementById("entity-showcase");
+function logField(lines, key, value) {
+  if (value == null || value === "") return;
+  lines.push(`${key}: ${value}`);
+}
+
+function genderLabel(gender) {
+  if (gender === "male") return "Laki-laki";
+  if (gender === "female") return "Perempuan";
+  return gender || "—";
+}
+
+function sectorLabel(sector) {
+  const labels = { public: "Publik", private: "Swasta", mixed: "Campuran" };
+  return labels[sector] || sector || "—";
+}
+
+function formatEntityLog(entity) {
+  const lines = [];
+  lines.push(`=== ${entity.ref} ===`);
+  logField(lines, "nama", entity.name);
+  logField(lines, "jenis_kelamin", genderLabel(entity.gender));
+  logField(lines, "tanggal_lahir", entity.dob);
+  logField(lines, "tempat_lahir", entity.pob);
+  logField(lines, "pekerjaan", entity.occupation);
+  logField(lines, "sektor", sectorLabel(entity.sector));
+  logField(lines, "status_nikah", entity.maritalStatus);
+  logField(lines, "foto", entity.hasPhoto ? "ya" : "tidak");
+  logField(lines, "jumlah_identitas", entity.identifierCount);
+  logField(lines, "jumlah_relasi", entity.edgeCount);
+  if (entity.resolutionScore != null) {
+    logField(lines, "skor_resolusi", entity.resolutionScore);
+  }
+  if (entity.notesCount != null) {
+    logField(lines, "catatan", entity.notesCount);
+  }
+
+  if (entity.identifiers?.length) {
+    lines.push("");
+    lines.push("[identitas]");
+    for (const ident of entity.identifiers) {
+      lines.push(`  ${ident.type}: ${ident.value}`);
+    }
+  }
+
+  if (entity.relations && Object.keys(entity.relations).length) {
+    lines.push("");
+    lines.push("[relasi]");
+    for (const [key, count] of Object.entries(entity.relations)) {
+      lines.push(`  ${relationLabel(key)}: ${count}`);
+    }
+  }
+
+  if (entity.documents?.length) {
+    lines.push("");
+    lines.push("[dokumen]");
+    for (const doc of entity.documents) {
+      const when = doc.importedAt ? ` @ ${doc.importedAt}` : "";
+      lines.push(`  ${doc.ref}${when}`);
+      logField(lines, "    judul", doc.title);
+      logField(lines, "    konteks", doc.context);
+      logField(lines, "    berkas", doc.filename);
+    }
+  }
+
+  lines.push("");
+  return lines.join("\n");
+}
+
+function previewEntityMatchesSearch(entity, query) {
+  if (!query) return true;
+  const hay = [
+    entity.ref,
+    entity.name,
+    entity.occupation,
+    entity.sector,
+    entity.maritalStatus,
+    ...(entity.identifiers || []).map((id) => `${id.type} ${id.value}`),
+    ...(entity.documents || []).map((doc) => `${doc.title} ${doc.context} ${doc.filename}`),
+  ]
+    .join(" ")
+    .toLowerCase();
+  return hay.includes(query);
+}
+
+function createPreviewChip(text, tone = "default") {
+  const chip = document.createElement("span");
+  chip.className = `preview-chip preview-chip--${tone}`;
+  appendText(chip, text);
+  return chip;
+}
+
+function createPreviewListItem(entity, index) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "preview-item log-line";
+  btn.setAttribute("role", "option");
+  btn.dataset.index = String(index);
+
+  const top = document.createElement("div");
+  top.className = "preview-item__top";
+
+  const ref = document.createElement("span");
+  ref.className = "preview-item__ref";
+  appendText(ref, entity.ref);
+
+  const name = document.createElement("span");
+  name.className = "preview-item__name";
+  appendFaint(name, entity.name || "—");
+
+  top.append(ref, name);
+
+  const meta = document.createElement("div");
+  meta.className = "preview-item__meta";
+  meta.append(
+    createPreviewChip(`${entity.identifierCount} identitas`, "intel"),
+    createPreviewChip(`${entity.edgeCount} relasi`, "cyan"),
+  );
+  if (entity.documentCount) {
+    meta.append(createPreviewChip(`${entity.documentCount} dokumen`, "amber"));
+  }
+  if (entity.hasPhoto) {
+    meta.append(createPreviewChip("foto", "muted"));
+  }
+
+  btn.append(top, meta);
+  return btn;
+}
+
+function appendPreviewFieldRow(container, label, value, { faint = false } = {}) {
+  const row = document.createElement("div");
+  row.className = "preview-field";
+
+  const key = document.createElement("span");
+  key.className = "preview-field__label";
+  appendText(key, label);
+
+  const val = document.createElement("span");
+  val.className = "preview-field__value";
+  if (faint) appendFaint(val, value);
+  else appendText(val, value ?? "—");
+
+  row.append(key, val);
+  container.appendChild(row);
+}
+
+function renderPreviewDetailSections(entity, container) {
   if (!container) return;
   clear(container);
 
-  const previewMeta = document.getElementById("preview-meta");
-  if (previewMeta) {
-    const n = entities?.length || 0;
-    previewMeta.textContent = `${fmt(n)} contoh profil · gulir untuk melihat semua`;
-    previewMeta.hidden = n === 0;
+  const profile = document.createElement("section");
+  profile.className = "preview-section";
+  const profileHead = document.createElement("h3");
+  profileHead.className = "preview-section__title";
+  appendText(profileHead, "Profil");
+  profile.appendChild(profileHead);
+
+  const profileGrid = document.createElement("div");
+  profileGrid.className = "preview-section__grid";
+  appendPreviewFieldRow(profileGrid, "Nama", entity.name, { faint: true });
+  appendPreviewFieldRow(profileGrid, "Jenis kelamin", genderLabel(entity.gender));
+  appendPreviewFieldRow(profileGrid, "Tanggal lahir", entity.dob, { faint: true });
+  appendPreviewFieldRow(profileGrid, "Tempat lahir", entity.pob, { faint: true });
+  appendPreviewFieldRow(profileGrid, "Pekerjaan", entity.occupation, { faint: true });
+  appendPreviewFieldRow(profileGrid, "Sektor", sectorLabel(entity.sector));
+  appendPreviewFieldRow(profileGrid, "Status", entity.maritalStatus);
+  appendPreviewFieldRow(profileGrid, "Foto", entity.hasPhoto ? "Ada" : "Tidak ada");
+  profile.appendChild(profileGrid);
+  container.appendChild(profile);
+
+  if (entity.identifiers?.length) {
+    const idSection = document.createElement("section");
+    idSection.className = "preview-section";
+    const idHead = document.createElement("h3");
+    idHead.className = "preview-section__title";
+    appendText(idHead, `Identitas (${entity.identifiers.length})`);
+    idSection.appendChild(idHead);
+
+    const idList = document.createElement("ul");
+    idList.className = "preview-id-list";
+    for (const ident of entity.identifiers) {
+      const li = document.createElement("li");
+      li.className = "preview-id-item";
+
+      const type = document.createElement("span");
+      type.className = "preview-id-type";
+      appendText(type, ident.type);
+
+      const value = document.createElement("span");
+      value.className = "preview-id-value";
+      appendFaint(value, ident.value);
+
+      li.append(type, value);
+      idList.appendChild(li);
+    }
+    idSection.appendChild(idList);
+    container.appendChild(idSection);
   }
 
-  for (const entity of entities) {
-    const card = document.createElement("article");
-    card.className = "entity-card entity-card--row";
+  if (entity.relations && Object.keys(entity.relations).length) {
+    const relSection = document.createElement("section");
+    relSection.className = "preview-section";
+    const relHead = document.createElement("h3");
+    relHead.className = "preview-section__title";
+    appendText(relHead, "Relasi graf");
+    relSection.appendChild(relHead);
 
-    const main = document.createElement("div");
-    main.className = "entity-row-main";
-
-    const identity = document.createElement("div");
-    identity.className = "entity-row-identity";
-
-    const head = document.createElement("div");
-    head.className = "entity-card-head";
-    const ref = document.createElement("span");
-    ref.className = "entity-ref";
-    appendText(ref, entity.ref);
-    head.appendChild(ref);
-
-    const score = document.createElement("div");
-    score.className = "entity-score";
-    const docHint = entity.documentCount ? ` · ${entity.documentCount} dokumen` : "";
-    appendText(score, `${entity.identifierCount} identitas · ${entity.edgeCount} relasi${docHint}`);
-    head.appendChild(score);
-
-    const name = document.createElement("div");
-    name.className = "entity-name";
-    appendFaint(name, entity.name || "—");
-
-    const meta = document.createElement("div");
-    meta.className = "entity-meta";
-    const metaItems = [
-      entity.gender,
-      entity.sector,
-      entity.maritalStatus,
-      entity.dob,
-      entity.pob,
-    ].filter(Boolean);
-    for (const item of metaItems) {
-      const chip = document.createElement("span");
-      chip.className = "entity-chip";
-      if (item === entity.dob || item === entity.pob) {
-        appendFaint(chip, String(item));
-      } else {
-        appendText(chip, String(item));
-      }
-      meta.appendChild(chip);
+    const relWrap = document.createElement("div");
+    relWrap.className = "preview-relations";
+    const sorted = Object.entries(entity.relations).sort((a, b) => b[1] - a[1]);
+    for (const [key, count] of sorted) {
+      relWrap.append(createPreviewChip(`${relationLabel(key)} · ${count}`, "cyan"));
     }
-    if (entity.hasPhoto) {
-      const chip = document.createElement("span");
-      chip.className = "entity-chip entity-chip--intel";
-      appendText(chip, "Ada foto");
-      meta.appendChild(chip);
+    relSection.appendChild(relWrap);
+    container.appendChild(relSection);
+  }
+
+  if (entity.documents?.length) {
+    const docSection = document.createElement("section");
+    docSection.className = "preview-section";
+    const docHead = document.createElement("h3");
+    docHead.className = "preview-section__title";
+    appendText(docHead, `Dokumen sumber (${entity.documents.length})`);
+    docSection.appendChild(docHead);
+
+    const docList = document.createElement("div");
+    docList.className = "preview-doc-list";
+    for (const doc of entity.documents) {
+      const card = document.createElement("article");
+      card.className = "preview-doc-card";
+
+      const head = document.createElement("div");
+      head.className = "preview-doc-card__head";
+      const ref = document.createElement("span");
+      ref.className = "preview-doc-card__ref";
+      appendText(ref, doc.ref);
+      const when = document.createElement("span");
+      when.className = "preview-doc-card__date";
+      appendText(when, doc.importedAt || "—");
+      head.append(ref, when);
+
+      const title = document.createElement("div");
+      title.className = "preview-doc-card__title";
+      appendFaint(title, doc.title || "—");
+
+      const context = document.createElement("div");
+      context.className = "preview-doc-card__meta";
+      const ctxLabel = document.createElement("span");
+      ctxLabel.className = "preview-doc-card__label";
+      appendText(ctxLabel, "Konteks");
+      const ctxVal = document.createElement("span");
+      appendFaint(ctxVal, doc.context || "—");
+
+      const fileLabel = document.createElement("span");
+      fileLabel.className = "preview-doc-card__label";
+      appendText(fileLabel, "Berkas");
+      const fileVal = document.createElement("span");
+      appendFaint(fileVal, doc.filename || "—");
+
+      context.append(ctxLabel, ctxVal, fileLabel, fileVal);
+      card.append(head, title, context);
+      docList.appendChild(card);
     }
+    docSection.appendChild(docList);
+    container.appendChild(docSection);
+  }
 
-    identity.append(head, name, meta);
+  const metrics = document.createElement("section");
+  metrics.className = "preview-section preview-section--metrics";
+  const metricsHead = document.createElement("h3");
+  metricsHead.className = "preview-section__title";
+  appendText(metricsHead, "Metrik agregat");
+  metrics.appendChild(metricsHead);
+  const metricsWrap = document.createElement("div");
+  metricsWrap.className = "preview-relations";
+  metricsWrap.append(
+    createPreviewChip(`Skor resolusi ${entity.resolutionScore ?? "—"}`, "intel"),
+    createPreviewChip(`${entity.notesCount ?? 0} catatan`, "muted"),
+  );
+  metrics.appendChild(metricsWrap);
+  container.appendChild(metrics);
+}
 
-    const idList = document.createElement("div");
-    idList.className = "entity-id-list";
-    for (const ident of entity.identifiers || []) {
-      const row = document.createElement("div");
-      row.className = "entity-id-row";
-      const type = document.createElement("span");
-      type.className = "entity-id-type";
-      appendText(type, ident.type);
-      const value = document.createElement("span");
-      value.className = "entity-id-value";
-      appendFaint(value, ident.value);
-      row.append(type, value);
-      idList.appendChild(row);
-    }
+function renderPreviewBrief(entities) {
+  const brief = document.getElementById("preview-brief");
+  if (!brief) return;
+  clear(brief);
 
-    const idsCol = document.createElement("div");
-    idsCol.className = "entity-row-ids";
-    idsCol.appendChild(idList);
+  const rows = entities || [];
+  if (!rows.length) {
+    brief.hidden = true;
+    return;
+  }
+  brief.hidden = false;
 
-    const graph = document.createElement("div");
-    graph.className = "entity-graph";
-    const graphLine = document.createElement("div");
-    const strong = document.createElement("strong");
-    appendText(strong, `${entity.edgeCount}`);
-    graphLine.appendChild(strong);
-    graphLine.appendChild(document.createTextNode(" relasi · "));
-    appendText(graphLine, `${entity.identifierCount} identitas terisi`);
-    graph.appendChild(graphLine);
+  const totalDocs = rows.reduce((sum, e) => sum + (e.documentCount || 0), 0);
+  const totalIds = rows.reduce((sum, e) => sum + (e.identifierCount || 0), 0);
+  const withPhoto = rows.filter((e) => e.hasPhoto).length;
+  const avgIds = Math.round(totalIds / rows.length);
 
-    const relations = document.createElement("div");
-    relations.className = "entity-relations";
-    for (const [key, count] of Object.entries(entity.relations || {})) {
-      const tag = document.createElement("span");
-      tag.className = "relation-tag";
-      appendText(tag, `${relationLabel(key)} ×${count}`);
-      relations.appendChild(tag);
-    }
-    graph.appendChild(relations);
+  const cards = [
+    { label: "Profil sampel", value: fmt(rows.length), hint: "variasi struktur data" },
+    { label: "Rata-rata identitas", value: fmt(avgIds), hint: "per profil" },
+    { label: "Dokumen terhubung", value: fmt(totalDocs), hint: "di semua sampel" },
+    { label: "Dengan foto", value: fmt(withPhoto), hint: `dari ${fmt(rows.length)} profil` },
+  ];
 
-    if (entity.occupation) {
-      const occ = document.createElement("div");
-      occ.className = "entity-occupation";
-      appendFaint(occ, entity.occupation);
-      graph.appendChild(occ);
-    }
+  for (const card of cards) {
+    const article = document.createElement("article");
+    article.className = "preview-brief-card";
 
-    const graphCol = document.createElement("div");
-    graphCol.className = "entity-row-graph";
-    graphCol.appendChild(graph);
+    const label = document.createElement("div");
+    label.className = "preview-brief-label";
+    appendText(label, card.label);
 
-    main.append(identity, idsCol, graphCol);
-    card.appendChild(main);
+    const value = document.createElement("div");
+    value.className = "preview-brief-value";
+    appendText(value, card.value);
 
-    if (entity.documents?.length) {
-      const docsRow = document.createElement("div");
-      docsRow.className = "entity-row-docs";
+    const hint = document.createElement("div");
+    hint.className = "preview-brief-hint";
+    appendText(hint, card.hint);
 
-      const docLabel = document.createElement("div");
-      docLabel.className = "entity-docs-label";
-      appendText(docLabel, "Dokumen internet");
-      docsRow.appendChild(docLabel);
-
-      const docList = document.createElement("div");
-      docList.className = "entity-row-doc-list";
-
-      for (const doc of entity.documents) {
-        const row = document.createElement("div");
-        row.className = "entity-doc-row";
-
-        const docHead = document.createElement("div");
-        docHead.className = "entity-doc-head";
-        const docRef = document.createElement("span");
-        docRef.className = "entity-doc-ref";
-        appendText(docRef, doc.ref);
-        if (doc.importedAt) {
-          const docDate = document.createElement("span");
-          docDate.className = "entity-doc-date";
-          appendText(docDate, doc.importedAt);
-          docHead.append(docRef, docDate);
-        } else {
-          docHead.appendChild(docRef);
-        }
-
-        const docTitle = document.createElement("div");
-        docTitle.className = "entity-doc-title";
-        appendFaint(docTitle, doc.title);
-
-        row.append(docHead, docTitle);
-
-        if (doc.context) {
-          const ctx = document.createElement("div");
-          ctx.className = "entity-doc-context";
-          appendFaint(ctx, doc.context);
-          row.appendChild(ctx);
-        }
-        if (doc.filename) {
-          const file = document.createElement("div");
-          file.className = "entity-doc-file";
-          appendFaint(file, doc.filename);
-          row.appendChild(file);
-        }
-
-        docList.appendChild(row);
-      }
-
-      docsRow.appendChild(docList);
-      card.appendChild(docsRow);
-    }
-
-    container.appendChild(card);
+    article.append(label, value, hint);
+    brief.appendChild(article);
   }
 }
 
-function renderRecentDocs(docs) {
-  const tbody = document.getElementById("recent-docs");
+function renderShowcaseEntities(entities) {
+  const listEl = document.getElementById("preview-log-list");
+  const detailEl = document.getElementById("preview-log-detail");
+  const detailSections = document.getElementById("preview-detail-sections");
+  const detailTitle = document.getElementById("preview-detail-title");
+  const searchInput = document.getElementById("preview-search");
+  const listMeta = document.getElementById("preview-list-meta");
+  const copyBtn = document.getElementById("preview-copy-log");
+  if (!listEl || !detailEl) return;
+
+  const rows = entities || [];
+  let activeIndex = -1;
+  let visibleIndices = [];
+  let listKeyHandler = null;
+  let searchHandler = null;
+  let copyHandler = null;
+
+  const previewMeta = document.getElementById("preview-meta");
+  if (previewMeta) {
+    previewMeta.textContent = rows.length ? `${fmt(rows.length)} sampel` : "—";
+    previewMeta.hidden = rows.length === 0;
+  }
+
+  const moduleCaption = document.getElementById("preview-module-caption");
+  if (moduleCaption) {
+    moduleCaption.textContent = rows.length
+      ? "Data disamarkan untuk publik · gunakan panel kiri untuk memilih profil"
+      : "Belum ada sampel — jalankan ./summary.sh";
+  }
+
+  renderPreviewBrief(rows);
+
+  const updateListMeta = () => {
+    if (!listMeta) return;
+    if (!rows.length) {
+      listMeta.textContent = "0 entri";
+      return;
+    }
+    const query = searchInput?.value.trim();
+    if (query && visibleIndices.length !== rows.length) {
+      listMeta.textContent = `${fmt(visibleIndices.length)} / ${fmt(rows.length)} cocok`;
+      return;
+    }
+    listMeta.textContent = `${fmt(rows.length)} entri · ↑↓ navigasi`;
+  };
+
+  const syncListSelection = () => {
+    for (const btn of listEl.querySelectorAll(".preview-item")) {
+      const index = Number(btn.dataset.index);
+      const selected = index === activeIndex;
+      btn.classList.toggle("is-active", selected);
+      btn.setAttribute("aria-selected", selected ? "true" : "false");
+      btn.tabIndex = selected ? 0 : -1;
+    }
+  };
+
+  const showEmptyDetail = (message) => {
+    if (detailSections) clear(detailSections);
+    detailEl.textContent = message;
+    if (detailTitle) detailTitle.textContent = "Detail profil";
+    if (copyBtn) copyBtn.hidden = true;
+  };
+
+  const setActiveEntity = (rowIndex, { focusList = false } = {}) => {
+    if (rowIndex < 0 || rowIndex >= rows.length) return;
+    activeIndex = rowIndex;
+    const entity = rows[rowIndex];
+
+    detailEl.textContent = formatEntityLog(entity);
+    renderPreviewDetailSections(entity, detailSections);
+    if (detailTitle) {
+      detailTitle.textContent = `${entity.ref} · ${entity.identifierCount} id · ${entity.edgeCount} rel`;
+    }
+    if (copyBtn) copyBtn.hidden = false;
+
+    syncListSelection();
+    if (focusList) {
+      listEl.querySelector(`.preview-item[data-index="${rowIndex}"]`)?.focus();
+    }
+  };
+
+  const moveWithinVisible = (delta) => {
+    if (!visibleIndices.length) return;
+    const pos = visibleIndices.indexOf(activeIndex);
+    const nextPos = pos < 0 ? 0 : Math.max(0, Math.min(visibleIndices.length - 1, pos + delta));
+    setActiveEntity(visibleIndices[nextPos], { focusList: true });
+  };
+
+  const renderListItems = () => {
+    clear(listEl);
+    const query = searchInput?.value.trim().toLowerCase() || "";
+    visibleIndices = rows
+      .map((_, index) => index)
+      .filter((index) => previewEntityMatchesSearch(rows[index], query));
+
+    if (!visibleIndices.length) {
+      const empty = document.createElement("p");
+      empty.className = "preview-list-empty";
+      empty.textContent = query ? "Tidak ada sampel yang cocok dengan pencarian." : "Tidak ada sampel profil.";
+      listEl.appendChild(empty);
+      showEmptyDetail(query ? "# tidak ada hasil pencarian" : "# tidak ada sampel profil");
+      updateListMeta();
+      return;
+    }
+
+    for (const index of visibleIndices) {
+      const item = createPreviewListItem(rows[index], index);
+      item.addEventListener("click", () => setActiveEntity(index, { focusList: true }));
+      listEl.appendChild(item);
+    }
+
+    updateListMeta();
+  };
+
+  const applyFilter = ({ preserveSelection = true } = {}) => {
+    renderListItems();
+    if (!visibleIndices.length) return;
+
+    if (preserveSelection && visibleIndices.includes(activeIndex)) {
+      setActiveEntity(activeIndex);
+      return;
+    }
+    setActiveEntity(visibleIndices[0], { focusList: true });
+  };
+
+  if (listKeyHandler) listEl.removeEventListener("keydown", listKeyHandler);
+  listKeyHandler = (event) => {
+    if (!rows.length || !visibleIndices.length) return;
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      moveWithinVisible(1);
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      moveWithinVisible(-1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setActiveEntity(visibleIndices[0], { focusList: true });
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setActiveEntity(visibleIndices[visibleIndices.length - 1], { focusList: true });
+    }
+  };
+  listEl.addEventListener("keydown", listKeyHandler);
+
+  if (searchInput) {
+    if (searchHandler) searchInput.removeEventListener("input", searchHandler);
+    searchHandler = () => applyFilter({ preserveSelection: true });
+    searchInput.addEventListener("input", searchHandler);
+    searchInput.value = "";
+  }
+
+  if (copyBtn) {
+    if (copyHandler) copyBtn.removeEventListener("click", copyHandler);
+    copyHandler = async () => {
+      if (activeIndex < 0) return;
+      const text = formatEntityLog(rows[activeIndex]);
+      try {
+        await navigator.clipboard.writeText(text);
+        const prev = copyBtn.textContent;
+        copyBtn.textContent = "Tersalin";
+        window.setTimeout(() => {
+          copyBtn.textContent = prev;
+        }, 1400);
+      } catch {
+        copyBtn.textContent = "Gagal salin";
+      }
+    };
+    copyBtn.addEventListener("click", copyHandler);
+    copyBtn.hidden = rows.length === 0;
+  }
+
+  if (!rows.length) {
+    showEmptyDetail("# tidak ada sampel profil");
+    if (searchInput) searchInput.disabled = true;
+    updateListMeta();
+    return;
+  }
+
+  if (searchInput) searchInput.disabled = false;
+  applyFilter({ preserveSelection: false });
+}
+
+function renderRecentDocsTable(docs, tbodyId, limit = 0) {
+  const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
   clear(tbody);
 
-  for (const doc of docs) {
+  const list = limit > 0 ? (docs || []).slice(0, limit) : docs || [];
+  for (const doc of list) {
     const row = document.createElement("tr");
 
     const imported = document.createElement("td");
@@ -521,22 +852,24 @@ function buildCoverageChart(coverage, canvasId = "coverage-chart") {
   });
 }
 
-function queueCenterLabelPlugin(queue) {
+function queueCenterLabelPlugin(queue, { compact = false } = {}) {
   return {
     id: "queueCenterLabel",
     beforeDraw(chart) {
       const { width, height, ctx } = chart;
       const total = (queue.pending || 0) + (queue.done || 0) + (queue.failed || 0) + (queue.processing || 0);
       const pct = total ? Math.round((queue.done / total) * 100) : 0;
+      const pctSize = compact ? Math.min(18, width * 0.14) : Math.min(22, width * 0.12);
+      const labelSize = compact ? Math.max(8, width * 0.055) : 9;
       ctx.save();
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.font = '700 1.35rem "IBM Plex Mono", monospace';
+      ctx.font = `700 ${pctSize}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = "#00d4aa";
-      ctx.fillText(`${pct}%`, width / 2, height / 2 - 6);
-      ctx.font = '600 0.5625rem "IBM Plex Mono", monospace';
+      ctx.fillText(`${pct}%`, width / 2, height / 2 - (compact ? 5 : 6));
+      ctx.font = `600 ${labelSize}px "IBM Plex Mono", monospace`;
       ctx.fillStyle = "#7a8fa8";
-      ctx.fillText("SELESAI", width / 2, height / 2 + 14);
+      ctx.fillText("SELESAI", width / 2, height / 2 + (compact ? 12 : 14));
       ctx.restore();
     },
   };
@@ -555,6 +888,7 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
   }
 
   const isAnalytics = canvasId === "queue-chart";
+  const isOverview = canvasId === "overview-queue-chart";
   const plugins = {
     legend: { display: false },
     tooltip: chartDefaults.plugins.tooltip,
@@ -570,19 +904,19 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
           backgroundColor: colors,
           borderColor: "#0b1118",
           borderWidth: isAnalytics ? 4 : 3,
-          hoverOffset: isAnalytics ? 6 : 4,
-          spacing: isAnalytics ? 2 : 0,
+          hoverOffset: isAnalytics ? 8 : 5,
+          spacing: isAnalytics ? 2 : 1,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      cutout: isAnalytics ? "58%" : "64%",
-      layout: isAnalytics ? { padding: 4 } : undefined,
+      cutout: isAnalytics ? "56%" : isOverview ? "58%" : "60%",
+      layout: { padding: isAnalytics ? 6 : isOverview ? 8 : 4 },
       plugins,
     },
-    plugins: isAnalytics ? [queueCenterLabelPlugin(queue)] : [],
+    plugins: [queueCenterLabelPlugin(queue, { compact: isOverview })],
   });
 }
 
@@ -646,57 +980,119 @@ function appendChangelogItemText(li, text) {
   }
 }
 
+function renderChangelogHero(changelog) {
+  const container = document.getElementById("changelog-hero");
+  if (!container) return;
+  clear(container);
+
+  const version = changelog.latestVersion || "—";
+  const date = changelog.latestDate || "—";
+  const total = changelog.totalReleases || 0;
+
+  const main = document.createElement("div");
+  main.className = "changelog-hero-main";
+
+  const badge = document.createElement("span");
+  badge.className = "changelog-hero-badge";
+  appendText(badge, "CURRENT");
+
+  const ver = document.createElement("span");
+  ver.className = "changelog-hero-version";
+  appendText(ver, version);
+
+  const dt = document.createElement("span");
+  dt.className = "changelog-hero-date";
+  appendText(dt, date);
+
+  main.append(badge, ver, dt);
+
+  const aside = document.createElement("div");
+  aside.className = "changelog-hero-aside";
+
+  const releases = document.createElement("span");
+  releases.className = "changelog-hero-stat";
+  appendText(releases, `${fmt(total)} rilis`);
+
+  const pipe = document.createElement("span");
+  pipe.className = "changelog-hero-pipe";
+  appendText(pipe, "summary.sh");
+
+  aside.append(releases, pipe);
+  container.append(main, aside);
+}
+
+function renderChangelogKindBar(summary, container) {
+  const kinds = [
+    { key: "Added", label: "Added", tone: "added" },
+    { key: "Changed", label: "Changed", tone: "changed" },
+    { key: "Fixed", label: "Fixed", tone: "fixed" },
+    { key: "Removed", label: "Removed", tone: "removed" },
+  ];
+  const total = kinds.reduce((sum, k) => sum + (summary?.[k.key] || 0), 0) || 1;
+
+  const bar = document.createElement("div");
+  bar.className = "changelog-kind-bar";
+  bar.setAttribute("role", "img");
+  bar.setAttribute(
+    "aria-label",
+    kinds.map((k) => `${k.label} ${summary?.[k.key] || 0}`).join(", "),
+  );
+
+  for (const kind of kinds) {
+    const count = summary?.[kind.key] || 0;
+    if (!count) continue;
+    const seg = document.createElement("span");
+    seg.className = `changelog-kind-bar__seg changelog-kind-bar__seg--${kind.tone}`;
+    seg.style.flexGrow = String(count);
+    seg.title = `${kind.label}: ${fmt(count)}`;
+    bar.appendChild(seg);
+  }
+
+  if (!bar.childElementCount) {
+    const empty = document.createElement("span");
+    empty.className = "changelog-kind-bar__seg changelog-kind-bar__seg--empty";
+    empty.style.flexGrow = "1";
+    bar.appendChild(empty);
+  }
+
+  container.appendChild(bar);
+}
+
 function renderChangelogSummary(changelog) {
   const container = document.getElementById("changelog-summary");
   if (!container) return;
   clear(container);
 
-  const added = changelog.summary?.Added || 0;
-  const changed = changelog.summary?.Changed || 0;
-  const fixed = changelog.summary?.Fixed || 0;
+  const summary = changelog.summary || {};
+  renderChangelogKindBar(summary, container);
 
-  const cards = [
-    {
-      label: "Versi terbaru",
-      value: changelog.latestVersion || "—",
-      hint: changelog.latestDate || "Tanpa tanggal",
-    },
-    {
-      label: "Total rilis",
-      value: fmt(changelog.totalReleases || 0),
-      hint: `${(changelog.releases || []).length} ditampilkan di bawah`,
-    },
-    {
-      label: "Fitur baru",
-      value: fmt(added),
-      hint: "Sepanjang riwayat changelog",
-    },
-    {
-      label: "Perbaikan",
-      value: fmt(fixed),
-      hint: `${fmt(changed)} perubahan tercatat`,
-    },
+  const grid = document.createElement("div");
+  grid.className = "changelog-kpi-grid";
+
+  const kpis = [
+    { key: "Added", label: "Added", tone: "added" },
+    { key: "Changed", label: "Changed", tone: "changed" },
+    { key: "Fixed", label: "Fixed", tone: "fixed" },
+    { key: "Removed", label: "Removed", tone: "removed" },
   ];
 
-  for (const card of cards) {
-    const stat = document.createElement("article");
-    stat.className = "changelog-stat";
+  for (const kpi of kpis) {
+    const chip = document.createElement("article");
+    chip.className = `changelog-kpi changelog-kpi--${kpi.tone}`;
 
-    const label = document.createElement("div");
-    label.className = "changelog-stat-label";
-    appendText(label, card.label);
+    const label = document.createElement("span");
+    label.className = "changelog-kpi-label";
+    appendText(label, kpi.label);
 
-    const value = document.createElement("div");
-    value.className = "changelog-stat-value";
-    appendText(value, card.value);
+    const value = document.createElement("span");
+    value.className = "changelog-kpi-value";
+    appendText(value, fmt(summary[kpi.key] || 0));
 
-    const hint = document.createElement("div");
-    hint.className = "changelog-stat-hint";
-    appendText(hint, card.hint);
-
-    stat.append(label, value, hint);
-    container.appendChild(stat);
+    chip.append(label, value);
+    grid.appendChild(chip);
   }
+
+  container.appendChild(grid);
 }
 
 function renderChangelogFeed(changelog) {
@@ -704,27 +1100,55 @@ function renderChangelogFeed(changelog) {
   if (!container) return;
   clear(container);
 
-  for (const [index, release] of (changelog.releases || []).entries()) {
+  const releases = changelog.releases || [];
+  const feedCount = document.getElementById("changelog-feed-count");
+  if (feedCount) {
+    feedCount.textContent = `${fmt(releases.length)} entri`;
+  }
+
+  for (const [index, release] of releases.entries()) {
     const itemCount = release.sections.reduce((sum, sec) => sum + sec.items.length, 0);
     const details = document.createElement("details");
     details.className = "changelog-release";
-    if (index === 0) details.open = true;
+    if (index === 0) {
+      details.open = true;
+      details.classList.add("changelog-release--current");
+    }
 
     const summary = document.createElement("summary");
-    const left = document.createElement("span");
+    const marker = document.createElement("span");
+    marker.className = "changelog-release-marker";
+    marker.setAttribute("aria-hidden", "true");
+
+    const main = document.createElement("span");
+    main.className = "changelog-release-head";
+
     const version = document.createElement("span");
     version.className = "changelog-version";
     appendText(version, release.version);
+
     const date = document.createElement("span");
     date.className = "changelog-date";
     appendText(date, release.date);
-    left.append(version, date);
+
+    main.append(version, date);
+
+    const meta = document.createElement("span");
+    meta.className = "changelog-release-meta";
+
+    if (index === 0) {
+      const tag = document.createElement("span");
+      tag.className = "changelog-release-tag";
+      appendText(tag, "LATEST");
+      meta.appendChild(tag);
+    }
 
     const count = document.createElement("span");
     count.className = "changelog-count";
     appendText(count, `${itemCount} catatan`);
+    meta.appendChild(count);
 
-    summary.append(left, count);
+    summary.append(marker, main, meta);
     details.appendChild(summary);
 
     const body = document.createElement("div");
@@ -753,18 +1177,13 @@ function renderChangelogFeed(changelog) {
 
 function renderChangelog(changelog) {
   if (!changelog) return;
+  renderChangelogHero(changelog);
   renderChangelogSummary(changelog);
   renderChangelogFeed(changelog);
 
   const caption = document.getElementById("changelog-caption");
   if (caption && changelog.latestVersion) {
-    caption.textContent =
-      `Versi terbaru ${changelog.latestVersion} (${changelog.latestDate}) · ${changelog.totalReleases} rilis total`;
-  }
-
-  const kicker = document.querySelector(".dashboard-kicker");
-  if (kicker && changelog.latestVersion) {
-    kicker.textContent = `Versi ${changelog.latestVersion}`;
+    caption.textContent = `${changelog.latestVersion} · ${changelog.latestDate} · ${fmt(changelog.totalReleases)} rilis`;
   }
 
   const statusRow = document.getElementById("status-row");
@@ -829,29 +1248,242 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
   }
 }
 
-function renderOverviewRecentDocs(docs, limit = 8) {
-  const tbody = document.getElementById("overview-recent-docs");
+function renderOpsStats(data) {
+  const grid = document.getElementById("ops-stats-grid");
+  if (!grid) return;
+
+  const { summary = {}, queue = {}, intel = {}, indexTotal = {}, geo = {} } = data;
+  const queueTotal = queue.total || 1;
+
+  const cards = [
+    {
+      code: "Q-01",
+      label: "Antrian menunggu",
+      value: queue.pending,
+      tone: "amber",
+      hint: `${pct(queue.pending, queueTotal)}% · ${fmt(queue.processing || 0)} diproses`,
+    },
+    {
+      code: "Q-02",
+      label: "Unduhan selesai",
+      value: queue.done,
+      tone: "intel",
+      hint: intel.pipelineSuccessPct != null ? `Pipeline ${intel.pipelineSuccessPct}% sukses` : `${pct(queue.done, queueTotal)}%`,
+    },
+    {
+      code: "Q-03",
+      label: "Unduhan gagal",
+      value: queue.failed,
+      tone: queue.failed > 0 ? "danger" : undefined,
+      hint: intel.pipelineFailurePct != null ? `Kegagalan ${intel.pipelineFailurePct}%` : `${pct(queue.failed, queueTotal)}%`,
+    },
+    {
+      code: "D-01",
+      label: "Dokumen internet",
+      value: summary.documents,
+      tone: "intel",
+      hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber terindeks`,
+    },
+    {
+      code: "D-02",
+      label: "Template ekstraksi",
+      value: summary.templates,
+      hint: "Pola parsing dokumen",
+    },
+    {
+      code: "D-03",
+      label: "File selesai",
+      value: summary.doneFiles,
+      tone: "cyan",
+      hint: `Riwayat ${fmt(summary.history)} file`,
+    },
+    {
+      code: "I-01",
+      label: "Entri indeks",
+      value: indexTotal.entries,
+      hint: `${fmt(indexTotal.refs)} referensi silang`,
+    },
+    {
+      code: "G-01",
+      label: "Orang berlokasi",
+      value: geo.geocodedEntities,
+      tone: "cyan",
+      hint: `${fmt(geo.mappedCities)} kota · ${fmt(geo.entitiesWithCity)} punya kota`,
+    },
+  ];
+
+  clear(grid);
+  for (const card of cards) {
+    const article = document.createElement("article");
+    article.className = "stat-card";
+    article.dataset.code = card.code;
+    if (card.tone) article.dataset.tone = card.tone;
+
+    const value = document.createElement("div");
+    value.className = "stat-value";
+    appendText(value, fmt(card.value));
+
+    const label = document.createElement("div");
+    label.className = "stat-label";
+    appendText(label, card.label);
+
+    article.append(value, label);
+    if (card.hint) {
+      const hint = document.createElement("div");
+      hint.className = "stat-hint";
+      appendText(hint, card.hint);
+      article.append(hint);
+    }
+    grid.appendChild(article);
+  }
+}
+
+function renderOpsDashboard(data) {
+  const capStats = document.getElementById("ops-stats-caption");
+  if (capStats && data.queue) {
+    capStats.textContent = `${fmt(data.queue.total)} URL antrian · ${fmt(data.summary?.documents)} dokumen · ${fmt(data.indexTotal?.entries)} entri indeks`;
+  }
+
+  const capImport = document.getElementById("ops-import-caption");
+  if (capImport && data.recentDocs) {
+    const totalMentions = data.recentDocs.reduce((sum, doc) => sum + (doc.mentions || 0), 0);
+    capImport.textContent = `${fmt(data.recentDocs.length)} impor terbaru · ${fmt(totalMentions)} orang diekstrak`;
+  }
+
+  renderOpsStats(data);
+  renderRecentDocsTable(data.recentDocs, "ops-recent-docs");
+}
+
+function renderCoverageTable(coverage, total) {
+  const tbody = document.getElementById("analytics-coverage-body");
   if (!tbody) return;
   clear(tbody);
 
-  for (const doc of (docs || []).slice(0, limit)) {
+  const sorted = [...(coverage || [])].sort((a, b) => (b.value || 0) - (a.value || 0));
+  const max = sorted[0]?.value || 1;
+
+  for (const item of sorted) {
     const row = document.createElement("tr");
 
-    const imported = document.createElement("td");
-    imported.className = "timestamp";
-    appendText(imported, dateLabel(doc.imported_at));
+    const field = document.createElement("td");
+    appendText(field, item.label);
 
-    const mentions = document.createElement("td");
-    mentions.className = "num";
-    appendText(mentions, fmt(doc.mentions));
+    const count = document.createElement("td");
+    count.className = "num";
+    appendText(count, fmt(item.value));
 
-    const title = document.createElement("td");
-    title.className = "title-cell censored";
-    appendFaint(title, doc.title || "—");
+    const pctCell = document.createElement("td");
+    pctCell.className = "num";
+    const wrap = document.createElement("div");
+    wrap.className = "analytics-bar-cell";
+    const track = document.createElement("span");
+    track.className = "analytics-bar-track";
+    const fill = document.createElement("span");
+    fill.className = "analytics-bar-fill";
+    fill.style.width = `${Math.round((item.value / max) * 100)}%`;
+    track.appendChild(fill);
+    const pctLabel = document.createElement("span");
+    pctLabel.className = "analytics-bar-pct";
+    appendText(pctLabel, `${item.pct ?? pct(item.value, total)}%`);
+    wrap.append(track, pctLabel);
+    pctCell.appendChild(wrap);
 
-    row.append(imported, mentions, title);
+    row.append(field, count, pctCell);
     tbody.appendChild(row);
   }
+}
+
+function renderIndexFieldTable(indexRows) {
+  const tbody = document.getElementById("analytics-index-body");
+  if (!tbody) return;
+  clear(tbody);
+
+  for (const row of indexRows || []) {
+    const tr = document.createElement("tr");
+
+    const type = document.createElement("td");
+    appendText(type, row.type);
+
+    const kind = document.createElement("td");
+    const kindTag = document.createElement("span");
+    kindTag.className = `index-kind index-kind--${row.kind === "unique" ? "unique" : "shared"}`;
+    appendText(kindTag, row.kind === "unique" ? "UNIQUE" : "SHARED");
+    kind.appendChild(kindTag);
+
+    const entries = document.createElement("td");
+    entries.className = "num";
+    appendText(entries, fmt(row.entries));
+
+    const refs = document.createElement("td");
+    refs.className = "num";
+    appendText(refs, fmt(row.refs));
+
+    tr.append(type, kind, entries, refs);
+    tbody.appendChild(tr);
+  }
+}
+
+function renderIntelMetrics(intel, queue) {
+  const container = document.getElementById("analytics-intel-metrics");
+  if (!container || !intel) return;
+  clear(container);
+
+  const dominantLabel = VECTOR_LABELS[intel.dominantVectorId] || intel.dominantVectorId;
+  const items = [
+    { label: "Node graf", value: fmt(intel.graphNodes), hint: `${fmt(intel.graphEdges)} edge` },
+    { label: "Dokumen sumber", value: fmt(intel.sourceDocuments), hint: "dokumen internet" },
+    { label: "Vektor dominan", value: `${intel.dominantVectorPct}%`, hint: dominantLabel },
+    { label: "Keterkaitan", value: `${intel.xrefRatio}×`, hint: `${intel.entityLinkRate} id/profil` },
+    {
+      label: "Pipeline unduhan",
+      value: `${intel.pipelineSuccessPct}%`,
+      hint: queue ? `${fmt(queue.pending)} antrian · ${fmt(queue.failed)} gagal` : "status URL",
+    },
+  ];
+
+  for (const item of items) {
+    const chip = document.createElement("div");
+    chip.className = "intel-metric";
+
+    const label = document.createElement("span");
+    label.className = "intel-metric-label";
+    appendText(label, item.label);
+
+    const value = document.createElement("strong");
+    value.className = "intel-metric-value";
+    appendText(value, item.value);
+
+    const hint = document.createElement("span");
+    hint.className = "intel-metric-hint";
+    appendText(hint, item.hint);
+
+    chip.append(label, value, hint);
+    container.appendChild(chip);
+  }
+}
+
+function renderAnalyticsDashboard(data) {
+  const capIndex = document.getElementById("index-caption");
+  if (capIndex && data.indexTotal) {
+    capIndex.textContent = `${fmt(data.indexTotal.entries)} entri · ${fmt(data.indexTotal.refs)} referensi`;
+  }
+
+  const capCov = document.getElementById("analytics-coverage-caption");
+  if (capCov && data.coverageTotal) {
+    capCov.textContent = `${fmt(data.coverageTotal)} profil · ${data.coverage?.length || 0} field`;
+  }
+
+  const capIdx = document.getElementById("analytics-index-caption");
+  if (capIdx && data.indexRows?.length) {
+    const shared = data.indexRows.filter((r) => r.kind === "shared").length;
+    capIdx.textContent = `${shared} shared · ${data.indexRows.length - shared} unique`;
+  }
+
+  buildIndexChart(data.indexRows);
+  renderIndexStats(data.indexTotal);
+  renderCoverageTable(data.coverage, data.coverageTotal || 1);
+  renderIndexFieldTable(data.indexRows);
+  renderIntelMetrics(data.intel, data.queue);
 }
 
 function renderOverviewDashboard(data) {
@@ -873,7 +1505,6 @@ function renderOverviewDashboard(data) {
   renderUsageBar(data.coverage, data.coverageTotal || 1, "overview-coverage-bar");
   renderQueueStats(data.queue, "overview-queue-stats");
   renderTopCities(data.geo);
-  renderOverviewRecentDocs(data.recentDocs);
   buildCoverageChart(data.coverage, "overview-coverage-chart");
   buildQueueChart(data.queue, "overview-queue-chart");
 }
@@ -898,20 +1529,14 @@ async function init() {
       renderIntelBrief(data.intel);
     }
 
-    document.getElementById("coverage-caption").textContent =
-      `Kelengkapan data dari ${fmt(data.coverageTotal)} profil orang`;
-    document.getElementById("queue-caption").textContent =
-      `Antrian unduhan · ${fmt(data.queue.total)} URL dipantau`;
-
-    renderStats(data.summary);
+    // N-01 sudah di intel-brief ("Total profil orang") — hindari duplikasi di Ringkasan
+    renderStats(data.summary, { excludeCodes: ["N-01"] });
     renderOverviewDashboard(data);
+    renderAnalyticsDashboard(data);
     if (data.showcaseEntities?.length) {
       renderShowcaseEntities(data.showcaseEntities);
     }
-    renderUsageBar(data.coverage, data.coverageTotal || 1);
-    renderQueueStats(data.queue);
-    renderIndexStats(data.indexTotal);
-    renderRecentDocs(data.recentDocs);
+    renderOpsDashboard(data);
     if (data.changelog) {
       renderChangelog(data.changelog);
     }
@@ -919,10 +1544,6 @@ async function init() {
     if (data.geo?.clusters?.length && typeof initDompengGeoMap === "function") {
       initDompengGeoMap(data.geo, { fitBounds: true });
     }
-
-    buildCoverageChart(data.coverage);
-    buildQueueChart(data.queue);
-    buildIndexChart(data.indexRows);
 
     if (typeof onDashboardTabShown === "function") {
       const active = document.querySelector(".tab-panel.is-active");

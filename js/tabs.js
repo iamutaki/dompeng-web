@@ -1,19 +1,16 @@
 const DASHBOARD_TABS = [
   { id: "overview", label: "Ringkasan", hash: "ringkasan" },
   { id: "geo", label: "Peta Kota", hash: "peta" },
-  { id: "analytics", label: "Analisis", hash: "analisis" },
+  { id: "analytics", label: "Indeks", hash: "indeks" },
+  { id: "ops", label: "Operasi", hash: "operasi" },
   { id: "preview", label: "Contoh", hash: "pratinjau" },
 ];
 
+const OPS_TAB_HASHES = new Set(["operasi", "ops", "pembaruan", "changelog", "sistem", "sys"]);
+
 function resizeDashboardCharts() {
   if (typeof Chart === "undefined") return;
-  for (const id of [
-    "coverage-chart",
-    "queue-chart",
-    "index-chart",
-    "overview-coverage-chart",
-    "overview-queue-chart",
-  ]) {
+  for (const id of ["index-chart", "overview-coverage-chart", "overview-queue-chart"]) {
     const chart = Chart.getChart(id);
     if (chart) chart.resize();
   }
@@ -33,8 +30,8 @@ function onDashboardTabShown(tabId) {
     window.requestAnimationFrame(resizeDashboardCharts);
   }
   if (tabId === "preview") {
-    const showcase = document.getElementById("entity-showcase");
-    if (showcase) void showcase.offsetHeight;
+    const detail = document.getElementById("preview-log-detail");
+    if (detail) void detail.offsetHeight;
   }
 }
 
@@ -95,7 +92,8 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
 function tabIdFromHash() {
   const hash = window.location.hash.replace(/^#/, "").toLowerCase();
   if (!hash) return null;
-  if (hash === "pembaruan" || hash === "changelog") return "overview";
+  if (OPS_TAB_HASHES.has(hash)) return "ops";
+  if (hash === "analisis") return "analytics";
   const match = DASHBOARD_TABS.find((tab) => tab.hash === hash || tab.id === hash);
   return match?.id ?? null;
 }
