@@ -104,21 +104,23 @@ function renderGeoMapStats(container, geo) {
 
   const items = [
     ["Kota di peta", geo.mappedCities],
-    ["Orang terpetakan", geo.geocodedEntities],
-    ["Punya data kota", geo.entitiesWithCity],
-    ["Kota berbeda", geo.uniqueCities],
+    ["Terpetakan", geo.geocodedEntities],
+    ["Punya kota", geo.entitiesWithCity],
+    ["Kota unik", geo.uniqueCities],
   ];
+
+  const compact = container.classList.contains("geo-map-sidebar__totals");
 
   for (const [label, value] of items) {
     const chip = document.createElement("div");
-    chip.className = "inline-stat inline-stat--geo";
+    chip.className = compact ? "geo-total-stat" : "inline-stat inline-stat--geo";
 
-    const v = document.createElement("strong");
-    v.className = "inline-stat-value";
+    const v = document.createElement(compact ? "span" : "strong");
+    v.className = compact ? "geo-total-stat__value" : "inline-stat-value";
     v.textContent = fmt(value ?? 0);
 
     const k = document.createElement("span");
-    k.className = "inline-stat-label";
+    k.className = compact ? "geo-total-stat__label" : "inline-stat-label";
     k.textContent = label;
 
     chip.append(v, k);
@@ -243,6 +245,135 @@ function parseMergedCities(props) {
   }
 }
 
+function clusterIdFromFeature(feature, props = feature?.properties || {}) {
+  if (props.point_count == null) return null;
+  const fromProps = props.cluster_id;
+  if (fromProps != null && fromProps !== "") {
+    const n = Number(fromProps);
+    if (Number.isFinite(n)) return n;
+  }
+  const id = feature?.id;
+  if (typeof id === "number" && Number.isFinite(id)) return id;
+  if (typeof id === "string" && /^\d+$/.test(id)) return Number(id);
+  return null;
+}
+
+function normalizeClusterLeaves(features) {
+  if (!features?.length) return [];
+  return features
+    .map(normalizeHit)
+    .sort((a, b) => b.people - a.people);
+}
+
+/** Ambil titik kota di dalam cluster MapLibre (bukan merge koordinat sama). */
+function fetchClusterLeaves(map, sourceId, clusterId, limit = 40) {
+  const source = map.getSource(sourceId);
+  if (!source?.getClusterLeaves || clusterId == null) {
+    return Promise.resolve([]);
+  }
+
+  try {
+    const result = source.getClusterLeaves(clusterId, limit, 0);
+    if (result && typeof result.then === "function") {
+      return result.then(normalizeClusterLeaves).catch(() => []);
+    }
+  } catch {
+    /* fall through to callback API */
+  }
+
+  return new Promise((resolve) => {
+    try {
+      source.getClusterLeaves(clusterId, limit, 0, (err, features) => {
+        if (err) {
+          resolve([]);
+          return;
+        }
+        resolve(normalizeClusterLeaves(features));
+      });
+    } catch {
+      resolve([]);
+    }
+  });
+}
+
+function hitsToCityRows(hits) {
+  return (hits || []).map((hit) => ({
+    label: hit.label || "Kota",
+    count: hit.people,
+    province: hit.province || null,
+    mergedCities: hit.mergedCities,
+  }));
+}
+
+function expandCityRows(rows) {
+  const out = [];
+  for (const row of rows || []) {
+    if (row.mergedCities?.length > 1) {
+      for (const city of row.mergedCities) {
+        out.push({
+          label: city.label,
+          count: city.count,
+          province: city.province || null,
+        });
+      }
+    } else {
+      out.push({
+        label: row.label,
+        count: row.count,
+        province: row.province,
+      });
+    }
+  }
+  return out.sort((a, b) => (b.count || 0) - (a.count || 0));
+}
+
+function buildCityListHtml(cities, maxShow = 12) {
+  const rows = cities
+    .slice(0, maxShow)
+    .map((city) => {
+      const prov = city.province ? ` · ${escapeHtml(city.province)}` : "";
+      return (
+        `<li class="geo-popup-item">` +
+        `<span class="geo-dot" style="background:${tierColor(city.count)}"></span>` +
+        `<span class="geo-popup-item-text"><strong>${escapeHtml(city.label)}</strong>${prov} · ${fmt(city.count)} entitas</span>` +
+        `</li>`
+      );
+    })
+    .join("");
+  const more =
+    cities.length > maxShow
+      ? `<div class="geo-popup-hint">+${cities.length - maxShow} kota lainnya</div>`
+      : "";
+  return { rows, more };
+}
+
+function buildBreakdownPopup({
+  title,
+  subtitle,
+  color,
+  cities,
+  hint,
+  showZoom,
+  clusterId,
+}) {
+  const { rows, more } = buildCityListHtml(cities);
+  const zoomBtn =
+    showZoom && clusterId != null
+      ? `<button type="button" class="geo-popup-zoom" data-geo-zoom-cluster="${clusterId}">Perbesar cluster di peta</button>`
+      : "";
+  return [
+    '<div class="geo-popup-head">',
+    `<span class="geo-dot" style="background:${color}"></span>`,
+    `<span class="geo-popup-title">${escapeHtml(title)}</span>`,
+    "</div>",
+    `<div class="geo-popup-count">${subtitle}</div>`,
+    `<ul class="geo-popup-list">${rows}</ul>`,
+    more,
+    zoomBtn,
+    hint ? `<div class="geo-popup-hint">${hint}</div>` : "",
+  ].join("");
+}
+
 function normalizeHit(feature) {
   const props = feature.properties || {};
   const isMerged = props.point_count != null;
@@ -250,7 +381,7 @@ function normalizeHit(feature) {
   const mergedCities = parseMergedCities(props);
   return {
     isMerged,
-    clusterId: props.cluster_id,
+    clusterId: clusterIdFromFeature(feature, props),
     key: props.key || "",
     label: isMerged ? null : props.label || "Kota",
     province: props.province || "",
@@ -285,12 +416,24 @@ function queryHitsAt(map, point) {
   return hits.sort((a, b) => b.people - a.people);
 }
 
-function buildPopupHtml(hits, { hint } = {}) {
+function buildPopupHtml(hits, { hint, clusterLeaves, showZoom } = {}) {
   if (!hits.length) return "";
 
   if (hits.length === 1) {
     const h = hits[0];
     if (h.isMerged) {
+      const cities = expandCityRows(hitsToCityRows(clusterLeaves));
+      if (cities.length) {
+        return buildBreakdownPopup({
+          title: "Cluster gabungan",
+          subtitle: `${fmt(h.people)} entitas · ${fmt(cities.length)} kota`,
+          color: h.color,
+          cities,
+          hint,
+          showZoom,
+          clusterId: h.clusterId,
+        });
+      }
       return [
         '<div class="geo-popup-head">',
         `<span class="geo-dot" style="background:${h.color}"></span>`,
@@ -301,31 +444,13 @@ function buildPopupHtml(hits, { hint } = {}) {
       ].join("");
     }
     if (h.mergedCities?.length > 1) {
-      const rows = h.mergedCities
-        .slice(0, 12)
-        .map((city) => {
-          const prov = city.province ? ` · ${escapeHtml(city.province)}` : "";
-          return (
-            `<li class="geo-popup-item">` +
-            `<span class="geo-dot" style="background:${tierColor(city.count)}"></span>` +
-            `<span class="geo-popup-item-text"><strong>${escapeHtml(city.label)}</strong>${prov} · ${fmt(city.count)} entitas</span>` +
-            `</li>`
-          );
-        })
-        .join("");
-      const more =
-        h.mergedCities.length > 12
-          ? `<div class="geo-popup-hint">+${h.mergedCities.length - 12} kota lainnya</div>`
-          : "";
-      return [
-        '<div class="geo-popup-head">',
-        `<span class="geo-dot" style="background:${h.color}"></span>`,
-        `<span class="geo-popup-title">${escapeHtml(h.label)}</span>`,
-        "</div>",
-        `<div class="geo-popup-count">${fmt(h.people)} entitas · ${fmt(h.mergedCities.length)} kota di titik sama</div>`,
-        `<ul class="geo-popup-list">${rows}</ul>`,
-        more,
-      ].join("");
+      return buildBreakdownPopup({
+        title: h.label,
+        subtitle: `${fmt(h.people)} entitas · ${fmt(h.mergedCities.length)} kota di titik sama`,
+        color: h.color,
+        cities: h.mergedCities,
+        hint,
+      });
     }
     const prov = h.province
       ? `<div class="geo-popup-prov">${escapeHtml(h.province)}</div>`
@@ -436,6 +561,55 @@ function applyBubbleHover(map, sourceId, hit) {
   }
 }
 
+function zoomMapCluster(map, sourceId, clusterId, coordinates) {
+  const source = map.getSource(sourceId);
+  if (!source?.getClusterExpansionZoom || clusterId == null) return;
+
+  const applyZoom = (zoom) => {
+    if (!Number.isFinite(zoom)) return;
+    map.easeTo({
+      center: coordinates,
+      zoom: Math.min(zoom + 0.5, CLUSTER_MAX_ZOOM + 2),
+      duration: 450,
+    });
+  };
+
+  try {
+    const result = source.getClusterExpansionZoom(clusterId);
+    if (result && typeof result.then === "function") {
+      result.then(applyZoom).catch(() => {});
+      return;
+    }
+  } catch {
+    /* callback API */
+  }
+
+  source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+    if (!err) applyZoom(zoom);
+  });
+}
+
+function bindPopupZoomButton(popup, map, sourceId, coordinates) {
+  const root = popup.getElement();
+  const btn = root?.querySelector("[data-geo-zoom-cluster]");
+  if (!btn || btn.dataset.bound === "1") return;
+  btn.dataset.bound = "1";
+  btn.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const clusterId = Number(btn.dataset.geoZoomCluster);
+    zoomMapCluster(map, sourceId, clusterId, coordinates);
+  });
+}
+
+async function popupHtmlForHits(map, sourceId, hits, options = {}) {
+  if (hits.length === 1 && hits[0].isMerged) {
+    const leaves = await fetchClusterLeaves(map, sourceId, hits[0].clusterId);
+    return buildPopupHtml(hits, { ...options, clusterLeaves: leaves });
+  }
+  return buildPopupHtml(hits, options);
+}
+
 function bindClusterInteractions(map, sourceId) {
   const hoverPopup = new maplibregl.Popup({
     closeButton: false,
@@ -458,6 +632,14 @@ function bindClusterInteractions(map, sourceId) {
   });
 
   let hoverRaf = 0;
+  let hoverTargetKey = "";
+
+  function hoverTargetKeyFor(hits) {
+    if (!hits.length) return "";
+    if (hits.length > 1) return `multi:${hits.map((h) => h.key || h.clusterId).join("|")}`;
+    const h = hits[0];
+    return h.isMerged ? `m:${h.clusterId}` : `c:${h.key || h.label}:${h.people}`;
+  }
 
   map.on("mousemove", (event) => {
     if (hoverRaf) return;
@@ -471,6 +653,7 @@ function bindClusterInteractions(map, sourceId) {
         return;
       }
       if (!hits.length) {
+        hoverTargetKey = "";
         map.getCanvas().style.cursor = "";
         hoverPopup.remove();
         clearBubbleHover(map, sourceId);
@@ -478,22 +661,42 @@ function bindClusterInteractions(map, sourceId) {
       }
       map.getCanvas().style.cursor = "pointer";
       applyBubbleHover(map, sourceId, hits[0]);
-      const hint =
-        hits.length === 1 && hits[0].isMerged
-          ? "Klik untuk memperbesar"
-          : hits.length > 1
-            ? "Beberapa titik bertumpuk — arahkan kursor untuk detail"
-            : hits[0].mergedCities?.length > 1
-              ? "Beberapa kota berbagi koordinat — lihat daftar di bawah"
-              : "";
-      hoverPopup
-        .setLngLat(hits[0].coordinates)
-        .setHTML(buildPopupHtml(hits, { hint }))
-        .addTo(map);
+      const targetKey = hoverTargetKeyFor(hits);
+      const targetChanged = targetKey !== hoverTargetKey;
+      hoverTargetKey = targetKey;
+
+      const loadClusterDetail =
+        hits.length === 1 && hits[0].isMerged && hits[0].clusterId != null;
+
+      if (targetChanged || !hoverPopup.isOpen()) {
+        const hint =
+          loadClusterDetail
+            ? "Memuat rincian kota…"
+            : hits.length > 1
+              ? "Beberapa titik bertumpuk — arahkan kursor untuk detail"
+              : hits[0].mergedCities?.length > 1
+                ? "Beberapa kota berbagi koordinat — lihat daftar di bawah"
+                : "";
+        hoverPopup
+          .setLngLat(hits[0].coordinates)
+          .setHTML(buildPopupHtml(hits, { hint }))
+          .addTo(map);
+      }
+
+      if (loadClusterDetail) {
+        const loadKey = targetKey;
+        void popupHtmlForHits(map, sourceId, hits, {
+          hint: "Klik untuk detail lengkap",
+        }).then((html) => {
+          if (hoverTargetKey !== loadKey || clickPopup.isOpen()) return;
+          hoverPopup.setLngLat(hits[0].coordinates).setHTML(html).addTo(map);
+        });
+      }
     });
   });
 
   map.on("mouseleave", () => {
+    hoverTargetKey = "";
     map.getCanvas().style.cursor = "";
     hoverPopup.remove();
     clearBubbleHover(map, sourceId);
@@ -508,36 +711,46 @@ function bindClusterInteractions(map, sourceId) {
       return;
     }
 
-    if (hits.length === 1 && hits[0].isMerged) {
-      const { clusterId, coordinates } = hits[0];
-      const source = map.getSource(sourceId);
-      source.getClusterExpansionZoom(clusterId, (err, zoom) => {
-        if (err) return;
-        map.easeTo({
-          center: coordinates,
-          zoom: Math.min(zoom + 0.5, CLUSTER_MAX_ZOOM + 2),
-          duration: 450,
-        });
-      });
-      clickPopup.remove();
-      clearClickPin(map, sourceId);
-      return;
-    }
-
     pinClickFeature(map, sourceId, hits[0]);
+    const coordinates = hits[0].coordinates;
+    const loadClusterDetail =
+      hits.length === 1 && hits[0].isMerged && hits[0].clusterId != null;
+
     clickPopup
-      .setLngLat(hits[0].coordinates)
+      .setLngLat(coordinates)
       .setHTML(
         buildPopupHtml(hits, {
-          hint: hits.some((h) => h.isMerged) ? "Klik cluster tunggal untuk memperbesar" : "",
+          hint: loadClusterDetail
+            ? "Memuat rincian kota…"
+            : hits.some((h) => h.isMerged)
+              ? "Cluster gabungan — klik titik tunggal untuk rincian"
+              : "",
         }),
       )
       .addTo(map);
+
+    void popupHtmlForHits(map, sourceId, hits, {
+      showZoom: loadClusterDetail,
+      hint: loadClusterDetail ? "Gunakan tombol di atas untuk memperbesar area cluster" : "",
+    }).then((html) => {
+      if (!clickPopup.isOpen()) return;
+      clickPopup.setLngLat(coordinates).setHTML(html).addTo(map);
+      if (loadClusterDetail) {
+        bindPopupZoomButton(clickPopup, map, sourceId, coordinates);
+      }
+    });
   });
 }
 
 function buildGeoMap(container, geo, options = {}) {
-  const clusters = mergeCollocatedCities(geo.clusters || []);
+  const query = options.cityFilter ?? window.DOMPENG_GEO_CITY_FILTER ?? "";
+  const allClusters = mergeCollocatedCities(geo.clusters || []);
+  const clusters = query
+    ? allClusters.filter((city) => {
+        const haystack = `${city.label || ""} ${city.province || ""} ${city.key || ""}`.toLowerCase();
+        return haystack.includes(String(query).toLowerCase());
+      })
+    : allClusters;
   const map = new maplibregl.Map({
     container,
     style: MAP_STYLE,
@@ -775,3 +988,42 @@ function focusDompengMapCity(cityKeyOrLabel) {
 window.initDompengGeoMap = initDompengGeoMap;
 window.fitDompengMapToIndonesia = fitDompengMapToIndonesia;
 window.focusDompengMapCity = focusDompengMapCity;
+
+function applyDompengGeoCityFilter(query, { fitBounds = false } = {}) {
+  const normalized = String(query || "").trim().toLowerCase();
+  window.DOMPENG_GEO_CITY_FILTER = normalized;
+
+  const map = window.DOMPENG_MAP;
+  const geo = window.DOMPENG_PENDING_GEO;
+  if (!geo?.clusters?.length) return;
+
+  const allClusters = mergeCollocatedCities(geo.clusters);
+  const filtered = normalized
+    ? allClusters.filter((city) => {
+        const haystack = `${city.label || ""} ${city.province || ""} ${city.key || ""}`.toLowerCase();
+        return haystack.includes(normalized);
+      })
+    : allClusters;
+
+  if (map?.getSource?.("city-clusters")) {
+    const source = map.getSource("city-clusters");
+    if (source) {
+      source.setData(clustersToGeoJson(filtered));
+    }
+    map._dompengClusters = filtered;
+    if (fitBounds && filtered.length) {
+      fitMapToIndonesiaFocus(map, filtered, {
+        animate: true,
+        padding: { top: 44, bottom: 64, left: 44, right: 44 },
+      });
+    }
+    return;
+  }
+
+  const container = document.getElementById("geo-map");
+  if (container && !map && typeof initDompengGeoMap === "function") {
+    initDompengGeoMap(geo, { cityFilter: normalized, fitBounds: true });
+  }
+}
+
+window.applyDompengGeoCityFilter = applyDompengGeoCityFilter;

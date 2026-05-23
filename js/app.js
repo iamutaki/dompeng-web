@@ -28,6 +28,140 @@ const CHANGELOG_KIND_LABELS = {
 
 let dashboardDataCache = null;
 let dashboardViewMode = localStorage.getItem("dompeng:view-mode") === "technical" ? "technical" : "public";
+let dashboardQueueFilter = "all";
+let previewFilterHandler = null;
+
+const PREVIEW_TYPE_FILTERS = {
+  all: () => true,
+  photo: (entity) => Boolean(entity.hasPhoto),
+  phone: (entity) => (entity.relations?.phone || 0) > 0,
+  email: (entity) => (entity.relations?.email || 0) > 0,
+  nik: (entity) =>
+    (entity.relations?.nik || 0) > 0 ||
+    (entity.identifiers || []).some((item) => String(item.type || "").toUpperCase() === "NIK"),
+  docs: (entity) => (entity.documentCount || 0) > 0,
+};
+
+const QUEUE_FILTER_LABELS = {
+  all: "Semua status",
+  pending: "Menunggu",
+  processing: "Diproses",
+  done: "Selesai",
+  failed: "Gagal",
+};
+
+function normalizeFilterQuery(value) {
+  return (value || "").trim().toLowerCase();
+}
+
+const CITY_FILTER_INPUT_IDS = ["overview-city-filter", "geo-city-filter"];
+/** Debounce untuk input teks (kota, indeks, sampel). Dropdown tetap langsung. */
+const DASHBOARD_FILTER_DEBOUNCE_MS = 280;
+
+function debounce(fn, waitMs) {
+  let timer = null;
+  return (...args) => {
+    if (timer) clearTimeout(timer);
+    timer = window.setTimeout(() => {
+      timer = null;
+      fn(...args);
+    }, waitMs);
+  };
+}
+
+function syncCityFilterInputs(raw, { skipId } = {}) {
+  const value = (raw ?? "").toString();
+  for (const id of CITY_FILTER_INPUT_IDS) {
+    if (id === skipId) continue;
+    const input = document.getElementById(id);
+    if (input && input.value !== value) input.value = value;
+  }
+}
+
+function getCityFilterQuery() {
+  const geo = document.getElementById("geo-city-filter");
+  const overview = document.getElementById("overview-city-filter");
+  const raw = (geo?.value ?? overview?.value ?? "").trim();
+  return normalizeFilterQuery(raw);
+}
+
+function setCityFilterQuery(value) {
+  syncCityFilterInputs((value || "").trim());
+}
+
+const scheduleGeoCityViewsRefresh = debounce((geo) => {
+  refreshGeoCityViews(geo, { fitMapBounds: true });
+}, DASHBOARD_FILTER_DEBOUNCE_MS);
+
+function cityMatchesFilter(city, query) {
+  if (!query) return true;
+  const haystack = `${city.label || ""} ${city.province || ""} ${city.key || ""}`.toLowerCase();
+  return haystack.includes(query);
+}
+
+function filterCityClusters(clusters, query) {
+  const q = query ?? getCityFilterQuery();
+  return (clusters || []).filter((city) => cityMatchesFilter(city, q));
+}
+
+function getIndexFilters() {
+  return {
+    query: normalizeFilterQuery(document.getElementById("analytics-index-search")?.value),
+    kind: document.getElementById("analytics-index-kind-filter")?.value || "all",
+  };
+}
+
+function filterIndexRows(indexRows, filters = getIndexFilters()) {
+  return (indexRows || []).filter((row) => {
+    if (filters.kind !== "all" && row.kind !== filters.kind) return false;
+    if (!filters.query) return true;
+    const mode = row.kind === "unique" ? "unik" : "silang";
+    return `${row.type} ${mode} ${row.kind}`.toLowerCase().includes(filters.query);
+  });
+}
+
+function sumIndexTotals(rows) {
+  return (rows || []).reduce(
+    (acc, row) => ({
+      entries: acc.entries + (row.entries || 0),
+      refs: acc.refs + (row.refs || 0),
+    }),
+    { entries: 0, refs: 0 },
+  );
+}
+
+function getPreviewFilters() {
+  return {
+    query: normalizeFilterQuery(document.getElementById("preview-search")?.value),
+    type: document.getElementById("preview-type-filter")?.value || "all",
+  };
+}
+
+function previewEntityMatches(entity, filters = getPreviewFilters()) {
+  const predicate = PREVIEW_TYPE_FILTERS[filters.type] || PREVIEW_TYPE_FILTERS.all;
+  if (!predicate(entity)) return false;
+  if (!filters.query) return true;
+  const haystack = [
+    entity.ref,
+    entity.name,
+    ...(entity.identifiers || []).map((item) => `${item.type} ${item.value}`),
+    ...Object.keys(entity.relations || {}),
+  ]
+    .join(" ")
+    .toLowerCase();
+  return haystack.includes(filters.query);
+}
+
+function getQueueFilter() {
+  return dashboardQueueFilter || "all";
+}
+
+function syncQueueFilterSelects(value) {
+  dashboardQueueFilter = value || "all";
+  for (const select of document.querySelectorAll(".js-queue-filter")) {
+    if (select.value !== dashboardQueueFilter) select.value = dashboardQueueFilter;
+  }
+}
 
 const chartDefaults = {
   responsive: true,
@@ -272,7 +406,12 @@ function renderDataTable(containerId, columns, rows) {
     for (const col of columns) {
       const td = document.createElement("td");
       if (col.numeric) td.className = "num";
-      appendText(td, row[col.key] ?? "—");
+      const raw = row[col.key];
+      let text = "—";
+      if (raw != null && raw !== "") {
+        text = col.numeric && typeof raw === "number" ? fmt(raw) : String(raw);
+      }
+      appendText(td, text);
       tr.appendChild(td);
     }
     tbody.appendChild(tr);
@@ -289,37 +428,9 @@ function showChartFallbackTables() {
 }
 
 function renderAccessibleDataTables(data) {
-  const coverageTotal = data.coverageTotal || 1;
-  renderDataTable(
-    "overview-coverage-table",
-    [
-      { key: "label", label: "Field" },
-      { key: "value", label: "Entitas", numeric: true },
-      { key: "pct", label: "%" , numeric: true },
-    ],
-    (data.coverage || []).map((item) => ({
-      label: item.label,
-      value: fmt(item.value),
-      pct: `${pct(item.value, coverageTotal)}%`,
-    })),
-  );
-
-  const queue = data.queue || {};
-  const queueTotal = queue.total || 1;
-  renderDataTable(
-    "overview-queue-table",
-    [
-      { key: "label", label: "Status" },
-      { key: "value", label: "URL", numeric: true },
-      { key: "pct", label: "%", numeric: true },
-    ],
-    [
-      ["Menunggu", queue.pending || 0],
-      ["Diproses", queue.processing || 0],
-      ["Selesai", queue.done || 0],
-      ["Gagal", queue.failed || 0],
-    ].map(([label, value]) => ({ label, value: fmt(value), pct: `${pct(value, queueTotal)}%` })),
-  );
+  if (document.getElementById("overview-sankey-table")) {
+    renderOverviewSankeyTable(buildOverviewSankeyData(data).links);
+  }
 
   renderDataTable(
     "index-chart-table",
@@ -362,6 +473,25 @@ function createVolumeStatCard(card) {
   return article;
 }
 
+function createCompactVolumeMetric(item) {
+  const row = document.createElement("div");
+  row.className = "volume-metric";
+  row.dataset.code = item.code;
+  if (item.tone) row.dataset.tone = item.tone;
+  if (item.hint) row.title = item.hint;
+
+  const label = document.createElement("span");
+  label.className = "volume-metric__label";
+  appendText(label, item.shortLabel || item.label);
+
+  const value = document.createElement("span");
+  value.className = "volume-metric__value";
+  appendText(value, fmt(item.value));
+
+  row.append(label, value);
+  return row;
+}
+
 function renderStats(summary, { excludeCodes = [] } = {}) {
   const cards = [
     { code: "N-01", value: summary.persons, label: "Entitas terindeks", tone: "intel" },
@@ -391,6 +521,7 @@ function renderOverviewVolume(data) {
   const entityTotal = geo.totalEntities || summary.persons || 1;
   const photoPct = coverage.find((c) => c.id === "photo")?.pct ?? 0;
   const topCoverage = [...coverage].sort((a, b) => (b.pct || 0) - (a.pct || 0))[0];
+  const technical = isTechnicalMode();
 
   const groups = [
     {
@@ -399,29 +530,33 @@ function renderOverviewVolume(data) {
         {
           code: "N-02",
           label: "Dokumen publik",
+          shortLabel: "Dokumen",
           value: summary.documents,
           tone: "intel",
-          hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber`,
+          hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber terindeks`,
         },
         {
           code: "N-03",
-          label: "Template",
+          label: "Template ekstraksi",
+          shortLabel: "Template",
           value: summary.templates,
-          hint: "pola ekstraksi",
+          hint: "Pola parsing dokumen",
         },
         {
           code: "N-05",
-          label: "File selesai",
+          label: "File selesai diproses",
+          shortLabel: "Selesai",
           value: summary.doneFiles,
           tone: "cyan",
-          hint: `riwayat ${fmt(summary.history)}`,
+          hint: `Riwayat ${fmt(summary.history)} file`,
         },
         {
           code: "N-06",
           label: "Foto tersensor",
+          shortLabel: "Foto",
           value: summary.photos,
           tone: "amber",
-          hint: `${photoPct}% entitas`,
+          hint: `${photoPct}% entitas punya foto`,
         },
       ],
     },
@@ -431,37 +566,44 @@ function renderOverviewVolume(data) {
         {
           code: "I-01",
           label: "Entri indeks",
+          shortLabel: "Entri",
           value: indexTotal.entries,
           tone: "intel",
           hint: `${fmt(indexRows.length)} tipe field`,
         },
         {
           code: "I-02",
-          label: "Referensi",
+          label: "Referensi silang",
+          shortLabel: "Ref",
           value: indexTotal.refs,
           tone: "cyan",
-          hint: "silang antar entitas",
+          hint: "Referensi antar entitas",
         },
         {
           code: "G-01",
-          label: "Edge graf",
+          label: technical ? "Edge graf" : "Relasi data",
+          shortLabel: technical ? "Edge" : "Relasi",
           value: intel.graphEdges,
-          hint: `${intel.entityLinkRate ?? "—"} identitas/entitas`,
+          hint: technical
+            ? `${intel.entityLinkRate ?? "—"} identitas per entitas`
+            : "Keterhubungan antar field",
         },
         {
           code: "G-02",
-          label: "Vektor aktif",
+          label: technical ? "Vektor aktif" : "Field aktif",
+          shortLabel: technical ? "Vektor" : "Field",
           value: intel.activeVectors,
-          hint: topCoverage ? `terkuat ${topCoverage.label}` : "kelengkapan",
+          hint: topCoverage ? `Terkuat: ${topCoverage.label}` : "Kelengkapan field",
         },
       ],
     },
     {
-      title: "Operasi",
+      title: "Geo & antrian",
       items: [
         {
           code: "GEO-1",
-          label: "Orang di peta",
+          label: "Entitas di peta",
+          shortLabel: "Di peta",
           value: geo.geocodedEntities,
           tone: "cyan",
           hint: `${fmt(geo.mappedCities)} kota terpetakan`,
@@ -469,18 +611,21 @@ function renderOverviewVolume(data) {
         {
           code: "GEO-2",
           label: "Punya data kota",
+          shortLabel: "Punya kota",
           value: geo.entitiesWithCity,
-          hint: `${pct(geo.entitiesWithCity, entityTotal)}% entitas`,
+          hint: `${pct(geo.entitiesWithCity, entityTotal)}% dari entitas`,
         },
         {
           code: "GEO-3",
           label: "Kota unik",
+          shortLabel: "Kota",
           value: geo.uniqueCities,
-          hint: `${fmt(geo.mappedCities)} punya koordinat`,
+          hint: `${fmt(geo.mappedCities)} dengan koordinat`,
         },
         {
           code: "Q-01",
           label: "Antrian URL",
+          shortLabel: "Antrian",
           value: queue.total,
           tone: "amber",
           hint: `${fmt(queue.pending)} menunggu · ${fmt(queue.failed)} gagal`,
@@ -490,35 +635,498 @@ function renderOverviewVolume(data) {
   ];
 
   clear(container);
-  container.className = "volume-panel";
+  container.className = "volume-panel volume-panel--compact";
+
+  const grid = document.createElement("div");
+  grid.className = "volume-compact-grid";
+  grid.setAttribute("role", "list");
 
   for (const group of groups) {
-    const section = document.createElement("section");
-    section.className = "volume-group";
+    const col = document.createElement("section");
+    col.className = "volume-compact-col";
+    col.setAttribute("role", "listitem");
 
     const title = document.createElement("h4");
-    title.className = "volume-group__title";
+    title.className = "volume-compact-col__title";
     appendText(title, group.title);
-    section.appendChild(title);
+    col.appendChild(title);
 
-    const grid = document.createElement("div");
-    grid.className = "volume-group__grid";
+    const items = document.createElement("div");
+    items.className = "volume-compact-col__items";
     for (const item of group.items) {
-      grid.appendChild(createVolumeStatCard(item));
+      items.appendChild(createCompactVolumeMetric(item));
     }
-    section.appendChild(grid);
-    container.appendChild(section);
+    col.append(items);
+    grid.appendChild(col);
   }
+
+  container.appendChild(grid);
 
   const capVol = document.getElementById("overview-volume-caption");
   if (capVol) {
     capVol.textContent = [
       `${fmt(summary.documents)} dok`,
       `${fmt(indexTotal.entries)} entri`,
-      `${fmt(geo.geocodedEntities)} di peta`,
-      `${pct(queue.done, queueTotal)}% unduhan`,
+      `${fmt(geo.geocodedEntities)} peta`,
+      `${pct(queue.done, queueTotal)}% unduh`,
     ].join(" · ");
   }
+}
+
+function renderCoverageMeters(coverage, containerId = "overview-coverage-meters") {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  clear(container);
+
+  const sorted = [...(coverage || [])].sort((a, b) => (b.pct || 0) - (a.pct || 0));
+  for (let i = 0; i < sorted.length; i++) {
+    const item = sorted[i];
+    const color = COVERAGE_COLORS[i % COVERAGE_COLORS.length];
+    const row = document.createElement("div");
+    row.className = "signal-meter";
+    row.setAttribute("role", "listitem");
+
+    const head = document.createElement("div");
+    head.className = "signal-meter__head";
+
+    const label = document.createElement("span");
+    label.className = "signal-meter__label";
+    appendText(label, VECTOR_LABELS[item.label] || item.label);
+
+    const pctEl = document.createElement("span");
+    pctEl.className = "signal-meter__pct";
+    appendText(pctEl, `${item.pct ?? pct(item.value, 1)}%`);
+
+    head.append(label, pctEl);
+
+    const track = document.createElement("div");
+    track.className = "signal-meter__track";
+    track.setAttribute("aria-hidden", "true");
+
+    const fill = document.createElement("span");
+    fill.className = "signal-meter__fill";
+    fill.style.width = `${Math.max(item.pct || pct(item.value, 1), 3)}%`;
+    fill.style.background = color;
+    fill.style.setProperty("--signal-glow", color);
+
+    track.appendChild(fill);
+    row.append(head, track);
+    container.appendChild(row);
+  }
+}
+
+function renderCoverageSignal(coverage, total) {
+  renderCoverageMeters(coverage);
+  renderUsageBar(coverage, total, "overview-coverage-bar");
+}
+
+const QUEUE_SIGNAL_ITEMS = [
+  { key: "pending", label: "Menunggu", short: "Tunggu", color: COLORS.amber },
+  { key: "done", label: "Selesai", short: "Selesai", color: COLORS.intel },
+  { key: "failed", label: "Gagal", short: "Gagal", color: COLORS.danger },
+  { key: "processing", label: "Diproses", short: "Proses", color: COLORS.cyan, optional: true },
+];
+
+function queueSignalItems(queue) {
+  const items = QUEUE_SIGNAL_ITEMS.filter((item) => !item.optional || (queue[item.key] || 0) > 0);
+  return items.map((item) => ({
+    ...item,
+    value: queue[item.key] || 0,
+  }));
+}
+
+function renderQueueKpis(queue, containerId = "overview-queue-kpis", { statusFilter = "all" } = {}) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  clear(container);
+
+  const total = queue.total || 1;
+  const items = queueSignalItems(queue);
+  const visible = statusFilter === "all" ? items : items.filter((item) => item.key === statusFilter);
+
+  for (const item of visible) {
+    const card = document.createElement("div");
+    card.className = "signal-kpi";
+    card.dataset.tone = item.key;
+
+    const label = document.createElement("span");
+    label.className = "signal-kpi__label";
+    appendText(label, item.short);
+
+    const value = document.createElement("strong");
+    value.className = "signal-kpi__value";
+    value.style.color = item.color;
+    appendText(value, fmt(item.value));
+
+    const sub = document.createElement("span");
+    sub.className = "signal-kpi__sub";
+    appendText(sub, `${pct(item.value, total)}%`);
+
+    card.append(label, value, sub);
+    container.appendChild(card);
+  }
+
+  const totalCard = document.createElement("div");
+  totalCard.className = "signal-kpi signal-kpi--total";
+  const totalLabel = document.createElement("span");
+  totalLabel.className = "signal-kpi__label";
+  appendText(totalLabel, "Total URL");
+  const totalValue = document.createElement("strong");
+  totalValue.className = "signal-kpi__value";
+  appendText(totalValue, fmt(queue.total || 0));
+  totalCard.append(totalLabel, totalValue);
+  if (statusFilter === "all") {
+    container.appendChild(totalCard);
+  }
+}
+
+function renderQueuePipeline(queue, containerId = "overview-queue-pipeline", { statusFilter = "all" } = {}) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  clear(container);
+
+  if (statusFilter !== "all") {
+    container.hidden = true;
+    return;
+  }
+  container.hidden = false;
+
+  const total = queue.total || 1;
+  const items = queueSignalItems(queue).filter((item) => item.value > 0 || !item.optional);
+  if (!items.length) return;
+
+  const track = document.createElement("div");
+  track.className = "signal-pipeline__track";
+
+  for (const item of items) {
+    const seg = document.createElement("span");
+    seg.className = "signal-pipeline__seg";
+    seg.style.flex = String(Math.max(item.value, 1));
+    seg.style.background = item.color;
+    seg.title = `${item.label}: ${fmt(item.value)} (${pct(item.value, total)}%)`;
+    track.appendChild(seg);
+  }
+
+  const labels = document.createElement("div");
+  labels.className = "signal-pipeline__labels";
+  for (const item of items) {
+    const chip = document.createElement("span");
+    chip.className = "signal-pipeline__chip";
+    chip.style.color = item.color;
+    appendText(chip, item.short);
+    labels.appendChild(chip);
+  }
+
+  container.append(track, labels);
+}
+
+function renderQueueSignal(queue, options = {}) {
+  const statusFilter = options.statusFilter ?? getQueueFilter();
+  renderQueueKpis(queue, "overview-queue-kpis", { statusFilter });
+  renderQueuePipeline(queue, "overview-queue-pipeline", { statusFilter });
+  renderQueueStats(queue, "overview-queue-stats", { statusFilter });
+  buildQueueChart(queue, "overview-queue-chart", { compact: true, statusFilter });
+}
+
+const SANKEY_QUEUE_STATUS = [
+  { key: "pending", label: "Menunggu", color: COLORS.amber },
+  { key: "processing", label: "Diproses", color: COLORS.cyan },
+  { key: "done", label: "Selesai", color: COLORS.intel },
+  { key: "failed", label: "Gagal", color: COLORS.danger },
+];
+
+const DOMPENG_ECHART_STORE = {
+  overviewSankey: "DOMPENG_OVERVIEW_SANKEY",
+  indexChord: "DOMPENG_INDEX_CHORD",
+};
+
+const DOMPENG_ECHART_TOOLTIP = {
+  backgroundColor: "rgba(11, 17, 24, 0.94)",
+  borderColor: "rgba(78, 201, 255, 0.35)",
+  textStyle: {
+    color: "#c5d4e3",
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: 11,
+  },
+};
+
+const SANKEY_LEVEL_STYLES = [
+  { depth: 0, itemStyle: { color: COLORS.cyan }, label: { fontSize: 12, fontWeight: 700 } },
+  { depth: 1, itemStyle: { color: COLORS.intel } },
+  { depth: 2, itemStyle: { color: "rgba(0, 212, 170, 0.88)" } },
+  { depth: 3, itemStyle: { color: COLORS.purple } },
+];
+
+/** Inisialisasi / reuse instance ECharts pada elemen dashboard. */
+function initDompengEchart(el, storeKey) {
+  if (!el || typeof echarts === "undefined") return null;
+
+  let chart = window[storeKey];
+  if (chart) {
+    try {
+      if (chart.getDom() !== el) {
+        chart.dispose();
+        chart = null;
+        window[storeKey] = null;
+      }
+    } catch {
+      chart = null;
+      window[storeKey] = null;
+    }
+  }
+
+  if (!chart) {
+    window[storeKey] = echarts.init(el, null, { renderer: "canvas" });
+    chart = window[storeKey];
+  }
+  return chart;
+}
+
+function resizeDompengEchart(storeKey) {
+  const chart = window[storeKey];
+  if (chart?.resize) chart.resize();
+}
+
+/** Alokasi bilangan bulat proporsional; jumlah tepat sama dengan target. */
+function allocateProportionalIntegers(parts, targetTotal) {
+  const total = Math.round(Number(targetTotal) || 0);
+  if (total <= 0 || !parts.length) return [];
+
+  const weights = parts.map((p) => Math.max(Number(p) || 0, 0));
+  const weightSum = weights.reduce((sum, w) => sum + w, 0);
+  if (weightSum <= 0) return weights.map(() => 0);
+
+  const raw = weights.map((w) => (w / weightSum) * total);
+  const values = raw.map((r) => Math.floor(r));
+  let remainder = total - values.reduce((sum, v) => sum + v, 0);
+  const order = raw
+    .map((r, i) => ({ i, frac: r - values[i] }))
+    .sort((a, b) => b.frac - a.frac);
+  for (let n = 0; n < remainder; n++) {
+    values[order[n % order.length].i] += 1;
+  }
+  return values;
+}
+
+/**
+ * Sankey ringkasan — alur yang konservatif per cabang:
+ * dokumen → entitas → geo (partisi) + indeks (proporsi entri, bukan total mentah);
+ * dokumen → antrian URL. Vektor coverage sengaja tidak digambar (tumpang tindih antar field).
+ */
+function buildOverviewSankeyData(data) {
+  const summary = data.summary || {};
+  const queue = data.queue || {};
+  const geo = data.geo || {};
+  const persons = summary.persons || data.coverageTotal || 0;
+  const indexRows = [...(data.indexRows || [])]
+    .filter((row) => (row.entries || 0) > 0)
+    .sort((a, b) => (b.entries || 0) - (a.entries || 0))
+    .slice(0, 5);
+
+  const nodeMap = new Map();
+  const links = [];
+
+  function node(name, color, depth) {
+    if (!nodeMap.has(name)) {
+      nodeMap.set(name, {
+        name,
+        depth,
+        itemStyle: {
+          color,
+          borderColor: "rgba(255, 255, 255, 0.12)",
+          borderWidth: 1,
+        },
+      });
+    }
+    return name;
+  }
+
+  function addLink(source, target, value, meta = {}) {
+    const v = Math.round(Number(value) || 0);
+    if (v <= 0 || source === target) return;
+    links.push({ source, target, value: v, ...meta });
+  }
+
+  const nDoc = node("Dokumen publik", COLORS.cyan, 0);
+  const nEnt = node("Entitas terindeks", COLORS.intel, 1);
+
+  addLink(nDoc, nEnt, persons);
+
+  const geocoded = geo.geocodedEntities || 0;
+  const notGeocoded = Math.max(0, persons - geocoded);
+  if (geocoded > 0) {
+    addLink(nEnt, node("Terpetakan kota", COLORS.cyan, 2), geocoded, { metric: "geo" });
+  }
+  if (notGeocoded > 0) {
+    addLink(nEnt, node("Belum terpetakan", COLORS.muted, 2), notGeocoded, { metric: "geo" });
+  }
+
+  const indexEntrySum = indexRows.reduce((sum, row) => sum + (row.entries || 0), 0);
+  if (persons > 0 && indexRows.length && indexEntrySum > 0) {
+    const nIdx = node("Indeks pencarian", COLORS.purple, 2);
+    const scaled = allocateProportionalIntegers(
+      indexRows.map((row) => row.entries),
+      persons,
+    );
+    let indexHubFlow = 0;
+    for (let i = 0; i < indexRows.length; i++) {
+      const flow = scaled[i];
+      if (flow <= 0) continue;
+      const row = indexRows[i];
+      const color = [COLORS.intel, COLORS.cyan, COLORS.amber, COLORS.pink, COLORS.purple][i % 5];
+      addLink(nIdx, node(`Indeks · ${row.type}`, color, 3), flow, {
+        metric: "index_entries",
+        actual: row.entries,
+        indexEntrySum,
+      });
+      indexHubFlow += flow;
+    }
+    if (indexHubFlow > 0) {
+      addLink(nEnt, nIdx, indexHubFlow, {
+        metric: "index_hub",
+        actual: indexEntrySum,
+      });
+    }
+  }
+
+  const queueTotal = queue.total || 0;
+  if (queueTotal > 0) {
+    const nQueue = node("Antrian URL", COLORS.amber, 1);
+    addLink(nDoc, nQueue, queueTotal, { metric: "queue" });
+    for (const item of SANKEY_QUEUE_STATUS) {
+      const v = queue[item.key] || 0;
+      if (v > 0) {
+        addLink(nQueue, node(item.label, item.color, 2), v, { metric: "queue_status" });
+      }
+    }
+  }
+
+  return { nodes: [...nodeMap.values()], links };
+}
+
+function formatSankeyTooltip(params) {
+  if (params.dataType === "edge") {
+    const d = params.data;
+    let html = `${d.source} → ${d.target}<br/><strong>${fmt(d.value)}</strong>`;
+    if (d.metric === "index_entries" && d.actual != null) {
+      html += `<br/><span style="opacity:0.88">Entri indeks aktual: <strong>${fmt(d.actual)}</strong></span>`;
+      if (d.indexEntrySum) {
+        const share = ((d.actual / d.indexEntrySum) * 100).toFixed(1);
+        html += `<br/><span style="opacity:0.75">≈ ${share}% dari entri indeks yang digambar</span>`;
+      }
+    } else if (d.metric === "index_hub" && d.actual != null) {
+      html += `<br/><span style="opacity:0.88">Total entri indeks (semua tipe): <strong>${fmt(d.actual)}</strong></span>`;
+      html += `<br/><span style="opacity:0.75">Lebar cabang = proporsi entri, dibatasi skala entitas</span>`;
+    } else if (d.metric === "queue") {
+      html += `<br/><span style="opacity:0.75">Jumlah URL antrian, bukan jumlah dokumen</span>`;
+    }
+    return html;
+  }
+  const total = (params.data?.value ?? 0) || 0;
+  return `${params.name}<br/>Total alur: <strong>${fmt(total)}</strong>`;
+}
+
+function buildOverviewSankey(data) {
+  const el = document.getElementById("overview-sankey-chart");
+  if (!el) return null;
+
+  const { nodes, links } = buildOverviewSankeyData(data);
+  const sankeyLinks = links.map((link) => ({ ...link }));
+  renderOverviewSankeyTable(sankeyLinks);
+
+  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.overviewSankey);
+  if (!chart) {
+    showChartFallbackTables();
+    return null;
+  }
+
+  chart.setOption(
+    {
+      backgroundColor: "transparent",
+      animationDuration: 480,
+      tooltip: {
+        ...DOMPENG_ECHART_TOOLTIP,
+        trigger: "item",
+        triggerOn: "mousemove",
+        formatter: formatSankeyTooltip,
+      },
+      series: [
+        {
+          type: "sankey",
+          layout: "none",
+          top: 10,
+          bottom: 10,
+          left: 8,
+          right: 152,
+          nodeAlign: "justify",
+          nodeGap: 14,
+          nodeWidth: 18,
+          layoutIterations: 64,
+          draggable: false,
+          emphasis: {
+            focus: "adjacency",
+            lineStyle: { opacity: 0.72 },
+          },
+          levels: SANKEY_LEVEL_STYLES,
+          lineStyle: {
+            color: "gradient",
+            curveness: 0.48,
+            opacity: 0.45,
+          },
+          label: {
+            show: true,
+            position: "right",
+            color: "#9eb4c8",
+            fontFamily: "'IBM Plex Mono', monospace",
+            fontSize: 11,
+            fontWeight: 600,
+            formatter: "{b}",
+          },
+          data: nodes,
+          links: sankeyLinks,
+        },
+      ],
+    },
+    { notMerge: true },
+  );
+
+  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.overviewSankey));
+  return chart;
+}
+
+function sankeyTableNote(link) {
+  if (link.metric === "index_entries" && link.actual != null) {
+    return `Entri indeks aktual: ${fmt(link.actual)}`;
+  }
+  if (link.metric === "index_hub" && link.actual != null) {
+    return `Total entri semua tipe: ${fmt(link.actual)}`;
+  }
+  if (link.metric === "queue") return "Satuan: URL antrian (bukan dokumen)";
+  if (link.metric === "queue_status") return "Status antrian";
+  if (link.metric === "geo") return "Partisi entitas";
+  return "";
+}
+
+function renderOverviewSankeyTable(links) {
+  renderDataTable(
+    "overview-sankey-table",
+    [
+      { key: "source", label: "Dari" },
+      { key: "target", label: "Ke" },
+      { key: "value", label: "Alur", numeric: true },
+      { key: "note", label: "Catatan" },
+    ],
+    (links || []).map((link) => ({
+      source: link.source,
+      target: link.target,
+      value: link.value,
+      note: sankeyTableNote(link),
+    })),
+  );
+}
+
+function resizeOverviewSankey() {
+  resizeDompengEchart(DOMPENG_ECHART_STORE.overviewSankey);
 }
 
 function renderUsageBar(coverage, total, barId = "coverage-bar") {
@@ -549,38 +1157,66 @@ function renderUsageBar(coverage, total, barId = "coverage-bar") {
   bar.append(labels, track);
 }
 
-function renderQueueStats(queue, containerId = "queue-stats") {
+function renderQueueStats(queue, containerId = "queue-stats", { statusFilter = getQueueFilter() } = {}) {
   const total = queue.total || 1;
   const items = [
-    { label: "Menunggu", value: queue.pending, color: COLORS.amber },
-    { label: "Berhasil", value: queue.done, color: COLORS.intel },
-    { label: "Gagal", value: queue.failed, color: COLORS.danger },
+    { key: "pending", label: "Menunggu", value: queue.pending, color: COLORS.amber },
+    { key: "done", label: "Berhasil", value: queue.done, color: COLORS.intel },
+    { key: "failed", label: "Gagal", value: queue.failed, color: COLORS.danger },
   ];
   if (queue.processing > 0) {
-    items.push({ label: "Sedang diproses", value: queue.processing, color: COLORS.cyan });
+    items.push({ key: "processing", label: "Sedang diproses", value: queue.processing, color: COLORS.cyan });
   }
+
+  const visible =
+    statusFilter === "all" ? items : items.filter((item) => item.key === statusFilter);
 
   const container = document.getElementById(containerId);
   if (!container) return;
   clear(container);
+  const isSignalLegend = container.classList.contains("signal-legend");
 
-  for (const item of items) {
+  if (!visible.length) {
+    const empty = document.createElement("p");
+    empty.className = "overview-city-empty";
+    appendText(empty, "Tidak ada status yang cocok.");
+    container.appendChild(empty);
+    return;
+  }
+
+  for (const item of visible) {
     const row = document.createElement("div");
-    row.className = "queue-stat";
+    row.className = isSignalLegend ? "signal-legend__item" : "queue-stat";
+    row.setAttribute("role", isSignalLegend ? "listitem" : undefined);
+    if (statusFilter !== "all" && item.key === statusFilter) {
+      row.dataset.highlight = "true";
+    }
 
     const dot = document.createElement("span");
-    dot.className = "queue-stat-dot";
+    dot.className = isSignalLegend ? "signal-legend__dot" : "queue-stat-dot";
     dot.style.background = item.color;
 
     const label = document.createElement("span");
-    label.className = "queue-stat-label";
+    label.className = isSignalLegend ? "signal-legend__label" : "queue-stat-label";
     appendText(label, item.label);
 
     const value = document.createElement("span");
-    value.className = "queue-stat-value";
+    value.className = isSignalLegend ? "signal-legend__value" : "queue-stat-value";
     appendText(value, `${fmt(item.value)} · ${pct(item.value, total)}%`);
 
-    row.append(dot, label, value);
+    if (isSignalLegend) {
+      const track = document.createElement("span");
+      track.className = "signal-legend__track";
+      track.setAttribute("aria-hidden", "true");
+      const fill = document.createElement("span");
+      fill.className = "signal-legend__fill";
+      fill.style.width = `${Math.max(pct(item.value, total), 4)}%`;
+      fill.style.background = item.color;
+      track.appendChild(fill);
+      row.append(dot, label, value, track);
+    } else {
+      row.append(dot, label, value);
+    }
     container.appendChild(row);
   }
 }
@@ -968,10 +1604,22 @@ function renderShowcaseEntities(entities) {
 
   renderPreviewBrief(rows);
 
+  const computeVisibleIndices = () => {
+    const filters = getPreviewFilters();
+    return rows.map((_, index) => index).filter((index) => previewEntityMatches(rows[index], filters));
+  };
+
   const updateListMeta = () => {
     if (!listMeta) return;
     if (!rows.length) {
       listMeta.textContent = "0 entri";
+      return;
+    }
+    const filters = getPreviewFilters();
+    const hasFilter = Boolean(filters.query) || filters.type !== "all";
+    const shown = visibleIndices.length;
+    if (hasFilter) {
+      listMeta.textContent = `${fmt(shown)} dari ${fmt(rows.length)} · ↑↓ navigasi`;
       return;
     }
     listMeta.textContent = `${fmt(rows.length)} entri · ↑↓ navigasi`;
@@ -1025,14 +1673,16 @@ function renderShowcaseEntities(entities) {
 
   const renderListItems = () => {
     clear(listEl);
-    visibleIndices = rows.map((_, index) => index);
+    visibleIndices = computeVisibleIndices();
 
     if (!visibleIndices.length) {
       const empty = document.createElement("p");
       empty.className = "preview-list-empty";
-      empty.textContent = "Tidak ada sampel tersensor.";
+      empty.textContent = rows.length
+        ? "Tidak ada sampel yang cocok dengan filter."
+        : "Tidak ada sampel tersensor.";
       listEl.appendChild(empty);
-      showEmptyDetail("# tidak ada sampel tersensor");
+      showEmptyDetail(rows.length ? "# tidak ada sampel yang cocok" : "# tidak ada sampel tersensor");
       updateListMeta();
       return;
     }
@@ -1099,8 +1749,11 @@ function renderShowcaseEntities(entities) {
   if (!rows.length) {
     showEmptyDetail("# tidak ada sampel tersensor");
     updateListMeta();
+    previewFilterHandler = null;
     return;
   }
+
+  previewFilterHandler = () => applyFilter({ preserveSelection: true });
 
   const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
   const requested = hashState?.id === "preview" ? Number(hashState.detail) - 1 : -1;
@@ -1212,10 +1865,12 @@ const QUEUE_CHART_SEGMENTS = [
   { label: "Diproses", key: "processing", color: COLORS.cyan, optional: true },
 ];
 
-function queueChartSegments(queue) {
+function queueChartSegments(queue, { statusFilter = "all" } = {}) {
   const core = QUEUE_CHART_SEGMENTS.filter((s) => !s.optional);
   const extra = QUEUE_CHART_SEGMENTS.filter((s) => s.optional && (queue[s.key] || 0) > 0);
-  return [...core, ...extra];
+  const segments = [...core, ...extra];
+  if (statusFilter === "all") return segments;
+  return segments.filter((segment) => segment.key === statusFilter);
 }
 
 /** Nilai tampilan minimum agar slice 0 tetap terlihat di donut. */
@@ -1228,7 +1883,7 @@ function queueChartDisplayValues(rawValues) {
   return rawValues.map((v) => (v > 0 ? v : floor));
 }
 
-function buildQueueChart(queue, canvasId = "queue-chart") {
+function buildQueueChart(queue, canvasId = "queue-chart", options = {}) {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
@@ -1239,7 +1894,9 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
   const existing = Chart.getChart(ctx);
   if (existing) existing.destroy();
 
-  const segments = queueChartSegments(queue);
+  const statusFilter = options.statusFilter ?? getQueueFilter();
+  const segments = queueChartSegments(queue, { statusFilter });
+  if (!segments.length) return null;
   const labels = segments.map((s) => s.label);
   const colors = segments.map((s) => s.color);
   const rawValues = segments.map((s) => queue[s.key] || 0);
@@ -1288,73 +1945,360 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
   });
 }
 
-function buildIndexChart(indexRows) {
-  const ctx = document.getElementById("index-chart");
-  if (!ctx) return null;
+/** Radar profil antrian di ringkasan GEO (sumbu = status URL, nilai = % dari total). */
+function buildQueueRadarChart(queue, canvasId = "overview-queue-radar", options = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
   if (typeof Chart === "undefined") {
-    showChartFallbackTables();
+    renderQueueRadarFallback(queue, "overview-queue-radar-fallback");
     return null;
   }
 
-  const existing = Chart.getChart(ctx);
-  if (existing) existing.destroy();
-
-  const rows = indexRows || [];
-  const labels = rows.map((r) => r.type);
-  const wrap = ctx.closest(".chart-wrap--analytics-index");
-  if (wrap) {
-    const rowHeight = 32;
-    wrap.style.minHeight = `${Math.max(220, rows.length * rowHeight + 56)}px`;
+  const fallback = document.getElementById("overview-queue-radar-fallback");
+  if (fallback) {
+    fallback.hidden = true;
+    clear(fallback);
   }
 
-  return new Chart(ctx, {
-    type: "bar",
+  const existing = Chart.getChart(canvas);
+  if (existing) existing.destroy();
+
+  const statusFilter = options.statusFilter ?? getQueueFilter();
+  const segments = queueChartSegments(queue, { statusFilter });
+  if (!segments.length) return null;
+
+  const total = queue.total || 0;
+  const labels = segments.map((s) => s.label);
+  const rawValues = segments.map((s) => queue[s.key] || 0);
+  const pctValues = rawValues.map((v) => (total ? Math.round((v / total) * 1000) / 10 : 0));
+  const pointColors = segments.map((s) => s.color);
+
+  return new Chart(canvas, {
+    type: "radar",
     data: {
       labels,
       datasets: [
         {
-          label: "Entri",
-          data: rows.map((r) => r.entries),
-          backgroundColor: COLORS.intel,
-          borderRadius: 2,
-          borderSkipped: false,
-        },
-        {
-          label: "Referensi",
-          data: rows.map((r) => r.refs),
-          backgroundColor: COLORS.cyan,
-          borderRadius: 2,
-          borderSkipped: false,
+          label: "Antrian URL",
+          data: pctValues,
+          backgroundColor: "rgba(230, 168, 23, 0.18)",
+          borderColor: COLORS.amber,
+          borderWidth: 2,
+          pointBackgroundColor: pointColors,
+          pointBorderColor: "#0b1118",
+          pointBorderWidth: 1,
+          pointRadius: 4,
+          pointHoverRadius: 5,
         },
       ],
     },
     options: {
-      ...chartDefaults,
-      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
       plugins: {
-        ...chartDefaults.plugins,
-        legend: {
-          ...chartDefaults.plugins.legend,
-          position: "top",
-          align: "end",
+        legend: { display: false },
+        tooltip: {
+          ...chartDefaults.plugins.tooltip,
+          callbacks: {
+            label(ctx) {
+              const raw = rawValues[ctx.dataIndex] ?? 0;
+              return `${ctx.label}: ${fmt(raw)} (${ctx.formattedValue}%)`;
+            },
+            afterBody() {
+              return total ? `Total antrian: ${fmt(total)} URL` : "";
+            },
+          },
         },
       },
       scales: {
-        x: {
-          ...chartDefaults.scales.x,
-          grid: { color: COLORS.grid },
-        },
-        y: {
-          ...chartDefaults.scales.y,
-          grid: { display: false },
+        r: {
+          beginAtZero: true,
+          max: 100,
           ticks: {
-            ...chartDefaults.scales.y.ticks,
-            autoSkip: false,
+            display: false,
+            stepSize: 25,
+          },
+          grid: { color: COLORS.grid },
+          angleLines: { color: COLORS.grid },
+          pointLabels: {
+            color: COLORS.muted,
+            font: { family: "'IBM Plex Mono', monospace", size: 10, weight: "600" },
+            padding: 6,
           },
         },
       },
     },
   });
+}
+
+function updateOverviewQueueRadarCaption(queue, statusFilter = "all") {
+  const el = document.getElementById("overview-queue-radar-caption");
+  if (!el) return;
+
+  const total = queue.total || 0;
+  if (!total) {
+    el.textContent = "Belum ada URL di antrian unduhan";
+    return;
+  }
+
+  const filterLabel = QUEUE_FILTER_LABELS[statusFilter];
+  const items = queueSignalItems(queue);
+  const visible =
+    statusFilter === "all" ? items : items.filter((item) => item.key === statusFilter);
+
+  const parts = visible.map(
+    (item) => `${item.short} ${fmt(item.value)} (${pct(item.value, total)}%)`,
+  );
+  el.textContent =
+    statusFilter === "all"
+      ? parts.join(" · ")
+      : `${filterLabel}: ${parts[0] || "—"} · total ${fmt(total)} URL`;
+}
+
+function renderQueueRadarFallback(queue, containerId = "overview-queue-radar-fallback") {
+  const container = document.getElementById(containerId);
+  const canvas = document.getElementById("overview-queue-radar");
+  if (!container) return;
+  clear(container);
+
+  const total = queue.total || 0;
+  const items = queueSignalItems(queue);
+
+  if (canvas) canvas.hidden = true;
+  container.hidden = false;
+
+  if (!total) {
+    const li = document.createElement("li");
+    appendText(li, "Belum ada URL di antrian.");
+    container.appendChild(li);
+    return;
+  }
+
+  for (const item of items) {
+    const li = document.createElement("li");
+    appendText(li, `${item.label}: ${fmt(item.value)} (${pct(item.value, total)}%)`);
+    container.appendChild(li);
+  }
+}
+
+function renderOverviewQueueRadar(queue, options = {}) {
+  const statusFilter = options.statusFilter ?? getQueueFilter();
+  updateOverviewQueueRadarCaption(queue, statusFilter);
+  const chart = buildQueueRadarChart(queue, "overview-queue-radar", { statusFilter });
+  const canvas = document.getElementById("overview-queue-radar");
+  if (chart && canvas) canvas.hidden = false;
+}
+
+const INDEX_TREEMAP_SHARED_TONES = ["#00d4aa", "#00b894", "#00a07a", "#4ec9ff", "#3ab8e8"];
+const INDEX_TREEMAP_UNIQUE_TONES = ["#e6a817", "#d49a14", "#c28a11", "#ff7eb3", "#e86a9f"];
+
+function indexTreemapLeafColor(kind, index) {
+  const palette = kind === "unique" ? INDEX_TREEMAP_UNIQUE_TONES : INDEX_TREEMAP_SHARED_TONES;
+  return palette[index % palette.length];
+}
+
+function indexTreemapLeaf(row, totalEntries, kindIndex) {
+  const entries = row.entries || 0;
+  const refs = row.refs || 0;
+  const ratio = entries > 0 ? refs / entries : 0;
+  return {
+    name: row.type,
+    value: entries,
+    entries,
+    refs,
+    ratio,
+    rowKind: row.kind,
+    pctTotal: totalEntries > 0 ? (entries / totalEntries) * 100 : 0,
+    itemStyle: {
+      color: indexTreemapLeafColor(row.kind, kindIndex),
+      borderColor: "rgba(255, 255, 255, 0.14)",
+      borderWidth: 1,
+    },
+  };
+}
+
+/** Hierarki treemap: Silang / Unik → tipe (luas = entri). */
+function buildIndexTreemapData(indexRows) {
+  const rows = (indexRows || []).filter((row) => (row.entries || 0) > 0);
+  const totalEntries = rows.reduce((sum, row) => sum + (row.entries || 0), 0);
+  const shared = { name: "Silang", children: [] };
+  const unique = { name: "Unik", children: [] };
+  let sharedIdx = 0;
+  let uniqueIdx = 0;
+
+  for (const row of rows) {
+    if (row.kind === "unique") {
+      unique.children.push(indexTreemapLeaf(row, totalEntries, uniqueIdx++));
+    } else {
+      shared.children.push(indexTreemapLeaf(row, totalEntries, sharedIdx++));
+    }
+  }
+
+  shared.children.sort((a, b) => b.value - a.value);
+  unique.children.sort((a, b) => b.value - a.value);
+
+  const data = [];
+  if (shared.children.length) {
+    data.push({
+      ...shared,
+      itemStyle: { color: "rgba(0, 212, 170, 0.22)", borderColor: "rgba(0, 212, 170, 0.45)", borderWidth: 2 },
+    });
+  }
+  if (unique.children.length) {
+    data.push({
+      ...unique,
+      itemStyle: { color: "rgba(230, 168, 23, 0.2)", borderColor: "rgba(230, 168, 23, 0.45)", borderWidth: 2 },
+    });
+  }
+
+  return { data, totalEntries };
+}
+
+function formatIndexTreemapTooltip(params) {
+  const d = params.data || {};
+  if (d.children?.length) {
+    const groupEntries = d.children.reduce((sum, child) => sum + (child.value || 0), 0);
+    return [
+      `<strong>${params.name}</strong>`,
+      `${fmt(groupEntries)} entri · ${d.children.length} tipe`,
+    ].join("<br/>");
+  }
+
+  const mode = d.rowKind === "unique" ? "Unik" : "Silang";
+  const ratio = d.entries > 0 ? `${d.ratio.toFixed(2)}×` : "—";
+  return [
+    `<strong>${d.name}</strong>`,
+    `Mode: ${mode}`,
+    `Entri: <strong>${fmt(d.entries)}</strong> (${(d.pctTotal || 0).toFixed(1)}% total)`,
+    `Referensi: <strong>${fmt(d.refs)}</strong>`,
+    `Rasio ref/entri: <strong>${ratio}</strong>`,
+  ].join("<br/>");
+}
+
+function indexTreemapLeafLabel(params) {
+  const d = params.data || {};
+  if (d.children?.length) return "";
+  if ((d.pctTotal || 0) < 1.8) return d.name.length <= 10 ? d.name : "";
+  if ((d.pctTotal || 0) < 5) return d.name;
+  return `${d.name}\n${fmt(d.entries)}`;
+}
+
+function buildIndexTreemap(indexRows) {
+  const el = document.getElementById("index-treemap-chart");
+  if (!el) return null;
+
+  const chart = initDompengEchart(el, DOMPENG_ECHART_STORE.indexTreemap);
+  if (!chart) {
+    showChartFallbackTables();
+    return null;
+  }
+
+  if (!(indexRows || []).length) {
+    chart.setOption(
+      {
+        backgroundColor: "transparent",
+        graphic: {
+          type: "text",
+          left: "center",
+          top: "middle",
+          style: {
+            text: "Tidak ada tipe indeks cocok",
+            fill: COLORS.muted,
+            font: "600 12px 'IBM Plex Mono', monospace",
+          },
+        },
+      },
+      { notMerge: true },
+    );
+    return chart;
+  }
+
+  const { data } = buildIndexTreemapData(indexRows);
+  const labelFont = "'IBM Plex Mono', monospace";
+
+  chart.setOption(
+    {
+      backgroundColor: "transparent",
+      animationDuration: 480,
+      animationEasing: "cubicOut",
+      tooltip: {
+        ...DOMPENG_ECHART_TOOLTIP,
+        trigger: "item",
+        formatter: formatIndexTreemapTooltip,
+      },
+      series: [
+        {
+          type: "treemap",
+          roam: false,
+          nodeClick: false,
+          breadcrumb: { show: false },
+          left: 2,
+          right: 2,
+          top: 2,
+          bottom: 2,
+          label: {
+            show: true,
+            formatter: indexTreemapLeafLabel,
+            color: "#e8f0f8",
+            fontFamily: labelFont,
+            fontSize: 11,
+            fontWeight: 600,
+            lineHeight: 14,
+          },
+          upperLabel: {
+            show: true,
+            height: 26,
+            color: "#f0f6fc",
+            fontFamily: labelFont,
+            fontSize: 11,
+            fontWeight: 700,
+          },
+          itemStyle: {
+            borderRadius: 3,
+            gapWidth: 3,
+          },
+          emphasis: {
+            focus: "descendant",
+            label: { fontSize: 12 },
+            itemStyle: {
+              borderColor: "rgba(78, 201, 255, 0.75)",
+              borderWidth: 2,
+              shadowBlur: 12,
+              shadowColor: "rgba(78, 201, 255, 0.35)",
+            },
+          },
+          levels: [
+            {
+              itemStyle: {
+                borderColor: "rgba(0, 0, 0, 0.45)",
+                borderWidth: 2,
+                gapWidth: 4,
+              },
+              upperLabel: { show: true },
+            },
+            {
+              colorSaturation: [0.72, 1],
+              itemStyle: {
+                borderColor: "rgba(255, 255, 255, 0.1)",
+                borderWidth: 1,
+                gapWidth: 2,
+              },
+              label: { fontSize: 10 },
+            },
+          ],
+          data,
+        },
+      ],
+    },
+    { notMerge: true },
+  );
+
+  window.requestAnimationFrame(() => resizeDompengEchart(DOMPENG_ECHART_STORE.indexTreemap));
+  return chart;
+}
+
+function resizeIndexTreemap() {
+  resizeDompengEchart(DOMPENG_ECHART_STORE.indexTreemap);
 }
 
 function changelogKindLabel(kind) {
@@ -1614,20 +2558,59 @@ function renderChangelog(changelog) {
   }
 }
 
+function updateGeoCityFilterMeta(matchedCount, totalCount, query) {
+  const meta = document.getElementById("geo-city-filter-meta");
+  if (!meta) return;
+  if (!totalCount) {
+    meta.textContent = "";
+    return;
+  }
+  if (!query) {
+    meta.textContent = `${fmt(totalCount)} kota`;
+    return;
+  }
+  meta.textContent = `${fmt(matchedCount)} dari ${fmt(totalCount)} kota`;
+}
+
+function refreshGeoCityViews(geo, { fitMapBounds = false } = {}) {
+  if (!geo) return;
+  const query = getCityFilterQuery();
+  const matched = filterCityClusters(geo.clusters, query);
+  updateGeoCityFilterMeta(matched.length, geo.clusters?.length || 0, query);
+  renderTopCities(geo, "overview-top-cities", 6);
+  renderTopCities(geo, "geo-map-cities", query ? matched.length : geo.clusters.length);
+  if (typeof window.applyDompengGeoCityFilter === "function") {
+    window.applyDompengGeoCityFilter(query, { fitBounds: fitMapBounds });
+  }
+}
+
 function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
   const container = document.getElementById(containerId);
-  if (!container || !geo?.clusters?.length) return;
+  if (!container) return;
   clear(container);
+  if (!geo?.clusters?.length) {
+    const empty = document.createElement("li");
+    empty.className = "overview-city-empty";
+    appendText(empty, "Belum ada data kota.");
+    container.appendChild(empty);
+    return;
+  }
 
-  const filter = (document.getElementById("overview-city-filter")?.value || "").trim().toLowerCase();
+  const onGeoSidebar = containerId === "geo-map-cities";
+  const filter = getCityFilterQuery();
   const matched = [...geo.clusters]
-    .filter((city) => {
-      if (!filter) return true;
-      return `${city.label || ""} ${city.province || ""}`.toLowerCase().includes(filter);
-    })
+    .filter((city) => cityMatchesFilter(city, filter))
     .sort((a, b) => (b.count || 0) - (a.count || 0));
-  const cities = matched.slice(0, filter ? 20 : limit);
+  const cities = matched.slice(0, filter ? matched.length : limit);
   const max = cities[0]?.count || 1;
+  const totalEntities = matched.reduce((sum, city) => sum + (city.count || 0), 0);
+
+  if (onGeoSidebar) {
+    const sumEl = document.getElementById("geo-map-cities-sum");
+    if (sumEl) {
+      sumEl.textContent = `${fmt(totalEntities)} entitas · ${fmt(matched.length)} kota`;
+    }
+  }
 
   if (!cities.length) {
     const empty = document.createElement("li");
@@ -1640,13 +2623,16 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
   for (const city of cities) {
     const li = document.createElement("li");
     li.className = "overview-city-item";
+    if (onGeoSidebar) li.classList.add("geo-city-item");
 
     const head = document.createElement("button");
     head.type = "button";
     head.className = "overview-city-head";
-    head.title = `Buka ${city.label} di peta`;
+    if (onGeoSidebar) head.classList.add("geo-city-item__btn");
+    head.setAttribute("role", onGeoSidebar ? "option" : "button");
+    head.title = `Fokus ke ${city.label}`;
     head.addEventListener("click", () => {
-      if (typeof activateDashboardTab === "function") {
+      if (!onGeoSidebar && typeof activateDashboardTab === "function") {
         activateDashboardTab("geo");
       }
       const detail = encodeURIComponent(city.key || city.label);
@@ -1655,7 +2641,7 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
         if (typeof window.focusDompengMapCity === "function") {
           window.focusDompengMapCity(city.key || city.label);
         }
-      }, 180);
+      }, onGeoSidebar ? 80 : 180);
     });
 
     const name = document.createElement("span");
@@ -1697,15 +2683,154 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
 }
 
 function initCityFilter() {
-  const input = document.getElementById("overview-city-filter");
-  if (!input || input.dataset.bound === "true") return;
-  input.dataset.bound = "true";
-  input.addEventListener("input", () => {
-    if (dashboardDataCache?.geo) renderTopCities(dashboardDataCache.geo);
-  });
+  const bind = (input) => {
+    if (!input || input.dataset.bound === "true") return;
+    input.dataset.bound = "true";
+    input.addEventListener("input", (event) => {
+      const source = event.target;
+      syncCityFilterInputs(source.value, { skipId: source.id });
+      if (!dashboardDataCache?.geo) return;
+      const query = normalizeFilterQuery(source.value);
+      if (typeof window.applyDompengGeoCityFilter === "function") {
+        window.applyDompengGeoCityFilter(query, { fitBounds: false });
+      }
+      scheduleGeoCityViewsRefresh(dashboardDataCache.geo);
+    });
+  };
+  bind(document.getElementById("overview-city-filter"));
+  bind(document.getElementById("geo-city-filter"));
 }
 
-function renderOpsStats(data) {
+function initIndexFilters(data) {
+  const search = document.getElementById("analytics-index-search");
+  const kind = document.getElementById("analytics-index-kind-filter");
+  const refreshNow = () => refreshIndexViews(data);
+  const refreshSearch = debounce(refreshNow, DASHBOARD_FILTER_DEBOUNCE_MS);
+  if (search && search.dataset.bound !== "true") {
+    search.dataset.bound = "true";
+    search.addEventListener("input", refreshSearch);
+  }
+  if (kind && kind.dataset.bound !== "true") {
+    kind.dataset.bound = "true";
+    kind.addEventListener("change", refreshNow);
+  }
+}
+
+function refreshIndexViews(data) {
+  if (!data) return;
+  const allRows = data.indexRows || [];
+  const filtered = filterIndexRows(allRows);
+  const filters = getIndexFilters();
+  const hasFilter = Boolean(filters.query) || filters.kind !== "all";
+
+  const meta = document.getElementById("analytics-index-filter-meta");
+  if (meta) {
+    meta.textContent = hasFilter ? `${fmt(filtered.length)} dari ${fmt(allRows.length)} tipe` : `${fmt(allRows.length)} tipe`;
+  }
+
+  const capIdx = document.getElementById("analytics-index-caption");
+  if (capIdx) {
+    const shared = filtered.filter((r) => r.kind === "shared").length;
+    const unique = filtered.length - shared;
+    capIdx.textContent = hasFilter
+      ? `${fmt(filtered.length)} tipe cocok · ${shared} silang · ${unique} unik`
+      : `${shared} tipe silang · ${filtered.length - shared} tipe unik`;
+  }
+
+  const capIndex = document.getElementById("index-caption");
+  const totals = hasFilter ? sumIndexTotals(filtered) : data.indexTotal;
+  if (capIndex && totals) {
+    capIndex.textContent = `${fmt(totals.entries)} entri · ${fmt(totals.refs)} referensi`;
+  }
+
+  renderIndexFieldTable(filtered);
+  buildIndexTreemap(filtered);
+  window.requestAnimationFrame(resizeIndexTreemap);
+  renderIndexStats(totals || { entries: 0, refs: 0 });
+  renderIntelMetrics(data.intel, data.queue, filtered);
+
+  const tableWrap = document.getElementById("index-chart-table");
+  if (tableWrap) {
+    renderDataTable(
+      "index-chart-table",
+      [
+        { key: "type", label: "Tipe" },
+        { key: "kind", label: "Mode" },
+        { key: "entries", label: "Entri", numeric: true },
+        { key: "refs", label: "Ref", numeric: true },
+      ],
+      filtered.map((row) => ({
+        type: row.type,
+        kind: row.kind === "unique" ? "UNIK" : "SILANG",
+        entries: fmt(row.entries),
+        refs: fmt(row.refs),
+      })),
+    );
+  }
+}
+
+function initQueueFilters(data) {
+  for (const select of document.querySelectorAll(".js-queue-filter")) {
+    if (select.dataset.bound === "true") continue;
+    select.dataset.bound = "true";
+    select.addEventListener("change", () => {
+      syncQueueFilterSelects(select.value);
+      refreshQueueViews(data);
+    });
+  }
+}
+
+function refreshQueueViews(data) {
+  if (!data?.queue) return;
+  const statusFilter = getQueueFilter();
+  const label = QUEUE_FILTER_LABELS[statusFilter] || statusFilter;
+  const meta = document.getElementById("ops-queue-filter-meta");
+  if (meta) {
+    meta.textContent =
+      statusFilter === "all"
+        ? `${fmt(data.queue.total)} URL di antrian`
+        : `Menyoroti: ${label}`;
+  }
+
+  const capSankey = document.getElementById("overview-sankey-caption");
+  if (capSankey) {
+    const summary = data.summary || {};
+    const queue = data.queue || {};
+    const geo = data.geo || {};
+    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan · ${fmt(queue.total)} URL antrian`;
+  }
+
+  if (document.getElementById("overview-sankey-chart")) {
+    buildOverviewSankey(data);
+  } else if (document.getElementById("overview-queue-chart")) {
+    renderQueueSignal(data.queue, { statusFilter });
+  }
+
+  if (document.getElementById("overview-queue-radar")) {
+    renderOverviewQueueRadar(data.queue, { statusFilter });
+  }
+
+  renderOpsStats(data, { statusFilter });
+}
+
+function initPreviewFilters() {
+  const search = document.getElementById("preview-search");
+  const type = document.getElementById("preview-type-filter");
+  const refreshNow = () => {
+    if (typeof previewFilterHandler === "function") previewFilterHandler();
+  };
+  const refreshSearch = debounce(refreshNow, DASHBOARD_FILTER_DEBOUNCE_MS);
+  if (search && search.dataset.bound !== "true") {
+    search.dataset.bound = "true";
+    search.addEventListener("input", refreshSearch);
+  }
+  if (type && type.dataset.bound !== "true") {
+    type.dataset.bound = "true";
+    type.addEventListener("change", refreshNow);
+  }
+}
+
+function renderOpsStats(data, { statusFilter = getQueueFilter() } = {}) {
   const grid = document.getElementById("ops-stats-grid");
   if (!grid) return;
 
@@ -1715,6 +2840,7 @@ function renderOpsStats(data) {
   const cards = [
     {
       code: "Q-01",
+      key: "pending",
       label: "Antrian menunggu",
       value: queue.pending,
       tone: "amber",
@@ -1722,6 +2848,7 @@ function renderOpsStats(data) {
     },
     {
       code: "Q-02",
+      key: "done",
       label: "Unduhan selesai",
       value: queue.done,
       tone: "intel",
@@ -1729,10 +2856,20 @@ function renderOpsStats(data) {
     },
     {
       code: "Q-03",
+      key: "failed",
       label: "Unduhan gagal",
       value: queue.failed,
       tone: queue.failed > 0 ? "danger" : undefined,
       hint: intel.pipelineFailurePct != null ? `Kegagalan ${intel.pipelineFailurePct}%` : `${pct(queue.failed, queueTotal)}%`,
+    },
+    {
+      code: "Q-04",
+      key: "processing",
+      label: "Sedang diproses",
+      value: queue.processing,
+      tone: "cyan",
+      hint: `${pct(queue.processing || 0, queueTotal)}% dari antrian`,
+      hidden: !(queue.processing > 0),
     },
     {
       code: "D-01",
@@ -1740,6 +2877,7 @@ function renderOpsStats(data) {
       value: summary.documents,
       tone: "intel",
       hint: `${fmt(intel.sourceDocuments || summary.documents)} sumber terindeks`,
+      queueOnly: false,
     },
     {
       code: "D-02",
@@ -1769,12 +2907,27 @@ function renderOpsStats(data) {
     },
   ];
 
+  const visible = cards.filter((card) => {
+    if (card.hidden) return false;
+    if (statusFilter === "all") return true;
+    return card.key === statusFilter;
+  });
+
   clear(grid);
-  for (const card of cards) {
+  if (!visible.length) {
+    const empty = document.createElement("p");
+    empty.className = "overview-city-empty";
+    appendText(empty, "Tidak ada metrik untuk status ini.");
+    grid.appendChild(empty);
+    return;
+  }
+
+  for (const card of visible) {
     const article = document.createElement("article");
     article.className = "stat-card";
     article.dataset.code = card.code;
     if (card.tone) article.dataset.tone = card.tone;
+    if (card.key && card.key === statusFilter) article.dataset.highlight = "true";
 
     const value = document.createElement("div");
     value.className = "stat-value";
@@ -1807,7 +2960,7 @@ function renderOpsDashboard(data) {
     capImport.textContent = `${fmt(data.recentDocs.length)} impor terbaru · ${fmt(totalMentions)} entitas diekstrak`;
   }
 
-  renderOpsStats(data);
+  refreshQueueViews(data);
   renderRecentDocsTable(data.recentDocs, "ops-recent-docs");
 }
 
@@ -1990,7 +3143,19 @@ function renderIndexFieldTable(indexRows) {
   if (!tbody) return;
   clear(tbody);
 
-  for (const row of indexRows || []) {
+  const rows = indexRows || [];
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 4;
+    cell.className = "analytics-empty analytics-empty--filter";
+    appendText(cell, "Tidak ada tipe indeks yang cocok.");
+    tr.appendChild(cell);
+    tbody.appendChild(tr);
+    return;
+  }
+
+  for (const row of rows) {
     const tr = document.createElement("tr");
 
     const type = document.createElement("td");
@@ -2093,23 +3258,18 @@ function renderAnalyticsDashboard(data) {
     capIdx.textContent = `${shared} tipe silang · ${data.indexRows.length - shared} tipe unik`;
   }
 
-  buildIndexChart(data.indexRows);
-  renderIndexStats(data.indexTotal);
+  refreshIndexViews(data);
   renderCoverageTable(data.coverage, data.coverageTotal || 1);
   renderSourceStats(data.sourceStats, data.summary?.documents);
-  renderIndexFieldTable(data.indexRows);
-  renderIntelMetrics(data.intel, data.queue, data.indexRows);
 }
 
 function renderOverviewDashboard(data) {
-  const capCov = document.getElementById("overview-coverage-caption");
-  if (capCov) {
-    capCov.textContent = `Kelengkapan dari ${fmt(data.coverageTotal)} entitas terindeks`;
-  }
-
-  const capQueue = document.getElementById("overview-queue-caption");
-  if (capQueue && data.queue) {
-    capQueue.textContent = `${fmt(data.queue.total)} URL · ${pct(data.queue.done, data.queue.total)}% selesai`;
+  const capSankey = document.getElementById("overview-sankey-caption");
+  if (capSankey) {
+    const summary = data.summary || {};
+    const queue = data.queue || {};
+    const geo = data.geo || {};
+    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan · ${fmt(queue.total)} URL antrian`;
   }
 
   const capGeo = document.getElementById("overview-geo-caption");
@@ -2117,11 +3277,10 @@ function renderOverviewDashboard(data) {
     capGeo.textContent = `${fmt(data.geo.geocodedEntities)} entitas di ${fmt(data.geo.mappedCities)} kota`;
   }
 
-  renderUsageBar(data.coverage, data.coverageTotal || 1, "overview-coverage-bar");
-  renderQueueStats(data.queue, "overview-queue-stats");
-  renderTopCities(data.geo);
-  buildCoverageChart(data.coverage, "overview-coverage-chart");
-  buildQueueChart(data.queue, "overview-queue-chart");
+  buildOverviewSankey(data);
+  renderTopCities(data.geo, "overview-top-cities", 6);
+  if (data.queue) renderOverviewQueueRadar(data.queue);
+  window.requestAnimationFrame(resizeOverviewSankey);
 }
 
 function ensureDompengGeoMap({ focus = null } = {}) {
@@ -2129,7 +3288,10 @@ function ensureDompengGeoMap({ focus = null } = {}) {
   if (!geo?.clusters?.length || typeof initDompengGeoMap !== "function") return null;
   let map = window.DOMPENG_MAP;
   if (!map) {
-    map = initDompengGeoMap(geo, { fitBounds: true });
+    map = initDompengGeoMap(geo, {
+      fitBounds: true,
+      cityFilter: window.DOMPENG_GEO_CITY_FILTER || getCityFilterQuery(),
+    });
   } else if (map.resize) {
     map.resize();
   }
@@ -2148,6 +3310,10 @@ function renderDashboardData(data) {
   renderOverviewVolume(data);
   renderOverviewDashboard(data);
   initCityFilter();
+  initIndexFilters(data);
+  initQueueFilters(data);
+  initPreviewFilters();
+  refreshGeoCityViews(data.geo, { fitMapBounds: false });
   renderAccessibleDataTables(data);
   renderAnalyticsDashboard(data);
   if (data.showcaseEntities?.length) {
@@ -2167,6 +3333,9 @@ function showError(message) {
   page.prepend(banner);
 }
 
+window.resizeOverviewSankey = resizeOverviewSankey;
+window.resizeIndexTreemap = resizeIndexTreemap;
+
 async function init() {
   try {
     const res = await fetch("data/stats.json", { cache: "no-store" });
@@ -2179,11 +3348,6 @@ async function init() {
 
     renderDashboardData(data);
 
-    if (typeof onDashboardTabShown === "function") {
-      const active = document.querySelector(".tab-panel.is-active");
-      if (active?.dataset.tab) onDashboardTabShown(active.dataset.tab);
-    }
-
     if (typeof window.setShareSnapshotFromData === "function") {
       window.setShareSnapshotFromData(data);
     }
@@ -2192,6 +3356,16 @@ async function init() {
       markDashboardReady();
     } else {
       document.body.classList.add("dashboard-ready");
+    }
+
+    if (typeof window.onDashboardTabShown === "function") {
+      const activeTab = document.querySelector(".tab-panel.is-active")?.dataset.tab;
+      if (activeTab) window.onDashboardTabShown(activeTab);
+    }
+
+    const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
+    if (hashState?.id && hashState.detail && typeof window.applyDashboardHashDetail === "function") {
+      window.applyDashboardHashDetail(hashState.id, hashState.detail);
     }
   } catch (err) {
     document.getElementById("updated").textContent = "Data belum tersedia";
@@ -2202,3 +3376,6 @@ async function init() {
 document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("DOMContentLoaded", initDashboardViewMode);
 window.ensureDompengGeoMap = ensureDompengGeoMap;
+window.refreshIndexViews = refreshIndexViews;
+window.refreshGeoCityViews = refreshGeoCityViews;
+window.setCityFilterQuery = setCityFilterQuery;

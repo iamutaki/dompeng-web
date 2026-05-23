@@ -10,12 +10,14 @@ const DASHBOARD_TABS = [
 window.DOMPENG_TABS = DASHBOARD_TABS;
 
 const OPS_TAB_HASHES = new Set(["operasi", "ops", "pembaruan", "changelog", "sistem", "sys"]);
+const DATA_TAB_HASHES = new Set(["data", "dat", "metodologi", "tentang"]);
 
 function resizeDashboardCharts() {
-  if (typeof Chart === "undefined") return;
-  for (const id of ["index-chart", "overview-coverage-chart", "overview-queue-chart"]) {
-    const chart = Chart.getChart(id);
-    if (chart) chart.resize();
+  if (typeof window.resizeOverviewSankey === "function") {
+    window.resizeOverviewSankey();
+  }
+  if (typeof window.resizeIndexTreemap === "function") {
+    window.resizeIndexTreemap();
   }
 }
 
@@ -74,10 +76,36 @@ function updateTabBarIndicator({ animate = true } = {}) {
   window.requestAnimationFrame(move);
 }
 
+function applyDashboardHashDetail(tabId, detail) {
+  if (!detail || !window.dashboardDataCache) return;
+  if (tabId === "analytics") {
+    const search = document.getElementById("analytics-index-search");
+    if (search) {
+      search.value = detail;
+      if (typeof window.refreshIndexViews === "function") {
+        window.refreshIndexViews(window.dashboardDataCache);
+      }
+    }
+    return;
+  }
+  if (tabId === "geo") {
+    if (typeof window.setCityFilterQuery === "function") {
+      window.setCityFilterQuery(detail);
+      if (window.dashboardDataCache.geo && typeof window.refreshGeoCityViews === "function") {
+        window.refreshGeoCityViews(window.dashboardDataCache.geo, { fitMapBounds: true });
+      }
+    }
+  }
+}
+
 function onDashboardTabShown(tabId) {
   if (tabId === "geo") resizeGeoMap();
   if (tabId === "analytics" || tabId === "overview") {
     window.requestAnimationFrame(resizeDashboardCharts);
+  }
+  const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
+  if (hashState?.id === tabId && hashState.detail) {
+    applyDashboardHashDetail(tabId, hashState.detail);
   }
   if (tabId === "preview") {
     const detail = document.getElementById("preview-log-detail");
@@ -151,6 +179,7 @@ function activateDashboardTab(tabId, { updateHash = true } = {}) {
 function tabIdFromHash() {
   const hash = window.location.hash.replace(/^#/, "").split(":", 1)[0].toLowerCase();
   if (!hash) return null;
+  if (DATA_TAB_HASHES.has(hash)) return "data";
   if (OPS_TAB_HASHES.has(hash)) return "ops";
   if (hash === "analisis") return "analytics";
   const match = DASHBOARD_TABS.find((tab) => tab.hash === hash || tab.id === hash);
@@ -162,7 +191,8 @@ function dashboardHashState() {
   const [hash, ...rest] = raw.split(":");
   const base = hash.toLowerCase();
   let id = null;
-  if (OPS_TAB_HASHES.has(base)) id = "ops";
+  if (DATA_TAB_HASHES.has(base)) id = "data";
+  else if (OPS_TAB_HASHES.has(base)) id = "ops";
   else if (base === "analisis") id = "analytics";
   else id = DASHBOARD_TABS.find((tab) => tab.hash === base || tab.id === base)?.id ?? null;
   return {
@@ -200,7 +230,11 @@ function initDashboardTabs() {
 
   window.addEventListener("hashchange", () => {
     const tabId = tabIdFromHash();
-    if (tabId) activateDashboardTab(tabId, { updateHash: false });
+    if (tabId) {
+      activateDashboardTab(tabId, { updateHash: false });
+      const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
+      if (hashState?.detail) applyDashboardHashDetail(tabId, hashState.detail);
+    }
   });
 
   activateDashboardTab(tabIdFromHash() || "overview", { updateHash: Boolean(tabIdFromHash()) });
@@ -220,3 +254,4 @@ window.playPanelEnter = playPanelEnter;
 window.markDashboardReady = markDashboardReady;
 window.activateDashboardTab = activateDashboardTab;
 window.dashboardHashState = dashboardHashState;
+window.applyDashboardHashDetail = applyDashboardHashDetail;

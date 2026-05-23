@@ -41,6 +41,7 @@
   <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js" defer></script>
   <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
   <script src="js/tabs.js" defer></script>
   <script src="js/share.js" defer></script>
@@ -129,41 +130,23 @@
                 <span class="intel-module__code">SIG-01</span>
                 <div class="intel-module__titles">
                   <h2 class="intel-module__title" id="mod-sig-title">Sinyal data</h2>
-                  <p class="intel-module__meta">Kelengkapan field · antrian unduhan</p>
+                  <p class="intel-module__meta">Alur dokumen · entitas · geo · indeks (proporsi) · antrian URL</p>
                 </div>
               </header>
               <div class="intel-module__body intel-grid intel-grid--overview-signal">
-                <article class="intel-slot intel-slot--chart">
+                <article class="intel-slot intel-slot--sankey">
                   <header class="intel-slot__head">
-                    <span class="intel-slot__code">COV</span>
-                    <h3>Kelengkapan</h3>
+                    <span class="intel-slot__code">FLW</span>
+                    <h3>Alur ringkasan</h3>
                   </header>
-                  <p class="intel-slot__caption" id="overview-coverage-caption">Proporsi field entitas</p>
-                  <div class="chart-wrap chart-wrap--overview-bar">
-                    <canvas id="overview-coverage-chart" aria-label="Kelengkapan field ringkas"></canvas>
+                  <p class="intel-slot__caption" id="overview-sankey-caption">Diagram alur agregat</p>
+                  <div class="chart-wrap chart-wrap--overview-sankey" id="overview-sankey-wrap">
+                    <div id="overview-sankey-chart" class="overview-sankey" role="img" aria-label="Diagram Sankey ringkasan pipeline data"></div>
                   </div>
-                  <details class="chart-data-table" id="overview-coverage-table-wrap">
-                    <summary>Tabel kelengkapan</summary>
-                    <div id="overview-coverage-table"></div>
+                  <details class="chart-data-table chart-data-table--overview-sankey">
+                    <summary>Rincian alur (tabel)</summary>
+                    <div id="overview-sankey-table"></div>
                   </details>
-                  <div class="usage-bar usage-bar--compact" id="overview-coverage-bar"></div>
-                </article>
-                <article class="intel-slot intel-slot--chart intel-slot--queue">
-                  <header class="intel-slot__head">
-                    <span class="intel-slot__code">QUE</span>
-                    <h3>Unduhan</h3>
-                  </header>
-                  <p class="intel-slot__caption" id="overview-queue-caption">Antrian dokumen</p>
-                  <div class="overview-queue-layout overview-queue-layout--vertical">
-                    <div class="chart-wrap chart-wrap--overview-donut">
-                      <canvas id="overview-queue-chart" aria-label="Status unduhan ringkas"></canvas>
-                    </div>
-                    <details class="chart-data-table" id="overview-queue-table-wrap">
-                      <summary>Tabel antrian</summary>
-                      <div id="overview-queue-table"></div>
-                    </details>
-                    <div class="queue-stats queue-stats--compact queue-stats--overview" id="overview-queue-stats"></div>
-                  </div>
                 </article>
               </div>
             </section>
@@ -185,18 +168,31 @@
                   <p class="intel-slot__caption" id="overview-geo-caption">Entitas per kota</p>
                   <label class="filter-control filter-control--city">
                     <span class="sr-only">Filter kota</span>
-                    <input id="overview-city-filter" type="search" placeholder="Filter kota" autocomplete="off">
+                    <input id="overview-city-filter" type="search" placeholder="Cari kota…" autocomplete="off">
                   </label>
                   <ol class="overview-city-list" id="overview-top-cities"></ol>
                 </article>
-                <section class="intel-slot intel-slot--metrics" aria-label="Volume data">
-                  <header class="intel-slot__head">
-                    <span class="intel-slot__code">VOL</span>
-                    <h3>Volume</h3>
-                  </header>
-                  <p class="intel-slot__caption" id="overview-volume-caption">Inventaris · indeks · geo · antrian</p>
-                  <div class="volume-panel" id="stats-grid" aria-label="Ringkasan volume data"></div>
-                </section>
+                <div class="intel-grid--geo-aside">
+                  <section class="intel-slot intel-slot--metrics intel-slot--volume-compact" aria-label="Volume data">
+                    <header class="intel-slot__head intel-slot__head--compact">
+                      <span class="intel-slot__code">VOL</span>
+                      <h3>Volume</h3>
+                      <span class="intel-slot__caption intel-slot__caption--inline" id="overview-volume-caption">Inventaris · indeks · geo · antrian</span>
+                    </header>
+                    <div class="volume-panel volume-panel--compact" id="stats-grid" aria-label="Ringkasan volume data"></div>
+                  </section>
+                  <section class="overview-queue-radar" id="overview-queue-radar-wrap" aria-label="Profil antrian URL">
+                    <header class="overview-queue-radar__head">
+                      <span class="intel-slot__code">ANT</span>
+                      <h3 class="overview-queue-radar__title">Antrian</h3>
+                    </header>
+                    <p class="intel-slot__caption overview-queue-radar__caption" id="overview-queue-radar-caption">Memuat profil antrian…</p>
+                    <div class="chart-wrap chart-wrap--overview-queue-radar">
+                      <canvas id="overview-queue-radar" role="img" aria-label="Radar profil status antrian unduhan URL"></canvas>
+                    </div>
+                    <ul class="overview-queue-radar__fallback" id="overview-queue-radar-fallback" hidden aria-label="Rincian status antrian"></ul>
+                  </section>
+                </div>
               </div>
             </section>
 
@@ -244,16 +240,31 @@
           </header>
           <div class="intel-module__body intel-module__body--map">
             <p class="geo-map-hint"><span class="geo-map-hint__touch">Cubit zoom · geser peta · ketuk titik</span><span class="geo-map-hint__desktop">Scroll zoom · drag pan · hover/klik titik</span> untuk detail kota</p>
-            <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran entitas per kota Indonesia"></div>
-            <div class="geo-map-legend" aria-label="Legenda peta">
-              <span class="geo-map-legend__title">Legenda</span>
-              <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--low"></i>1-9 entitas</span>
-              <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--mid"></i>10-49</span>
-              <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--high"></i>50-99</span>
-              <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--peak"></i>100+</span>
-              <span class="geo-map-legend__note">Ukuran titik mengikuti jumlah entitas</span>
+            <div class="geo-map-stage">
+              <aside class="geo-map-sidebar" aria-label="Daftar kota dan total">
+                <div class="geo-map-sidebar__totals" id="geo-map-stats" aria-label="Total geospasial"></div>
+                <div class="geo-map-sidebar__tools">
+                  <p class="geo-map-sidebar__sum" id="geo-map-cities-sum" aria-live="polite">Memuat total…</p>
+                  <label class="filter-control filter-control--grow">
+                    <span class="sr-only">Cari kota di peta</span>
+                    <input id="geo-city-filter" type="search" placeholder="Cari kota…" autocomplete="off">
+                  </label>
+                  <span class="filter-meta" id="geo-city-filter-meta" aria-live="polite"></span>
+                </div>
+                <ol class="geo-city-list overview-city-list" id="geo-map-cities" role="listbox" aria-label="Kota di peta"></ol>
+              </aside>
+              <div class="geo-map-main">
+                <div id="geo-map" class="geo-map geo-map--fill" role="img" aria-label="Peta sebaran entitas per kota Indonesia"></div>
+                <div class="geo-map-legend" aria-label="Legenda peta">
+                  <span class="geo-map-legend__title">Legenda</span>
+                  <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--low"></i>1-9 entitas</span>
+                  <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--mid"></i>10-49</span>
+                  <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--high"></i>50-99</span>
+                  <span class="geo-map-legend__item"><i class="geo-map-legend__dot geo-map-legend__dot--peak"></i>100+</span>
+                  <span class="geo-map-legend__note">Ukuran titik mengikuti jumlah entitas</span>
+                </div>
+              </div>
             </div>
-            <div class="inline-stats inline-stats--geo-bar" id="geo-map-stats"></div>
           </div>
         </section>
       </section>
@@ -266,12 +277,12 @@
                 <span class="intel-module__code">IDX-01</span>
                 <div class="intel-module__titles">
                   <h2 class="intel-module__title">Indeks pencarian</h2>
-                  <p class="intel-module__meta" id="index-caption">Entri vs referensi per tipe field</p>
+                  <p class="intel-module__meta" id="index-caption">Treemap proporsi entri per tipe</p>
                 </div>
               </header>
               <div class="intel-module__body intel-module__body--index-chart">
                 <div class="chart-wrap chart-wrap--analytics-index">
-                  <canvas id="index-chart" aria-label="Indeks pencarian"></canvas>
+                  <div id="index-treemap-chart" class="index-treemap-chart" role="img" aria-label="Treemap proporsi entri per tipe indeks silang dan unik"></div>
                 </div>
                 <details class="chart-data-table chart-data-table--analytics" id="index-chart-table-wrap">
                   <summary>Tabel indeks</summary>
@@ -295,6 +306,18 @@
                     <span class="index-types-pane__code">TBL</span>
                     <h3 class="index-types-pane__title">Daftar tipe</h3>
                   </header>
+                  <div class="filter-toolbar filter-toolbar--analytics">
+                    <label class="filter-control filter-control--grow">
+                      <span class="sr-only">Cari tipe indeks</span>
+                      <input id="analytics-index-search" type="search" placeholder="Cari tipe indeks…" autocomplete="off">
+                    </label>
+                    <select class="changelog-filter" id="analytics-index-kind-filter" aria-label="Filter mode indeks">
+                      <option value="all">Semua mode</option>
+                      <option value="shared">Silang</option>
+                      <option value="unique">Unik</option>
+                    </select>
+                    <span class="filter-meta" id="analytics-index-filter-meta" aria-live="polite"></span>
+                  </div>
                   <div class="table-wrap table-wrap--intel table-wrap--index-types">
                     <table class="analytics-table analytics-table--compact">
                       <thead>
@@ -406,6 +429,16 @@
                 </div>
               </header>
               <div class="intel-module__body intel-module__body--ops-stats">
+                <div class="filter-toolbar filter-toolbar--ops">
+                  <select class="changelog-filter js-queue-filter" id="ops-queue-filter" aria-label="Filter status antrian">
+                    <option value="all">Semua status antrian</option>
+                    <option value="pending">Menunggu</option>
+                    <option value="processing">Diproses</option>
+                    <option value="done">Selesai</option>
+                    <option value="failed">Gagal</option>
+                  </select>
+                  <span class="filter-meta" id="ops-queue-filter-meta" aria-live="polite"></span>
+                </div>
                 <div class="ops-stats-grid" id="ops-stats-grid" aria-label="Metrik operasi pipeline"></div>
               </div>
             </section>
@@ -486,6 +519,18 @@
                   </header>
                   <p class="intel-slot__caption preview-pane__caption" id="preview-list-caption">Pilih entri dari daftar</p>
                   <div class="preview-list-toolbar">
+                    <label class="filter-control filter-control--grow">
+                      <span class="sr-only">Cari sampel tersensor</span>
+                      <input id="preview-search" type="search" placeholder="Cari ref, nama…" autocomplete="off">
+                    </label>
+                    <select class="changelog-filter" id="preview-type-filter" aria-label="Filter jenis sampel">
+                      <option value="all">Semua sampel</option>
+                      <option value="photo">Dengan foto</option>
+                      <option value="phone">Ada telepon</option>
+                      <option value="email">Ada email</option>
+                      <option value="nik">Ada NIK</option>
+                      <option value="docs">Ada dokumen</option>
+                    </select>
                     <span class="preview-list-meta" id="preview-list-meta" aria-live="polite"></span>
                   </div>
                   <div class="log-stream log-stream--list" id="preview-log-list" role="listbox" aria-label="Daftar sampel tersensor"></div>
@@ -514,66 +559,114 @@
 
       <section class="tab-panel tab-panel--data" id="tab-data" data-tab="data" role="tabpanel" aria-labelledby="tab-btn-data" hidden>
         <div class="dashboard-board dashboard-board--data">
-          <section class="intel-module intel-module--fill data-guide" data-module="DAT-01">
+          <section class="intel-module intel-module--fill intel-module--data-guide data-guide" id="data-guide" data-module="DAT-01" aria-labelledby="mod-data-guide-title">
             <header class="intel-module__head">
               <span class="intel-module__code">DAT-01</span>
               <div class="intel-module__titles">
-                <h2 class="intel-module__title">Data, metodologi, dan feedback</h2>
-                <p class="intel-module__meta">Konteks publik · batasan data · kanal koreksi</p>
+                <h2 class="intel-module__title" id="mod-data-guide-title">Data, metodologi, dan feedback</h2>
+                <p class="intel-module__meta">Konteks publik · batasan data · privasi · kanal koreksi</p>
               </div>
             </header>
-            <div class="intel-module__body data-guide__body">
-              <section class="data-guide__section">
-                <h3>Tentang data</h3>
-                <p>DOMPENG menampilkan ringkasan entitas dari dokumen publik internet. Dashboard ini hanya mempublikasikan angka agregat, peta kota, indeks statistik, dan sampel struktur data yang sudah disensor.</p>
-              </section>
-              <section class="data-guide__section">
-                <h3>Metodologi</h3>
-                <ol class="data-guide__steps">
-                  <li>Pipeline root membaca dokumen, entitas, indeks, antrian, dan changelog.</li>
-                  <li><code>summary.sh</code> menulis <code>web/data/stats.json</code>, <code>geo-clusters.json</code>, sitemap, robots, dan SEO HTML.</li>
-                  <li>Koordinat kota digabung secara agregat; titik peta tidak berisi daftar individu.</li>
-                  <li>Nama, telepon, NIK, NPWP, email, dan teks bebas disamarkan sebelum masuk dashboard publik.</li>
-                </ol>
-              </section>
-              <section class="data-guide__section">
-                <h3>Privasi</h3>
-                <p>Identitas mentah tidak ditampilkan. Sampel digunakan untuk memperlihatkan bentuk struktur data, bukan untuk mempublikasikan profil lengkap seseorang.</p>
-              </section>
-              <section class="data-guide__section">
-                <h3>Audit publik</h3>
-                <dl class="glossary-list">
-                  <div><dt>PII mentah</dt><dd>Tidak dipublikasikan di UI dashboard.</dd></div>
-                  <div><dt>Sampel</dt><dd>Nama, kontak, dokumen, dan identifier disamarkan.</dd></div>
-                  <div><dt>Geo</dt><dd>Hanya agregat kota; tidak ada alamat atau koordinat individu.</dd></div>
-                </dl>
-              </section>
-              <section class="data-guide__section">
-                <h3>Glosarium</h3>
-                <dl class="glossary-list">
-                  <div><dt>Entitas</dt><dd>Unit hasil ekstraksi dari dokumen publik yang sudah diringkas untuk dashboard.</dd></div>
-                  <div><dt>Referensi silang</dt><dd>Keterhubungan statistik antar field seperti nama, email, telepon, atau dokumen.</dd></div>
-                  <div><dt>Indeks unik</dt><dd>Field yang biasanya mengarah ke satu entitas, misalnya ID tertentu.</dd></div>
-                  <div><dt>Indeks silang</dt><dd>Field yang dapat menghubungkan beberapa entitas atau sumber.</dd></div>
-                </dl>
-              </section>
-              <section class="data-guide__section data-guide__section--actions">
-                <h3>Feedback</h3>
-                <p>Untuk koreksi, audit, atau laporan masalah data, buka issue di repositori publik.</p>
-                <div class="data-guide__actions">
-                  <a class="nav-link" href="https://github.com/iamutaki/dompeng-web/issues" target="_blank" rel="noopener noreferrer">Laporkan masalah</a>
-                  <a class="nav-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">Kode sumber</a>
+            <div class="intel-module__body intel-module__body--data-split">
+              <article class="index-types-pane index-types-pane--span" aria-labelledby="data-guide-abt">
+                <header class="index-types-pane__head">
+                  <span class="index-types-pane__code">ABT</span>
+                  <h3 class="index-types-pane__title" id="data-guide-abt">Konteks publik</h3>
+                </header>
+                <p class="index-types-pane__lead">Agregat, peta kota, indeks, dan sampel tersensor — identitas mentah tidak dipublikasikan.</p>
+              </article>
+
+              <article class="index-types-pane index-types-pane--compact data-guide-pane--compact" aria-labelledby="data-guide-met">
+                <header class="index-types-pane__head">
+                  <span class="index-types-pane__code">MET</span>
+                  <h3 class="index-types-pane__title" id="data-guide-met">Metodologi</h3>
+                </header>
+                <div class="data-guide-pane__body">
+                  <ol class="data-guide__steps">
+                    <li>Pipeline membaca dokumen, entitas, indeks, antrian, changelog.</li>
+                    <li><code>summary.sh</code> → <code>stats.json</code>, geo, sitemap, SEO.</li>
+                    <li>Peta: agregat per kota, tanpa daftar individu.</li>
+                    <li>PII disamarkan sebelum masuk dashboard.</li>
+                  </ol>
                 </div>
-              </section>
+              </article>
+
+              <aside class="index-types-pane index-types-pane--compact data-guide-pane--prv" aria-labelledby="data-guide-prv">
+                <header class="index-types-pane__head">
+                  <span class="index-types-pane__code">PRV</span>
+                  <h3 class="index-types-pane__title" id="data-guide-prv">Privasi &amp; audit</h3>
+                </header>
+                <div class="data-guide-pane__body">
+                  <p class="data-guide__text">Sampel menunjukkan bentuk struktur data, bukan profil lengkap.</p>
+                  <ul class="data-guide__audit-list" aria-label="Audit publik">
+                    <li class="data-guide__audit-item">
+                      <span class="data-guide__audit-dot" style="background:#00d4aa"></span>
+                      <span class="data-guide__audit-key">PII mentah</span>
+                      <span class="data-guide__audit-val">Tidak dipublikasikan di UI</span>
+                    </li>
+                    <li class="data-guide__audit-item">
+                      <span class="data-guide__audit-dot" style="background:#4ec9ff"></span>
+                      <span class="data-guide__audit-key">Sampel</span>
+                      <span class="data-guide__audit-val">Kontak &amp; identifier disamarkan</span>
+                    </li>
+                    <li class="data-guide__audit-item">
+                      <span class="data-guide__audit-dot" style="background:#e6a817"></span>
+                      <span class="data-guide__audit-key">Geo</span>
+                      <span class="data-guide__audit-val">Agregat per kota saja</span>
+                    </li>
+                  </ul>
+                </div>
+              </aside>
+
+              <article class="index-types-pane index-types-pane--table index-types-pane--span" aria-labelledby="data-guide-glo">
+                <header class="index-types-pane__head">
+                  <span class="index-types-pane__code">GLO</span>
+                  <h3 class="index-types-pane__title" id="data-guide-glo">Glosarium</h3>
+                </header>
+                <div class="data-guide-pane__body data-guide-pane__body--table">
+                  <div class="table-wrap table-wrap--intel table-wrap--index-types">
+                    <table class="analytics-table analytics-table--compact data-guide__table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Istilah</th>
+                          <th scope="col">Arti</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><th scope="row">Entitas</th><td>Unit hasil ekstraksi dari dokumen publik yang diringkas untuk dashboard.</td></tr>
+                        <tr><th scope="row">Referensi silang</th><td>Keterhubungan statistik antar field (nama, email, telepon, dokumen).</td></tr>
+                        <tr><th scope="row">Indeks unik</th><td>Field yang biasanya mengarah ke satu entitas.</td></tr>
+                        <tr><th scope="row">Indeks silang</th><td>Field yang dapat menghubungkan beberapa entitas atau sumber.</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </article>
+
+              <article class="index-types-pane index-types-pane--span data-guide-pane--feedback" aria-labelledby="data-guide-fdb">
+                <header class="index-types-pane__head">
+                  <span class="index-types-pane__code">FDB</span>
+                  <h3 class="index-types-pane__title" id="data-guide-fdb">Feedback</h3>
+                </header>
+                <div class="data-guide__feedback">
+                  <p class="index-types-pane__lead">Koreksi atau laporan masalah data — buka issue di repositori publik.</p>
+                  <div class="data-guide__actions">
+                    <a class="nav-link" href="https://github.com/iamutaki/dompeng-web/issues" target="_blank" rel="noopener noreferrer">Laporkan masalah</a>
+                    <a class="nav-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">Kode sumber</a>
+                  </div>
+                </div>
+              </article>
             </div>
           </section>
         </div>
       </section>
+
     </main>
 
     <footer class="footer footer--dashboard">
       <p>
         <span class="footer-tag">PIPELINE</span> <code>summary.sh</code> · <span class="footer-brand">NEGARA OPEN SOURCE</span> · <span class="footer-subtitle">Indeks Data Publik</span> ·
+        <a class="footer-link" href="#data">DATA</a> ·
         <a class="footer-link" href="https://github.com/iamutaki/dompeng-web" target="_blank" rel="noopener noreferrer">SRC</a>
       </p>
     </footer>
