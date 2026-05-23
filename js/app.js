@@ -203,6 +203,7 @@ function renderOverviewSummary(data) {
   const updated = document.getElementById("overview-summary-updated");
   const health = document.getElementById("overview-health");
   const queueHealth = document.getElementById("overview-health-queue");
+  const quality = document.getElementById("overview-quality");
   if (!lead) return;
 
   const summary = data.summary || {};
@@ -211,6 +212,12 @@ function renderOverviewSummary(data) {
   const queueTotal = queue.total || 1;
   const failurePct = pct(queue.failed || 0, queueTotal);
   const backlogPct = pct((queue.pending || 0) + (queue.processing || 0), queueTotal);
+  const avgCoverage = Math.round(
+    (data.coverage || []).reduce((sum, item) => sum + (item.pct || 0), 0) / Math.max(1, (data.coverage || []).length),
+  );
+  const geoPct = pct(geo.geocodedEntities || 0, summary.persons || geo.totalEntities || 1);
+  const successPct = pct(queue.done || 0, queueTotal);
+  const qualityScore = Math.round((avgCoverage * 0.35) + (geoPct * 0.25) + (successPct * 0.4));
   const bits = [
     `${fmt(summary.persons || 0)} entitas`,
     `${fmt(geo.mappedCities || 0)} kota`,
@@ -227,6 +234,11 @@ function renderOverviewSummary(data) {
   if (queueHealth) {
     queueHealth.textContent = `${backlogPct}% antrian · ${failurePct}% gagal`;
     queueHealth.dataset.tone = failurePct > 10 ? "warn" : "ok";
+  }
+  if (quality) {
+    quality.textContent = `Kualitas ${qualityScore}/100`;
+    quality.dataset.tone = qualityScore >= 60 ? "ok" : "warn";
+    quality.title = `Kelengkapan ${avgCoverage}% · geo ${geoPct}% · unduhan ${successPct}%`;
   }
 
   const updatedTime = Date.parse(`${data.updated || ""}`.replace(" UTC", "Z"));
@@ -267,6 +279,13 @@ function renderDataTable(containerId, columns, rows) {
   }
   table.append(thead, tbody);
   container.appendChild(table);
+}
+
+function showChartFallbackTables() {
+  document.body.classList.add("charts-unavailable");
+  for (const detail of document.querySelectorAll(".chart-data-table")) {
+    detail.open = true;
+  }
 }
 
 function renderAccessibleDataTables(data) {
@@ -933,8 +952,6 @@ function renderShowcaseEntities(entities) {
   const rows = entities || [];
   let activeIndex = -1;
   let visibleIndices = [];
-  let listKeyHandler = null;
-  let copyHandler = null;
 
   const previewMeta = document.getElementById("preview-meta");
   if (previewMeta) {
@@ -989,6 +1006,10 @@ function renderShowcaseEntities(entities) {
     }
     if (copyBtn) copyBtn.hidden = false;
 
+    if (document.querySelector(".tab-panel.is-active")?.dataset.tab === "preview") {
+      history.replaceState(null, "", `#pratinjau:${rowIndex + 1}`);
+    }
+
     syncListSelection();
     if (focusList) {
       listEl.querySelector(`.preview-item[data-index="${rowIndex}"]`)?.focus();
@@ -1036,8 +1057,8 @@ function renderShowcaseEntities(entities) {
     setActiveEntity(visibleIndices[0], { focusList: true });
   };
 
-  if (listKeyHandler) listEl.removeEventListener("keydown", listKeyHandler);
-  listKeyHandler = (event) => {
+  if (listEl._dompengKeyHandler) listEl.removeEventListener("keydown", listEl._dompengKeyHandler);
+  listEl._dompengKeyHandler = (event) => {
     if (!rows.length || !visibleIndices.length) return;
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -1053,11 +1074,11 @@ function renderShowcaseEntities(entities) {
       setActiveEntity(visibleIndices[visibleIndices.length - 1], { focusList: true });
     }
   };
-  listEl.addEventListener("keydown", listKeyHandler);
+  listEl.addEventListener("keydown", listEl._dompengKeyHandler);
 
   if (copyBtn) {
-    if (copyHandler) copyBtn.removeEventListener("click", copyHandler);
-    copyHandler = async () => {
+    if (copyBtn._dompengCopyHandler) copyBtn.removeEventListener("click", copyBtn._dompengCopyHandler);
+    copyBtn._dompengCopyHandler = async () => {
       if (activeIndex < 0) return;
       const text = formatEntityLog(rows[activeIndex]);
       try {
@@ -1071,7 +1092,7 @@ function renderShowcaseEntities(entities) {
         copyBtn.textContent = "Gagal salin";
       }
     };
-    copyBtn.addEventListener("click", copyHandler);
+    copyBtn.addEventListener("click", copyBtn._dompengCopyHandler);
     copyBtn.hidden = rows.length === 0;
   }
 
@@ -1081,7 +1102,14 @@ function renderShowcaseEntities(entities) {
     return;
   }
 
-  applyFilter({ preserveSelection: false });
+  const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
+  const requested = hashState?.id === "preview" ? Number(hashState.detail) - 1 : -1;
+  if (requested >= 0 && requested < rows.length) {
+    renderListItems();
+    setActiveEntity(requested, { focusList: true });
+  } else {
+    applyFilter({ preserveSelection: false });
+  }
 }
 
 function renderRecentDocsTable(docs, tbodyId, limit = 0) {
@@ -1114,9 +1142,13 @@ function buildCoverageChart(coverage, canvasId = "coverage-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
-    document.body.classList.add("charts-unavailable");
+    showChartFallbackTables();
     return null;
   }
+
+  const existing = Chart.getChart(ctx);
+  if (existing) existing.destroy();
+
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -1200,7 +1232,7 @@ function buildQueueChart(queue, canvasId = "queue-chart") {
   const ctx = document.getElementById(canvasId);
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
-    document.body.classList.add("charts-unavailable");
+    showChartFallbackTables();
     return null;
   }
 
@@ -1260,7 +1292,7 @@ function buildIndexChart(indexRows) {
   const ctx = document.getElementById("index-chart");
   if (!ctx) return null;
   if (typeof Chart === "undefined") {
-    document.body.classList.add("charts-unavailable");
+    showChartFallbackTables();
     return null;
   }
 
@@ -1471,7 +1503,15 @@ function renderChangelogFeed(changelog) {
   if (!container) return;
   clear(container);
 
-  const releases = changelog.releases || [];
+  const kindFilter = document.getElementById("changelog-kind-filter")?.value || "all";
+  const releases = (changelog.releases || [])
+    .map((release) => ({
+      ...release,
+      sections: kindFilter === "all"
+        ? release.sections
+        : release.sections.filter((section) => section.kind === kindFilter),
+    }))
+    .filter((release) => release.sections.length > 0);
   const feedCount = document.getElementById("changelog-feed-count");
   if (feedCount) {
     feedCount.textContent = `${fmt(releases.length)} entri`;
@@ -1546,11 +1586,19 @@ function renderChangelogFeed(changelog) {
   }
 }
 
+function initChangelogFilter(changelog) {
+  const filter = document.getElementById("changelog-kind-filter");
+  if (!filter || filter.dataset.bound === "true") return;
+  filter.dataset.bound = "true";
+  filter.addEventListener("change", () => renderChangelogFeed(changelog));
+}
+
 function renderChangelog(changelog) {
   if (!changelog) return;
   renderChangelogHero(changelog);
   renderChangelogSummary(changelog);
   renderChangelogFeed(changelog);
+  initChangelogFilter(changelog);
 
   const caption = document.getElementById("changelog-caption");
   if (caption && changelog.latestVersion) {
@@ -1571,8 +1619,23 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
   if (!container || !geo?.clusters?.length) return;
   clear(container);
 
-  const cities = [...geo.clusters].sort((a, b) => (b.count || 0) - (a.count || 0)).slice(0, limit);
+  const filter = (document.getElementById("overview-city-filter")?.value || "").trim().toLowerCase();
+  const matched = [...geo.clusters]
+    .filter((city) => {
+      if (!filter) return true;
+      return `${city.label || ""} ${city.province || ""}`.toLowerCase().includes(filter);
+    })
+    .sort((a, b) => (b.count || 0) - (a.count || 0));
+  const cities = matched.slice(0, filter ? 20 : limit);
   const max = cities[0]?.count || 1;
+
+  if (!cities.length) {
+    const empty = document.createElement("li");
+    empty.className = "overview-city-empty";
+    appendText(empty, "Tidak ada kota yang cocok.");
+    container.appendChild(empty);
+    return;
+  }
 
   for (const city of cities) {
     const li = document.createElement("li");
@@ -1631,6 +1694,15 @@ function renderTopCities(geo, containerId = "overview-top-cities", limit = 8) {
 
     container.appendChild(li);
   }
+}
+
+function initCityFilter() {
+  const input = document.getElementById("overview-city-filter");
+  if (!input || input.dataset.bound === "true") return;
+  input.dataset.bound = "true";
+  input.addEventListener("input", () => {
+    if (dashboardDataCache?.geo) renderTopCities(dashboardDataCache.geo);
+  });
 }
 
 function renderOpsStats(data) {
@@ -2075,6 +2147,7 @@ function renderDashboardData(data) {
   renderOverviewSummary(data);
   renderOverviewVolume(data);
   renderOverviewDashboard(data);
+  initCityFilter();
   renderAccessibleDataTables(data);
   renderAnalyticsDashboard(data);
   if (data.showcaseEntities?.length) {

@@ -116,6 +116,7 @@
             <span class="overview-summary__chip">Tersensor</span>
             <span class="overview-summary__chip overview-summary__chip--health" id="overview-health">Validasi data</span>
             <span class="overview-summary__chip overview-summary__chip--queue" id="overview-health-queue">Antrian</span>
+            <span class="overview-summary__chip overview-summary__chip--quality" id="overview-quality">Kualitas</span>
           </section>
           <section class="privacy-brief" aria-label="Catatan privasi publik">
             <span class="privacy-brief__code">PUB</span>
@@ -182,6 +183,10 @@
                     <h3>Kota</h3>
                   </header>
                   <p class="intel-slot__caption" id="overview-geo-caption">Entitas per kota</p>
+                  <label class="filter-control filter-control--city">
+                    <span class="sr-only">Filter kota</span>
+                    <input id="overview-city-filter" type="search" placeholder="Filter kota" autocomplete="off">
+                  </label>
                   <ol class="overview-city-list" id="overview-top-cities"></ol>
                 </article>
                 <section class="intel-slot intel-slot--metrics" aria-label="Volume data">
@@ -444,6 +449,13 @@
               <div class="changelog-feed-panel">
                 <header class="changelog-feed-head">
                   <span class="changelog-feed-head__label">Riwayat rilis</span>
+                  <select class="changelog-filter" id="changelog-kind-filter" aria-label="Filter changelog">
+                    <option value="all">Semua</option>
+                    <option value="Added">Fitur</option>
+                    <option value="Changed">Perubahan</option>
+                    <option value="Fixed">Perbaikan</option>
+                    <option value="Removed">Dihapus</option>
+                  </select>
                   <span class="changelog-feed-head__count" id="changelog-feed-count"></span>
                 </header>
                 <div class="changelog-feed changelog-feed--timeline" id="changelog-feed"></div>
@@ -527,6 +539,14 @@
               <section class="data-guide__section">
                 <h3>Privasi</h3>
                 <p>Identitas mentah tidak ditampilkan. Sampel digunakan untuk memperlihatkan bentuk struktur data, bukan untuk mempublikasikan profil lengkap seseorang.</p>
+              </section>
+              <section class="data-guide__section">
+                <h3>Audit publik</h3>
+                <dl class="glossary-list">
+                  <div><dt>PII mentah</dt><dd>Tidak dipublikasikan di UI dashboard.</dd></div>
+                  <div><dt>Sampel</dt><dd>Nama, kontak, dokumen, dan identifier disamarkan.</dd></div>
+                  <div><dt>Geo</dt><dd>Hanya agregat kota; tidak ada alamat atau koordinat individu.</dd></div>
+                </dl>
               </section>
               <section class="data-guide__section">
                 <h3>Glosarium</h3>

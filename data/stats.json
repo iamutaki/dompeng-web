@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-23 11:29 UTC",
+  "updated": "2026-05-23 11:50 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 158391,
-    "graphEdges": 239911,
+    "graphEdges": 239926,
     "sourceDocuments": 2893,
     "activeVectors": 5,
     "dominantVectorPct": 98.3,
@@ -71,8 +71,8 @@
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 2428,
-      "refs": 2678
+      "entries": 2442,
+      "refs": 2693
     },
     {
       "type": "NIK",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 212234,
-    "refs": 239911
+    "entries": 212248,
+    "refs": 239926
   },
   "queue": {
     "pending": 255,
@@ -171,6 +171,73 @@
   "showcaseEntities": [
     {
       "ref": "Orang 1",
+      "name": "R····· S········· M····",
+      "gender": null,
+      "dob": null,
+      "pob": null,
+      "occupation": null,
+      "sector": null,
+      "maritalStatus": null,
+      "identifiers": [
+        {
+          "type": "Telepon",
+          "value": "62········68"
+        },
+        {
+          "type": "Email",
+          "value": "o···@····.··"
+        },
+        {
+          "type": "Email",
+          "value": "o···@····.··"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········76"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········18"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········79"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········16"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········47"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········76"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········99"
+        },
+        {
+          "type": "Telepon",
+          "value": "62·········58"
+        }
+      ],
+      "identifierCount": 11,
+      "edgeCount": 11,
+      "relations": {
+        "phone": 9,
+        "email": 2
+      },
+      "documents": [],
+      "documentCount": 0,
+      "hasPhoto": false,
+      "notesCount": 31,
+      "resolutionScore": 11
+    },
+    {
+      "ref": "Orang 2",
       "name": "D··· N····· H······",
       "gender": "male",
       "dob": "19··-·-··",
@@ -234,69 +301,6 @@
       "documentCount": 2,
       "hasPhoto": false,
       "notesCount": 4,
-      "resolutionScore": 10
-    },
-    {
-      "ref": "Orang 2",
-      "name": "R····· S········· M····",
-      "gender": null,
-      "dob": null,
-      "pob": null,
-      "occupation": null,
-      "sector": null,
-      "maritalStatus": null,
-      "identifiers": [
-        {
-          "type": "Telepon",
-          "value": "62········68"
-        },
-        {
-          "type": "Email",
-          "value": "[···@····.··"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········76"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········18"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········79"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········16"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········47"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········76"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········99"
-        },
-        {
-          "type": "Telepon",
-          "value": "62·········58"
-        }
-      ],
-      "identifierCount": 10,
-      "edgeCount": 10,
-      "relations": {
-        "phone": 9,
-        "email": 1
-      },
-      "documents": [],
-      "documentCount": 0,
-      "hasPhoto": false,
-      "notesCount": 31,
       "resolutionScore": 10
     },
     {

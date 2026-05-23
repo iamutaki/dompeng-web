@@ -692,7 +692,12 @@ function initDompengGeoMap(geo, options = {}) {
   const containerId = options.containerId || "geo-map";
   const statsId = options.statsId || "geo-map-stats";
   const container = document.getElementById(containerId);
-  if (!container || typeof maplibregl === "undefined") return null;
+  if (!container) return null;
+  if (typeof maplibregl === "undefined") {
+    container.classList.add("geo-map--empty");
+    container.textContent = "Peta interaktif belum tersedia karena library MapLibre gagal dimuat. Ringkasan kota tetap tersedia di tab Ringkasan.";
+    return null;
+  }
 
   const clusters = geo?.clusters || [];
   if (!clusters.length) {
@@ -725,7 +730,11 @@ function focusDompengMapCity(cityKeyOrLabel) {
   if (!map) return false;
   const key = String(cityKeyOrLabel || "").toUpperCase();
   const city = (map._dompengClusters || []).find((item) => {
-    return String(item.key || "").toUpperCase() === key || String(item.label || "").toUpperCase() === key;
+    return (
+      String(item.key || "").toUpperCase() === key ||
+      String(item.label || "").toUpperCase() === key ||
+      (item.mergedCities || []).some((merged) => String(merged.label || "").toUpperCase() === key)
+    );
   });
   if (!city) return false;
 
