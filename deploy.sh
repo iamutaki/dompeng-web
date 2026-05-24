@@ -12,9 +12,8 @@ WEB="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(dirname "$WEB")"
 
 cd "$ROOT"
-if [[ -z "${DOMPENG_SITE_URL:-}" ]]; then
-  echo "Note: set DOMPENG_SITE_URL for absolute canonical/OG URLs in SEO meta."
-fi
+export DOMPENG_SITE_URL="${DOMPENG_SITE_URL:-https://dompeng.iamutaki.workers.dev}"
+echo "DOMPENG_SITE_URL=$DOMPENG_SITE_URL"
 ./summary.sh
 
 cd "$WEB"
