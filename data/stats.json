@@ -1,39 +1,39 @@
 {
-  "updated": "2026-05-24 04:10 UTC",
+  "updated": "2026-05-24 06:41 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 219092,
-    "graphEdges": 381274,
-    "sourceDocuments": 2908,
+    "graphNodes": 282552,
+    "graphEdges": 444732,
+    "sourceDocuments": 2909,
     "activeVectors": 5,
-    "dominantVectorPct": 70.6,
+    "dominantVectorPct": 54.7,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.43,
-    "pipelineSuccessPct": 52.3,
+    "xrefRatio": 1.36,
+    "pipelineSuccessPct": 52.4,
     "pipelineBacklogPct": 37.4,
-    "pipelineFailurePct": 10.0,
-    "entityLinkRate": 0.74
+    "pipelineFailurePct": 9.9,
+    "entityLinkRate": 0.57
   },
   "summary": {
-    "persons": 219092,
-    "documents": 2908,
+    "persons": 282552,
+    "documents": 2909,
     "photos": 61,
     "templates": 40,
-    "history": 347,
-    "doneFiles": 579
+    "history": 348,
+    "doneFiles": 584
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 154621,
-      "pct": 70.6
+      "pct": 54.7
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 3468,
-      "pct": 1.6
+      "pct": 1.2
     },
     {
       "id": "employee_id",
@@ -45,7 +45,7 @@
       "id": "nik",
       "label": "NIK",
       "value": 3328,
-      "pct": 1.5
+      "pct": 1.2
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 219092,
+  "coverageTotal": 282552,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 145139,
-      "refs": 218955
+      "entries": 205111,
+      "refs": 282413
     },
     {
       "type": "Telepon",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 266561,
-    "refs": 381274
+    "entries": 326533,
+    "refs": 444732
   },
   "indexCooccurrence": [
     {
@@ -234,12 +234,17 @@
   "queue": {
     "pending": 252,
     "processing": 1,
-    "done": 352,
+    "done": 353,
     "skipped": 1,
     "failed": 67,
-    "total": 673
+    "total": 674
   },
   "recentDocs": [
+    {
+      "title": "H···· S······ K········· D···· C··· K·············· T···· A······· 2024",
+      "imported_at": "2026-05-24T04:16:14Z",
+      "mentions": 63460
+    },
     {
       "title": "P········· H···· S······ K········· D···· C··· K········ S····· 2019",
       "imported_at": "2026-05-24T03:36:54Z",
@@ -284,11 +289,6 @@
       "title": "P········· H···· S······ K········· D···· C··· K··· B·········· 2018",
       "imported_at": "2026-05-23T19:30:34Z",
       "mentions": 180
-    },
-    {
-      "title": "R···· H···· I········ S·· d·· S·· P········ C··· K·········· A···· 2024",
-      "imported_at": "2026-05-23T18:57:37Z",
-      "mentions": 37607
     }
   ],
   "showcaseEntities": [
@@ -1356,16 +1356,43 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.3",
+    "latestVersion": "v2.8.4",
     "latestDate": "2026-05-24",
-    "totalReleases": 37,
+    "totalReleases": 38,
     "summary": {
-      "Added": 111,
-      "Changed": 64,
-      "Fixed": 18,
+      "Added": 114,
+      "Changed": 66,
+      "Fixed": 19,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.4",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parse_skd_kemdikbud.py` — Parser SSCN SKD CPNS Kemdikbudristek 2024: kolom Tahun SKD, pendidikan teks, header Jabatan/Lokasi Formasi, compact JSON output untuk 60k+ baris.",
+              "`scripts/process_skd_kemdikbud.py` — Runner document + BatchProcessor dengan facts schema-safe dan edge provenance.",
+              "Processed Hasil SKD CPNS Kemdikbudristek TA 2024 — 63460 persons from 17,799-page / 60 MB PDF. Source: `polman-bandung.ac.id`. OSINT N/A (no email/phone in roster)."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md / `next_manual.txt`: Added Kemdikbud SSCN SKD parser reminder.",
+              "Manual run note: PDF 60 MB membutuhkan download via curl (timeout `download.py` 60s dapat menghasilkan PDF korup partial); verifikasi dengan `pdfinfo` sebelum OCR."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`parse_skd_kemdikbud.py`: Tolak baris lanjutan pendidikan (KONSTRUKSI JALAN, PERAIRAN, dll.) yang salah digabung ke `full_name`; 4 record diperbaiki + validator `S.KEL` false positive."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.3",
         "date": "2026-05-24",
@@ -1834,30 +1861,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.11.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`templates/data_kelompok.json` — Template for community group data documents (fishing groups, farmer groups, etc.) with keywords: `kelompok nelayan`, `ketua kelompok`, `nama pengurus`, `sekretaris`, `kelas kelompok`, `pemula`, `madya`, `utama`",
-              "AGENT.md: Phone Dedup Caveat section — documents sequential batch processing false-merge risk when multiple persons share a phone in the same document"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "AGENT.md: Added `data_kelompok` to templates list"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 219092,
+    "totalEntities": 282552,
     "entitiesWithCity": 2721,
     "geocodedEntities": 1998,
     "uniqueCities": 607,
@@ -2904,8 +2912,8 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2904,
-    "documentsWithUrl": 2887,
+    "documentsTotal": 2905,
+    "documentsWithUrl": 2888,
     "documentsIdDomain": 521,
     "topSuffix": "go.id",
     "domainSuffixes": [
@@ -2921,7 +2929,7 @@
       },
       {
         "type": "pdf",
-        "count": 1243
+        "count": 1244
       },
       {
         "type": "unknown",
@@ -2961,12 +2969,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 87938
+      "bytes": 88382
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 21605
+      "bytes": 21560
     },
     {
       "file": "sitemap.xml",
