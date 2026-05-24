@@ -2259,10 +2259,10 @@ body.dashboard-body {
 }
 
 .intel-module--data-guide .data-guide-pane--artifacts {
-  align-self: start;
-  max-height: none;
-  min-height: min-content;
-  overflow: visible;
+  align-self: stretch;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 .intel-module--data-guide .index-types-pane--compact {
@@ -2297,19 +2297,20 @@ body.dashboard-body {
 }
 
 .intel-module--data-guide .data-guide-pane__body--artifacts {
-  flex: 0 0 auto;
-  min-height: auto;
+  flex: 1 1 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 6px 8px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .intel-module--data-guide .data-guide-pane__body--artifacts .table-wrap--index-types {
-  flex: 0 1 auto;
+  flex: 1 1 0;
   min-height: 0;
-  max-height: 6.75rem;
+  max-height: none;
+  overflow: auto;
 }
 
 .intel-module--data-guide .data-guide-artifacts-kpis {
@@ -6291,7 +6292,9 @@ body.dashboard-body {
 }
 
 .page--dashboard .intel-module[data-module="DAT-01"] .data-guide-pane__body--artifacts .table-wrap--index-types {
-  max-height: 6.25rem;
+  flex: 1 1 0;
+  min-height: 0;
+  max-height: none;
 }
 
 .page--dashboard .intel-module[data-module="DAT-01"] .data-guide__table--artifacts thead th,
