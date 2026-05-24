@@ -1,33 +1,33 @@
 {
-  "updated": "2026-05-24 12:02 UTC",
+  "updated": "2026-05-24 12:17 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 340665,
-    "graphEdges": 584731,
-    "sourceDocuments": 2918,
+    "graphNodes": 357077,
+    "graphEdges": 601142,
+    "sourceDocuments": 2919,
     "activeVectors": 5,
-    "dominantVectorPct": 58.9,
+    "dominantVectorPct": 56.2,
     "dominantVectorId": "phone",
     "xrefRatio": 1.3,
-    "pipelineSuccessPct": 52.6,
-    "pipelineBacklogPct": 36.9,
-    "pipelineFailurePct": 9.8,
-    "entityLinkRate": 0.69
+    "pipelineSuccessPct": 28.4,
+    "pipelineBacklogPct": 66.0,
+    "pipelineFailurePct": 5.3,
+    "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 340665,
-    "documents": 2918,
+    "persons": 357077,
+    "documents": 2919,
     "photos": 62,
-    "templates": 42,
-    "history": 354,
-    "doneFiles": 6
+    "templates": 43,
+    "history": 355,
+    "doneFiles": 9
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 200581,
-      "pct": 58.9
+      "pct": 56.2
     },
     {
       "id": "email",
@@ -39,13 +39,13 @@
       "id": "employee_id",
       "label": "ID karyawan",
       "value": 6350,
-      "pct": 1.9
+      "pct": 1.8
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 29575,
-      "pct": 8.7
+      "pct": 8.3
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 340665,
+  "coverageTotal": 357077,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 248971,
-      "refs": 340523
+      "entries": 259916,
+      "refs": 356934
     },
     {
       "type": "Telepon",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 451376,
-    "refs": 584731
+    "entries": 462321,
+    "refs": 601142
   },
   "indexCooccurrence": [
     {
@@ -232,14 +232,19 @@
     }
   ],
   "queue": {
-    "pending": 252,
-    "processing": 3,
-    "done": 359,
+    "pending": 836,
+    "processing": 1,
+    "done": 360,
     "skipped": 2,
     "failed": 67,
-    "total": 683
+    "total": 1266
   },
   "recentDocs": [
+    {
+      "title": "D····· J····· B····· K········· P········ D·· P········· P········ B···· T···· 1··········",
+      "imported_at": "2026-05-24T12:09:39Z",
+      "mentions": 16412
+    },
     {
       "title": "R····· S······ A······· G··· J··· T····",
       "imported_at": "2026-05-24T11:55:39Z",
@@ -284,11 +289,6 @@
       "title": "K···· T···· P······· (····",
       "imported_at": "2026-05-24T06:42:07Z",
       "mentions": 1
-    },
-    {
-      "title": "H···· S······ K········· D···· C··· K·············· T···· A······· 2024",
-      "imported_at": "2026-05-24T04:16:14Z",
-      "mentions": 63460
     }
   ],
   "showcaseEntities": [
@@ -1271,10 +1271,14 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.17",
+    "latestVersion": "v2.8.19",
     "latestDate": "2026-05-24",
-    "totalReleases": 51,
+    "totalReleases": 53,
     "summary": {
+      "Added — Daftar Jemaah Haji (Jawa Tengah Bipih 1443H, Scribd)": 4,
+      "AGENT.md — Daftar Jemaah Haji entry": 1,
+      "Fixed": 23,
+      "Added": 137,
       "Added — BPR Debitur xlsx parser (data nasabah BPR Tabris, Scribd)": 4,
       "AGENT.md — BPR Debitur xlsx entry": 1,
       "Fixed — agent prompts masih menulis `tmp/queue.csv`": 4,
@@ -1282,11 +1286,57 @@
       "Changed — full SQLite pipeline state (except tmp/input.csv)": 6,
       "Changed — full SQLite cutover (no runtime data/*.json)": 4,
       "Changed — Fase C (operational cutover)": 7,
-      "Added": 134,
-      "Fixed": 20,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.19",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added — Daftar Jemaah Haji (Jawa Tengah Bipih 1443H, Scribd)",
+            "items": [
+              "`scripts/parse_jemaah_haji.py` — parser Scribd/pdftotext roster: No. Porsi, nama, TTL, alamat, kab/kota, CADANGAN; glue-fix `…KAB.`; wrapped-line merge.",
+              "`scripts/process_jemaah_haji.py` — document + BatchProcessor runner dengan edge person ↔ document.",
+              "Template `daftar_jemaah_haji` — keywords jemaah/bipih/pelunasan.",
+              "Diproses: Scribd `578022831/JATENG` — 16,412 persons (16,550 baris teks; ~138 baris tidak ter-parse). Doc `01KSCY84GCJA9KHW3SRB89MHCT`. OSINT skipped per user request (no email/phone in roster)."
+            ]
+          },
+          {
+            "kind": "AGENT.md — Daftar Jemaah Haji entry",
+            "items": [
+              "Aturan parsing No. Porsi → `extra` only; Scribd text fallback; glued kab/kota normalization."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/validate.py` — allow single-token given name `LULUS` (roster false positive vs status word `lulus`)."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.18",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parse_seleksi_akademik_guru.py` — parser XLSX headerless seleksi akademik guru (Scribd): nama, TTL, gender, NO HP, NO UKG, NIP/NIK, sekolah/NPSN, mapel, skor, status.",
+              "`scripts/process_seleksi_akademik_guru.py` — runner document + BatchProcessor dengan edge person ↔ document dan facts pendidikan/schema-safe.",
+              "Diproses: Scribd doc `515879667/5-6159020911061107177` — 18,727 persons. Doc `01KSCXEGDMS6SAXC80XNE3PTQM`. OSINT PhoneInfoga blocked by external-disclosure approval for 17,921 phone contacts."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/person.py` — merge changelog tidak lagi menulis key `summary` yang tidak sesuai schema.",
+              "Parser seleksi akademik memprioritaskan NIK/NIP sebelum phone detection dan menolak edge phone non-mobile/overlong."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.17",
         "date": "2026-05-24",
@@ -1742,36 +1792,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.5.1",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/classify.py`: Minimum match score threshold reduced from 2 to 1. Single-word keywords (e.g., \"lhkpn\") previously could never reach score ≥2, causing template matching to fail for titles containing only a single keyword. `len(kw.split())` for single-word keywords = 1 point, which was below threshold."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.5.0",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`templates/formulir_pendaftaran.json` — Template for application/registration forms (seleksi, diklat, rekrutmen). Keywords: formulir, pendaftaran, seleksi, lamaran, biodata pribadi, daftar riwayat hidup, kartu pendaftaran. Identifiers: national_id, phone. Person count: few. Can be blank form or filled.",
-              "`templates/pengumuman_hasil_seleksi.json` — Template for selection result announcements (JPT, CPNS, PPPK). Keywords: pengumuman, hasil seleksi, lolos seleksi, memenuhi syarat, seleksi administrasi. Identifiers: name. Person count: many."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 340665,
+    "totalEntities": 357077,
     "entitiesWithCity": 22498,
     "geocodedEntities": 21547,
     "uniqueCities": 819,
@@ -2818,8 +2843,8 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2918,
-    "documentsWithUrl": 2901,
+    "documentsTotal": 2919,
+    "documentsWithUrl": 2902,
     "documentsIdDomain": 521,
     "topSuffix": "go.id",
     "domainSuffixes": [
@@ -2866,8 +2891,8 @@
         "count": 3
       },
       {
-        "type": "word",
-        "count": 1
+        "type": "txt",
+        "count": 2
       }
     ]
   },
@@ -2875,12 +2900,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 82021
+      "bytes": 82745
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 21856
+      "bytes": 21931
     },
     {
       "file": "sitemap.xml",
