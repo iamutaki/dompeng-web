@@ -1,33 +1,33 @@
 {
-  "updated": "2026-05-24 17:37 UTC",
+  "updated": "2026-05-24 18:47 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 477287,
-    "graphEdges": 859744,
-    "sourceDocuments": 2976,
+    "graphNodes": 480735,
+    "graphEdges": 863077,
+    "sourceDocuments": 3016,
     "activeVectors": 5,
-    "dominantVectorPct": 59.8,
+    "dominantVectorPct": 59.4,
     "dominantVectorId": "phone",
     "xrefRatio": 1.3,
-    "pipelineSuccessPct": 31.9,
-    "pipelineBacklogPct": 32.2,
-    "pipelineFailurePct": 13.2,
-    "entityLinkRate": 0.75
+    "pipelineSuccessPct": 34.9,
+    "pipelineBacklogPct": 22.3,
+    "pipelineFailurePct": 13.6,
+    "entityLinkRate": 0.74
   },
   "summary": {
-    "persons": 477287,
-    "documents": 2976,
+    "persons": 480735,
+    "documents": 3016,
     "photos": 100,
     "templates": 57,
-    "history": 420,
-    "doneFiles": 181
+    "history": 469,
+    "doneFiles": 74
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 285636,
-      "pct": 59.8
+      "pct": 59.4
     },
     {
       "id": "email",
@@ -38,7 +38,7 @@
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 6426,
+      "value": 6466,
       "pct": 1.3
     },
     {
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 477287,
+  "coverageTotal": 480735,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 340992,
-      "refs": 477112
+      "entries": 343527,
+      "refs": 480405
     },
     {
       "type": "Telepon",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 6426,
-      "refs": 6426
+      "entries": 6466,
+      "refs": 6466
     }
   ],
   "indexTotal": {
-    "entries": 659867,
-    "refs": 859744
+    "entries": 662442,
+    "refs": 863077
   },
   "indexCooccurrence": [
     {
@@ -138,7 +138,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 6426
+      "value": 6448
     },
     {
       "source": "Nama",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 415,
-    "processing": 11,
-    "done": 411,
-    "skipped": 282,
-    "failed": 170,
+    "pending": 287,
+    "processing": 12,
+    "done": 450,
+    "skipped": 365,
+    "failed": 175,
     "total": 1289
   },
   "recentDocs": [
     {
-      "title": "Data P······ K····· K········ R·······",
-      "imported_at": "2026-05-24T17:37:39Z",
-      "mentions": 56
+      "title": "d··········",
+      "imported_at": "2026-05-24T18:46:53Z",
+      "mentions": 0
     },
     {
-      "title": "0·························",
-      "imported_at": "2026-05-24T17:37:37Z",
-      "mentions": 88
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:56Z",
+      "mentions": 79
     },
     {
-      "title": "D····· H···· P······ D···· P········· K········ G···",
-      "imported_at": "2026-05-24T17:35:15Z",
-      "mentions": 46
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:54Z",
+      "mentions": 41
     },
     {
-      "title": "A······ D···· P········· R····· D····· K········ S····· M··· J··········· 2019 2024",
-      "imported_at": "2026-05-24T17:21:28Z",
-      "mentions": 21
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:52Z",
+      "mentions": 1182
     },
     {
-      "title": "LHKPN P······ E····· I· — 5 l······ (····· 2017",
-      "imported_at": "2026-05-24T16:50:08Z",
-      "mentions": 13
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:50Z",
+      "mentions": 31
     },
     {
-      "title": "I······· LHKPN S····· P······ (····· (··",
-      "imported_at": "2026-05-24T16:47:07Z",
-      "mentions": 5
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:49Z",
+      "mentions": 80
     },
     {
-      "title": "I······· LHKPN H· J···· (··",
-      "imported_at": "2026-05-24T16:37:24Z",
-      "mentions": 2
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:48Z",
+      "mentions": 17
     },
     {
-      "title": "I······· LHKPN G········ (····· 2023",
-      "imported_at": "2026-05-24T16:37:22Z",
-      "mentions": 2
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:23:45Z",
+      "mentions": 69
     },
     {
-      "title": "I······· LHKPN N········ (····· 2023",
-      "imported_at": "2026-05-24T16:37:20Z",
-      "mentions": 3
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:18:28Z",
+      "mentions": 58
     },
     {
-      "title": "I······· LHKPN A··· N·········· (····· 2021",
-      "imported_at": "2026-05-24T16:37:19Z",
-      "mentions": 4
+      "title": "Data P······ r·· 8··",
+      "imported_at": "2026-05-24T18:18:26Z",
+      "mentions": 137
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,12 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.0",
-    "latestDate": "2026-05-24",
-    "totalReleases": 74,
+    "latestVersion": "v2.9.1",
+    "latestDate": "2026-05-25",
+    "totalReleases": 75,
     "summary": {
+      "Added — Wilayah document fallback & geo map alignment": 7,
+      "Processed — Backfill document wilayah (geo map)": 1,
       "Added — Data anggota DPRD biodata PDF (PPID Kemendagri)": 3,
       "Processed — PPID Kemendagri data anggota DPRD (manual)": 1,
       "Processed — PPID Kab. Buleleng LHKPN ikhtisar (queue)": 1,
@@ -1409,6 +1411,30 @@
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.9.1",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Added — Wilayah document fallback & geo map alignment",
+            "items": [
+              "`scripts/address_structured.py` — `has_complete_residence_wilayah()`, `enrich_document_wilayah()`, `infer_document_wilayah_text()`, `municipality_name_from_structured()`, `MUNICIPALITY_ADDRESS_TYPES`: infer kab/kota dari konteks dokumen hanya bila person belum punya alamat domisili lengkap.",
+              "`scripts/backfill_document_wilayah.py` — Backfill massal `--all` atau per `--doc-id`: infer wilayah dari judul/deskripsi dokumen (Sambas, Bukittinggi, IKN, dll.); lewati dokumen kementerian nasional tanpa kab/kota lokal.",
+              "AGENT.md — Section *Wilayah, structured_address, and geo map*: aturan lintas-pipeline (per-row vs document-level, geo tidak memakai `employer` saja, refresh summary setelah backfill).",
+              "`scripts/summary/geo.py` — Peta agregat membaca `structured_address` bertipe `municipality` atau `city` (selaras parser & `samples/person.json`), tidak hanya `city`.",
+              "`scripts/process_skd_sambas.py` — Entri baru + `--repair`: isi `structured_address` Kabupaten Sambas bila domisili kosong.",
+              "`scripts/process_skd_bukittinggi.py` — `enrich_document_wilayah` untuk Kota Bukittinggi pada roster tanpa alamat per baris.",
+              "`scripts/process_ikn_batch.py` — `enrich_document_wilayah` Penajam Paser Utara untuk roster IKN tanpa alamat per baris."
+            ]
+          },
+          {
+            "kind": "Processed — Backfill document wilayah (geo map)",
+            "items": [
+              "22,923 persons — `backfill_document_wilayah.py --all`: SKD CPNS Kab. Sambas 2019 (5,489) + 2021 (2,412), Kota Bukittinggi 2018 (180), Otorita IKN 2024 (14,842). Hanya roster seleksi CPNS/SKD tanpa domisili per baris; dokumen kementerian nasional dilewati."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.9.0",
         "date": "2026-05-24",
@@ -1964,31 +1990,32 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.16",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Fixed — agent prompts masih menulis `tmp/queue.csv`",
-            "items": [
-              "`next.txt`, `next_sequence.txt`, `next_manual.txt` — queue via `queue.py` (SQLite), bukan `grep`/`echo` ke CSV.",
-              "`scripts/queue.py` — subcommand `append`, `has-url` untuk manual mode.",
-              "`scripts/pipeline_state.py` — `queue_has_url`, `queue_get_row`.",
-              "Hapus tracking git untuk legacy `tmp/queue.csv` dan `tmp/processing_history.json` (sudah di `.gitignore`)."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 477287,
-    "entitiesWithCity": 34064,
-    "geocodedEntities": 27825,
-    "uniqueCities": 3049,
-    "mappedCities": 248,
+    "totalEntities": 480735,
+    "entitiesWithCity": 57919,
+    "geocodedEntities": 53645,
+    "uniqueCities": 2405,
+    "mappedCities": 263,
     "clusters": [
+      {
+        "key": "PENAJAM PASER UTARA",
+        "label": "Penajam Paser Utara",
+        "province": "Kalimantan Timur",
+        "count": 14842,
+        "lat": -1.1571295540332083,
+        "lng": 116.59035802018774
+      },
+      {
+        "key": "SAMBAS",
+        "label": "Sambas",
+        "province": null,
+        "count": 7906,
+        "lat": 1.4230857823487124,
+        "lng": 109.34956822007936
+      },
       {
         "key": "MOJOKERTO",
         "label": "Mojokerto",
@@ -1996,6 +2023,27 @@
         "count": 3526,
         "lat": -7.471389237257247,
         "lng": 112.43750790606278
+      },
+      {
+        "key": "coord:101.4478,0.5071",
+        "label": "Pekanbaru",
+        "province": null,
+        "count": 1779,
+        "lat": 0.5071,
+        "lng": 101.4478,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Pekanbaru",
+            "count": 1776,
+            "province": null
+          },
+          {
+            "label": "Riau",
+            "count": 3,
+            "province": null
+          }
+        ]
       },
       {
         "key": "PROBOLINGGO",
@@ -2006,26 +2054,26 @@
         "lng": 113.20546894160377
       },
       {
+        "key": "SAWAH LUNTO",
+        "label": "Sawah Lunto",
+        "province": null,
+        "count": 1240,
+        "lat": -0.6526981455630663,
+        "lng": 100.75440600181145
+      },
+      {
         "key": "SURABAYA",
         "label": "Surabaya",
         "province": null,
-        "count": 1090,
+        "count": 1089,
         "lat": -7.2575,
         "lng": 112.7521
       },
       {
-        "key": "JAKARTA",
-        "label": "Jakarta",
-        "province": "DKI JAKARTA",
-        "count": 1062,
-        "lat": -6.2088,
-        "lng": 106.8456
-      },
-      {
         "key": "NGANJUK",
         "label": "Nganjuk",
-        "province": "DKI JAKARTA",
-        "count": 1056,
+        "province": null,
+        "count": 1054,
         "lat": -7.597495579235766,
         "lng": 111.9385462072378
       },
@@ -2033,7 +2081,7 @@
         "key": "MALANG",
         "label": "Malang",
         "province": null,
-        "count": 898,
+        "count": 895,
         "lat": -7.9797,
         "lng": 112.6304
       },
@@ -2054,10 +2102,18 @@
         "lng": 112.7183
       },
       {
+        "key": "JAKARTA",
+        "label": "Jakarta",
+        "province": null,
+        "count": 862,
+        "lat": -6.2088,
+        "lng": 106.8456
+      },
+      {
         "key": "KEDIRI",
         "label": "Kediri",
-        "province": "DKI JAKARTA",
-        "count": 800,
+        "province": null,
+        "count": 798,
         "lat": -7.8167,
         "lng": 112.0167
       },
@@ -2065,7 +2121,7 @@
         "key": "LAMONGAN",
         "label": "Lamongan",
         "province": null,
-        "count": 791,
+        "count": 790,
         "lat": -7.131410514989188,
         "lng": 112.30074592146252
       },
@@ -2073,7 +2129,7 @@
         "key": "BANYUWANGI",
         "label": "Banyuwangi",
         "province": null,
-        "count": 755,
+        "count": 754,
         "lat": -8.364660048320326,
         "lng": 114.20589727388659
       },
@@ -2096,8 +2152,8 @@
       {
         "key": "BOJONEGORO",
         "label": "Bojonegoro",
-        "province": "DKI JAKARTA",
-        "count": 695,
+        "province": null,
+        "count": 694,
         "lat": -7.255575904171538,
         "lng": 111.80986997600675
       },
@@ -2105,38 +2161,17 @@
         "key": "BLITAR",
         "label": "Blitar",
         "province": null,
-        "count": 664,
+        "count": 663,
         "lat": -8.094766713715375,
         "lng": 112.16697121377153
       },
       {
         "key": "GRESIK",
         "label": "Gresik",
-        "province": "DKI JAKARTA",
-        "count": 654,
+        "province": null,
+        "count": 651,
         "lat": -7.1565,
         "lng": 112.6537
-      },
-      {
-        "key": "coord:101.4478,0.5071",
-        "label": "Pekanbaru",
-        "province": "RIAU",
-        "count": 625,
-        "lat": 0.5071,
-        "lng": 101.4478,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Pekanbaru",
-            "count": 622,
-            "province": "RIAU"
-          },
-          {
-            "label": "Riau",
-            "count": 3,
-            "province": null
-          }
-        ]
       },
       {
         "key": "BONDOWOSO",
@@ -2155,20 +2190,20 @@
         "lng": 112.26408497780137
       },
       {
+        "key": "LUMAJANG",
+        "label": "Lumajang",
+        "province": null,
+        "count": 496,
+        "lat": -8.125443593037627,
+        "lng": 113.1384962451385
+      },
+      {
         "key": "BANGKALAN",
         "label": "Bangkalan",
         "province": null,
         "count": 490,
         "lat": -7.044336159120006,
         "lng": 112.92953638360994
-      },
-      {
-        "key": "LUMAJANG",
-        "label": "Lumajang",
-        "province": null,
-        "count": 488,
-        "lat": -8.125443593037627,
-        "lng": 113.1384962451385
       },
       {
         "key": "NGAWI",
@@ -2205,16 +2240,16 @@
       {
         "key": "BEKASI",
         "label": "Bekasi",
-        "province": "JAWA TIMUR",
-        "count": 446,
+        "province": null,
+        "count": 441,
         "lat": -6.2383,
         "lng": 106.9756
       },
       {
         "key": "MADIUN",
         "label": "Madiun",
-        "province": "DKI JAKARTA",
-        "count": 438,
+        "province": null,
+        "count": 436,
         "lat": -7.6298,
         "lng": 111.5239
       },
@@ -2227,145 +2262,253 @@
         "lng": 114.40313360696307
       },
       {
+        "key": "coord:111.8877,-8.1135",
+        "label": "Tulungagung",
+        "province": null,
+        "count": 375,
+        "lat": -8.113471029366075,
+        "lng": 111.88772275127678,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Tulungagung",
+            "count": 365,
+            "province": null
+          },
+          {
+            "label": "Tulung Agung",
+            "count": 10,
+            "province": null
+          }
+        ]
+      },
+      {
         "key": "PONOROGO",
         "label": "Ponorogo",
         "province": null,
-        "count": 371,
+        "count": 369,
         "lat": -7.931327949447231,
         "lng": 111.4995304316846
-      },
-      {
-        "key": "TULUNGAGUNG",
-        "label": "Tulungagung",
-        "province": null,
-        "count": 365,
-        "lat": -8.113471029366075,
-        "lng": 111.88772275127678
       },
       {
         "key": "MAGETAN",
         "label": "Magetan",
         "province": null,
-        "count": 353,
+        "count": 351,
         "lat": -7.663380036623219,
         "lng": 111.35743424446322
+      },
+      {
+        "key": "JAKARTA TIMUR",
+        "label": "Jakarta Timur",
+        "province": "DKI JAKARTA",
+        "count": 340,
+        "lat": -6.225,
+        "lng": 106.9
       },
       {
         "key": "MEDAN",
         "label": "Medan",
         "province": null,
-        "count": 347,
+        "count": 316,
         "lat": 3.5952,
         "lng": 98.6722
       },
       {
         "key": "PACITAN",
         "label": "Pacitan",
-        "province": "DKI JAKARTA",
-        "count": 279,
+        "province": null,
+        "count": 278,
         "lat": -8.124952119730581,
         "lng": 111.1780856391636
-      },
-      {
-        "key": "SAWAHLUNTO",
-        "label": "Sawahlunto",
-        "province": "RIAU",
-        "count": 271,
-        "lat": -0.6526981455630663,
-        "lng": 100.75440600181145
       },
       {
         "key": "SITUBONDO",
         "label": "Situbondo",
         "province": "JAWA TIMUR",
-        "count": 249,
+        "count": 251,
         "lat": -7.801438530042718,
         "lng": 114.05136405329577
       },
       {
-        "key": "SUMBAWA",
+        "key": "MOROWALI",
+        "label": "Morowali",
+        "province": "Sulawesi Tengah",
+        "count": 200,
+        "lat": -2.715939523837165,
+        "lng": 121.92366902426565
+      },
+      {
+        "key": "BANJAR",
+        "label": "Banjar",
+        "province": "KALIMANTAN SELATAN",
+        "count": 190,
+        "lat": -7.3769887499210665,
+        "lng": 108.5672046175411
+      },
+      {
+        "key": "coord:100.3725,-0.2996",
+        "label": "Bukittinggi Sumatera Barat",
+        "province": null,
+        "count": 184,
+        "lat": -0.2995833927724919,
+        "lng": 100.37253702334122,
+        "mergedCount": 3,
+        "mergedCities": [
+          {
+            "label": "Bukittinggi Sumatera Barat",
+            "count": 180,
+            "province": null
+          },
+          {
+            "label": "Bukittinggi",
+            "count": 3,
+            "province": null
+          },
+          {
+            "label": "Bukit Tinggi",
+            "count": 1,
+            "province": null
+          }
+        ]
+      },
+      {
+        "key": "coord:117.4843,-8.7033",
         "label": "Sumbawa",
         "province": null,
-        "count": 128,
+        "count": 175,
         "lat": -8.703298122597804,
-        "lng": 117.48426111079142
+        "lng": 117.48426111079142,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Sumbawa",
+            "count": 128,
+            "province": null
+          },
+          {
+            "label": "Sumbawa Besar",
+            "count": 47,
+            "province": null
+          }
+        ]
+      },
+      {
+        "key": "coord:117.1536,-0.5022",
+        "label": "Samarinda",
+        "province": "Kalimantan Timur",
+        "count": 172,
+        "lat": -0.5022,
+        "lng": 117.1536,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Samarinda",
+            "count": 171,
+            "province": "Kalimantan Timur"
+          },
+          {
+            "label": "Kalimantan Timur",
+            "count": 1,
+            "province": null
+          }
+        ]
+      },
+      {
+        "key": "BANJARBARU",
+        "label": "Banjarbaru",
+        "province": "Kalimantan Selatan",
+        "count": 133,
+        "lat": -3.4747673377541806,
+        "lng": 114.79117548120564
       },
       {
         "key": "BANDA ACEH",
         "label": "Banda Aceh",
         "province": null,
-        "count": 119,
+        "count": 117,
         "lat": 5.558704403882444,
         "lng": 95.32771345826497
       },
       {
-        "key": "PADANG",
-        "label": "Padang",
-        "province": "RIAU",
-        "count": 111,
-        "lat": -0.9471,
-        "lng": 100.4172
-      },
-      {
         "key": "INDRAMAYU",
         "label": "Indramayu",
-        "province": "DKI JAKARTA",
-        "count": 110,
+        "province": null,
+        "count": 104,
         "lat": -6.447487543473922,
         "lng": 108.16902667217846
+      },
+      {
+        "key": "ROTE NDAO",
+        "label": "Rote Ndao",
+        "province": "Nusa Tenggara Timur",
+        "count": 80,
+        "lat": -10.725959995065217,
+        "lng": 123.12444836806907
       },
       {
         "key": "BANDUNG",
         "label": "Bandung",
         "province": "JAWA BARAT",
-        "count": 88,
+        "count": 79,
         "lat": -6.9175,
         "lng": 107.6191
       },
       {
         "key": "TEGAL",
         "label": "Tegal",
-        "province": "GORONTALO",
-        "count": 75,
+        "province": "JAWA TENGAH",
+        "count": 74,
         "lat": -6.8694,
         "lng": 109.1402
       },
       {
-        "key": "coord:103.6131,-1.6101",
-        "label": "Jambi",
-        "province": null,
-        "count": 69,
-        "lat": -1.6101,
-        "lng": 103.6131,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Jambi",
-            "count": 62,
-            "province": null
-          },
-          {
-            "label": "Mandikapau",
-            "count": 7,
-            "province": "KALIMANTAN SELATAN"
-          }
-        ]
+        "key": "PALEMBANG",
+        "label": "Palembang",
+        "province": "Sumatera Selatan",
+        "count": 73,
+        "lat": -2.9761,
+        "lng": 104.7754
+      },
+      {
+        "key": "PONTIANAK",
+        "label": "Pontianak",
+        "province": "Kalimantan Barat",
+        "count": 70,
+        "lat": -0.0263,
+        "lng": 109.3425
       },
       {
         "key": "SEMARANG",
         "label": "Semarang",
         "province": null,
-        "count": 60,
+        "count": 61,
         "lat": -6.9667,
         "lng": 110.4167
       },
       {
-        "key": "SOLOK",
-        "label": "Solok",
+        "key": "BENER MERIAH",
+        "label": "Bener Meriah",
+        "province": "Aceh",
+        "count": 55,
+        "lat": 4.770053737511645,
+        "lng": 97.00411795379742
+      },
+      {
+        "key": "JAMBI",
+        "label": "Jambi",
         "province": null,
-        "count": 58,
-        "lat": -0.7828670008969798,
-        "lng": 100.62986603657843
+        "count": 54,
+        "lat": -1.6101,
+        "lng": 103.6131
+      },
+      {
+        "key": "ACEH BARAT DAYA",
+        "label": "Aceh Barat Daya",
+        "province": "Aceh",
+        "count": 54,
+        "lat": 3.8226302105855576,
+        "lng": 96.8802947194541
       },
       {
         "key": "ACEH BESAR",
@@ -2378,40 +2521,40 @@
       {
         "key": "KLATEN",
         "label": "Klaten",
-        "province": null,
-        "count": 48,
+        "province": "JAWA TENGAH",
+        "count": 53,
         "lat": -7.685818105806987,
         "lng": 110.61945204176338
-      },
-      {
-        "key": "BOGOR",
-        "label": "Bogor",
-        "province": null,
-        "count": 46,
-        "lat": -6.5971,
-        "lng": 106.806
-      },
-      {
-        "key": "SUKOHARJO",
-        "label": "Sukoharjo",
-        "province": null,
-        "count": 43,
-        "lat": -7.6807,
-        "lng": 110.8383
       },
       {
         "key": "LANGSA",
         "label": "Langsa",
         "province": null,
-        "count": 42,
+        "count": 41,
         "lat": 4.481819463788533,
         "lng": 97.98059606204667
+      },
+      {
+        "key": "BIREUEN",
+        "label": "Bireuen",
+        "province": null,
+        "count": 40,
+        "lat": 5.093825519117036,
+        "lng": 96.6070350974139
+      },
+      {
+        "key": "SUKOHARJO",
+        "label": "Sukoharjo",
+        "province": null,
+        "count": 39,
+        "lat": -7.6807,
+        "lng": 110.8383
       },
       {
         "key": "coord:110.8243,-7.5755",
         "label": "Surakarta",
         "province": null,
-        "count": 42,
+        "count": 38,
         "lat": -7.5755,
         "lng": 110.8243,
         "mergedCount": 2,
@@ -2423,50 +2566,18 @@
           },
           {
             "label": "Solo",
-            "count": 17,
-            "province": "DKI JAKARTA"
+            "count": 13,
+            "province": null
           }
         ]
       },
       {
-        "key": "YOGYAKARTA",
-        "label": "Yogyakarta",
-        "province": "DKI JAKARTA",
-        "count": 41,
-        "lat": -7.7956,
-        "lng": 110.3695
-      },
-      {
-        "key": "BIREUEN",
-        "label": "Bireuen",
-        "province": null,
-        "count": 40,
-        "lat": 5.093825519117036,
-        "lng": 96.6070350974139
-      },
-      {
-        "key": "KEBUMEN",
-        "label": "Kebumen",
-        "province": "DKI JAKARTA",
-        "count": 39,
-        "lat": -7.654964269929172,
-        "lng": 109.61735310996204
-      },
-      {
-        "key": "PALEMBANG",
-        "label": "Palembang",
-        "province": null,
-        "count": 39,
-        "lat": -2.9761,
-        "lng": 104.7754
-      },
-      {
-        "key": "LHOKSEUMAWE",
-        "label": "Lhokseumawe",
+        "key": "PADANG",
+        "label": "Padang",
         "province": null,
         "count": 37,
-        "lat": 5.165266839235381,
-        "lng": 97.11119932282992
+        "lat": -0.9471,
+        "lng": 100.4172
       },
       {
         "key": "BLORA",
@@ -2477,182 +2588,124 @@
         "lng": 111.38743501291204
       },
       {
-        "key": "DUMAI",
-        "label": "Dumai",
+        "key": "YOGYAKARTA",
+        "label": "Yogyakarta",
         "province": null,
         "count": 36,
-        "lat": 1.8207559200441943,
-        "lng": 101.28228692078588
+        "lat": -7.7956,
+        "lng": 110.3695
       },
       {
-        "key": "PONTIANAK",
-        "label": "Pontianak",
-        "province": "Kalimantan Barat",
-        "count": 33,
-        "lat": -0.0263,
-        "lng": 109.3425
+        "key": "LHOKSEUMAWE",
+        "label": "Lhokseumawe",
+        "province": null,
+        "count": 36,
+        "lat": 5.165266839235381,
+        "lng": 97.11119932282992
+      },
+      {
+        "key": "BOGOR",
+        "label": "Bogor",
+        "province": null,
+        "count": 35,
+        "lat": -6.5971,
+        "lng": 106.806
+      },
+      {
+        "key": "SERUYAN",
+        "label": "Seruyan",
+        "province": "Kalimantan Tengah",
+        "count": 34,
+        "lat": -2.257238224208013,
+        "lng": 112.19865002889901
+      },
+      {
+        "key": "KEBUMEN",
+        "label": "Kebumen",
+        "province": null,
+        "count": 32,
+        "lat": -7.654964269929172,
+        "lng": 109.61735310996204
+      },
+      {
+        "key": "LUWU UTARA",
+        "label": "Luwu Utara",
+        "province": "Sulawesi Selatan",
+        "count": 29,
+        "lat": -2.3959351841425476,
+        "lng": 120.16443417949097
       },
       {
         "key": "SRAGEN",
         "label": "Sragen",
-        "province": "DKI JAKARTA",
-        "count": 32,
+        "province": null,
+        "count": 29,
         "lat": -7.385336820860583,
         "lng": 110.97414413327868
       },
       {
-        "key": "BREBES",
-        "label": "Brebes",
-        "province": "DKI JAKARTA",
-        "count": 29,
-        "lat": -7.06277205117945,
-        "lng": 108.92952648130553
-      },
-      {
-        "key": "WONOGIRI",
-        "label": "Wonogiri",
-        "province": "DKI JAKARTA",
-        "count": 29,
-        "lat": -7.91928517416729,
-        "lng": 110.99921317719837
-      },
-      {
-        "key": "BANYUMAS",
-        "label": "Banyumas",
-        "province": "DKI JAKARTA",
-        "count": 28,
-        "lat": -7.455508579690273,
-        "lng": 109.17578818103475
+        "key": "SERANG",
+        "label": "Serang",
+        "province": null,
+        "count": 27,
+        "lat": -6.12,
+        "lng": 106.1503
       },
       {
         "key": "ACEH TENGAH",
         "label": "Aceh Tengah",
-        "province": "Aceh",
-        "count": 28,
+        "province": null,
+        "count": 27,
         "lat": 4.519888081013543,
         "lng": 96.88130519675553
       },
       {
-        "key": "MAGELANG",
-        "label": "Magelang",
-        "province": "DKI JAKARTA",
-        "count": 27,
-        "lat": -7.4706,
-        "lng": 110.217
-      },
-      {
-        "key": "PAYAKUMBUH",
-        "label": "Payakumbuh",
-        "province": "DKI JAKARTA",
-        "count": 27,
-        "lat": -0.22698536472630126,
-        "lng": 100.63211796975128
-      },
-      {
-        "key": "CIREBON",
-        "label": "Cirebon",
-        "province": "DKI JAKARTA",
-        "count": 26,
-        "lat": -6.7063,
-        "lng": 108.557
-      },
-      {
-        "key": "BALIKPAPAN",
-        "label": "Balikpapan",
-        "province": "DKI JAKARTA",
-        "count": 25,
-        "lat": -1.2379,
-        "lng": 116.8529
-      },
-      {
-        "key": "coord:106.1503,-6.12",
-        "label": "Serang",
+        "key": "WONOGIRI",
+        "label": "Wonogiri",
         "province": null,
-        "count": 25,
-        "lat": -6.12,
-        "lng": 106.1503,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Serang",
-            "count": 24,
-            "province": null
-          },
-          {
-            "label": "Banten",
-            "count": 1,
-            "province": "DKI JAKARTA"
-          }
-        ]
+        "count": 26,
+        "lat": -7.91928517416729,
+        "lng": 110.99921317719837
       },
       {
         "key": "SLEMAN",
         "label": "Sleman",
         "province": null,
-        "count": 24,
+        "count": 25,
         "lat": -7.716463527037873,
         "lng": 110.38321299281007
       },
       {
-        "key": "BUKITTINGGI",
-        "label": "Bukittinggi",
+        "key": "BREBES",
+        "label": "Brebes",
+        "province": null,
+        "count": 25,
+        "lat": -7.06277205117945,
+        "lng": 108.92952648130553
+      },
+      {
+        "key": "MAGELANG",
+        "label": "Magelang",
         "province": null,
         "count": 24,
-        "lat": -0.2995833927724919,
-        "lng": 100.37253702334122
+        "lat": -7.4706,
+        "lng": 110.217
       },
       {
-        "key": "SUBANG",
-        "label": "Subang",
-        "province": "DKI JAKARTA",
+        "key": "BALIKPAPAN",
+        "label": "Balikpapan",
+        "province": null,
         "count": 23,
-        "lat": -6.5694,
-        "lng": 107.7631
+        "lat": -1.2379,
+        "lng": 116.8529
       },
       {
-        "key": "coord:117.1536,-0.5022",
-        "label": "Samarinda",
-        "province": "DKI JAKARTA",
-        "count": 23,
-        "lat": -0.5022,
-        "lng": 117.1536,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Samarinda",
-            "count": 22,
-            "province": "DKI JAKARTA"
-          },
-          {
-            "label": "Kalimantan Timur",
-            "count": 1,
-            "province": null
-          }
-        ]
-      },
-      {
-        "key": "SUKABUMI",
-        "label": "Sukabumi",
-        "province": "DKI JAKARTA",
-        "count": 22,
-        "lat": -6.9277,
-        "lng": 106.929
-      },
-      {
-        "key": "CIAMIS",
-        "label": "Ciamis",
-        "province": "DKI JAKARTA",
-        "count": 22,
-        "lat": -7.290249924234724,
-        "lng": 108.4286452357121
-      },
-      {
-        "key": "BANJARMASIN",
-        "label": "Banjarmasin",
+        "key": "CIREBON",
+        "label": "Cirebon",
         "province": null,
         "count": 22,
-        "lat": -3.3186,
-        "lng": 114.5944
+        "lat": -6.7063,
+        "lng": 108.557
       },
       {
         "key": "TEMANGGUNG",
@@ -2663,28 +2716,36 @@
         "lng": 110.1363023235599
       },
       {
-        "key": "CILACAP",
-        "label": "Cilacap",
-        "province": "DKI JAKARTA",
-        "count": 20,
-        "lat": -7.4889272895910715,
-        "lng": 108.88983867499971
-      },
-      {
-        "key": "PEMALANG",
-        "label": "Pemalang",
-        "province": "DKI JAKARTA",
-        "count": 20,
-        "lat": -7.036804246055557,
-        "lng": 109.39517261663187
-      },
-      {
-        "key": "REMBANG",
-        "label": "Rembang",
+        "key": "BANYUMAS",
+        "label": "Banyumas",
         "province": null,
+        "count": 22,
+        "lat": -7.455508579690273,
+        "lng": 109.17578818103475
+      },
+      {
+        "key": "BANJARMASIN",
+        "label": "Banjarmasin",
+        "province": null,
+        "count": 21,
+        "lat": -3.3186,
+        "lng": 114.5944
+      },
+      {
+        "key": "BULELENG",
+        "label": "Buleleng",
+        "province": "Bali",
         "count": 20,
-        "lat": -6.7751335384755045,
-        "lng": 111.46151952053158
+        "lat": -8.200953233765482,
+        "lng": 114.96090883720582
+      },
+      {
+        "key": "SUBANG",
+        "label": "Subang",
+        "province": "JAWA BARAT",
+        "count": 19,
+        "lat": -6.5694,
+        "lng": 107.7631
       },
       {
         "key": "SINJAI",
@@ -2703,12 +2764,28 @@
         "lng": 131.255
       },
       {
-        "key": "BENGKALIS",
-        "label": "Bengkalis",
-        "province": "RIAU",
-        "count": 18,
-        "lat": 1.4119064602346694,
-        "lng": 101.6428613308168
+        "key": "PEMALANG",
+        "label": "Pemalang",
+        "province": null,
+        "count": 19,
+        "lat": -7.036804246055557,
+        "lng": 109.39517261663187
+      },
+      {
+        "key": "UJUNG PANDANG",
+        "label": "Ujung Pandang",
+        "province": null,
+        "count": 19,
+        "lat": -5.135610238766096,
+        "lng": 119.46389981936488
+      },
+      {
+        "key": "REMBANG",
+        "label": "Rembang",
+        "province": null,
+        "count": 19,
+        "lat": -6.7751335384755045,
+        "lng": 111.46151952053158
       },
       {
         "key": "TANGERANG",
@@ -2727,36 +2804,20 @@
         "lng": 107.3542921153967
       },
       {
-        "key": "PADANG PANJANG",
-        "label": "Padang Panjang",
-        "province": "KALIMANTAN SELATAN",
-        "count": 17,
-        "lat": -0.47245437216216074,
-        "lng": 100.40229566530131
-      },
-      {
-        "key": "PARIAMAN",
-        "label": "Pariaman",
+        "key": "SUKABUMI",
+        "label": "Sukabumi",
         "province": null,
         "count": 17,
-        "lat": -0.6085969536801447,
-        "lng": 100.13810074979439
+        "lat": -6.9277,
+        "lng": 106.929
       },
       {
-        "key": "KUNINGAN",
-        "label": "Kuningan",
-        "province": "DKI JAKARTA",
-        "count": 16,
-        "lat": -7.00337928092881,
-        "lng": 108.55981098532055
-      },
-      {
-        "key": "TASIKMALAYA",
-        "label": "Tasikmalaya",
-        "province": "DKI JAKARTA",
-        "count": 16,
-        "lat": -7.3274,
-        "lng": 108.2207
+        "key": "CIAMIS",
+        "label": "Ciamis",
+        "province": null,
+        "count": 17,
+        "lat": -7.290249924234724,
+        "lng": 108.4286452357121
       },
       {
         "key": "MATARAM",
@@ -2767,20 +2828,12 @@
         "lng": 116.1167
       },
       {
-        "key": "BENGKULU",
-        "label": "Bengkulu",
-        "province": "BENGKULU",
+        "key": "CILACAP",
+        "label": "Cilacap",
+        "province": null,
         "count": 15,
-        "lat": -3.7928,
-        "lng": 102.2608
-      },
-      {
-        "key": "PEKALONGAN",
-        "label": "Pekalongan",
-        "province": "DKI JAKARTA",
-        "count": 15,
-        "lat": -6.8898,
-        "lng": 109.6753
+        "lat": -7.4889272895910715,
+        "lng": 108.88983867499971
       },
       {
         "key": "BUTON",
@@ -2791,22 +2844,6 @@
         "lng": 122.9229364946953
       },
       {
-        "key": "BOYOLALI",
-        "label": "Boyolali",
-        "province": "DKI JAKARTA",
-        "count": 14,
-        "lat": -7.416522443495546,
-        "lng": 110.65249878352462
-      },
-      {
-        "key": "PURWOREJO",
-        "label": "Purworejo",
-        "province": "DKI JAKARTA",
-        "count": 14,
-        "lat": -7.700380551881616,
-        "lng": 109.96612571432587
-      },
-      {
         "key": "BANTUL",
         "label": "Bantul",
         "province": null,
@@ -2815,41 +2852,44 @@
         "lng": 110.35488149436632
       },
       {
-        "key": "AMBON",
-        "label": "Ambon",
-        "province": "DKI JAKARTA",
-        "count": 14,
-        "lat": -3.6954,
-        "lng": 128.1814
-      },
-      {
-        "key": "coord:105.262,-5.429",
-        "label": "Lampung",
+        "key": "MAKASSAR",
+        "label": "Makassar",
         "province": null,
         "count": 14,
-        "lat": -5.429,
-        "lng": 105.262,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Lampung",
-            "count": 12,
-            "province": null
-          },
-          {
-            "label": "Bandar Lampung",
-            "count": 2,
-            "province": null
-          }
-        ]
+        "lat": -5.1477,
+        "lng": 119.4327
       },
       {
-        "key": "PURBALINGGA",
-        "label": "Purbalingga",
-        "province": "DKI JAKARTA",
+        "key": "PEKALONGAN",
+        "label": "Pekalongan",
+        "province": null,
+        "count": 14,
+        "lat": -6.8898,
+        "lng": 109.6753
+      },
+      {
+        "key": "TASIKMALAYA",
+        "label": "Tasikmalaya",
+        "province": null,
+        "count": 14,
+        "lat": -7.3274,
+        "lng": 108.2207
+      },
+      {
+        "key": "KUPANG",
+        "label": "Kupang",
+        "province": "NUSA TENGGARA TIMUR",
         "count": 13,
-        "lat": -7.323229861975122,
-        "lng": 109.40720469770457
+        "lat": -10.1772,
+        "lng": 123.607
+      },
+      {
+        "key": "PALANGKA RAYA",
+        "label": "Palangka Raya",
+        "province": "Kalimantan Tengah",
+        "count": 13,
+        "lat": -2.0074642796321776,
+        "lng": 113.76747426266772
       },
       {
         "key": "METRO",
@@ -2868,33 +2908,12 @@
         "lng": 140.717
       },
       {
-        "key": "coord:115.2126,-8.6705",
-        "label": "Denpasar",
-        "province": "BALI",
-        "count": 13,
-        "lat": -8.6705,
-        "lng": 115.2126,
-        "mergedCount": 2,
-        "mergedCities": [
-          {
-            "label": "Denpasar",
-            "count": 12,
-            "province": "BALI"
-          },
-          {
-            "label": "Bali",
-            "count": 1,
-            "province": null
-          }
-        ]
-      },
-      {
-        "key": "KUPANG",
-        "label": "Kupang",
-        "province": "NUSA TENGGARA TIMUR",
+        "key": "BENGKULU",
+        "label": "Bengkulu",
+        "province": "BENGKULU",
         "count": 12,
-        "lat": -10.1772,
-        "lng": 123.607
+        "lat": -3.7928,
+        "lng": 102.2608
       },
       {
         "key": "PALANGKARAYA",
@@ -2905,20 +2924,20 @@
         "lng": 113.9213
       },
       {
-        "key": "TANJUNG PINANG",
-        "label": "Tanjung Pinang",
+        "key": "PURWOREJO",
+        "label": "Purworejo",
         "province": null,
         "count": 12,
-        "lat": 0.9195814670053981,
-        "lng": 104.48706427377346
+        "lat": -7.700380551881616,
+        "lng": 109.96612571432587
       },
       {
-        "key": "MAKASSAR",
-        "label": "Makassar",
+        "key": "KUNINGAN",
+        "label": "Kuningan",
         "province": null,
         "count": 12,
-        "lat": -5.1477,
-        "lng": 119.4327
+        "lat": -7.00337928092881,
+        "lng": 108.55981098532055
       },
       {
         "key": "DEMAK",
@@ -2929,20 +2948,28 @@
         "lng": 110.63400470826234
       },
       {
-        "key": "PURWOKERTO",
-        "label": "Purwokerto",
-        "province": "DKI JAKARTA",
-        "count": 11,
-        "lat": -7.4214,
-        "lng": 109.2344
+        "key": "BOYOLALI",
+        "label": "Boyolali",
+        "province": null,
+        "count": 12,
+        "lat": -7.416522443495546,
+        "lng": 110.65249878352462
       },
       {
-        "key": "PALANGKA RAYA",
-        "label": "Palangka Raya",
-        "province": "Kalimantan Tengah",
+        "key": "AMBON",
+        "label": "Ambon",
+        "province": null,
+        "count": 12,
+        "lat": -3.6954,
+        "lng": 128.1814
+      },
+      {
+        "key": "SIAK",
+        "label": "Siak",
+        "province": "RIAU",
         "count": 11,
-        "lat": -2.0074642796321776,
-        "lng": 113.76747426266772
+        "lat": 0.8170147895117068,
+        "lng": 101.87542601370852
       },
       {
         "key": "WONOSOBO",
@@ -2953,12 +2980,12 @@
         "lng": 109.907354944526
       },
       {
-        "key": "KULON PROGO",
-        "label": "Kulon Progo",
+        "key": "PURBALINGGA",
+        "label": "Purbalingga",
         "province": null,
         "count": 11,
-        "lat": -7.818708973161017,
-        "lng": 110.16711452957185
+        "lat": -7.323229861975122,
+        "lng": 109.40720469770457
       },
       {
         "key": "GARUT",
@@ -2969,20 +2996,75 @@
         "lng": 107.9088
       },
       {
-        "key": "GROBOGAN",
-        "label": "Grobogan",
+        "key": "coord:115.2126,-8.6705",
+        "label": "Denpasar",
         "province": null,
-        "count": 10,
-        "lat": -7.117636869059132,
-        "lng": 110.92717766001368
+        "count": 11,
+        "lat": -8.6705,
+        "lng": 115.2126,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Denpasar",
+            "count": 10,
+            "province": null
+          },
+          {
+            "label": "Bali",
+            "count": 1,
+            "province": null
+          }
+        ]
       },
       {
-        "key": "BINJAI",
-        "label": "Binjai",
+        "key": "coord:122.6758,-5.4288",
+        "label": "Baubau",
+        "province": null,
+        "count": 11,
+        "lat": -5.428768632037218,
+        "lng": 122.67579511286901,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Baubau",
+            "count": 10,
+            "province": null
+          },
+          {
+            "label": "Bau Bau",
+            "count": 1,
+            "province": null
+          }
+        ]
+      },
+      {
+        "key": "coord:105.262,-5.429",
+        "label": "Lampung",
+        "province": null,
+        "count": 11,
+        "lat": -5.429,
+        "lng": 105.262,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Lampung",
+            "count": 9,
+            "province": null
+          },
+          {
+            "label": "Bandar Lampung",
+            "count": 2,
+            "province": null
+          }
+        ]
+      },
+      {
+        "key": "PURWOKERTO",
+        "label": "Purwokerto",
         "province": null,
         "count": 10,
-        "lat": 3.6002270139059416,
-        "lng": 98.48921935290738
+        "lat": -7.4214,
+        "lng": 109.2344
       },
       {
         "key": "JEPARA",
@@ -2993,64 +3075,24 @@
         "lng": 110.76812946110833
       },
       {
-        "key": "PATI",
-        "label": "Pati",
+        "key": "KULON PROGO",
+        "label": "Kulon Progo",
         "province": null,
         "count": 10,
-        "lat": -6.743327254060841,
-        "lng": 111.04228281320049
-      },
-      {
-        "key": "SIAK",
-        "label": "Siak",
-        "province": "RIAU",
-        "count": 9,
-        "lat": 0.8170147895117068,
-        "lng": 101.87542601370852
-      },
-      {
-        "key": "PURWAKARTA",
-        "label": "Purwakarta",
-        "province": "DKI JAKARTA",
-        "count": 9,
-        "lat": -6.595259676071498,
-        "lng": 107.430775994088
-      },
-      {
-        "key": "SINGKAWANG",
-        "label": "Singkawang",
-        "province": "Kalimantan Barat",
-        "count": 9,
-        "lat": 0.8866504290802595,
-        "lng": 109.03227743444673
-      },
-      {
-        "key": "ACEH",
-        "label": "Aceh",
-        "province": "Aceh",
-        "count": 9,
-        "lat": 4.6951,
-        "lng": 96.7494
-      },
-      {
-        "key": "SUMEDANG",
-        "label": "Sumedang",
-        "province": null,
-        "count": 9,
-        "lat": -6.824748018353603,
-        "lng": 107.98127183168265
+        "lat": -7.818708973161017,
+        "lng": 110.16711452957185
       }
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2976,
-    "documentsWithUrl": 2957,
-    "documentsIdDomain": 774,
+    "documentsTotal": 3016,
+    "documentsWithUrl": 2995,
+    "documentsIdDomain": 812,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 555
+        "count": 593
       },
       {
         "suffix": "ac.id",
@@ -3100,11 +3142,11 @@
       },
       {
         "type": "pdf",
-        "count": 1279
+        "count": 1316
       },
       {
         "type": "unknown",
-        "count": 251
+        "count": 254
       },
       {
         "type": "json",
@@ -3140,12 +3182,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 88092
+      "bytes": 91677
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22284
+      "bytes": 21538
     },
     {
       "file": "sitemap.xml",
