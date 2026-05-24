@@ -1,39 +1,39 @@
 {
-  "updated": "2026-05-24 07:25 UTC",
+  "updated": "2026-05-24 07:45 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 282919,
-    "graphEdges": 445311,
-    "sourceDocuments": 2911,
+    "graphNodes": 291323,
+    "graphEdges": 462232,
+    "sourceDocuments": 2912,
     "activeVectors": 5,
-    "dominantVectorPct": 54.7,
+    "dominantVectorPct": 53.1,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.36,
-    "pipelineSuccessPct": 52.2,
+    "xrefRatio": 1.35,
+    "pipelineSuccessPct": 52.5,
     "pipelineBacklogPct": 37.3,
     "pipelineFailurePct": 9.9,
-    "entityLinkRate": 0.57
+    "entityLinkRate": 0.58
   },
   "summary": {
-    "persons": 282919,
-    "documents": 2911,
+    "persons": 291323,
+    "documents": 2912,
     "photos": 62,
     "templates": 41,
-    "history": 348,
-    "doneFiles": 584
+    "history": 350,
+    "doneFiles": 587
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 154624,
-      "pct": 54.7
+      "pct": 53.1
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 3828,
-      "pct": 1.4
+      "pct": 1.3
     },
     {
       "id": "employee_id",
@@ -44,8 +44,8 @@
     {
       "id": "nik",
       "label": "NIK",
-      "value": 3329,
-      "pct": 1.2
+      "value": 11733,
+      "pct": 4.0
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 282919,
+  "coverageTotal": 291323,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 205320,
-      "refs": 282628
+      "entries": 213264,
+      "refs": 291164
     },
     {
       "type": "Telepon",
@@ -77,8 +77,8 @@
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 3324,
-      "refs": 3324
+      "entries": 11709,
+      "refs": 11709
     },
     {
       "type": "NPWP",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 327106,
-    "refs": 445311
+    "entries": 343435,
+    "refs": 462232
   },
   "indexCooccurrence": [
     {
@@ -117,13 +117,13 @@
     },
     {
       "source": "Nama",
-      "target": "Email",
-      "value": 3675
+      "target": "NIK",
+      "value": 11709
     },
     {
       "source": "Nama",
-      "target": "NIK",
-      "value": 3324
+      "target": "Email",
+      "value": 3822
     },
     {
       "source": "Telepon",
@@ -233,13 +233,18 @@
   ],
   "queue": {
     "pending": 252,
-    "processing": 3,
-    "done": 353,
+    "processing": 1,
+    "done": 355,
     "skipped": 1,
     "failed": 67,
     "total": 676
   },
   "recentDocs": [
+    {
+      "title": "Data P······· B···",
+      "imported_at": "2026-05-24T07:34:34Z",
+      "mentions": 8404
+    },
     {
       "title": "C···· D·········· K··· B······ — D······· D··· (··········",
       "imported_at": "2026-05-24T07:21:15Z",
@@ -284,11 +289,6 @@
       "title": "P········· H···· A···· S······ C··· K······ P······· T· 2019",
       "imported_at": "2026-05-24T01:55:16Z",
       "mentions": 110
-    },
-    {
-      "title": "P········· H···· S······ A··········· P······ B··· N·· A·· R··· R············· 2025",
-      "imported_at": "2026-05-24T01:41:50Z",
-      "mentions": 375
     }
   ],
   "showcaseEntities": [
@@ -1356,16 +1356,57 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.6",
+    "latestVersion": "v2.8.8",
     "latestDate": "2026-05-24",
-    "totalReleases": 40,
+    "totalReleases": 42,
     "summary": {
-      "Added": 121,
-      "Changed": 72,
+      "Added": 128,
+      "Changed": 74,
       "Fixed": 20,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.8",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/download_scribd_text.py` — Fallback unduh teks Scribd via `.jsonp` embedded (tanpa login) saat signed S3 URL expired.",
+              "`scripts/parse_bpum.py`, `scripts/process_bpum.py` — Parser + runner Data Penerima BPUM (NIK, nama, alamat, bidang usaha, bank, nominal, tahap).",
+              "`templates/daftar_penerima_bpum.json` — Template classify untuk roster penerima BPUM/Bantuan UMKM.",
+              "Processed Data Penerima BPUM Trenggalek (Scribd doc 523622458, 669 halaman) — 8404 persons. Doc: `01KSCEGDXG01NGG0KHQ8HBF5MK`."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md — Scribd signed-URL expiry + `download_scribd_text.py` fallback documented."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.7",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parse_casip_sql.py` — Parser MySQL dump CASIP (`guestbook` + `login`): nama, email, pertanyaan, tanggal, MD5 password hash admin.",
+              "`scripts/process_casip_sql.py` — Runner document + BatchProcessor; `--repair <doc_id>` untuk backfill edge/facts.",
+              "Processed `t40196_casip.sql` (Disdukcasip Kab. Bandung guestbook 2012–2013) — 366 persons (444 guestbook rows deduped by email). Source: `github.com/lexdorf17/casip`. OSINT: 3 phones scanned; Maigret batch 360 emails (background)."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md, `next_manual.txt` — SQL dump CASIP / guestbook path documented."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.6",
         "date": "2026-05-24",
@@ -1820,54 +1861,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.15.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/extract_tabular.py` — Template-aware tabular data extraction (two-phase: Phase 1 deterministic/zero-LLM, Phase 2 semantic/LLM-only-if-needed). Maps spreadsheet columns to person fields via template `field_mapping` + `COLUMN_ALIASES`. Handles: name/title stripping, NIK/employee_id auto-detection, phone/email normalization, date parsing, TTL splitting, gender normalization, `_extras` for unmapped columns",
-              "AGENT.md: \"Tabular Extraction\" section (workflow step 2) with Phase 1/Phase 2 explanation, code example, column mapping priority, CLI usage, and special field handling documentation",
-              "AGENT.md: `extract_tabular.py` added to directory listing and script table",
-              "AGENT.md: Rule #25 updated with explicit mention of `extract_tabular.py` for tabular extraction"
-            ]
-          },
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/extract_tabular.py`: Fixed imports — `is_valid_phone` from `normalize.py` (not `validate.py`), `strip_titles` from `title.py`, `VALID_PERSON_FIELDS` from `person.py` (not `validate.py`)",
-              "`scripts/extract_tabular.py`: Fixed `edges` field mapping — template field_mapping `\"no hp\": \"edges\"` now auto-detects phone/email content and normalizes to the correct person field instead of storing raw value"
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v0.14.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/parallel_download.py` — Parallel pre-download of pending queue URLs using subprocess workers. 4-8x faster for bulk downloads. Features: skip already-processed hashes, retry-failed mode, dry-run mode, ETA progress display",
-              "AGENT.md: \"Terima Dokumen\" section updated with pre-download workflow using `parallel_download.py`",
-              "AGENT.md: Script table updated with `parallel_download.py` entry",
-              "AGENT.md: Directory listing updated with `parallel_download.py`"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "AGENT.md: `index.py` script table entry updated with IndexCache and cache-stats CLI"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 282919,
+    "totalEntities": 291323,
     "entitiesWithCity": 2722,
     "geocodedEntities": 1999,
     "uniqueCities": 607,
@@ -2914,8 +2912,8 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2907,
-    "documentsWithUrl": 2890,
+    "documentsTotal": 2908,
+    "documentsWithUrl": 2891,
     "documentsIdDomain": 521,
     "topSuffix": "go.id",
     "domainSuffixes": [
@@ -2931,7 +2929,7 @@
       },
       {
         "type": "pdf",
-        "count": 1244
+        "count": 1245
       },
       {
         "type": "unknown",
@@ -2971,12 +2969,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 88965
+      "bytes": 87949
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 21560
+      "bytes": 21551
     },
     {
       "file": "sitemap.xml",
