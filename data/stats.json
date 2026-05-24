@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-24 10:16 UTC",
+  "updated": "2026-05-24 11:41 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 320893,
@@ -9,9 +9,9 @@
     "dominantVectorPct": 56.6,
     "dominantVectorId": "phone",
     "xrefRatio": 1.33,
-    "pipelineSuccessPct": 52.6,
-    "pipelineBacklogPct": 37.1,
-    "pipelineFailurePct": 9.9,
+    "pipelineSuccessPct": 52.3,
+    "pipelineBacklogPct": 37.0,
+    "pipelineFailurePct": 9.8,
     "entityLinkRate": 0.61
   },
   "summary": {
@@ -20,7 +20,7 @@
     "photos": 62,
     "templates": 42,
     "history": 352,
-    "doneFiles": 590
+    "doneFiles": 0
   },
   "coverage": [
     {
@@ -233,11 +233,11 @@
   ],
   "queue": {
     "pending": 252,
-    "processing": 2,
+    "processing": 4,
     "done": 357,
-    "skipped": 1,
+    "skipped": 2,
     "failed": 67,
-    "total": 679
+    "total": 682
   },
   "recentDocs": [
     {
@@ -513,26 +513,11 @@
           "label": "P····· (······ K········ S·····"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN D··· N····· H······ - P····· K········ S······ K··· B·····",
-          "context": "P····· (······ K········ S·····",
-          "importedAt": "2026-05-21",
-          "filename": "LH··········df"
-        },
-        {
-          "ref": "Dokumen 2",
-          "title": "LHKPN D··· N····· H······ 2023",
-          "context": "LHKPN 2023",
-          "importedAt": "2026-05-23",
-          "filename": "sa············df"
-        }
-      ],
-      "documentCount": 2,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 8,
-      "resolutionScore": 10
+      "resolutionScore": 6
     },
     {
       "ref": "Orang 3",
@@ -615,19 +600,11 @@
           "label": "A···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN M······· N···· H···· 2025",
-          "context": "LHKPN 2025",
-          "importedAt": "2026-05-23",
-          "filename": "se··················df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 8
+      "resolutionScore": 6
     },
     {
       "ref": "Orang 4",
@@ -711,19 +688,11 @@
           "label": "S····· L···· P······· 2···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "I······· LHKPN D·········· K··· S··· 2024",
-          "context": "S····· LHKPN P······· 2024",
-          "importedAt": "2026-05-21",
-          "filename": "13·················df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 7
+      "resolutionScore": 5
     },
     {
       "ref": "Orang 5",
@@ -798,19 +767,11 @@
           "label": "L······"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN H· M· S······ 2024",
-          "context": "LHKPN 2024",
-          "importedAt": "2026-05-23",
-          "filename": "pt······················df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 7
+      "resolutionScore": 5
     },
     {
       "ref": "Orang 6",
@@ -872,26 +833,11 @@
           "label": "L···· 2···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "I······· LHKPN 2024 a··· S····",
-          "context": "W···· LHKPN",
-          "importedAt": "2026-05-21",
-          "filename": "LH··························df"
-        },
-        {
-          "ref": "Dokumen 2",
-          "title": "LHKPN S···· 2024",
-          "context": "LHKPN 2024",
-          "importedAt": "2026-05-23",
-          "filename": "te········df"
-        }
-      ],
-      "documentCount": 2,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 6,
-      "resolutionScore": 10
+      "resolutionScore": 6
     },
     {
       "ref": "Orang 7",
@@ -966,19 +912,11 @@
           "label": "A···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN E·· S······· M········· 2025",
-          "context": "LHKPN 2025",
-          "importedAt": "2026-05-23",
-          "filename": "pn·············df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 7
+      "resolutionScore": 5
     },
     {
       "ref": "Orang 8",
@@ -1129,19 +1067,11 @@
           "label": "Keluarga 4"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN I W···· B···· - K····· D···· P··········· M········· d·· D··· K··· D·······",
-          "context": "K····· D···· P··········· M········· D·· D···",
-          "importedAt": "2026-05-21",
-          "filename": "Ik·························df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 6
+      "resolutionScore": 4
     },
     {
       "ref": "Orang 10",
@@ -1204,19 +1134,11 @@
           "label": "s····· p·············· B······ K········ S·····"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "I······· LHKPN - P········· K········ S····· - P······· 2024",
-          "context": "LHKPN P······· 2024 - K····· B····· P········· K········ S·····",
-          "importedAt": "2026-05-21",
-          "filename": "A6········································df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 7
+      "resolutionScore": 5
     },
     {
       "ref": "Orang 11",
@@ -1270,19 +1192,11 @@
           "label": "L···· 2···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN M········ A···· 2024",
-          "context": "LHKPN 2024",
-          "importedAt": "2026-05-23",
-          "filename": "ma············df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 7
+      "resolutionScore": 5
     },
     {
       "ref": "Orang 12",
@@ -1349,33 +1263,102 @@
           "label": "a···"
         }
       ],
-      "documents": [
-        {
-          "ref": "Dokumen 1",
-          "title": "LHKPN H······ - K····· (···· M········ 2024",
-          "context": "LHKPN K····· 2024 - A··· I S···· K··· S·····",
-          "importedAt": "2026-05-21",
-          "filename": "la·····························································df"
-        }
-      ],
-      "documentCount": 1,
+      "documents": [],
+      "documentCount": 0,
       "hasPhoto": false,
       "notesCount": 1,
-      "resolutionScore": 6
+      "resolutionScore": 4
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.11",
+    "latestVersion": "v2.8.16",
     "latestDate": "2026-05-24",
-    "totalReleases": 45,
+    "totalReleases": 50,
     "summary": {
+      "Fixed — agent prompts masih menulis `tmp/queue.csv`": 4,
+      "Changed": 81,
+      "Changed — full SQLite pipeline state (except tmp/input.csv)": 6,
+      "Changed — full SQLite cutover (no runtime data/*.json)": 4,
       "Changed — Fase C (operational cutover)": 7,
       "Added": 134,
-      "Changed": 76,
       "Fixed": 20,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.16",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Fixed — agent prompts masih menulis `tmp/queue.csv`",
+            "items": [
+              "`next.txt`, `next_sequence.txt`, `next_manual.txt` — queue via `queue.py` (SQLite), bukan `grep`/`echo` ke CSV.",
+              "`scripts/queue.py` — subcommand `append`, `has-url` untuk manual mode.",
+              "`scripts/pipeline_state.py` — `queue_has_url`, `queue_get_row`.",
+              "Hapus tracking git untuk legacy `tmp/queue.csv` dan `tmp/processing_history.json` (sudah di `.gitignore`)."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.15",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Changed",
+            "items": [
+              "Dokumentasi & komentar: queue/history/OSINT dedup → SQLite (`dompeng.db`); hanya `tmp/input.csv` tetap file.",
+              "README.md, docs/maigret.md, docs/ghunt.md, docs/phoneinfoga.md, scan scripts, ROADMAP_SQLITE.md.",
+              "`migrate_ids.py` / `migrate_ulid.py` — migrasi ULID pada `processing_history` via SQLite API."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.14",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Changed — full SQLite pipeline state (except tmp/input.csv)",
+            "items": [
+              "`scripts/pipeline_state.py` — tabel `queue_entries`, `processing_history`, `osint_scan_history` di `dompeng.db`.",
+              "`scripts/queue.py`, `history.py`, `*_history.py` → SQLite backend (semantics API unchanged).",
+              "`scripts/migrate_pipeline_to_sqlite.py` — impor one-off dari legacy `tmp/queue.csv` + `tmp/*history.json`.",
+              "`merge_input_queue.sh`, `reset_processing.sh`, `flush_queue.sh`, `remove_duplicate.sh` → Python/SQLite.",
+              "Summary `queue_stats` / `history_count` dari DB.",
+              "AGENT.md — hanya `tmp/input.csv` tetap file; git commit tanpa queue/history JSON."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.13",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Changed",
+            "items": [
+              "`next_manual.txt` — Wajib sample konfirmasi (step 8a): tampilkan 1 person representatif + ringkasan doc sebelum save (step 9) dan sebelum revisi pipeline (step 14a–18). Parse-only di step 8; process/flush hanya setelah user menyetujui.",
+              "`parallel_download.py` → `history.load_history()`; `merge_input_queue.sh` header CSV; `dedup_persons.sh` source `dompeng_env.sh`."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.12",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Changed — full SQLite cutover (no runtime data/*.json)",
+            "items": [
+              "`get_storage()` menolak `DOMPENG_STORAGE=json` kecuali `DOMPENG_ALLOW_JSON=1` (unit test).",
+              "Summary: semua path person/document/index via `storage_bridge` + `load_index_map()`; hapus scan `data/index/` / `data/persons/`.",
+              "`geo_city_clusters`, `showcase_persons`, `collect_doc_contacts`, `maigret_lookup`, `import_osint_*` → storage adapter.",
+              "AGENT.md — commit tanpa entity JSON; validasi document dari DB."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.11",
         "date": "2026-05-24",
@@ -1770,72 +1753,6 @@
             "kind": "Changed",
             "items": [
               "AGENT.md: Added BatchProcessor single-process warning (JANGAN memecah batch ke beberapa subprocess terpisah; satu `bp.flush()` di akhir untuk semua person)."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.4.0",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`templates/izin_dpmptsp.json` — Template untuk izin terdaftar/operasional tunggal dari DPMPTSP (izin PAUD, TK, lembaga pendidikan). Keywords: izin terdaftar, izin operasional, dpm-ptsp, paud, taman kanak-kanak. Identifiers: phone, employee_id. Person count: few (1 applicant + 1 signatory)."
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "AGENT.md: Added download.py path note (script auto-prepends `tmp/`, pass filename only). Added `history.py record` command example. Updated template list to include all 34 registered templates."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.3.0",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`templates/data_relawan.json` — Template untuk daftar relawan penanggulangan bencana/BPBD. Keywords: data relawan, relawan bencana, relawan bpbd, nama relawan. Identifiers: phone. Person count: many."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.2.1",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/download.py` — `_is_valid_file()` now rejects HTML/XML headers (`<!doctype html>`, `<html`, `<?xml`) before the printable-ASCII fallback check, preventing Cloudflare challenge pages from being accepted as valid downloads. Previously the captcha detection was only triggered when `_is_valid_file` returned False, but HTML pages passed the \"90% printable\" heuristic."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.2.0",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`templates/biodata_asn.json` — Template untuk biodata ASN/PNS/pejabat (single-person profile dari SIMPEG/sejenis). Keywords: biodata, biodata asn, biodata pns, biodata pejabat, profil asn, profil pns. Identifiers: NIP, phone, email. Person count: single."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.1.1",
-        "date": "2026-05-23",
-        "sections": [
-          {
-            "kind": "Changed",
-            "items": [
-              "`templates/laporan_spak.json` — Expanded keywords to also match SPKP (Survei Persepsi Kualitas Pelayanan) and zona integritas documents. Both SPAK and SPKP share the same structure (lembar pengesahan, signatories with NIP, survey methodology)."
             ]
           }
         ]
@@ -2947,12 +2864,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 87235
+      "bytes": 84827
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 21551
+      "bytes": 21856
     },
     {
       "file": "sitemap.xml",
