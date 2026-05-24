@@ -44,6 +44,8 @@ const CHANGELOG_TARGETS = {
 };
 
 let dashboardDataCache = null;
+/** Tab IDs whose chart libraries have been loaded and charts initialized. */
+const tabChartsReady = new Set();
 let dashboardViewMode = localStorage.getItem("dompeng:view-mode") === "technical" ? "technical" : "public";
 let dashboardQueueFilter = "all";
 let previewFilterHandler = null;
@@ -2358,6 +2360,14 @@ function bindPreviewGraphClick(chart) {
 }
 
 function buildPreviewRelationGraph(entity) {
+  const run = async () => {
+    if (window.DOMPENG_LOAD) await window.DOMPENG_LOAD.ensureEcharts();
+    buildPreviewRelationGraphImpl(entity);
+  };
+  void run();
+}
+
+function buildPreviewRelationGraphImpl(entity) {
   const el = document.getElementById("preview-relation-graph");
   const caption = document.getElementById("preview-graph-caption");
   if (!el) return null;
@@ -3713,17 +3723,19 @@ function refreshQueueViews(data) {
     capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan · ${fmt(queue.total)} URL antrian`;
   }
 
-  if (document.getElementById("overview-sankey-chart")) {
+  if (document.getElementById("overview-sankey-chart") && tabChartsReady.has("overview")) {
     buildOverviewSankey(data);
-  } else if (document.getElementById("overview-queue-chart")) {
+  } else if (document.getElementById("overview-queue-chart") && tabChartsReady.has("overview")) {
     renderQueueSignal(data.queue, { statusFilter });
   }
 
-  if (document.getElementById("overview-queue-radar")) {
+  if (document.getElementById("overview-queue-radar") && tabChartsReady.has("overview")) {
     renderOverviewQueueRadar(data.queue, { statusFilter });
   }
 
-  renderOpsStats(data, { statusFilter });
+  if (tabChartsReady.has("ops")) {
+    renderOpsStats(data, { statusFilter });
+  }
 }
 
 function initPreviewFilters() {
@@ -3865,7 +3877,6 @@ function renderOpsDashboard(data) {
     capImport.textContent = `${fmt(data.recentDocs.length)} impor terbaru · ${fmt(totalMentions)} entitas diekstrak`;
   }
 
-  refreshQueueViews(data);
   renderRecentDocsTable(data.recentDocs, "ops-recent-docs");
 }
 
@@ -4228,7 +4239,7 @@ function renderDataGuideArtifacts(data) {
   }
 }
 
-function renderAnalyticsDashboard(data) {
+function renderAnalyticsDashboard(data, { withCharts = false } = {}) {
   const capIndex = document.getElementById("index-caption");
   if (capIndex && data.indexTotal) {
     capIndex.textContent = `${fmt(data.indexTotal.entries)} entri · ${fmt(data.indexTotal.refs)} referensi`;
@@ -4240,8 +4251,16 @@ function renderAnalyticsDashboard(data) {
     capIdx.textContent = `${shared} tipe silang · ${data.indexRows.length - shared} tipe unik`;
   }
 
-  refreshIndexViews(data);
+  if (withCharts) {
+    refreshIndexViews(data);
+  }
   renderSourceStats(data.sourceStats, data.summary?.documents);
+}
+
+function renderOverviewDashboardCharts(data) {
+  buildOverviewSankey(data);
+  if (data.queue) renderOverviewQueueRadar(data.queue);
+  window.requestAnimationFrame(resizeOverviewSankey);
 }
 
 function renderOverviewDashboard(data) {
@@ -4258,13 +4277,51 @@ function renderOverviewDashboard(data) {
     capGeo.textContent = `${fmt(data.geo.geocodedEntities)} entitas di ${fmt(data.geo.mappedCities)} kota`;
   }
 
-  buildOverviewSankey(data);
   renderTopCities(data.geo, "overview-top-cities", 6);
-  if (data.queue) renderOverviewQueueRadar(data.queue);
-  window.requestAnimationFrame(resizeOverviewSankey);
 }
 
-function ensureDompengGeoMap({ focus = null } = {}) {
+async function ensureDashboardTabCharts(tabId) {
+  const data = dashboardDataCache;
+  if (!data || tabChartsReady.has(tabId)) return;
+
+  const load = window.DOMPENG_LOAD;
+
+  if (tabId === "overview") {
+    if (load) await load.ensureOverviewLibs();
+    renderOverviewDashboardCharts(data);
+    tabChartsReady.add("overview");
+    return;
+  }
+
+  if (tabId === "analytics") {
+    refreshIndexViews(data);
+    tabChartsReady.add("analytics");
+    return;
+  }
+
+  if (tabId === "ops") {
+    if (load) await load.ensureChartJs();
+    renderOpsStats(data, { statusFilter: getQueueFilter() });
+    tabChartsReady.add("ops");
+    return;
+  }
+
+  if (tabId === "geo") {
+    if (load) await load.ensureMaplibre();
+    tabChartsReady.add("geo");
+    if (typeof window.ensureDompengGeoMap === "function") {
+      await window.ensureDompengGeoMap();
+    }
+    return;
+  }
+
+  if (tabId === "preview") {
+    tabChartsReady.add("preview");
+  }
+}
+
+async function ensureDompengGeoMap({ focus = null } = {}) {
+  if (window.DOMPENG_LOAD) await window.DOMPENG_LOAD.ensureMaplibre();
   const geo = window.DOMPENG_PENDING_GEO;
   if (!geo?.clusters?.length || typeof initDompengGeoMap !== "function") return null;
   let map = window.DOMPENG_MAP;
@@ -4305,6 +4362,12 @@ function renderDashboardData(data) {
   if (data.changelog) {
     renderChangelog(data.changelog);
   }
+
+  if (tabChartsReady.has("overview")) renderOverviewDashboardCharts(data);
+  if (tabChartsReady.has("analytics")) refreshIndexViews(data);
+  if (tabChartsReady.has("ops")) {
+    renderOpsStats(data, { statusFilter: getQueueFilter() });
+  }
 }
 
 function showError(message) {
@@ -4322,7 +4385,7 @@ window.resizePreviewRelationGraph = resizePreviewRelationGraph;
 
 async function init() {
   try {
-    const res = await fetch("data/stats.json", { cache: "no-store" });
+    const res = await fetch("data/stats.json");
     if (!res.ok) throw new Error(`Gagal memuat data (${res.status})`);
     const data = await res.json();
     dashboardDataCache = data;
@@ -4331,6 +4394,9 @@ async function init() {
     document.getElementById("updated").textContent = `Diperbarui · ${data.updated} · data disamarkan`;
 
     renderDashboardData(data);
+
+    const activeTab = document.querySelector(".tab-panel.is-active")?.dataset.tab || "overview";
+    await ensureDashboardTabCharts(activeTab);
 
     if (typeof window.setShareSnapshotFromData === "function") {
       window.setShareSnapshotFromData(data);
@@ -4343,8 +4409,7 @@ async function init() {
     }
 
     if (typeof window.onDashboardTabShown === "function") {
-      const activeTab = document.querySelector(".tab-panel.is-active")?.dataset.tab;
-      if (activeTab) window.onDashboardTabShown(activeTab);
+      window.onDashboardTabShown(activeTab);
     }
 
     const hashState = typeof window.dashboardHashState === "function" ? window.dashboardHashState() : null;
@@ -4361,6 +4426,7 @@ document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("DOMContentLoaded", initDashboardViewMode);
 document.addEventListener("DOMContentLoaded", initChartDataModals);
 document.addEventListener("DOMContentLoaded", initChangelogModalTriggers);
+window.ensureDashboardTabCharts = ensureDashboardTabCharts;
 window.ensureDompengGeoMap = ensureDompengGeoMap;
 window.refreshIndexViews = refreshIndexViews;
 window.refreshGeoCityViews = refreshGeoCityViews;

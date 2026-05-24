@@ -4558,14 +4558,19 @@ body.dashboard-body {
 }
 
 .changelog-release .changelog-section-title {
-  margin-top: 6px;
-  margin-bottom: 4px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
 }
 
 .changelog-release .changelog-items li {
-  font-size: 0.625rem;
-  line-height: 1.35;
-  padding: 1px 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  padding: 2px 0;
+}
+
+.changelog-release .changelog-items code {
+  font-size: 0.8125rem;
 }
 
 @media (max-width: 720px) {
@@ -5884,6 +5889,19 @@ body.dashboard-body {
 
 .changelog-modal .changelog-release summary {
   padding: 5px 7px;
+}
+
+.changelog-modal .changelog-items li {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.changelog-modal .changelog-section-title {
+  font-size: 0.8125rem;
+}
+
+.changelog-modal .changelog-items code {
+  font-size: 0.8125rem;
 }
 
 .table-wrap--modal {
@@ -7415,6 +7433,60 @@ body.dashboard-ready .page--dashboard {
   animation: motion-fade-in 0.4s ease-out both;
 }
 
+/* ── Performance: rendering (Fase 3) ── */
+
+/* Tab tidak aktif: isolasi layout meski masih di DOM */
+.tab-panel[hidden] {
+  content-visibility: hidden;
+  contain: strict;
+}
+
+/* Lewati paint modul di luar viewport tab aktif */
+.page--dashboard .tab-panel.is-active .intel-module {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+}
+
+.page--dashboard .tab-panel.is-active .entity-card,
+.page--dashboard .tab-panel.is-active .changelog-release {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 64px;
+}
+
+.page--dashboard .tab-panel.is-active .overview-city-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 32px;
+}
+
+/* Daftar scroll panjang */
+.page--dashboard .changelog-feed,
+.page--dashboard .log-stream--list,
+.page--dashboard .geo-city-list {
+  content-visibility: auto;
+}
+
+/* Canvas/chart: batasi reflow ke wrapper */
+.page--dashboard .chart-wrap,
+.page--dashboard .overview-sankey,
+.page--dashboard .preview-relation-graph {
+  contain: layout paint style;
+}
+
+/* Peta: GPU layer hanya saat tab geo aktif atau animasi masuk */
+.tab-panel--geo.is-active #geo-map {
+  will-change: transform;
+}
+
+.tab-panel.is-entering .geo-map {
+  will-change: transform, opacity;
+}
+
+/* Overlay dekoratif — jangan ikut hit-test/layout penuh */
+.scanline {
+  contain: strict;
+  content-visibility: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.dashboard-body:not(.dashboard-ready) .page--dashboard {
     opacity: 1;
@@ -7446,5 +7518,10 @@ body.dashboard-ready .page--dashboard {
   .tab-bar .tab-btn[aria-selected="true"] .tab-btn__code {
     transition: none !important;
     animation: none !important;
+  }
+
+  .tab-panel--geo.is-active #geo-map,
+  .tab-panel.is-entering .geo-map {
+    will-change: auto;
   }
 }

@@ -29,26 +29,28 @@ function resizeDashboardCharts() {
 
 function resizeGeoMap() {
   const detail = dashboardHashState().detail;
-  if (typeof window.ensureDompengGeoMap === "function") {
-    window.ensureDompengGeoMap({ focus: detail });
-  }
-  const map = window.DOMPENG_MAP;
-  if (!map?.resize) return;
-  const refit = () => {
-    if (typeof window.fitDompengMapToIndonesia === "function") {
-      window.fitDompengMapToIndonesia({ animate: false });
+  void (async () => {
+    if (typeof window.ensureDompengGeoMap === "function") {
+      await window.ensureDompengGeoMap({ focus: detail });
     }
-  };
-  window.requestAnimationFrame(() => {
-    map.resize();
-    refit();
-    window.setTimeout(() => {
-      map.resize();
+    const map = window.DOMPENG_MAP;
+    if (!map?.resize) return;
+    const refit = () => {
       if (typeof window.fitDompengMapToIndonesia === "function") {
-        window.fitDompengMapToIndonesia({ animate: true });
+        window.fitDompengMapToIndonesia({ animate: false });
       }
-    }, 160);
-  });
+    };
+    window.requestAnimationFrame(() => {
+      map.resize();
+      refit();
+      window.setTimeout(() => {
+        map.resize();
+        if (typeof window.fitDompengMapToIndonesia === "function") {
+          window.fitDompengMapToIndonesia({ animate: true });
+        }
+      }, 160);
+    });
+  })();
 }
 
 function updateTabBarIndicator({ animate = true } = {}) {
@@ -105,6 +107,9 @@ function applyDashboardHashDetail(tabId, detail) {
 }
 
 function onDashboardTabShown(tabId) {
+  if (typeof window.ensureDashboardTabCharts === "function") {
+    void window.ensureDashboardTabCharts(tabId);
+  }
   if (tabId === "geo") resizeGeoMap();
   if (tabId === "analytics" || tabId === "overview") {
     window.requestAnimationFrame(resizeDashboardCharts);

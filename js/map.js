@@ -1015,7 +1015,9 @@ function applyDompengGeoCityFilter(query, { fitBounds = false } = {}) {
   }
 
   const container = document.getElementById("geo-map");
-  if (container && !map && typeof initDompengGeoMap === "function") {
+  if (container && !map && typeof window.ensureDompengGeoMap === "function") {
+    void window.ensureDompengGeoMap();
+  } else if (container && !map && typeof initDompengGeoMap === "function") {
     initDompengGeoMap(geo, { cityFilter: normalized, fitBounds: true });
   }
 }
