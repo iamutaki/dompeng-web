@@ -4188,6 +4188,7 @@ function renderDataGuideArtifacts(data) {
     for (const item of kpis) {
       const chip = document.createElement("div");
       chip.className = "intel-metric";
+      if (item.hint) chip.title = item.hint;
 
       const label = document.createElement("span");
       label.className = "intel-metric-label";
@@ -4197,11 +4198,7 @@ function renderDataGuideArtifacts(data) {
       value.className = "intel-metric-value";
       appendText(value, item.value);
 
-      const hint = document.createElement("span");
-      hint.className = "intel-metric-hint";
-      appendText(hint, item.hint);
-
-      chip.append(label, value, hint);
+      chip.append(label, value);
       kpiRoot.appendChild(chip);
     }
   }

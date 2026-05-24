@@ -2301,29 +2301,69 @@ body.dashboard-body {
   min-height: auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
+  padding: 6px 8px;
   overflow: visible;
 }
 
 .intel-module--data-guide .data-guide-pane__body--artifacts .table-wrap--index-types {
   flex: 0 1 auto;
   min-height: 0;
-  max-height: 10rem;
+  max-height: 6.75rem;
 }
 
 .intel-module--data-guide .data-guide-artifacts-kpis {
   flex-shrink: 0;
   min-height: min-content;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  padding: 0;
+  border-top: none;
+}
+
+.intel-module--data-guide .data-guide-artifacts-kpis .intel-metric {
+  padding: 3px 4px;
+  gap: 0;
+  min-height: 0;
+}
+
+.intel-module--data-guide .data-guide-artifacts-kpis .intel-metric-label {
+  font-size: 0.40625rem;
+  letter-spacing: 0.05em;
+  line-height: 1.15;
+}
+
+.intel-module--data-guide .data-guide-artifacts-kpis .intel-metric-value {
+  font-size: 0.625rem;
+  line-height: 1.1;
+}
+
+.intel-module--data-guide .data-guide-artifacts-kpis .intel-metric-hint {
+  display: none;
+}
+
+.intel-module--data-guide .data-guide__table--artifacts thead th {
+  padding: 3px 6px;
+  font-size: 0.5rem;
 }
 
 .intel-module--data-guide .data-guide__table--artifacts th[scope="row"] {
-  width: 7.5rem;
-  max-width: 42%;
+  width: 6.5rem;
+  max-width: 38%;
   font-family: var(--mono);
-  font-size: 0.5625rem;
+  font-size: 0.53125rem;
   letter-spacing: 0.02em;
   font-weight: 600;
   color: var(--cyan);
+  padding: 3px 6px;
+  line-height: 1.25;
+}
+
+.intel-module--data-guide .data-guide__table--artifacts td {
+  padding: 3px 6px;
+  font-size: 0.53125rem;
+  line-height: 1.25;
 }
 
 .intel-module--data-guide .data-guide-artifact-meta {
@@ -2331,14 +2371,17 @@ body.dashboard-body {
   margin: 0;
   padding: 0;
   font-family: var(--mono);
-  font-size: 0.5625rem;
-  line-height: 1.45;
+  font-size: 0.5rem;
+  line-height: 1.3;
   color: var(--muted);
   letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .intel-module--data-guide .data-guide-artifact-meta code {
-  font-size: 0.5625rem;
+  font-size: 0.5rem;
   color: var(--intel);
 }
 
@@ -6223,6 +6266,47 @@ body.dashboard-body {
   padding: var(--data-guide-inset-y) var(--data-guide-inset-x);
 }
 
+.page--dashboard .intel-module--data-guide .data-guide-pane__body--artifacts {
+  padding: 5px 7px;
+  gap: 3px;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-artifacts-kpis {
+  gap: 4px;
+  padding: 0;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-artifacts-kpis .intel-metric {
+  padding: 2px 4px;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-artifacts-kpis .intel-metric-label {
+  font-size: var(--dash-fs-2xs);
+  line-height: 1.1;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-artifacts-kpis .intel-metric-value {
+  font-size: var(--dash-fs-xs);
+  line-height: 1.1;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-pane__body--artifacts .table-wrap--index-types {
+  max-height: 6.25rem;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide__table--artifacts thead th,
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide__table--artifacts td,
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide__table--artifacts th[scope="row"] {
+  padding: 2px 5px;
+  font-size: var(--dash-fs-2xs);
+  line-height: 1.25;
+}
+
+.page--dashboard .intel-module[data-module="DAT-01"] .data-guide-artifact-meta {
+  font-size: var(--dash-fs-2xs);
+  line-height: 1.25;
+}
+
 .page--dashboard .intel-module--data-guide .data-guide__table th,
 .page--dashboard .intel-module--data-guide .data-guide__table td {
   padding: 7px 10px;
@@ -6742,6 +6826,10 @@ body.dashboard-body {
   .intel-module--data-guide .index-types-pane--table {
     max-height: none;
     min-height: min-content;
+  }
+
+  .intel-module--data-guide .data-guide-artifacts-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .tab-bar--sub {

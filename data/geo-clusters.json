@@ -1,7 +1,7 @@
 {
-  "totalEntities": 220236,
-  "entitiesWithCity": 2731,
-  "geocodedEntities": 2006,
+  "totalEntities": 219092,
+  "entitiesWithCity": 2721,
+  "geocodedEntities": 1998,
   "uniqueCities": 607,
   "mappedCities": 173,
   "clusters": [
@@ -9,7 +9,7 @@
       "key": "JAKARTA",
       "label": "Jakarta",
       "province": "DKI JAKARTA",
-      "count": 216,
+      "count": 215,
       "lat": -6.2088,
       "lng": 106.8456
     },
@@ -123,20 +123,20 @@
       "lng": 106.806
     },
     {
-      "key": "YOGYAKARTA",
-      "label": "Yogyakarta",
-      "province": null,
-      "count": 18,
-      "lat": -7.7956,
-      "lng": 110.3695
-    },
-    {
       "key": "LAMONGAN",
       "label": "Lamongan",
       "province": null,
       "count": 18,
       "lat": -7.131410514989188,
       "lng": 112.30074592146252
+    },
+    {
+      "key": "YOGYAKARTA",
+      "label": "Yogyakarta",
+      "province": null,
+      "count": 17,
+      "lat": -7.7956,
+      "lng": 110.3695
     },
     {
       "key": "TEMANGGUNG",
@@ -224,14 +224,6 @@
       "lng": 105.3062
     },
     {
-      "key": "SLEMAN",
-      "label": "Sleman",
-      "province": null,
-      "count": 12,
-      "lat": -7.716463527037873,
-      "lng": 110.38321299281007
-    },
-    {
       "key": "BALIKPAPAN",
       "label": "Balikpapan",
       "province": null,
@@ -240,20 +232,28 @@
       "lng": 116.8529
     },
     {
-      "key": "BANYUMAS",
-      "label": "Banyumas",
-      "province": null,
-      "count": 11,
-      "lat": -7.455508579690273,
-      "lng": 109.17578818103475
-    },
-    {
       "key": "TUBAN",
       "label": "Tuban",
       "province": null,
       "count": 10,
       "lat": -6.9534129686812065,
       "lng": 111.89224221212113
+    },
+    {
+      "key": "BANYUMAS",
+      "label": "Banyumas",
+      "province": null,
+      "count": 10,
+      "lat": -7.455508579690273,
+      "lng": 109.17578818103475
+    },
+    {
+      "key": "SLEMAN",
+      "label": "Sleman",
+      "province": null,
+      "count": 10,
+      "lat": -7.716463527037873,
+      "lng": 110.38321299281007
     },
     {
       "key": "KLATEN",
@@ -429,14 +429,6 @@
       "lng": 106.929
     },
     {
-      "key": "KUPANG",
-      "label": "Kupang",
-      "province": "NUSA TENGGARA TIMUR",
-      "count": 6,
-      "lat": -10.1772,
-      "lng": 123.607
-    },
-    {
       "key": "CILACAP",
       "label": "Cilacap",
       "province": null,
@@ -531,6 +523,14 @@
       "count": 5,
       "lat": -5.490181034353774,
       "lng": 119.98736459322907
+    },
+    {
+      "key": "KUPANG",
+      "label": "Kupang",
+      "province": null,
+      "count": 5,
+      "lat": -10.1772,
+      "lng": 123.607
     },
     {
       "key": "BEKASI",
@@ -860,14 +860,6 @@
       "lng": 96.0334283739899
     },
     {
-      "key": "SUMBAWA",
-      "label": "Sumbawa",
-      "province": null,
-      "count": 3,
-      "lat": -8.703298122597804,
-      "lng": 117.48426111079142
-    },
-    {
       "key": "PURWAKARTA",
       "label": "Purwakarta",
       "province": "DKI JAKARTA",
@@ -922,14 +914,6 @@
       "count": 3,
       "lat": -7.255575904171538,
       "lng": 111.80986997600675
-    },
-    {
-      "key": "KENDAL",
-      "label": "Kendal",
-      "province": null,
-      "count": 3,
-      "lat": -7.038694558164344,
-      "lng": 110.15733769391919
     },
     {
       "key": "PURBALINGGA",
@@ -1042,6 +1026,22 @@
       "count": 2,
       "lat": -7.385336820860583,
       "lng": 110.97414413327868
+    },
+    {
+      "key": "CIMAHI",
+      "label": "Cimahi",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -6.8841,
+      "lng": 107.5413
+    },
+    {
+      "key": "AMBON",
+      "label": "Ambon",
+      "province": "DKI JAKARTA",
+      "count": 2,
+      "lat": -3.6954,
+      "lng": 128.1814
     }
   ]
 }
