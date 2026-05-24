@@ -503,5 +503,15 @@
     "lat": -1.336,
     "lng": 133.174,
     "province": "Papua Barat Daya"
+  },
+  "IKN": {
+    "lat": -0.9720,
+    "lng": 116.7131,
+    "province": "Kalimantan Timur"
+  },
+  "IBU KOTA NUSANTARA": {
+    "lat": -0.9720,
+    "lng": 116.7131,
+    "province": "Kalimantan Timur"
   }
 }

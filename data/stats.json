@@ -1,33 +1,33 @@
 {
-  "updated": "2026-05-24 18:47 UTC",
+  "updated": "2026-05-24 19:19 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 480735,
-    "graphEdges": 863077,
-    "sourceDocuments": 3016,
+    "graphNodes": 481566,
+    "graphEdges": 863980,
+    "sourceDocuments": 3027,
     "activeVectors": 5,
-    "dominantVectorPct": 59.4,
+    "dominantVectorPct": 59.3,
     "dominantVectorId": "phone",
     "xrefRatio": 1.3,
-    "pipelineSuccessPct": 34.9,
-    "pipelineBacklogPct": 22.3,
-    "pipelineFailurePct": 13.6,
+    "pipelineSuccessPct": 35.8,
+    "pipelineBacklogPct": 21.1,
+    "pipelineFailurePct": 13.7,
     "entityLinkRate": 0.74
   },
   "summary": {
-    "persons": 480735,
-    "documents": 3016,
+    "persons": 481566,
+    "documents": 3027,
     "photos": 100,
     "templates": 57,
-    "history": 469,
-    "doneFiles": 74
+    "history": 483,
+    "doneFiles": 85
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
       "value": 285636,
-      "pct": 59.4
+      "pct": 59.3
     },
     {
       "id": "email",
@@ -38,14 +38,14 @@
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 6466,
+      "value": 6467,
       "pct": 1.3
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 58451,
-      "pct": 12.2
+      "pct": 12.1
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 480735,
+  "coverageTotal": 481566,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 343527,
-      "refs": 480405
+      "entries": 344116,
+      "refs": 481307
     },
     {
       "type": "Telepon",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 6466,
-      "refs": 6466
+      "entries": 6467,
+      "refs": 6467
     }
   ],
   "indexTotal": {
-    "entries": 662442,
-    "refs": 863077
+    "entries": 663032,
+    "refs": 863980
   },
   "indexCooccurrence": [
     {
@@ -138,7 +138,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 6448
+      "value": 6449
     },
     {
       "source": "Nama",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 287,
-    "processing": 12,
-    "done": 450,
-    "skipped": 365,
-    "failed": 175,
+    "pending": 272,
+    "processing": 13,
+    "done": 461,
+    "skipped": 366,
+    "failed": 177,
     "total": 1289
   },
   "recentDocs": [
     {
       "title": "d··········",
-      "imported_at": "2026-05-24T18:46:53Z",
-      "mentions": 0
+      "imported_at": "2026-05-24T19:18:51Z",
+      "mentions": 559
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:56Z",
-      "mentions": 79
+      "title": "Data P······ D··· L·······",
+      "imported_at": "2026-05-24T19:13:40Z",
+      "mentions": 77
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:54Z",
-      "mentions": 41
+      "title": "Data P······ I·········· M·····",
+      "imported_at": "2026-05-24T19:12:02Z",
+      "mentions": 4
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:52Z",
-      "mentions": 1182
+      "title": "Data P······ D········· P···· 2025",
+      "imported_at": "2026-05-24T19:10:34Z",
+      "mentions": 95
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:50Z",
-      "mentions": 31
+      "title": "d··········",
+      "imported_at": "2026-05-24T19:08:23Z",
+      "mentions": 28
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:49Z",
-      "mentions": 80
+      "title": "Data P······ D····· B···· B····· K······ 2021",
+      "imported_at": "2026-05-24T18:53:37Z",
+      "mentions": 109
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:48Z",
-      "mentions": 17
+      "title": "Data P······ S·········· D····· K······",
+      "imported_at": "2026-05-24T18:53:07Z",
+      "mentions": 286
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:23:45Z",
-      "mentions": 69
+      "title": "Data P······ D···· K········ B·······",
+      "imported_at": "2026-05-24T18:52:39Z",
+      "mentions": 46
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:18:28Z",
-      "mentions": 58
+      "title": "Data P······ K········· B··· 2024",
+      "imported_at": "2026-05-24T18:52:04Z",
+      "mentions": 26
     },
     {
-      "title": "Data P······ r·· 8··",
-      "imported_at": "2026-05-24T18:18:26Z",
-      "mentions": 137
+      "title": "Data P······ S····· P· P······· K····",
+      "imported_at": "2026-05-24T18:51:33Z",
+      "mentions": 159
     }
   ],
   "showcaseEntities": [
@@ -1340,11 +1340,13 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.1",
+    "latestVersion": "v2.9.2",
     "latestDate": "2026-05-25",
-    "totalReleases": 75,
+    "totalReleases": 76,
     "summary": {
-      "Added — Wilayah document fallback & geo map alignment": 7,
+      "Added — ASN roster parser (BKD LKPj)": 1,
+      "Fixed — Wonogiri Satpol PP employee data": 1,
+      "Added — Wilayah document fallback & geo map alignment": 8,
       "Processed — Backfill document wilayah (geo map)": 1,
       "Added — Data anggota DPRD biodata PDF (PPID Kemendagri)": 3,
       "Processed — PPID Kemendagri data anggota DPRD (manual)": 1,
@@ -1412,6 +1414,24 @@
     },
     "releases": [
       {
+        "version": "v2.9.2",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Added — ASN roster parser (BKD LKPj)",
+            "items": [
+              "`scripts/parse_asn_bkd.py` — Parser untuk daftar pegawai (ASN/PNS) dari output pdftotext LKPj BKD. Mengekstrak name, NIP, pangkat, pendidikan, POB/DOB dari format tabel multi-kolom yang meliputi."
+            ]
+          },
+          {
+            "kind": "Fixed — Wonogiri Satpol PP employee data",
+            "items": [
+              "Extracted 28 ASN entries from tesseract OCR; non-ASN pages excluded (OCR quality too poor)."
+            ]
+          }
+        ]
+      },
+      {
         "version": "v2.9.1",
         "date": "2026-05-25",
         "sections": [
@@ -1424,7 +1444,8 @@
               "`scripts/summary/geo.py` — Peta agregat membaca `structured_address` bertipe `municipality` atau `city` (selaras parser & `samples/person.json`), tidak hanya `city`.",
               "`scripts/process_skd_sambas.py` — Entri baru + `--repair`: isi `structured_address` Kabupaten Sambas bila domisili kosong.",
               "`scripts/process_skd_bukittinggi.py` — `enrich_document_wilayah` untuk Kota Bukittinggi pada roster tanpa alamat per baris.",
-              "`scripts/process_ikn_batch.py` — `enrich_document_wilayah` Penajam Paser Utara untuk roster IKN tanpa alamat per baris."
+              "`web/data/id-city-coords.json` — Koordinat IKN / Ibu Kota Nusantara (-0.9720, 116.7131); roster Otorita IKN memakai label ini (bukan proxy Penajam Paser Utara).",
+              "`scripts/process_ikn_batch.py` — `IKN_STRUCTURED_ADDRESS` + koordinat Ibu Kota Nusantara untuk roster IKN tanpa alamat per baris."
             ]
           },
           {
@@ -1969,44 +1990,23 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.17",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — BPR Debitur xlsx parser (data nasabah BPR Tabris, Scribd)",
-            "items": [
-              "`scripts/parse_nasabah_bpr.py` — parser untuk xlsx BPR debitur (126 kolom: NIK, nama, alamat, tgl lahir, HP, pekerjaan, ibu kandung, NPWP, email, marital status). Dedup by NIK (primary) atau nama+DOB (fallback).",
-              "`scripts/process_nasabah_bpr.py` — document creation + person save via BatchProcessor, phone/email edges.",
-              "Template `data_nasabah` — tetap digunakan untuk BPR format.",
-              "Diproses: 1019 persons unik (dari 1060 rows sheet DEBITUR), 30 created + 989 updated. Doc `01KSCWRSVRCEXKEKY1S22WWSX5`."
-            ]
-          },
-          {
-            "kind": "AGENT.md — BPR Debitur xlsx entry",
-            "items": [
-              "Aturan parsing untuk BPR debitur xlsx (sheet DEBITUR 126 kolom) — NIK dedup, tabungan arisan sheets diabaikan (subset)."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 480735,
-    "entitiesWithCity": 57919,
-    "geocodedEntities": 53645,
+    "totalEntities": 481566,
+    "entitiesWithCity": 57944,
+    "geocodedEntities": 53670,
     "uniqueCities": 2405,
     "mappedCities": 263,
     "clusters": [
       {
-        "key": "PENAJAM PASER UTARA",
-        "label": "Penajam Paser Utara",
+        "key": "IBU KOTA NUSANTARA",
+        "label": "Ibu Kota Nusantara",
         "province": "Kalimantan Timur",
         "count": 14842,
-        "lat": -1.1571295540332083,
-        "lng": 116.59035802018774
+        "lat": -0.972,
+        "lng": 116.7131
       },
       {
         "key": "SAMBAS",
@@ -2286,7 +2286,7 @@
         "key": "PONOROGO",
         "label": "Ponorogo",
         "province": null,
-        "count": 369,
+        "count": 370,
         "lat": -7.931327949447231,
         "lng": 111.4995304316846
       },
@@ -2455,20 +2455,20 @@
         "lng": 107.6191
       },
       {
+        "key": "PALEMBANG",
+        "label": "Palembang",
+        "province": "Sumatera Selatan",
+        "count": 74,
+        "lat": -2.9761,
+        "lng": 104.7754
+      },
+      {
         "key": "TEGAL",
         "label": "Tegal",
         "province": "JAWA TENGAH",
         "count": 74,
         "lat": -6.8694,
         "lng": 109.1402
-      },
-      {
-        "key": "PALEMBANG",
-        "label": "Palembang",
-        "province": "Sumatera Selatan",
-        "count": 73,
-        "lat": -2.9761,
-        "lng": 104.7754
       },
       {
         "key": "PONTIANAK",
@@ -2485,6 +2485,14 @@
         "count": 61,
         "lat": -6.9667,
         "lng": 110.4167
+      },
+      {
+        "key": "KLATEN",
+        "label": "Klaten",
+        "province": "JAWA TENGAH",
+        "count": 55,
+        "lat": -7.685818105806987,
+        "lng": 110.61945204176338
       },
       {
         "key": "BENER MERIAH",
@@ -2519,12 +2527,20 @@
         "lng": 95.51516820032181
       },
       {
-        "key": "KLATEN",
-        "label": "Klaten",
-        "province": "JAWA TENGAH",
-        "count": 53,
-        "lat": -7.685818105806987,
-        "lng": 110.61945204176338
+        "key": "WONOGIRI",
+        "label": "Wonogiri",
+        "province": null,
+        "count": 45,
+        "lat": -7.91928517416729,
+        "lng": 110.99921317719837
+      },
+      {
+        "key": "SUKOHARJO",
+        "label": "Sukoharjo",
+        "province": null,
+        "count": 41,
+        "lat": -7.6807,
+        "lng": 110.8383
       },
       {
         "key": "LANGSA",
@@ -2541,14 +2557,6 @@
         "count": 40,
         "lat": 5.093825519117036,
         "lng": 96.6070350974139
-      },
-      {
-        "key": "SUKOHARJO",
-        "label": "Sukoharjo",
-        "province": null,
-        "count": 39,
-        "lat": -7.6807,
-        "lng": 110.8383
       },
       {
         "key": "coord:110.8243,-7.5755",
@@ -2658,14 +2666,6 @@
         "count": 27,
         "lat": 4.519888081013543,
         "lng": 96.88130519675553
-      },
-      {
-        "key": "WONOGIRI",
-        "label": "Wonogiri",
-        "province": null,
-        "count": 26,
-        "lat": -7.91928517416729,
-        "lng": 110.99921317719837
       },
       {
         "key": "SLEMAN",
@@ -3085,14 +3085,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3016,
-    "documentsWithUrl": 2995,
-    "documentsIdDomain": 812,
+    "documentsTotal": 3027,
+    "documentsWithUrl": 3006,
+    "documentsIdDomain": 823,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 593
+        "count": 604
       },
       {
         "suffix": "ac.id",
@@ -3142,7 +3142,7 @@
       },
       {
         "type": "pdf",
-        "count": 1316
+        "count": 1327
       },
       {
         "type": "unknown",
@@ -3182,12 +3182,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 91677
+      "bytes": 93272
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 21538
+      "bytes": 22799
     },
     {
       "file": "sitemap.xml",

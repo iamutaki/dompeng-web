@@ -1,17 +1,17 @@
 {
-  "totalEntities": 480735,
-  "entitiesWithCity": 57919,
-  "geocodedEntities": 53645,
+  "totalEntities": 481566,
+  "entitiesWithCity": 57944,
+  "geocodedEntities": 53670,
   "uniqueCities": 2405,
   "mappedCities": 263,
   "clusters": [
     {
-      "key": "PENAJAM PASER UTARA",
-      "label": "Penajam Paser Utara",
+      "key": "IBU KOTA NUSANTARA",
+      "label": "Ibu Kota Nusantara",
       "province": "Kalimantan Timur",
       "count": 14842,
-      "lat": -1.1571295540332083,
-      "lng": 116.59035802018774
+      "lat": -0.972,
+      "lng": 116.7131
     },
     {
       "key": "SAMBAS",
@@ -291,7 +291,7 @@
       "key": "PONOROGO",
       "label": "Ponorogo",
       "province": null,
-      "count": 369,
+      "count": 370,
       "lat": -7.931327949447231,
       "lng": 111.4995304316846
     },
@@ -460,20 +460,20 @@
       "lng": 107.6191
     },
     {
+      "key": "PALEMBANG",
+      "label": "Palembang",
+      "province": "Sumatera Selatan",
+      "count": 74,
+      "lat": -2.9761,
+      "lng": 104.7754
+    },
+    {
       "key": "TEGAL",
       "label": "Tegal",
       "province": "JAWA TENGAH",
       "count": 74,
       "lat": -6.8694,
       "lng": 109.1402
-    },
-    {
-      "key": "PALEMBANG",
-      "label": "Palembang",
-      "province": "Sumatera Selatan",
-      "count": 73,
-      "lat": -2.9761,
-      "lng": 104.7754
     },
     {
       "key": "PONTIANAK",
@@ -490,6 +490,14 @@
       "count": 61,
       "lat": -6.9667,
       "lng": 110.4167
+    },
+    {
+      "key": "KLATEN",
+      "label": "Klaten",
+      "province": "JAWA TENGAH",
+      "count": 55,
+      "lat": -7.685818105806987,
+      "lng": 110.61945204176338
     },
     {
       "key": "BENER MERIAH",
@@ -524,12 +532,20 @@
       "lng": 95.51516820032181
     },
     {
-      "key": "KLATEN",
-      "label": "Klaten",
-      "province": "JAWA TENGAH",
-      "count": 53,
-      "lat": -7.685818105806987,
-      "lng": 110.61945204176338
+      "key": "WONOGIRI",
+      "label": "Wonogiri",
+      "province": null,
+      "count": 45,
+      "lat": -7.91928517416729,
+      "lng": 110.99921317719837
+    },
+    {
+      "key": "SUKOHARJO",
+      "label": "Sukoharjo",
+      "province": null,
+      "count": 41,
+      "lat": -7.6807,
+      "lng": 110.8383
     },
     {
       "key": "LANGSA",
@@ -546,14 +562,6 @@
       "count": 40,
       "lat": 5.093825519117036,
       "lng": 96.6070350974139
-    },
-    {
-      "key": "SUKOHARJO",
-      "label": "Sukoharjo",
-      "province": null,
-      "count": 39,
-      "lat": -7.6807,
-      "lng": 110.8383
     },
     {
       "key": "coord:110.8243,-7.5755",
@@ -663,14 +671,6 @@
       "count": 27,
       "lat": 4.519888081013543,
       "lng": 96.88130519675553
-    },
-    {
-      "key": "WONOGIRI",
-      "label": "Wonogiri",
-      "province": null,
-      "count": 26,
-      "lat": -7.91928517416729,
-      "lng": 110.99921317719837
     },
     {
       "key": "SLEMAN",
