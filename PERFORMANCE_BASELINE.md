@@ -135,18 +135,16 @@ cd web && npx wrangler dev   # atau static server di :8787
 
 ## 7. Prioritas untuk fase berikutnya
 
-### Fase 2 (HTML head & resources)
+### Fase 2 (2026-05-25) — Critical rendering path
 
-- [ ] `preconnect` ke `cdn.jsdelivr.net`, `unpkg.com`, `basemaps.cartocdn.com` (tiles peta)
-- [ ] **Jangan** `preload` ECharts/MapLibre di head (memperburuk bandwidth awal)
-- [ ] Pertimbangkan `preload` hanya `css/style.css`
-- [ ] Pisahkan / lazy-load script CDN (Fase 2b — disarankan)
+- [x] `preconnect` / `dns-prefetch` ke CDN (jsDelivr, unpkg, CARTO basemap)
+- [x] `preload` `css/style.css`; font Google non-blocking (`preload` + `onload`)
+- [x] Hapus Chart.js / ECharts / MapLibre dari `<head>` → lazy via `js/load-libs.js`
+- [x] Chart init per tab (`ensureDashboardTabCharts`) — overview saat load, lainnya on-demand
+- [x] Hapus `cache: "no-store"` pada fetch `stats.json`
+- [ ] Lighthouse ulang (§6)
 
 ### Fase 2b (JS — dampak terbesar, tanpa ubah `stats.json`)
-
-- [ ] Lazy-load Chart.js / ECharts / MapLibre per tab
-- [ ] Init chart hanya di `onDashboardTabShown` untuk tab aktif
-- [ ] Hapus `cache: "no-store"` pada fetch `stats.json`
 
 ### Fase 3 (CSS)
 

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0b1118">
+  <meta name="color-scheme" content="dark">
   <meta name="mobile-web-app-capable" content="yes">
   <!-- SEO:HEAD:START -->
   <title>DOMPENG v2.9.2 — NEGARA OPEN SOURCE</title>
@@ -35,14 +36,18 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "/#website", "name": "DOMPENG", "alternateName": "NEGARA OPEN SOURCE", "url": "/", "description": "NEGARA OPEN SOURCE — ringkasan entitas dari dokumen publik internet: indeks pencarian, kelengkapan data, dan peta sebaran per kota (identitas disamarkan).", "inLanguage": "id", "publisher": {"@id": "/#software"}}, {"@type": "Dataset", "@id": "/#dataset", "name": "DOMPENG — ringkasan data publik tersensor", "description": "NEGARA OPEN SOURCE — ringkasan entitas dari dokumen publik internet: indeks pencarian, kelengkapan data, dan peta sebaran per kota (identitas disamarkan).", "url": "/", "inLanguage": "id", "dateModified": "2026-05-25", "isAccessibleForFree": true, "license": "https://github.com/iamutaki/dompeng-web", "distribution": {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "/data/stats.json"}, "variableMeasured": [{"@type": "PropertyValue", "name": "Entitas terindeks", "value": 481566}, {"@type": "PropertyValue", "name": "Dokumen publik", "value": 3027}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 263}, {"@type": "PropertyValue", "name": "Entitas terpetakan", "value": 53670}]}, {"@type": "SoftwareApplication", "@id": "/#software", "name": "DOMPENG", "alternateName": "NEGARA OPEN SOURCE", "slogan": "NEGARA OPEN SOURCE", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "description": "NEGARA OPEN SOURCE — ringkasan entitas dari dokumen publik internet: indeks pencarian, kelengkapan data, dan peta sebaran per kota (identitas disamarkan).", "softwareVersion": "v2.9.2", "dateModified": "2026-05-25", "featureList": ["NEGARA OPEN SOURCE", "Entitas dari dokumen publik internet", "Indeks pencarian identitas tersensor", "Peta agregat per kota", "Sampel publik dengan data disamarkan"], "additionalProperty": [{"@type": "PropertyValue", "name": "Entitas terindeks", "value": 481566}, {"@type": "PropertyValue", "name": "Dokumen publik", "value": 3027}, {"@type": "PropertyValue", "name": "Kota di peta", "value": 263}, {"@type": "PropertyValue", "name": "Entitas terpetakan", "value": 53670}], "codeRepository": "https://github.com/iamutaki/dompeng-web", "url": "/", "image": "/og-image-1200x630.png"}]}</script>
   <meta name="dompeng:version" content="v2.9.2">
   <!-- SEO:HEAD:END -->
+  <!-- Performance: resource hints (Fase 2) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@500;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://basemaps.cartocdn.com" crossorigin>
+  <link rel="dns-prefetch" href="https://tiles.basemaps.cartocdn.com">
+  <link rel="preload" href="css/style.css" as="style">
   <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js" defer></script>
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@500;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@500;600;700&amp;display=swap"></noscript>
+  <script src="js/load-libs.js" defer></script>
   <script src="js/fmt.js" defer></script>
   <script src="js/tabs.js" defer></script>
   <script src="js/share.js" defer></script>
