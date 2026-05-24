@@ -4154,6 +4154,14 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
   }
 }
 
+function formatArtifactBytes(bytes) {
+  const n = Number(bytes);
+  if (!Number.isFinite(n) || n <= 0) return "";
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 const DATA_GUIDE_ARTIFACT_ROWS = [
   { file: "data/stats.json", role: "Agregat dashboard: indeks, geo, antrian, changelog." },
   { file: "data/geo-clusters.json", role: "Cluster kota dan koordinat untuk tab Peta." },
@@ -4200,11 +4208,15 @@ function renderDataGuideArtifacts(data) {
 
   if (tbody) {
     clear(tbody);
-    for (const row of DATA_GUIDE_ARTIFACT_ROWS) {
+    const rows = Array.isArray(data.buildArtifacts) && data.buildArtifacts.length
+      ? data.buildArtifacts
+      : DATA_GUIDE_ARTIFACT_ROWS;
+    for (const row of rows) {
       const tr = document.createElement("tr");
       const th = document.createElement("th");
       th.scope = "row";
-      appendText(th, row.file);
+      const sizeLabel = formatArtifactBytes(row.bytes);
+      appendText(th, sizeLabel ? `${row.file} (${sizeLabel})` : row.file);
       const td = document.createElement("td");
       appendText(td, row.role);
       tr.append(th, td);

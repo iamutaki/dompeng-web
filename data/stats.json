@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-24 03:32 UTC",
+  "updated": "2026-05-24 03:49 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 220236,
@@ -10,7 +10,7 @@
     "dominantVectorId": "phone",
     "xrefRatio": 1.44,
     "pipelineSuccessPct": 52.2,
-    "pipelineBacklogPct": 37.5,
+    "pipelineBacklogPct": 37.4,
     "pipelineFailurePct": 10.0,
     "entityLinkRate": 0.74
   },
@@ -233,16 +233,16 @@
   ],
   "queue": {
     "pending": 252,
-    "processing": 1,
+    "processing": 2,
     "done": 351,
     "skipped": 1,
     "failed": 67,
-    "total": 672
+    "total": 673
   },
   "recentDocs": [
     {
       "title": "P········· H···· S······ K········· D···· C··· K········ S····· 2019",
-      "imported_at": "2026-05-24T02:59:56Z",
+      "imported_at": "2026-05-24T03:36:54Z",
       "mentions": 5489
     },
     {
@@ -2943,5 +2943,27 @@
         "count": 1
       }
     ]
-  }
+  },
+  "buildArtifacts": [
+    {
+      "file": "data/stats.json",
+      "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
+      "bytes": 87938
+    },
+    {
+      "file": "data/geo-clusters.json",
+      "role": "Cluster kota dan koordinat untuk tab Peta.",
+      "bytes": 21605
+    },
+    {
+      "file": "sitemap.xml",
+      "role": "Daftar URL untuk crawler dan SEO.",
+      "bytes": 195
+    },
+    {
+      "file": "robots.txt",
+      "role": "Kebijakan akses crawler.",
+      "bytes": 46
+    }
+  ]
 }

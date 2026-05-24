@@ -2234,11 +2234,13 @@ body.dashboard-body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   /* ABT · MET|PRV · GLO|ARTF · FDB */
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(min-content, 1fr) auto;
   gap: 6px;
   padding: 6px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   align-items: stretch;
+  overscroll-behavior: contain;
 }
 
 .intel-module__body--data-split {
@@ -2254,6 +2256,13 @@ body.dashboard-body {
   min-height: 0;
   align-self: stretch;
   max-height: 100%;
+}
+
+.intel-module--data-guide .data-guide-pane--artifacts {
+  align-self: start;
+  max-height: none;
+  min-height: min-content;
+  overflow: visible;
 }
 
 .intel-module--data-guide .index-types-pane--compact {
@@ -2279,8 +2288,7 @@ body.dashboard-body {
   flex-direction: column;
 }
 
-.intel-module--data-guide .data-guide-pane__body--table .table-wrap--index-types,
-.intel-module--data-guide .data-guide-pane__body--artifacts .table-wrap--index-types {
+.intel-module--data-guide .data-guide-pane__body--table .table-wrap--index-types {
   flex: 1 1 0;
   min-height: 5rem;
   max-height: none;
@@ -2289,15 +2297,23 @@ body.dashboard-body {
 }
 
 .intel-module--data-guide .data-guide-pane__body--artifacts {
-  flex: 1 1 0;
-  min-height: 0;
+  flex: 0 0 auto;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: visible;
+}
+
+.intel-module--data-guide .data-guide-pane__body--artifacts .table-wrap--index-types {
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: 10rem;
 }
 
 .intel-module--data-guide .data-guide-artifacts-kpis {
   flex-shrink: 0;
+  min-height: min-content;
 }
 
 .intel-module--data-guide .data-guide__table--artifacts th[scope="row"] {
@@ -6719,6 +6735,13 @@ body.dashboard-body {
   .intel-module--data-guide .intel-module__body--data-split {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    overflow-y: auto;
+  }
+
+  .intel-module--data-guide .data-guide-pane--artifacts,
+  .intel-module--data-guide .index-types-pane--table {
+    max-height: none;
+    min-height: min-content;
   }
 
   .tab-bar--sub {
