@@ -220,10 +220,6 @@ const chartDefaults = {
   },
 };
 
-function fmt(n) {
-  return Number(n).toLocaleString("en-US");
-}
-
 function pct(value, total) {
   if (!total) return 0;
   return Math.round((value / total) * 100);
@@ -3063,11 +3059,7 @@ function indexVolumeRatio(entries, refs) {
 }
 
 function indexVolumeCompact(value) {
-  const n = Number(value) || 0;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 10_000) return `${Math.round(n / 1000)}k`;
-  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
-  return fmt(n);
+  return fmt(value);
 }
 
 function indexVolumeBarHeight(value, max) {

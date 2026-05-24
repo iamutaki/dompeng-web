@@ -25,10 +25,6 @@ const CLUSTER_MAX_ZOOM = 12;
 const CLUSTER_RADIUS = 72;
 const COORD_PRECISION = 4;
 
-function fmt(n) {
-  return Number(n).toLocaleString("en-US");
-}
-
 function escapeHtml(text) {
   return String(text)
     .replace(/&/g, "&amp;")
@@ -151,10 +147,8 @@ const circleColorExpr = [
   100, "rgba(255, 92, 92, 0.68)",
 ];
 
-const countLabelExpr = [
-  "to-string",
-  ["coalesce", ["get", "people_sum"], ["get", "count"], 0],
-];
+const countValueExpr = ["coalesce", ["get", "people_sum"], ["get", "count"], 0];
+const countLabelExpr = mapCountShortLabelExpr(countValueExpr);
 
 const QUERY_LAYERS = ["city-clusters-merged", "city-points"];
 const QUERY_RADIUS = 14;
@@ -874,7 +868,7 @@ function buildGeoMap(container, geo, options = {}) {
       filter: ["!", ["has", "point_count"]],
       layout: {
         ...clusterLabelLayout,
-        "text-field": ["to-string", ["get", "count"]],
+        "text-field": mapCountShortLabelExpr(["get", "count"]),
         "text-size": [
           "interpolate",
           ["linear"],

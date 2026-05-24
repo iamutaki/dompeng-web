@@ -45,7 +45,9 @@ function buildDashboardShareText(snapshot) {
 
 function formatShareNum(n) {
   const num = Number(n);
-  return Number.isFinite(num) ? num.toLocaleString("en-US") : "—";
+  if (!Number.isFinite(num)) return "—";
+  if (typeof window.dompengFmtShort === "function") return window.dompengFmtShort(num);
+  return String(Math.round(num));
 }
 
 function syncSharePayload() {
