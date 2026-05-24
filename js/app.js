@@ -4154,6 +4154,79 @@ function renderIntelMetrics(intel, queue, indexRows = []) {
   }
 }
 
+const DATA_GUIDE_ARTIFACT_ROWS = [
+  { file: "data/stats.json", role: "Agregat dashboard: indeks, geo, antrian, changelog." },
+  { file: "data/geo-clusters.json", role: "Cluster kota dan koordinat untuk tab Peta." },
+  { file: "sitemap.xml", role: "Daftar URL untuk crawler dan SEO." },
+  { file: "robots.txt", role: "Kebijakan akses crawler." },
+];
+
+function renderDataGuideArtifacts(data) {
+  const kpiRoot = document.getElementById("data-guide-artifact-kpis");
+  const tbody = document.getElementById("data-guide-artifacts-body");
+  const meta = document.getElementById("data-guide-artifact-meta");
+  if (!kpiRoot && !tbody && !meta) return;
+
+  const summary = data.summary || {};
+
+  if (kpiRoot) {
+    clear(kpiRoot);
+    const kpis = [
+      { label: "Entitas", value: fmt(summary.persons), hint: "terindeks" },
+      { label: "Dokumen", value: fmt(summary.documents), hint: "sumber publik" },
+      { label: "Template", value: fmt(summary.templates), hint: "pola ekstraksi" },
+      { label: "Histori", value: fmt(summary.history), hint: `${fmt(summary.doneFiles)} selesai` },
+    ];
+    for (const item of kpis) {
+      const chip = document.createElement("div");
+      chip.className = "intel-metric";
+
+      const label = document.createElement("span");
+      label.className = "intel-metric-label";
+      appendText(label, item.label);
+
+      const value = document.createElement("strong");
+      value.className = "intel-metric-value";
+      appendText(value, item.value);
+
+      const hint = document.createElement("span");
+      hint.className = "intel-metric-hint";
+      appendText(hint, item.hint);
+
+      chip.append(label, value, hint);
+      kpiRoot.appendChild(chip);
+    }
+  }
+
+  if (tbody) {
+    clear(tbody);
+    for (const row of DATA_GUIDE_ARTIFACT_ROWS) {
+      const tr = document.createElement("tr");
+      const th = document.createElement("th");
+      th.scope = "row";
+      appendText(th, row.file);
+      const td = document.createElement("td");
+      appendText(td, row.role);
+      tr.append(th, td);
+      tbody.appendChild(tr);
+    }
+  }
+
+  if (meta) {
+    clear(meta);
+    const metaParts = [];
+    if (data.updated) metaParts.push(`Diperbarui ${data.updated}`);
+    if (data.redacted) metaParts.push("Sensor publik aktif");
+    if (metaParts.length) appendText(meta, `${metaParts.join(" · ")} · `);
+    appendText(meta, "Generator ");
+    const code = document.createElement("code");
+    code.textContent = "summary.sh";
+    meta.append(code);
+    const version = data.changelog?.latestVersion;
+    if (version) appendText(meta, ` · ${version}`);
+  }
+}
+
 function renderAnalyticsDashboard(data) {
   const capIndex = document.getElementById("index-caption");
   if (capIndex && data.indexTotal) {
@@ -4222,6 +4295,7 @@ function renderDashboardData(data) {
   initPreviewFilters();
   refreshGeoCityViews(data.geo, { fitMapBounds: false });
   renderAccessibleDataTables(data);
+  renderDataGuideArtifacts(data);
   renderAnalyticsDashboard(data);
   if (data.showcaseEntities?.length) {
     renderShowcaseEntities(data.showcaseEntities);

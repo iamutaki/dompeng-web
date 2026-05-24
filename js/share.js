@@ -121,7 +121,7 @@ function updateSocialShareLinks() {
   const payload = getSharePayload();
   for (const link of menu.querySelectorAll(".share-menu__platform[data-share]")) {
     link.href = buildSocialShareUrl(link.dataset.share, payload);
-    link.setAttribute("aria-label", `Bagikan ke ${link.textContent.trim()}`);
+    link.setAttribute("aria-label", `Bagikan ke ${link.dataset.shareLabel || link.textContent.trim()}`);
   }
 }
 

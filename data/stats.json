@@ -1,51 +1,51 @@
 {
-  "updated": "2026-05-24 01:49 UTC",
+  "updated": "2026-05-24 03:32 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 211484,
-    "graphEdges": 374750,
-    "sourceDocuments": 2902,
+    "graphNodes": 220236,
+    "graphEdges": 383549,
+    "sourceDocuments": 2908,
     "activeVectors": 5,
-    "dominantVectorPct": 73.6,
+    "dominantVectorPct": 70.7,
     "dominantVectorId": "phone",
     "xrefRatio": 1.44,
-    "pipelineSuccessPct": 51.9,
-    "pipelineBacklogPct": 37.8,
+    "pipelineSuccessPct": 52.2,
+    "pipelineBacklogPct": 37.5,
     "pipelineFailurePct": 10.0,
-    "entityLinkRate": 0.77
+    "entityLinkRate": 0.74
   },
   "summary": {
-    "persons": 211484,
-    "documents": 2902,
+    "persons": 220236,
+    "documents": 2908,
     "photos": 61,
-    "templates": 38,
-    "history": 341,
-    "doneFiles": 562
+    "templates": 40,
+    "history": 346,
+    "doneFiles": 576
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 155743,
-      "pct": 73.6
+      "value": 155744,
+      "pct": 70.7
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 3481,
+      "value": 3482,
       "pct": 1.6
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 500,
+      "value": 539,
       "pct": 0.2
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 4436,
-      "pct": 2.1
+      "value": 4441,
+      "pct": 2.0
     },
     {
       "id": "photo",
@@ -54,31 +54,31 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 211484,
+  "coverageTotal": 220236,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 139361,
-      "refs": 211347
+      "entries": 145146,
+      "refs": 220099
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 114455,
-      "refs": 155814
+      "entries": 114457,
+      "refs": 155816
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 2854,
-      "refs": 3512
+      "entries": 2855,
+      "refs": 3513
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 3318,
-      "refs": 3318
+      "entries": 3323,
+      "refs": 3323
     },
     {
       "type": "NPWP",
@@ -101,29 +101,29 @@
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 468,
-      "refs": 468
+      "entries": 507,
+      "refs": 507
     }
   ],
   "indexTotal": {
-    "entries": 260736,
-    "refs": 374750
+    "entries": 266568,
+    "refs": 383549
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 155635
+      "value": 155636
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 3476
+      "value": 3477
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 3318
+      "value": 3323
     },
     {
       "source": "Telepon",
@@ -133,12 +133,12 @@
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 3089
+      "value": 3090
     },
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 468
+      "value": 507
     },
     {
       "source": "Telepon",
@@ -234,12 +234,42 @@
   "queue": {
     "pending": 252,
     "processing": 1,
-    "done": 346,
+    "done": 351,
     "skipped": 1,
     "failed": 67,
-    "total": 667
+    "total": 672
   },
   "recentDocs": [
+    {
+      "title": "P········· H···· S······ K········· D···· C··· K········ S····· 2019",
+      "imported_at": "2026-05-24T02:59:56Z",
+      "mentions": 5489
+    },
+    {
+      "title": "P········· H···· S······ K········· D···· C··· K········ S····· 2021",
+      "imported_at": "2026-05-24T02:56:25Z",
+      "mentions": 2412
+    },
+    {
+      "title": "D····· N··· I········· A······ P·········· I········ B·········",
+      "imported_at": "2026-05-24T02:33:09Z",
+      "mentions": 44
+    },
+    {
+      "title": "C· A···· D····· S····",
+      "imported_at": "2026-05-24T02:19:35Z",
+      "mentions": 1
+    },
+    {
+      "title": "R···· H···· I········ S·· d·· S·· F······ T···· 2019 D····· P········· P······· M·····",
+      "imported_at": "2026-05-24T01:58:45Z",
+      "mentions": 696
+    },
+    {
+      "title": "P········· H···· A···· S······ C··· K······ P······· T· 2019",
+      "imported_at": "2026-05-24T01:55:16Z",
+      "mentions": 110
+    },
     {
       "title": "P········· H···· S······ A··········· P······ B··· N·· A·· R··· R············· 2025",
       "imported_at": "2026-05-24T01:41:50Z",
@@ -259,36 +289,6 @@
       "title": "R···· H···· I········ S·· d·· S·· P········ C··· K·········· A···· 2024",
       "imported_at": "2026-05-23T18:57:37Z",
       "mentions": 37607
-    },
-    {
-      "title": "L······ P········ T····· B········· T······ P······ B····· P········ 2022",
-      "imported_at": "2026-05-23T17:40:43Z",
-      "mentions": 60
-    },
-    {
-      "title": "H···· S······ K········· D···· C··· O······ I·· T· 2024",
-      "imported_at": "2026-05-23T16:46:10Z",
-      "mentions": 14842
-    },
-    {
-      "title": "I·························",
-      "imported_at": "2026-05-23T14:55:13Z",
-      "mentions": 2
-    },
-    {
-      "title": "2····························",
-      "imported_at": "2026-05-23T14:30:51Z",
-      "mentions": 7
-    },
-    {
-      "title": "x···········································",
-      "imported_at": "2026-05-23T14:00:02Z",
-      "mentions": 8
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:28:00Z",
-      "mentions": 1
     }
   ],
   "showcaseEntities": [
@@ -1348,16 +1348,36 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.1",
+    "latestVersion": "v2.8.2",
     "latestDate": "2026-05-24",
-    "totalReleases": 35,
+    "totalReleases": 36,
     "summary": {
-      "Added": 98,
-      "Changed": 59,
+      "Added": 110,
+      "Changed": 63,
       "Fixed": 18,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.2",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/process_skd_sambas.py` — Runner document + BatchProcessor untuk PDF SSCN SKD CPNS Kabupaten Sambas (2019/2021), dengan facts schema-safe, edge provenance dua arah, dan flag `--repair` untuk backfill.",
+              "Processed Pengumuman Hasil SKD CPNS Kabupaten Sambas 2021 — 2412 persons from 401-page SSCN PDF. Source: `bkpsdmad.sambas.go.id`. OSINT N/A (no email/phone in roster)."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`scripts/parse_skd_sambas.py`: No Peserta regex diperluas ke 16–20 digit (2021 memakai 16 digit `216601…`; 2019 memakai 17 digit).",
+              "AGENT.md / `next_manual.txt`: Added Sambas SSCN SKD parser reminder (`parse_skd_sambas.py` + `process_skd_sambas.py`)."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.1",
         "date": "2026-05-24",
@@ -1365,19 +1385,31 @@
           {
             "kind": "Added",
             "items": [
+              "`templates/cpns_integrasi.json` — Template khusus untuk dokumen hasil integrasi SKD/SKB CPNS/CASN agar judul `Rekap Hasil Integrasi SKD dan SKB` tidak lagi salah match ke template rekap perizinan.",
+              "`scripts/parse_cpns_2019_detail.py` — Parser untuk layout SSCN 2019 detail: halaman REKAP + blok `No Peserta`, skor SKD/SKB multiline, status `P/L`, `P/L-1`, `P/L-2`, `P/TL`, dan `P/TH`.",
+              "`scripts/process_cpns_maluku_2019.py` — Runner document + BatchProcessor untuk Rekap Hasil Integrasi SKD/SKB CPNS 2019 Pemerintah Provinsi Maluku.",
+              "Processed Rekap Hasil Integrasi SKD dan SKB Formasi Tahun 2019 Detail Pemerintah Provinsi Maluku — 696 persons across 82 jabatan formasi from 852-page pdftotext output. Source: `malukuprov.go.id`. OSINT N/A because no email/phone edges were present.",
               "`scripts/parse_rsud_rengasdengklok.py` — Parser untuk PDF Pengumuman Hasil Seleksi Administrasi Pegawai BLUD Non ASN RSUD Rengasdengklok 2025. Menangani tabel `pdftotext` yang wrap: nama, posisi, catatan, dan nomor urut bisa tersebar di baris tetangga.",
               "`scripts/process_rsud_rengasdengklok.py` — Runner document + BatchProcessor untuk hasil parser RSUD Rengasdengklok, dengan facts schema-safe dan edge provenance dua arah.",
               "Processed Pengumuman Hasil Seleksi Administrasi Pegawai BLUD Non ASN RSUD Rengasdengklok 2025 — 375 persons from 20-page PDF. Source: `fkep.unpad.ac.id`. OSINT external scan was blocked by escalation reviewer due third-party disclosure risk.",
               "`scripts/parse_skd_bukittinggi.py` — Parser untuk PDF SSCN 2018 format `HASIL SELEKSI KOMPETENSI DASAR`. Menangani struktur berulang: halaman REKAPITULASI (skip) + halaman detail (extract person). Formasi context (lokasi, jabatan, pendidikan) di-associate ke setiap person.",
               "`scripts/process_skd_bukittinggi.py` — Runner document + BatchProcessor untuk hasil parser SKD Bukittinggi.",
-              "Processed Pengumuman Hasil SKD CPNS Kota Bukittinggi 2018 — 180 persons from 67 formasi jabatan, 137-page PDF. Source: `admin.bukittinggikota.go.id`."
+              "Processed Pengumuman Hasil SKD CPNS Kota Bukittinggi 2018 — 180 persons from 67 formasi jabatan, 137-page PDF. Source: `admin.bukittinggikota.go.id`.",
+              "`scripts/parse_icpa_instruktur.py` — Parser untuk Daftar Nama Instruktur API Banyuwangi: kolom PNS/PTT, NIP (ASN) atau NIK (PTT), golongan, jabatan; menangani jabatan multiline.",
+              "`scripts/process_icpa_instruktur.py` — Runner document + BatchProcessor untuk daftar instruktur API Banyuwangi.",
+              "Processed Daftar Nama Instruktur Akademi Penerbangan Indonesia Banyuwangi — 44 persons (36 PNS + 8 PTT) from 4-page PDF. Source: `ppid.icpa-banyuwangi.ac.id`. OSINT N/A (no email/phone in roster).",
+              "`templates/daftar_instruktur.json` — Template classify untuk daftar instruktur sekolah penerbangan (PNS/PTT, NIP/NIK, golongan, jabatan wrap).",
+              "`scripts/parse_daftar_instruktur.py` — Parser generik (employer dari header OCR); `parse_icpa_instruktur.py` tetap sebagai shim.",
+              "`scripts/process_daftar_instruktur.py` — Runner dengan classify template + BatchProcessor."
             ]
           },
           {
             "kind": "Changed",
             "items": [
-              "AGENT.md: Added SKD CPNS SSCN tabular format note — SSCN-generated reports have alternating REKAPITULASI + HASIL SELEKSI pages; formasi headers appear AFTER the section title, not before.",
-              "AGENT.md / `next_manual.txt`: Added RSUD Rengasdengklok wrapped-table parser reminder and explicit handling for OSINT scanner blocks caused by external disclosure approval."
+              "AGENT.md / `next_manual.txt`: Daftar instruktur memakai template `daftar_instruktur` dan parser generik (`parse_daftar_instruktur.py`).",
+              "AGENT.md / `next_manual.txt`: Added RSUD Rengasdengklok wrapped-table parser reminder and explicit handling for OSINT scanner blocks caused by external disclosure approval.",
+              "AGENT.md / `next_manual.txt`: Added SSCN 2019 CPNS detail parser reminder and `No Peserta` handling for multiline SKD/SKB score blocks.",
+              "`scripts/validate.py`: Expanded occupation job markers for ASN/CPNS titles such as `PENYUSUN`, `PELAKSANA`, and `POLISI PAMONG PRAJA`, preventing false positives during strict validation."
             ]
           }
         ]
@@ -1808,46 +1840,14 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.9.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/face_crop.py`: `smart_crop_region()` — multi-strategy smart crop from rough LLM-identified photo region. Detects face via 3 strategies (full-image, region, expanded region) then crops centered on face with ID photo ratio (3:4). Prevents the failure mode where LLM coordinates capture text/labels instead of actual photo",
-              "`scripts/face_crop.py`: `detect_face_in_region()` — face detection constrained to a sub-region of the image",
-              "`scripts/face_crop.py`: `_adjust_to_id_ratio()` — adjusts crop coordinates to match ID photo aspect ratio",
-              "`scripts/face_crop.py`: `_save_crop()` — internal helper for saving pre-cropped PIL images as AVIF with ID sizing",
-              "`scripts/face_crop.py`: `ID_PHOTO_RATIO` (3/4), `ID_PHOTO_MAX_HEIGHT` (480), `ID_REGION_EXPAND_FACTOR` (1.5) constants",
-              "`scripts/face_crop.py`: `smart-crop` CLI command for smart cropping from rough coordinates",
-              "`scripts/face_crop.py`: `enforce_id_ratio` parameter on `crop_and_save()` for optional ID ratio enforcement"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "`scripts/face_crop.py`: Updated module docstring with function reference and ratio documentation",
-              "AGENT.md: Significantly expanded Photo Extraction section with smart cropping workflow, ID ratio enforcement, crop verification steps, and common pitfalls table"
-            ]
-          },
-          {
-            "kind": "Fixed",
-            "items": [
-              "Photo crop now enforces ID card/passport ratio (3:4) to produce consistent portrait-style crops",
-              "LLM-identified photo regions now go through smart face detection before cropping, preventing text-only crops"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 211484,
-    "entitiesWithCity": 2730,
+    "totalEntities": 220236,
+    "entitiesWithCity": 2731,
     "geocodedEntities": 2006,
-    "uniqueCities": 606,
+    "uniqueCities": 607,
     "mappedCities": 173,
     "clusters": [
       {
@@ -2891,14 +2891,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2898,
-    "documentsWithUrl": 2881,
-    "documentsIdDomain": 517,
+    "documentsTotal": 2904,
+    "documentsWithUrl": 2887,
+    "documentsIdDomain": 521,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 517
+        "count": 521
       }
     ],
     "fileTypes": [
@@ -2908,7 +2908,7 @@
       },
       {
         "type": "pdf",
-        "count": 1237
+        "count": 1243
       },
       {
         "type": "unknown",

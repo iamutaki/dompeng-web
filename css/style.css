@@ -1250,7 +1250,7 @@ td.timestamp {
   top: calc(100% + 6px);
   right: 0;
   z-index: 400;
-  min-width: 14rem;
+  min-width: 9rem;
   padding: 8px;
   background: var(--panel-elevated);
   border: 1px solid var(--border);
@@ -1274,8 +1274,17 @@ td.timestamp {
 
 .share-menu__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 4px;
+}
+
+.share-menu .nav-link.share-menu__platform {
+  justify-content: center;
+  gap: 0;
+  padding: 5px 4px;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-align: center;
 }
 
 .share-menu .nav-link {
@@ -2224,7 +2233,7 @@ body.dashboard-body {
   min-height: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  /* ABT · MET|PRV (konten sedikit) · GLO (isi sisa) · FDB */
+  /* ABT · MET|PRV · GLO|ARTF · FDB */
   grid-template-rows: auto auto minmax(0, 1fr) auto;
   gap: 6px;
   padding: 6px;
@@ -2270,12 +2279,51 @@ body.dashboard-body {
   flex-direction: column;
 }
 
-.intel-module--data-guide .data-guide-pane__body--table .table-wrap--index-types {
+.intel-module--data-guide .data-guide-pane__body--table .table-wrap--index-types,
+.intel-module--data-guide .data-guide-pane__body--artifacts .table-wrap--index-types {
   flex: 1 1 0;
   min-height: 5rem;
   max-height: none;
   margin: 0;
   width: 100%;
+}
+
+.intel-module--data-guide .data-guide-pane__body--artifacts {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intel-module--data-guide .data-guide-artifacts-kpis {
+  flex-shrink: 0;
+}
+
+.intel-module--data-guide .data-guide__table--artifacts th[scope="row"] {
+  width: 7.5rem;
+  max-width: 42%;
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.intel-module--data-guide .data-guide-artifact-meta {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 0.5625rem;
+  line-height: 1.45;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+
+.intel-module--data-guide .data-guide-artifact-meta code {
+  font-size: 0.5625rem;
+  color: var(--intel);
 }
 
 .intel-module--data-guide .data-guide__table th,
@@ -5693,43 +5741,89 @@ body.dashboard-body {
   min-height: 0;
   overflow: auto;
   padding: 0 2px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(78, 201, 255, 0.32) rgba(0, 0, 0, 0.14);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
+.chart-data-modal__body::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.chart-data-modal__body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.chart-data-modal__body::-webkit-scrollbar-thumb {
+  background: rgba(78, 201, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* Modal changelog — layout & scroll sama SYS-04 di tab (bukan scroll body penuh) */
 .changelog-modal {
   width: min(96vw, 640px);
   max-width: 640px;
 }
 
-.changelog-modal__body {
+.changelog-modal .chart-data-modal__body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 12px 14px 14px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  scrollbar-width: auto;
 }
 
-.changelog-modal__body > .changelog-hero,
-.changelog-modal__body > .changelog-kpis,
-.changelog-modal__body > .changelog-feed-panel {
-  flex-shrink: 0;
+/* Popup di luar .page--dashboard — jangan pakai scrollbar modal tabel */
+.changelog-modal .chart-data-modal__body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .changelog-modal .changelog-feed-panel {
-  flex: none;
-  min-height: auto;
-  overflow: visible;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
+/* Scroll + scrollbar identik SYS-04 tab (selector mandiri, tanpa .page--dashboard) */
 .changelog-modal .changelog-feed {
-  display: grid;
-  gap: 6px;
-  flex: none;
-  min-height: 10rem;
-  max-height: min(52vh, 440px);
+  flex: 1 1 0;
+  min-height: 0;
+  max-height: none;
   margin: 0;
-  padding: 6px 8px 8px 14px;
+  padding: 6px 6px 8px 14px;
+  gap: 5px;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(78, 201, 255, 0.32) rgba(0, 0, 0, 0.14);
+}
+
+.changelog-modal .changelog-feed::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.changelog-modal .changelog-feed::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.changelog-modal .changelog-feed::-webkit-scrollbar-thumb {
+  background: rgba(78, 201, 255, 0.3);
+  border-radius: 2px;
+}
+
+.changelog-modal .changelog-release summary {
+  padding: 5px 7px;
 }
 
 .table-wrap--modal {
@@ -6193,6 +6287,7 @@ body.dashboard-body {
 }
 
 /* Scrollbar tipis — panel daftar dashboard */
+.page--dashboard .intel-module[data-module="DAT-01"] .table-wrap--index-types,
 .page--dashboard .intel-module[data-module="IDX-03"] .table-wrap--index-types,
 .page--dashboard .intel-module[data-module="IDX-03"] .intel-metrics--index-compact,
 .page--dashboard .intel-module[data-module="IDX-04"] .table-wrap--sources,
@@ -6204,6 +6299,7 @@ body.dashboard-body {
   scrollbar-color: rgba(78, 201, 255, 0.32) rgba(0, 0, 0, 0.14);
 }
 
+.page--dashboard .intel-module[data-module="DAT-01"] .table-wrap--index-types::-webkit-scrollbar,
 .page--dashboard .intel-module[data-module="IDX-03"] .table-wrap--index-types::-webkit-scrollbar,
 .page--dashboard .intel-module[data-module="IDX-03"] .intel-metrics--index-compact::-webkit-scrollbar,
 .page--dashboard .intel-module[data-module="IDX-04"] .table-wrap--sources::-webkit-scrollbar,
@@ -6215,6 +6311,7 @@ body.dashboard-body {
   height: 4px;
 }
 
+.page--dashboard .intel-module[data-module="DAT-01"] .table-wrap--index-types::-webkit-scrollbar-track,
 .page--dashboard .intel-module[data-module="IDX-03"] .table-wrap--index-types::-webkit-scrollbar-track,
 .page--dashboard .intel-module[data-module="IDX-03"] .intel-metrics--index-compact::-webkit-scrollbar-track,
 .page--dashboard .intel-module[data-module="IDX-04"] .table-wrap--sources::-webkit-scrollbar-track,
@@ -6225,6 +6322,7 @@ body.dashboard-body {
   background: rgba(0, 0, 0, 0.12);
 }
 
+.page--dashboard .intel-module[data-module="DAT-01"] .table-wrap--index-types::-webkit-scrollbar-thumb,
 .page--dashboard .intel-module[data-module="IDX-03"] .table-wrap--index-types::-webkit-scrollbar-thumb,
 .page--dashboard .intel-module[data-module="IDX-03"] .intel-metrics--index-compact::-webkit-scrollbar-thumb,
 .page--dashboard .intel-module[data-module="IDX-04"] .table-wrap--sources::-webkit-scrollbar-thumb,
