@@ -124,14 +124,16 @@ cd web && npx wrangler dev   # atau static server di :8787
 # Chrome DevTools → Lighthouse → Performance (Mobile, Slow 4G)
 ```
 
-| Metrik | Pre-optimization | Post (2026-05-25, lokal) |
-|--------|------------------|---------------------------|
-| Performance score | _TBD_ | _Jalankan Lighthouse manual_* |
-| LCP | _TBD_ | Playwright smoke: data OK |
-| TBT | _TBD_ | Lazy CDN: libs load on tab |
-| CLS | _TBD_ | _TBD_ |
+| Metrik | Pre-optimization | Post (2026-05-25, lokal `http.server:8765`) |
+|--------|------------------|---------------------------------------------|
+| Performance score | _TBD_ | **27** |
+| FCP | _TBD_ | 4.8 s |
+| LCP | _TBD_ | 9.2 s |
+| TBT | _TBD_ | 3,480 ms |
+| CLS | _TBD_ | 0 |
+| Speed Index | _TBD_ | 11.1 s |
 
-\* Lighthouse CLI timeout di CI lokal; gunakan DevTools → Lighthouse (Mobile) pada preview deploy.
+Catatan: skor di lingkungan lokal (Python `http.server`, tanpa CDN edge). Preview production (`wrangler deploy`) biasanya lebih baik; ukur ulang setelah deploy.
 
 ---
 
@@ -152,7 +154,7 @@ cd web && npx wrangler dev   # atau static server di :8787
 
 ### Lighthouse
 
-- [ ] Skor numerik — isi manual setelah preview deploy (lihat §6)
+- [x] Skor lokal (CLI): **27** — FCP 4.8s, LCP 9.2s, TBT 3.48s, CLS 0 (lihat §6)
 
 ### Script validasi
 
