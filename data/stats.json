@@ -1,26 +1,26 @@
 {
-  "updated": "2026-05-24 15:20 UTC",
+  "updated": "2026-05-24 15:23 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 429650,
-    "graphEdges": 764453,
-    "sourceDocuments": 2949,
+    "graphNodes": 429651,
+    "graphEdges": 764454,
+    "sourceDocuments": 2950,
     "activeVectors": 5,
     "dominantVectorPct": 55.4,
     "dominantVectorId": "phone",
     "xrefRatio": 1.31,
     "pipelineSuccessPct": 30.1,
-    "pipelineBacklogPct": 63.8,
+    "pipelineBacklogPct": 63.7,
     "pipelineFailurePct": 5.4,
     "entityLinkRate": 0.72
   },
   "summary": {
-    "persons": 429650,
-    "documents": 2949,
+    "persons": 429651,
+    "documents": 2950,
     "photos": 62,
     "templates": 54,
-    "history": 381,
-    "doneFiles": 24
+    "history": 382,
+    "doneFiles": 26
   },
   "coverage": [
     {
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 429650,
+  "coverageTotal": 429651,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
       "entries": 309884,
-      "refs": 429480
+      "refs": 429481
     },
     {
       "type": "Telepon",
@@ -107,7 +107,7 @@
   ],
   "indexTotal": {
     "entries": 583791,
-    "refs": 764453
+    "refs": 764454
   },
   "indexCooccurrence": [
     {
@@ -247,14 +247,19 @@
     }
   ],
   "queue": {
-    "pending": 821,
-    "processing": 6,
-    "done": 387,
+    "pending": 820,
+    "processing": 7,
+    "done": 388,
     "skipped": 2,
     "failed": 70,
-    "total": 1286
+    "total": 1287
   },
   "recentDocs": [
+    {
+      "title": "Lembar Penyerahan LHKPN (·····",
+      "imported_at": "2026-05-24T15:20:53Z",
+      "mentions": 1
+    },
     {
       "title": "D····· P······ W· U·········· T······ P····· P······",
       "imported_at": "2026-05-24T15:17:43Z",
@@ -299,11 +304,6 @@
       "title": "P······· S········· S········ 2021",
       "imported_at": "2026-05-24T14:36:42Z",
       "mentions": 3487
-    },
-    {
-      "title": "Data N······ M····",
-      "imported_at": "2026-05-24T14:36:03Z",
-      "mentions": 9443
     }
   ],
   "showcaseEntities": [
@@ -1300,12 +1300,15 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.39",
+    "latestVersion": "v2.9.0",
     "latestDate": "2026-05-24",
-    "totalReleases": 73,
+    "totalReleases": 74,
     "summary": {
+      "Added — Generic XLSX student roster parser (Scribd UT Pokjar)": 3,
+      "Processed — Scribd 839608051 (Daftar Peserta WT UT Pokjar Pacitan)": 1,
       "Added — Belmawa / PDDIKTI student upload xlsx (Scribd)": 3,
       "Processed — Scribd 755903156 (Belmawa upload)": 1,
+      "Processed — PTUN Mataram LHKPN penyerahan (queue)": 1,
       "Added — ExportMstAnggota DTKS/BDT social-registry xlsx (Scribd)": 3,
       "Processed — Scribd 627198677 (ExportMstAnggota)": 1,
       "Added — IBI member roster xlsx (Scribd multi-sheet)": 3,
@@ -1359,6 +1362,26 @@
     },
     "releases": [
       {
+        "version": "v2.9.0",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added — Generic XLSX student roster parser (Scribd UT Pokjar)",
+            "items": [
+              "`scripts/parse_student_roster_xlsx.py` — Generic XLSX student roster parser: auto-detect columns by case-insensitive header (nim/nisn/nrp → student_id, nama_* → full_name, alamat_* → address, NIK, gender, agama, pob, dob, phone, email, prodi, fakultas, angkatan); all unmapped columns → extras; supports multi-sheet XLSX.",
+              "`scripts/process_student_roster.py` — Made generic: auto-detect institution/study program from persons.json extras; accepts `--title` and `--institution` CLI flags; no more hardcoded school name.",
+              "`templates/data_akademik.json` — Notes updated for generic parse_student_roster_xlsx routing."
+            ]
+          },
+          {
+            "kind": "Processed — Scribd 839608051 (Daftar Peserta WT UT Pokjar Pacitan)",
+            "items": [
+              "1,666 persons — Daftar peserta workshop training mahasiswa PGSD/PGPAUD Universitas Terbuka Pokjar Pacitan (sheet 1: 24 Nov 2021). Doc `01KSD90GBA8Q0V8T9AVSEMH2BF`."
+            ]
+          }
+        ]
+      },
+      {
         "version": "v2.8.39",
         "date": "2026-05-24",
         "sections": [
@@ -1374,6 +1397,12 @@
             "kind": "Processed — Scribd 755903156 (Belmawa upload)",
             "items": [
               "2,883 persons — Mahasiswa upload Belmawa 30 Mei 2024. Doc `01KSD901PAC0KJBNSQKYEFNZPM` (created 2879, updated 4)."
+            ]
+          },
+          {
+            "kind": "Processed — PTUN Mataram LHKPN penyerahan (queue)",
+            "items": [
+              "1 person — Lembar Penyerahan e-LHKPN 2020. Doc `01KSD9699Z2B19968EK50YHYFA` (`parse_lhkpn_penyerahan`)."
             ]
           }
         ]
@@ -1850,25 +1879,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.15",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Changed",
-            "items": [
-              "Dokumentasi & komentar: queue/history/OSINT dedup → SQLite (`dompeng.db`); hanya `tmp/input.csv` tetap file.",
-              "README.md, docs/maigret.md, docs/ghunt.md, docs/phoneinfoga.md, scan scripts, ROADMAP_SQLITE.md.",
-              "`migrate_ids.py` / `migrate_ulid.py` — migrasi ULID pada `processing_history` via SQLite API."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 429650,
+    "totalEntities": 429651,
     "entitiesWithCity": 33953,
     "geocodedEntities": 27759,
     "uniqueCities": 3027,
@@ -2928,14 +2943,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2949,
-    "documentsWithUrl": 2932,
-    "documentsIdDomain": 531,
+    "documentsTotal": 2950,
+    "documentsWithUrl": 2933,
+    "documentsIdDomain": 532,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 531
+        "count": 532
       }
     ],
     "fileTypes": [
@@ -2945,7 +2960,7 @@
       },
       {
         "type": "pdf",
-        "count": 1255
+        "count": 1256
       },
       {
         "type": "unknown",
@@ -2985,12 +3000,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 80956
+      "bytes": 85262
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22456
+      "bytes": 22284
     },
     {
       "file": "sitemap.xml",
