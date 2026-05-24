@@ -146,12 +146,14 @@ cd web && npx wrangler dev   # atau static server di :8787
 
 ### Fase 2b (JS — dampak terbesar, tanpa ubah `stats.json`)
 
-### Fase 3 (CSS)
+### Fase 3 (2026-05-25) — CSS & rendering engine
 
-- [ ] `content-visibility: auto` pada `.tab-panel:not(.is-active)` atau board besar
-- [ ] `contain` / `content-visibility` pada `.intel-module` di tab non-aktif
-- [ ] `will-change: transform` hanya pada `#geo-map` saat tab geo aktif (opsional)
-- [ ] Self-host font subset atau fallback system-ui untuk FCP
+- [x] `content-visibility: auto` pada `.intel-module`, kartu entitas, item kota, feed changelog
+- [x] `content-visibility: hidden` + `contain: strict` pada `.tab-panel[hidden]`
+- [x] `contain: layout paint style` pada wrapper chart/graf
+- [x] `will-change: transform` hanya `#geo-map` saat tab Peta aktif (+ animasi masuk)
+- [x] `contain: strict` pada overlay `.scanline`
+- [x] `will-change` dimatikan di `prefers-reduced-motion`
 
 ### Fase 4 (validasi)
 
