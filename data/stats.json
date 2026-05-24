@@ -3099,39 +3099,19 @@
         "count": 201
       },
       {
+        "suffix": "id",
+        "count": 10
+      },
+      {
         "suffix": "sch.id",
         "count": 5
-      },
-      {
-        "suffix": "mkri.id",
-        "count": 3
-      },
-      {
-        "suffix": "kemenagkarangasem.id",
-        "count": 3
       },
       {
         "suffix": "desa.id",
         "count": 2
       },
       {
-        "suffix": "kbjabar.id",
-        "count": 1
-      },
-      {
-        "suffix": "polreslingga.id",
-        "count": 1
-      },
-      {
-        "suffix": "bapelkesbatam.id",
-        "count": 1
-      },
-      {
         "suffix": "or.id",
-        "count": 1
-      },
-      {
-        "suffix": "forumanak.id",
         "count": 1
       }
     ],

@@ -124,12 +124,41 @@ cd web && npx wrangler dev   # atau static server di :8787
 # Chrome DevTools → Lighthouse → Performance (Mobile, Slow 4G)
 ```
 
-| Metrik | Pre-optimization | Post (isi setelah Fase 4) |
+| Metrik | Pre-optimization | Post (2026-05-25, lokal) |
 |--------|------------------|---------------------------|
-| Performance score | _TBD_ | |
-| LCP | _TBD_ | |
-| TBT | _TBD_ | |
-| CLS | _TBD_ | |
+| Performance score | _TBD_ | _Jalankan Lighthouse manual_* |
+| LCP | _TBD_ | Playwright smoke: data OK |
+| TBT | _TBD_ | Lazy CDN: libs load on tab |
+| CLS | _TBD_ | _TBD_ |
+
+\* Lighthouse CLI timeout di CI lokal; gunakan DevTools → Lighthouse (Mobile) pada preview deploy.
+
+---
+
+## 9. Fase 4 — validasi (2026-05-25)
+
+### Static (`node scripts/validate-phase4.mjs`)
+
+- [x] 119 `id=` di `index.html` — semua direferensikan JS/HTML
+- [x] Tidak ada Chart.js / ECharts / MapLibre di `<head>`
+- [x] `load-libs.js` ada di `<head>`
+- [x] `stats.json` `domainSuffixes` — hanya ccSLD + `id` (tanpa nama instansi)
+
+### Playwright smoke (6 tab)
+
+- [x] Ringkasan, Peta, Indeks, Operasi, Sampel, Data — switch OK, tanpa error banner
+- [x] Data termuat (`Diperbarui · … UTC`)
+- [x] ECharts / Chart.js / MapLibre dimuat on-demand setelah navigasi tab
+
+### Lighthouse
+
+- [ ] Skor numerik — isi manual setelah preview deploy (lihat §6)
+
+### Script validasi
+
+```bash
+cd web && node scripts/validate-phase4.mjs
+```
 
 ---
 
@@ -155,12 +184,12 @@ cd web && npx wrangler dev   # atau static server di :8787
 - [x] `contain: strict` pada overlay `.scanline`
 - [x] `will-change` dimatikan di `prefers-reduced-motion`
 
-### Fase 4 (validasi)
+### Fase 4 (validasi) — 2026-05-25
 
-- [ ] Bandingkan 119 `id` + class pengikat (`data-tab`, `data-chart-modal`, dll.)
-- [ ] Smoke test 6 tab: Ringkasan, Peta, Indeks, Operasi, Sampel, Data
-- [ ] Lighthouse ulang; isi tabel §6
-- [ ] Commit ke `performance-optimization`
+- [x] Bandingkan 119 `id` + class pengikat — `scripts/validate-phase4.mjs`
+- [x] Smoke test 6 tab — Playwright (lokal `python3 -m http.server`)
+- [ ] Lighthouse ulang; isi tabel §6 (manual / preview deploy)
+- [x] Commit perubahan ke branch `performance-optimization`
 
 ---
 
