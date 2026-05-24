@@ -1,7 +1,7 @@
 {
-  "totalEntities": 282552,
-  "entitiesWithCity": 2721,
-  "geocodedEntities": 1998,
+  "totalEntities": 282919,
+  "entitiesWithCity": 2722,
+  "geocodedEntities": 1999,
   "uniqueCities": 607,
   "mappedCities": 173,
   "clusters": [
@@ -320,6 +320,14 @@
       "lng": 96.88130519675553
     },
     {
+      "key": "KEDIRI",
+      "label": "Kediri",
+      "province": null,
+      "count": 9,
+      "lat": -7.8167,
+      "lng": 112.0167
+    },
+    {
       "key": "NGANJUK",
       "label": "Nganjuk",
       "province": null,
@@ -371,14 +379,6 @@
       "count": 8,
       "lat": -2.0074642796321776,
       "lng": 113.76747426266772
-    },
-    {
-      "key": "KEDIRI",
-      "label": "Kediri",
-      "province": "DKI JAKARTA",
-      "count": 8,
-      "lat": -7.8167,
-      "lng": 112.0167
     },
     {
       "key": "TASIKMALAYA",

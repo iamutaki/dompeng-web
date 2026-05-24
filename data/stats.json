@@ -1,24 +1,24 @@
 {
-  "updated": "2026-05-24 06:41 UTC",
+  "updated": "2026-05-24 07:25 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 282552,
-    "graphEdges": 444732,
-    "sourceDocuments": 2909,
+    "graphNodes": 282919,
+    "graphEdges": 445311,
+    "sourceDocuments": 2911,
     "activeVectors": 5,
     "dominantVectorPct": 54.7,
     "dominantVectorId": "phone",
     "xrefRatio": 1.36,
-    "pipelineSuccessPct": 52.4,
-    "pipelineBacklogPct": 37.4,
+    "pipelineSuccessPct": 52.2,
+    "pipelineBacklogPct": 37.3,
     "pipelineFailurePct": 9.9,
     "entityLinkRate": 0.57
   },
   "summary": {
-    "persons": 282552,
-    "documents": 2909,
-    "photos": 61,
-    "templates": 40,
+    "persons": 282919,
+    "documents": 2911,
+    "photos": 62,
+    "templates": 41,
     "history": 348,
     "doneFiles": 584
   },
@@ -26,14 +26,14 @@
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 154621,
+      "value": 154624,
       "pct": 54.7
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 3468,
-      "pct": 1.2
+      "value": 3828,
+      "pct": 1.4
     },
     {
       "id": "employee_id",
@@ -44,41 +44,41 @@
     {
       "id": "nik",
       "label": "NIK",
-      "value": 3328,
+      "value": 3329,
       "pct": 1.2
     },
     {
       "id": "photo",
       "label": "Foto",
-      "value": 61,
+      "value": 62,
       "pct": 0.0
     }
   ],
-  "coverageTotal": 282552,
+  "coverageTotal": 282919,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 205111,
-      "refs": 282413
+      "entries": 205320,
+      "refs": 282628
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 114457,
-      "refs": 154700
+      "entries": 114460,
+      "refs": 154703
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 2855,
-      "refs": 3499
+      "entries": 3215,
+      "refs": 3859
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 3323,
-      "refs": 3323
+      "entries": 3324,
+      "refs": 3324
     },
     {
       "type": "NPWP",
@@ -106,24 +106,24 @@
     }
   ],
   "indexTotal": {
-    "entries": 326533,
-    "refs": 444732
+    "entries": 327106,
+    "refs": 445311
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 154513
+      "value": 154516
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 3463
+      "value": 3675
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 3323
+      "value": 3324
     },
     {
       "source": "Telepon",
@@ -133,7 +133,7 @@
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 3076
+      "value": 3079
     },
     {
       "source": "Nama",
@@ -233,13 +233,23 @@
   ],
   "queue": {
     "pending": 252,
-    "processing": 1,
+    "processing": 3,
     "done": 353,
     "skipped": 1,
     "failed": 67,
-    "total": 674
+    "total": 676
   },
   "recentDocs": [
+    {
+      "title": "C···· D·········· K··· B······ — D······· D··· (··········",
+      "imported_at": "2026-05-24T07:21:15Z",
+      "mentions": 366
+    },
+    {
+      "title": "K···· T···· P······· (····",
+      "imported_at": "2026-05-24T06:42:07Z",
+      "mentions": 1
+    },
     {
       "title": "H···· S······ K········· D···· C··· K·············· T···· A······· 2024",
       "imported_at": "2026-05-24T04:16:14Z",
@@ -279,16 +289,6 @@
       "title": "P········· H···· S······ A··········· P······ B··· N·· A·· R··· R············· 2025",
       "imported_at": "2026-05-24T01:41:50Z",
       "mentions": 375
-    },
-    {
-      "title": "P········· H···· S······ B····· P·· S···· S········ S· G········ 1 T· 2········ 2026",
-      "imported_at": "2026-05-24T01:34:06Z",
-      "mentions": 12
-    },
-    {
-      "title": "P········· H···· S······ K········· D···· C··· K··· B·········· 2018",
-      "imported_at": "2026-05-23T19:30:34Z",
-      "mentions": 180
     }
   ],
   "showcaseEntities": [
@@ -1356,16 +1356,67 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.8.4",
+    "latestVersion": "v2.8.6",
     "latestDate": "2026-05-24",
-    "totalReleases": 38,
+    "totalReleases": 40,
     "summary": {
-      "Added": 114,
-      "Changed": 66,
-      "Fixed": 19,
+      "Added": 121,
+      "Changed": 72,
+      "Fixed": 20,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.6",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/extra_fields.py` — Canonical `{label, value, category}` helpers: `extra_item`, `normalize_extra_array`, `extra_get`.",
+              "`scripts/skd_extra.py` — Shared SKD CPNS `extra[]` builder for process runners.",
+              "`scripts/migrate_extra.py` — Backfill legacy `extra` (dict or `\"Label: value\"` strings) to structured array."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`scripts/person.py` — `create_person()` normalizes `extra` on ingest.",
+              "`scripts/process_skd_kemdikbud.py`, `process_skd_sambas.py`, `process_skd_bukittinggi.py` — emit structured `extra[]` instead of string list.",
+              "`scripts/parse_ktp_ocr.py` — KTP address fields → structured `extra[]`.",
+              "`samples/person.json` — `extra` example matches canonical schema.",
+              "AGENT.md — rule: `extra` must be array of `{label, value, category}` objects."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "Backfilled `extra` on SKD documents (Kemdikbud 2024, Sambas 2019/2021, Bukittinggi 2018) and KTP sample via `migrate_extra.py`."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.5",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/ocr.py` — OCR langsung untuk file gambar (JPEG/PNG); upscale thumbnail kecil sebelum Tesseract.",
+              "`scripts/parse_ktp_ocr.py` — Parser field KTP dari teks OCR (NIK dengan koreksi OCR + rekonstruksi dari wilayah/DOB).",
+              "`scripts/process_ktp_image.py` — Runner document + person untuk foto KTP.",
+              "Processed KTP thumbnail Google Images — 1 person (SULISTYONO, NIK 3506042602660001). Source: `encrypted-tbn0.gstatic.com`. OSINT N/A (no email/phone)."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`scripts/download.py` — Deteksi magic bytes setelah unduh; rename `download.jpg` bila URL tanpa ekstensi."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.8.4",
         "date": "2026-05-24",
@@ -1812,62 +1863,13 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.13.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/index.py`: `IndexCache.flush_dirty()` — incremental flush that only writes new/modified index entries to disk (~1ms for 5 entries vs ~660ms for full 7,651 entries). Dirty tracking via `_dirty_unique` and `_dirty_shared` sets cleared after flush",
-              "`scripts/index.py`: `IndexCache.update_for_person()` — extract identifiers from person data+edges and update index cache in one call. Combined with `flush_dirty()`, enables single-person incremental index update without full rebuild",
-              "`scripts/index.py`: `IndexCache.stats()` — now includes `dirty` count per index type",
-              "`scripts/index.py`: `update-person` CLI command — `python3 scripts/index.py update-person p-xxx` incrementally updates index for one person",
-              "`scripts/batch_create.py`: `BatchProcessor.flush()` now calls `cache.flush_dirty()` instead of `cache.flush_to_disk()` — only writes dirty entries",
-              "AGENT.md: Index Lookup section updated with flush comparison table (`flush_dirty` vs `flush_to_disk` vs `flush_index.sh`)",
-              "AGENT.md: Rule #13 updated with incremental flush options and speed comparison"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "`scripts/index.py`: `IndexCache` class moved from `scripts/batch_create.py` — now importable independently as `from scripts.index import IndexCache`",
-              "`scripts/batch_create.py`: `IndexCache` imported from `scripts/index.py` instead of defined inline",
-              "`scripts/batch_create.py`: Docstring updated to reference `IndexCache` in `index.py`"
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v0.12.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/batch_create.py` — BatchProcessor class for batch person creation with in-memory index caching. Eliminates subprocess overhead (~100x faster for >10 persons). Features: `IndexCache` (in-memory dict lookup instead of file I/O), automatic dedup via `find_person_by_identifiers()`, incremental index flush, and `--flush` CLI for index rebuild",
-              "AGENT.md: \"Person Creation API\" section rewritten with two modes — Batch (PREFERRED) and Individual (legacy). Includes code examples for BatchProcessor usage pattern",
-              "AGENT.md: Script table updated with `batch_create.py` entry",
-              "AGENT.md: Directory listing updated with `batch_create.py`"
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "AGENT.md: Rule #12 updated — `Batch >10 person → BatchProcessor (PREFERRED)` instead of generic \"Python script\"",
-              "AGENT.md: Rule #13 updated — flush index via `bp.flush()` or `python3 scripts/batch_create.py --flush` as alternative to `./flush_index.sh`",
-              "AGENT.md: Rule #25 updated — added BatchProcessor requirement for batch processing"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 282552,
-    "entitiesWithCity": 2721,
-    "geocodedEntities": 1998,
+    "totalEntities": 282919,
+    "entitiesWithCity": 2722,
+    "geocodedEntities": 1999,
     "uniqueCities": 607,
     "mappedCities": 173,
     "clusters": [
@@ -2186,6 +2188,14 @@
         "lng": 96.88130519675553
       },
       {
+        "key": "KEDIRI",
+        "label": "Kediri",
+        "province": null,
+        "count": 9,
+        "lat": -7.8167,
+        "lng": 112.0167
+      },
+      {
         "key": "NGANJUK",
         "label": "Nganjuk",
         "province": null,
@@ -2237,14 +2247,6 @@
         "count": 8,
         "lat": -2.0074642796321776,
         "lng": 113.76747426266772
-      },
-      {
-        "key": "KEDIRI",
-        "label": "Kediri",
-        "province": "DKI JAKARTA",
-        "count": 8,
-        "lat": -7.8167,
-        "lng": 112.0167
       },
       {
         "key": "TASIKMALAYA",
@@ -2912,8 +2914,8 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2905,
-    "documentsWithUrl": 2888,
+    "documentsTotal": 2907,
+    "documentsWithUrl": 2890,
     "documentsIdDomain": 521,
     "topSuffix": "go.id",
     "domainSuffixes": [
@@ -2948,19 +2950,19 @@
         "count": 4
       },
       {
+        "type": "image",
+        "count": 3
+      },
+      {
         "type": "csv",
         "count": 3
       },
       {
-        "type": "image",
+        "type": "sql",
         "count": 2
       },
       {
         "type": "txt",
-        "count": 1
-      },
-      {
-        "type": "sql",
         "count": 1
       }
     ]
@@ -2969,7 +2971,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 88382
+      "bytes": 88965
     },
     {
       "file": "data/geo-clusters.json",
