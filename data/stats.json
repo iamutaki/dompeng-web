@@ -1,33 +1,33 @@
 {
-  "updated": "2026-05-24 21:01 UTC",
+  "updated": "2026-05-24 21:47 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 523699,
-    "graphEdges": 927411,
-    "sourceDocuments": 3053,
+    "graphNodes": 542624,
+    "graphEdges": 947141,
+    "sourceDocuments": 3055,
     "activeVectors": 5,
-    "dominantVectorPct": 54.6,
+    "dominantVectorPct": 52.8,
     "dominantVectorId": "phone",
     "xrefRatio": 1.29,
-    "pipelineSuccessPct": 37.4,
-    "pipelineBacklogPct": 17.4,
-    "pipelineFailurePct": 14.0,
-    "entityLinkRate": 0.7
+    "pipelineSuccessPct": 33.1,
+    "pipelineBacklogPct": 27.1,
+    "pipelineFailurePct": 12.4,
+    "entityLinkRate": 0.67
   },
   "summary": {
-    "persons": 523699,
-    "documents": 3053,
+    "persons": 542624,
+    "documents": 3055,
     "photos": 100,
-    "templates": 60,
-    "history": 513,
-    "doneFiles": 201
+    "templates": 57,
+    "history": 515,
+    "doneFiles": 208
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 285959,
-      "pct": 54.6
+      "value": 286361,
+      "pct": 52.8
     },
     {
       "id": "email",
@@ -45,7 +45,7 @@
       "id": "nik",
       "label": "NIK",
       "value": 66553,
-      "pct": 12.7
+      "pct": 12.3
     },
     {
       "id": "photo",
@@ -54,19 +54,19 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 523699,
+  "coverageTotal": 542624,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 378184,
-      "refs": 523440
+      "entries": 393780,
+      "refs": 542365
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 243293,
-      "refs": 289616
+      "entries": 243695,
+      "refs": 290018
     },
     {
       "type": "Email",
@@ -95,8 +95,8 @@
     {
       "type": "ID pelajar",
       "kind": "index",
-      "entries": 14589,
-      "refs": 14590
+      "entries": 14992,
+      "refs": 14993
     },
     {
       "type": "ID karyawan",
@@ -106,14 +106,14 @@
     }
   ],
   "indexTotal": {
-    "entries": 718396,
-    "refs": 927411
+    "entries": 734797,
+    "refs": 947141
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 285836
+      "value": 286238
     },
     {
       "source": "Nama",
@@ -128,7 +128,7 @@
     {
       "source": "Nama",
       "target": "ID pelajar",
-      "value": 14590
+      "value": 14993
     },
     {
       "source": "Nama",
@@ -181,6 +181,11 @@
       "value": 3485
     },
     {
+      "source": "Telepon",
+      "target": "ID pelajar",
+      "value": 3485
+    },
+    {
       "source": "NIK",
       "target": "NPWP",
       "value": 3417
@@ -189,11 +194,6 @@
       "source": "Email",
       "target": "NPWP",
       "value": 3368
-    },
-    {
-      "source": "Telepon",
-      "target": "ID pelajar",
-      "value": 3083
     },
     {
       "source": "NIK",
@@ -247,14 +247,24 @@
     }
   ],
   "queue": {
-    "pending": 226,
-    "processing": 3,
-    "done": 485,
+    "pending": 399,
+    "processing": 2,
+    "done": 487,
     "skipped": 401,
     "failed": 182,
-    "total": 1297
+    "total": 1471
   },
   "recentDocs": [
+    {
+      "title": "Data S······ I··········",
+      "imported_at": "2026-05-24T21:26:44Z",
+      "mentions": 403
+    },
+    {
+      "title": "Data h···· n···· T·· C···",
+      "imported_at": "2026-05-24T21:01:55Z",
+      "mentions": 18522
+    },
     {
       "title": "Data p······ s······ o······· p·······",
       "imported_at": "2026-05-24T20:56:28Z",
@@ -294,16 +304,6 @@
       "title": "D····· P·········· LHKPN P······· 2024 — K········ B········· K········ J········· K··· J······ T····",
       "imported_at": "2026-05-24T20:25:56Z",
       "mentions": 5
-    },
-    {
-      "title": "D····· P······· B······",
-      "imported_at": "2026-05-24T20:23:47Z",
-      "mentions": 3349
-    },
-    {
-      "title": "Data P··········· T······",
-      "imported_at": "2026-05-24T20:13:17Z",
-      "mentions": 4209
     }
   ],
   "showcaseEntities": [
@@ -1344,25 +1344,6 @@
     "latestDate": "2026-05-25",
     "totalReleases": 76,
     "summary": {
-      "Fixed — Generic academic workbook parsing": 2,
-      "Processed — Manual academic selection workbook": 1,
-      "Added — SBMPTN hasil seleksi Scribd text": 3,
-      "Processed — Manual SBMPTN selection roster": 1,
-      "Fixed — Student roster header detection": 1,
-      "Processed — Manual academic workbook": 1,
-      "Added — Land-entry workbook roster": 3,
-      "Processed — Manual land-entry workbook": 1,
-      "Added — Selection attachment parser": 3,
-      "Processed — Manual selection attachment": 1,
-      "Added — LHKPN compound receipt bundle": 2,
-      "Processed — LHKPN compound receipt bundle": 1,
-      "Added — LHKPN periodic submission roster": 3,
-      "Processed — LHKPN periodic submission roster": 2,
-      "Fixed — LHKPN penyampaian inline rows": 1,
-      "Added — Assistance-recipient workbook roster": 3,
-      "Processed — Manual assistance-recipient workbook": 1,
-      "Added — Open unemployment roster workbook": 3,
-      "Processed — Manual roster workbook": 1,
       "Processed — Profil pejabat struktural SKPD 2024 (queue)": 1,
       "Fixed — Profil pejabat pangkat line variants": 1,
       "Processed — Profil pejabat struktural SKPD (queue)": 1,
@@ -1445,135 +1426,6 @@
         "version": "v2.9.2",
         "date": "2026-05-25",
         "sections": [
-          {
-            "kind": "Fixed — Generic academic workbook parsing",
-            "items": [
-              "`scripts/parse_student_roster_xlsx.py` — Detect grouped two-row headers, broad address labels, `TELPON` phone columns, and email labels embedded under grouped headers.",
-              "`scripts/process_student_roster.py` — Preserve parsed email fields so BatchProcessor creates email edges."
-            ]
-          },
-          {
-            "kind": "Processed — Manual academic selection workbook",
-            "items": [
-              "324 persons — Doc `01KSDW7NG4SCC3M0Q1WBR6QRW5`, template `data_akademik`; validated."
-            ]
-          },
-          {
-            "kind": "Added — SBMPTN hasil seleksi Scribd text",
-            "items": [
-              "`scripts/parse_sbmptn_hasil.py` — Parser SBMPTN/SNMPTN Scribd export: Nomor Peserta + Nama + Kode Program Studi; multi-university section filter; No Peserta in `extra` (not `student_id`).",
-              "`scripts/process_sbmptn_hasil.py` — Runner document + BatchProcessor for SBMPTN selection rosters.",
-              "`templates/data_akademik.json` — Notes link SBMPTN parser."
-            ]
-          },
-          {
-            "kind": "Processed — Manual SBMPTN selection roster",
-            "items": [
-              "1,892 persons — Doc `01KSDW4XC4DG5MH0B0QFZ693BE`, template `data_akademik`; validated."
-            ]
-          },
-          {
-            "kind": "Fixed — Student roster header detection",
-            "items": [
-              "`scripts/parse_student_roster_xlsx.py` — Detect roster headers within the first rows of a workbook, allowing title rows before the table header."
-            ]
-          },
-          {
-            "kind": "Processed — Manual academic workbook",
-            "items": [
-              "9,195 persons — Doc `01KSDVYQQK2V7AC74AMY9FXN9A`, template `data_akademik`; validated."
-            ]
-          },
-          {
-            "kind": "Added — Land-entry workbook roster",
-            "items": [
-              "`scripts/parse_data_pertanahan.py` — Parser land-entry XLSX roster: owner identity, NIK, parcel identifiers, land area, address hierarchy, boundaries, acquisition chain, and witnesses.",
-              "`scripts/process_data_pertanahan.py` — Runner document + BatchProcessor; groups duplicate NIK rows into one person with multiple parcel facts and repair mode for validation cleanup.",
-              "`templates/data_pertanahan.json` — Routing metadata for land-entry workbook rosters."
-            ]
-          },
-          {
-            "kind": "Processed — Manual land-entry workbook",
-            "items": [
-              "223 persons — Doc `01KSDV6P1REP5395FB0X98X965`, template `data_pertanahan`; 250 parcel rows merged by NIK and validated."
-            ]
-          },
-          {
-            "kind": "Added — Selection attachment parser",
-            "items": [
-              "`scripts/parse_lampiran_seleksi.py` — Parser text attachment rows with No Peserta + name; stores participant numbers as scoped extras/facts, not `student_id`.",
-              "`scripts/process_lampiran_seleksi.py` — Runner document + BatchProcessor for simple selection-result attachments.",
-              "`templates/pengumuman_hasil_seleksi.json` — Routing metadata for simple selection attachment parser/processor."
-            ]
-          },
-          {
-            "kind": "Processed — Manual selection attachment",
-            "items": [
-              "22,043 persons — Doc `01KSDTNXWBW1Z21X2R2J6SQNN0`, template `pengumuman_hasil_seleksi`; validated."
-            ]
-          },
-          {
-            "kind": "Added — LHKPN compound receipt bundle",
-            "items": [
-              "`scripts/parse_lhkpn_compound.py` — Parse multi-page bundles: Tanda Terima + Lembar Penyerahan blocks, dedupe by NIK/name.",
-              "`scripts/process_lhkpn_compound.py` — Runner for rekapitulasi + attachment receipt PDFs."
-            ]
-          },
-          {
-            "kind": "Processed — LHKPN compound receipt bundle",
-            "items": [
-              "14 persons — Doc `01KSDVECY258PHCC1E25TF3EBJ`, template `lhkpn`; validated."
-            ]
-          },
-          {
-            "kind": "Added — LHKPN periodic submission roster",
-            "items": [
-              "`scripts/parse_lhkpn_penyampaian.py` — Parser DAFTAR PENYAMPAIAN LHKPN PERIODIK: nama, NIP/NRK (split lines), jabatan wrap, tanggal lapor/kirim.",
-              "`scripts/process_lhkpn_penyampaian.py` — Runner document + BatchProcessor for periodic LHKPN submission rosters.",
-              "`templates/lhkpn.json` — Notes link penyampaian roster parser."
-            ]
-          },
-          {
-            "kind": "Processed — LHKPN periodic submission roster",
-            "items": [
-              "5 persons — Doc `01KSDTMVMFSFFJCXG0KFCGTKH7`, template `lhkpn`; validated.",
-              "5 persons (updated) — Doc `01KSDTZDQDD57AVK6Q41X88ESD`, template `lhkpn`; inline single-line roster variant."
-            ]
-          },
-          {
-            "kind": "Fixed — LHKPN penyampaian inline rows",
-            "items": [
-              "`scripts/parse_lhkpn_penyampaian.py` — Handle single-line NIP/NRK + jabatan + dates layout (pdftotext variant)."
-            ]
-          },
-          {
-            "kind": "Added — Assistance-recipient workbook roster",
-            "items": [
-              "`scripts/parse_daftar_penerima_bantuan.py` — Parser multi-sheet Excel roster: extracts recipient name, NIK, KK, address hierarchy, welfare/assistance fields, and dedups by NIK.",
-              "`scripts/process_daftar_penerima_bantuan.py` — Runner document + BatchProcessor for assistance-recipient workbooks.",
-              "`templates/daftar_penerima_bantuan.json` — Routing metadata for assistance-recipient workbook rosters."
-            ]
-          },
-          {
-            "kind": "Processed — Manual assistance-recipient workbook",
-            "items": [
-              "3,349 persons — Doc `01KSDTCM5K2E1ZQ8BR4K047SK7`, template `daftar_penerima_bantuan`; validated."
-            ]
-          },
-          {
-            "kind": "Added — Open unemployment roster workbook",
-            "items": [
-              "`scripts/parse_pengangguran_terbuka.py` — Parser legacy Excel roster: detects citizen-name/NIK/address/employment columns, stores current-job text as scoped extra + employment fact, and dedups by NIK.",
-              "`scripts/process_pengangguran_terbuka.py` — Runner document + BatchProcessor with validation repair mode for free-form current-job fields.",
-              "`templates/data_pengangguran_terbuka.json` — Routing metadata for workbook-based open-unemployment rosters."
-            ]
-          },
-          {
-            "kind": "Processed — Manual roster workbook",
-            "items": [
-              "4,209 persons — Doc `01KSDSP8MMXCN3ZMQJT7Y7X47G`, template `data_pengangguran_terbuka`; validated after scalar occupation repair."
-            ]
-          },
           {
             "kind": "Processed — Profil pejabat struktural SKPD 2024 (queue)",
             "items": [
@@ -2207,10 +2059,10 @@
     ]
   },
   "geo": {
-    "totalEntities": 523699,
-    "entitiesWithCity": 66053,
-    "geocodedEntities": 61767,
-    "uniqueCities": 2411,
+    "totalEntities": 542624,
+    "entitiesWithCity": 66456,
+    "geocodedEntities": 62168,
+    "uniqueCities": 2413,
     "mappedCities": 264,
     "clusters": [
       {
@@ -2249,7 +2101,7 @@
         "key": "BANDUNG",
         "label": "Bandung",
         "province": "JAWA BARAT",
-        "count": 3430,
+        "count": 3438,
         "lat": -6.9175,
         "lng": 107.6191
       },
@@ -2334,7 +2186,7 @@
         "key": "JAKARTA",
         "label": "Jakarta",
         "province": null,
-        "count": 867,
+        "count": 872,
         "lat": -6.2088,
         "lng": 106.8456
       },
@@ -2470,7 +2322,7 @@
         "key": "BEKASI",
         "label": "Bekasi",
         "province": null,
-        "count": 443,
+        "count": 446,
         "lat": -6.2383,
         "lng": 106.9756
       },
@@ -2518,6 +2370,14 @@
         "count": 373,
         "lat": -7.931327949447231,
         "lng": 111.4995304316846
+      },
+      {
+        "key": "PURWAKARTA",
+        "label": "Purwakarta",
+        "province": null,
+        "count": 369,
+        "lat": -6.595259676071498,
+        "lng": 107.430775994088
       },
       {
         "key": "MAGETAN",
@@ -2700,20 +2560,20 @@
         "lng": 123.12444836806907
       },
       {
+        "key": "TEGAL",
+        "label": "Tegal",
+        "province": "JAWA TENGAH",
+        "count": 75,
+        "lat": -6.8694,
+        "lng": 109.1402
+      },
+      {
         "key": "PALEMBANG",
         "label": "Palembang",
         "province": "Sumatera Selatan",
         "count": 74,
         "lat": -2.9761,
         "lng": 104.7754
-      },
-      {
-        "key": "TEGAL",
-        "label": "Tegal",
-        "province": "JAWA TENGAH",
-        "count": 74,
-        "lat": -6.8694,
-        "lng": 109.1402
       },
       {
         "key": "KLATEN",
@@ -2743,7 +2603,7 @@
         "key": "SEMARANG",
         "label": "Semarang",
         "province": null,
-        "count": 64,
+        "count": 65,
         "lat": -6.9667,
         "lng": 110.4167
       },
@@ -2825,10 +2685,18 @@
         ]
       },
       {
+        "key": "BOGOR",
+        "label": "Bogor",
+        "province": null,
+        "count": 38,
+        "lat": -6.5971,
+        "lng": 106.806
+      },
+      {
         "key": "PADANG",
         "label": "Padang",
         "province": null,
-        "count": 37,
+        "count": 38,
         "lat": -0.9471,
         "lng": 100.4172
       },
@@ -2839,14 +2707,6 @@
         "count": 37,
         "lat": -7.7956,
         "lng": 110.3695
-      },
-      {
-        "key": "BOGOR",
-        "label": "Bogor",
-        "province": null,
-        "count": 36,
-        "lat": -6.5971,
-        "lng": 106.806
       },
       {
         "key": "LHOKSEUMAWE",
@@ -2881,6 +2741,14 @@
         "lng": 109.61735310996204
       },
       {
+        "key": "KARAWANG",
+        "label": "Karawang",
+        "province": null,
+        "count": 30,
+        "lat": -6.252282718246672,
+        "lng": 107.3542921153967
+      },
+      {
         "key": "LUWU UTARA",
         "label": "Luwu Utara",
         "province": "Sulawesi Selatan",
@@ -2905,20 +2773,20 @@
         "lng": 96.88130519675553
       },
       {
+        "key": "SUBANG",
+        "label": "Subang",
+        "province": "JAWA BARAT",
+        "count": 26,
+        "lat": -6.5694,
+        "lng": 107.7631
+      },
+      {
         "key": "BREBES",
         "label": "Brebes",
         "province": null,
         "count": 26,
         "lat": -7.06277205117945,
         "lng": 108.92952648130553
-      },
-      {
-        "key": "KARAWANG",
-        "label": "Karawang",
-        "province": null,
-        "count": 26,
-        "lat": -6.252282718246672,
-        "lng": 107.3542921153967
       },
       {
         "key": "SLEMAN",
@@ -2945,20 +2813,20 @@
         "lng": 111.01924162577282
       },
       {
+        "key": "CIREBON",
+        "label": "Cirebon",
+        "province": null,
+        "count": 23,
+        "lat": -6.7063,
+        "lng": 108.557
+      },
+      {
         "key": "BALIKPAPAN",
         "label": "Balikpapan",
         "province": null,
         "count": 23,
         "lat": -1.2379,
         "lng": 116.8529
-      },
-      {
-        "key": "CIREBON",
-        "label": "Cirebon",
-        "province": null,
-        "count": 22,
-        "lat": -6.7063,
-        "lng": 108.557
       },
       {
         "key": "TEMANGGUNG",
@@ -3009,12 +2877,12 @@
         "lng": 109.39517261663187
       },
       {
-        "key": "SUBANG",
-        "label": "Subang",
-        "province": "JAWA BARAT",
+        "key": "SUKABUMI",
+        "label": "Sukabumi",
+        "province": null,
         "count": 19,
-        "lat": -6.5694,
-        "lng": 107.7631
+        "lat": -6.9277,
+        "lng": 106.929
       },
       {
         "key": "SINJAI",
@@ -3057,12 +2925,12 @@
         "lng": 106.6319
       },
       {
-        "key": "SUKABUMI",
-        "label": "Sukabumi",
+        "key": "CIAMIS",
+        "label": "Ciamis",
         "province": null,
         "count": 18,
-        "lat": -6.9277,
-        "lng": 106.929
+        "lat": -7.290249924234724,
+        "lng": 108.4286452357121
       },
       {
         "key": "MATARAM",
@@ -3073,18 +2941,10 @@
         "lng": 116.1167
       },
       {
-        "key": "CIAMIS",
-        "label": "Ciamis",
-        "province": null,
-        "count": 17,
-        "lat": -7.290249924234724,
-        "lng": 108.4286452357121
-      },
-      {
         "key": "TASIKMALAYA",
         "label": "Tasikmalaya",
         "province": null,
-        "count": 15,
+        "count": 16,
         "lat": -7.3274,
         "lng": 108.2207
       },
@@ -3119,6 +2979,14 @@
         "count": 14,
         "lat": -6.8898,
         "lng": 109.6753
+      },
+      {
+        "key": "GARUT",
+        "label": "Garut",
+        "province": null,
+        "count": 14,
+        "lat": -7.2278,
+        "lng": 107.9088
       },
       {
         "key": "GROBOGAN",
@@ -3167,14 +3035,6 @@
         "count": 13,
         "lat": -2.533,
         "lng": 140.717
-      },
-      {
-        "key": "GARUT",
-        "label": "Garut",
-        "province": null,
-        "count": 13,
-        "lat": -7.2278,
-        "lng": 107.9088
       },
       {
         "key": "BENGKULU",
@@ -3247,20 +3107,12 @@
         "count": 11,
         "lat": -6.549003459017641,
         "lng": 110.76812946110833
-      },
-      {
-        "key": "PATI",
-        "label": "Pati",
-        "province": null,
-        "count": 11,
-        "lat": -6.743327254060841,
-        "lng": 111.04228281320049
       }
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3053,
-    "documentsWithUrl": 3032,
+    "documentsTotal": 3055,
+    "documentsWithUrl": 3034,
     "documentsIdDomain": 842,
     "topSuffix": "go.id",
     "domainSuffixes": [
@@ -3273,26 +3125,46 @@
         "count": 201
       },
       {
-        "suffix": "id",
-        "count": 10
-      },
-      {
         "suffix": "sch.id",
         "count": 5
+      },
+      {
+        "suffix": "mkri.id",
+        "count": 3
+      },
+      {
+        "suffix": "kemenagkarangasem.id",
+        "count": 3
       },
       {
         "suffix": "desa.id",
         "count": 2
       },
       {
+        "suffix": "kbjabar.id",
+        "count": 1
+      },
+      {
+        "suffix": "polreslingga.id",
+        "count": 1
+      },
+      {
+        "suffix": "bapelkesbatam.id",
+        "count": 1
+      },
+      {
         "suffix": "or.id",
+        "count": 1
+      },
+      {
+        "suffix": "forumanak.id",
         "count": 1
       }
     ],
     "fileTypes": [
       {
         "type": "excel",
-        "count": 1415
+        "count": 1417
       },
       {
         "type": "pdf",
@@ -3336,22 +3208,22 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 92770
+      "bytes": 103607
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22799
+      "bytes": 22069
     },
     {
       "file": "sitemap.xml",
       "role": "Daftar URL untuk crawler dan SEO.",
-      "bytes": 195
+      "bytes": 231
     },
     {
       "file": "robots.txt",
       "role": "Kebijakan akses crawler.",
-      "bytes": 46
+      "bytes": 82
     }
   ]
 }

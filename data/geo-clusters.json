@@ -1,8 +1,8 @@
 {
-  "totalEntities": 523699,
-  "entitiesWithCity": 66053,
-  "geocodedEntities": 61767,
-  "uniqueCities": 2411,
+  "totalEntities": 542624,
+  "entitiesWithCity": 66456,
+  "geocodedEntities": 62168,
+  "uniqueCities": 2413,
   "mappedCities": 264,
   "clusters": [
     {
@@ -41,7 +41,7 @@
       "key": "BANDUNG",
       "label": "Bandung",
       "province": "JAWA BARAT",
-      "count": 3430,
+      "count": 3438,
       "lat": -6.9175,
       "lng": 107.6191
     },
@@ -126,7 +126,7 @@
       "key": "JAKARTA",
       "label": "Jakarta",
       "province": null,
-      "count": 867,
+      "count": 872,
       "lat": -6.2088,
       "lng": 106.8456
     },
@@ -262,7 +262,7 @@
       "key": "BEKASI",
       "label": "Bekasi",
       "province": null,
-      "count": 443,
+      "count": 446,
       "lat": -6.2383,
       "lng": 106.9756
     },
@@ -310,6 +310,14 @@
       "count": 373,
       "lat": -7.931327949447231,
       "lng": 111.4995304316846
+    },
+    {
+      "key": "PURWAKARTA",
+      "label": "Purwakarta",
+      "province": null,
+      "count": 369,
+      "lat": -6.595259676071498,
+      "lng": 107.430775994088
     },
     {
       "key": "MAGETAN",
@@ -492,20 +500,20 @@
       "lng": 123.12444836806907
     },
     {
+      "key": "TEGAL",
+      "label": "Tegal",
+      "province": "JAWA TENGAH",
+      "count": 75,
+      "lat": -6.8694,
+      "lng": 109.1402
+    },
+    {
       "key": "PALEMBANG",
       "label": "Palembang",
       "province": "Sumatera Selatan",
       "count": 74,
       "lat": -2.9761,
       "lng": 104.7754
-    },
-    {
-      "key": "TEGAL",
-      "label": "Tegal",
-      "province": "JAWA TENGAH",
-      "count": 74,
-      "lat": -6.8694,
-      "lng": 109.1402
     },
     {
       "key": "KLATEN",
@@ -535,7 +543,7 @@
       "key": "SEMARANG",
       "label": "Semarang",
       "province": null,
-      "count": 64,
+      "count": 65,
       "lat": -6.9667,
       "lng": 110.4167
     },
@@ -617,10 +625,18 @@
       ]
     },
     {
+      "key": "BOGOR",
+      "label": "Bogor",
+      "province": null,
+      "count": 38,
+      "lat": -6.5971,
+      "lng": 106.806
+    },
+    {
       "key": "PADANG",
       "label": "Padang",
       "province": null,
-      "count": 37,
+      "count": 38,
       "lat": -0.9471,
       "lng": 100.4172
     },
@@ -631,14 +647,6 @@
       "count": 37,
       "lat": -7.7956,
       "lng": 110.3695
-    },
-    {
-      "key": "BOGOR",
-      "label": "Bogor",
-      "province": null,
-      "count": 36,
-      "lat": -6.5971,
-      "lng": 106.806
     },
     {
       "key": "LHOKSEUMAWE",
@@ -673,6 +681,14 @@
       "lng": 109.61735310996204
     },
     {
+      "key": "KARAWANG",
+      "label": "Karawang",
+      "province": null,
+      "count": 30,
+      "lat": -6.252282718246672,
+      "lng": 107.3542921153967
+    },
+    {
       "key": "LUWU UTARA",
       "label": "Luwu Utara",
       "province": "Sulawesi Selatan",
@@ -697,20 +713,20 @@
       "lng": 96.88130519675553
     },
     {
+      "key": "SUBANG",
+      "label": "Subang",
+      "province": "JAWA BARAT",
+      "count": 26,
+      "lat": -6.5694,
+      "lng": 107.7631
+    },
+    {
       "key": "BREBES",
       "label": "Brebes",
       "province": null,
       "count": 26,
       "lat": -7.06277205117945,
       "lng": 108.92952648130553
-    },
-    {
-      "key": "KARAWANG",
-      "label": "Karawang",
-      "province": null,
-      "count": 26,
-      "lat": -6.252282718246672,
-      "lng": 107.3542921153967
     },
     {
       "key": "SLEMAN",
@@ -737,20 +753,20 @@
       "lng": 111.01924162577282
     },
     {
+      "key": "CIREBON",
+      "label": "Cirebon",
+      "province": null,
+      "count": 23,
+      "lat": -6.7063,
+      "lng": 108.557
+    },
+    {
       "key": "BALIKPAPAN",
       "label": "Balikpapan",
       "province": null,
       "count": 23,
       "lat": -1.2379,
       "lng": 116.8529
-    },
-    {
-      "key": "CIREBON",
-      "label": "Cirebon",
-      "province": null,
-      "count": 22,
-      "lat": -6.7063,
-      "lng": 108.557
     },
     {
       "key": "TEMANGGUNG",
@@ -801,12 +817,12 @@
       "lng": 109.39517261663187
     },
     {
-      "key": "SUBANG",
-      "label": "Subang",
-      "province": "JAWA BARAT",
+      "key": "SUKABUMI",
+      "label": "Sukabumi",
+      "province": null,
       "count": 19,
-      "lat": -6.5694,
-      "lng": 107.7631
+      "lat": -6.9277,
+      "lng": 106.929
     },
     {
       "key": "SINJAI",
@@ -849,12 +865,12 @@
       "lng": 106.6319
     },
     {
-      "key": "SUKABUMI",
-      "label": "Sukabumi",
+      "key": "CIAMIS",
+      "label": "Ciamis",
       "province": null,
       "count": 18,
-      "lat": -6.9277,
-      "lng": 106.929
+      "lat": -7.290249924234724,
+      "lng": 108.4286452357121
     },
     {
       "key": "MATARAM",
@@ -865,18 +881,10 @@
       "lng": 116.1167
     },
     {
-      "key": "CIAMIS",
-      "label": "Ciamis",
-      "province": null,
-      "count": 17,
-      "lat": -7.290249924234724,
-      "lng": 108.4286452357121
-    },
-    {
       "key": "TASIKMALAYA",
       "label": "Tasikmalaya",
       "province": null,
-      "count": 15,
+      "count": 16,
       "lat": -7.3274,
       "lng": 108.2207
     },
@@ -911,6 +919,14 @@
       "count": 14,
       "lat": -6.8898,
       "lng": 109.6753
+    },
+    {
+      "key": "GARUT",
+      "label": "Garut",
+      "province": null,
+      "count": 14,
+      "lat": -7.2278,
+      "lng": 107.9088
     },
     {
       "key": "GROBOGAN",
@@ -959,14 +975,6 @@
       "count": 13,
       "lat": -2.533,
       "lng": 140.717
-    },
-    {
-      "key": "GARUT",
-      "label": "Garut",
-      "province": null,
-      "count": 13,
-      "lat": -7.2278,
-      "lng": 107.9088
     },
     {
       "key": "BENGKULU",
@@ -1039,14 +1047,6 @@
       "count": 11,
       "lat": -6.549003459017641,
       "lng": 110.76812946110833
-    },
-    {
-      "key": "PATI",
-      "label": "Pati",
-      "province": null,
-      "count": 11,
-      "lat": -6.743327254060841,
-      "lng": 111.04228281320049
     }
   ]
 }
