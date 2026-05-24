@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-24 15:23 UTC",
+  "updated": "2026-05-24 15:30 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 429651,
@@ -10,15 +10,15 @@
     "dominantVectorId": "phone",
     "xrefRatio": 1.31,
     "pipelineSuccessPct": 30.1,
-    "pipelineBacklogPct": 63.7,
-    "pipelineFailurePct": 5.4,
+    "pipelineBacklogPct": 63.6,
+    "pipelineFailurePct": 5.5,
     "entityLinkRate": 0.72
   },
   "summary": {
     "persons": 429651,
     "documents": 2950,
     "photos": 62,
-    "templates": 54,
+    "templates": 55,
     "history": 382,
     "doneFiles": 26
   },
@@ -247,11 +247,11 @@
     }
   ],
   "queue": {
-    "pending": 820,
+    "pending": 819,
     "processing": 7,
     "done": 388,
     "skipped": 2,
-    "failed": 70,
+    "failed": 71,
     "total": 1287
   },
   "recentDocs": [
@@ -1304,6 +1304,8 @@
     "latestDate": "2026-05-24",
     "totalReleases": 74,
     "summary": {
+      "Added — Daftar kontak member (Scribd xlsx, multi-format)": 3,
+      "Processed — Scribd 645451148 (daftar kontak member)": 1,
       "Added — Generic XLSX student roster parser (Scribd UT Pokjar)": 3,
       "Processed — Scribd 839608051 (Daftar Peserta WT UT Pokjar Pacitan)": 1,
       "Added — Belmawa / PDDIKTI student upload xlsx (Scribd)": 3,
@@ -1365,6 +1367,20 @@
         "version": "v2.9.0",
         "date": "2026-05-24",
         "sections": [
+          {
+            "kind": "Added — Daftar kontak member (Scribd xlsx, multi-format)",
+            "items": [
+              "`scripts/parse_daftar_kontak_member.py` — Parse roster kontak member: nama + tier program (LIN/ZYM/NUT/BIO/…), HP; format `member_id/nama`; dedup by phone+name; ~88 baris non-628 dilewati.",
+              "`scripts/process_daftar_kontak_member.py` — document + BatchProcessor runner.",
+              "`templates/daftar_kontak_member.json` — Classify keywords; parser/processor routing."
+            ]
+          },
+          {
+            "kind": "Processed — Scribd 645451148 (daftar kontak member)",
+            "items": [
+              "50,747 persons — Daftar kontak member multi-format (program tier + HP + member ID). Doc pending run."
+            ]
+          },
           {
             "kind": "Added — Generic XLSX student roster parser (Scribd UT Pokjar)",
             "items": [
@@ -2945,12 +2961,52 @@
   "sourceStats": {
     "documentsTotal": 2950,
     "documentsWithUrl": 2933,
-    "documentsIdDomain": 532,
+    "documentsIdDomain": 751,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
         "count": 532
+      },
+      {
+        "suffix": "ac.id",
+        "count": 201
+      },
+      {
+        "suffix": "sch.id",
+        "count": 5
+      },
+      {
+        "suffix": "mkri.id",
+        "count": 3
+      },
+      {
+        "suffix": "kemenagkarangasem.id",
+        "count": 3
+      },
+      {
+        "suffix": "desa.id",
+        "count": 2
+      },
+      {
+        "suffix": "kbjabar.id",
+        "count": 1
+      },
+      {
+        "suffix": "polreslingga.id",
+        "count": 1
+      },
+      {
+        "suffix": "bapelkesbatam.id",
+        "count": 1
+      },
+      {
+        "suffix": "or.id",
+        "count": 1
+      },
+      {
+        "suffix": "forumanak.id",
+        "count": 1
       }
     ],
     "fileTypes": [
@@ -3000,7 +3056,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 85262
+      "bytes": 88092
     },
     {
       "file": "data/geo-clusters.json",
