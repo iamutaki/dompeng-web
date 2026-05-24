@@ -1,124 +1,270 @@
 {
-  "updated": "2026-05-23 17:02 UTC",
+  "updated": "2026-05-24 01:49 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 173250,
-    "graphEdges": 14842,
-    "sourceDocuments": 2897,
+    "graphNodes": 211484,
+    "graphEdges": 374750,
+    "sourceDocuments": 2902,
     "activeVectors": 5,
-    "dominantVectorPct": 89.9,
+    "dominantVectorPct": 73.6,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.01,
-    "pipelineSuccessPct": 51.6,
-    "pipelineBacklogPct": 38.1,
-    "pipelineFailurePct": 10.1,
-    "entityLinkRate": 0.94
+    "xrefRatio": 1.44,
+    "pipelineSuccessPct": 51.9,
+    "pipelineBacklogPct": 37.8,
+    "pipelineFailurePct": 10.0,
+    "entityLinkRate": 0.77
   },
   "summary": {
-    "persons": 173250,
-    "documents": 2897,
-    "photos": 21,
-    "templates": 37,
-    "history": 335,
-    "doneFiles": 547
+    "persons": 211484,
+    "documents": 2902,
+    "photos": 61,
+    "templates": 38,
+    "history": 341,
+    "doneFiles": 562
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 155702,
-      "pct": 89.9
+      "value": 155743,
+      "pct": 73.6
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 3065,
-      "pct": 1.8
+      "value": 3481,
+      "pct": 1.6
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 456,
-      "pct": 0.3
+      "value": 500,
+      "pct": 0.2
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 4436,
-      "pct": 2.6
+      "pct": 2.1
     },
     {
       "id": "photo",
       "label": "Foto",
-      "value": 21,
+      "value": 61,
       "pct": 0.0
     }
   ],
-  "coverageTotal": 173250,
+  "coverageTotal": 211484,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "shared",
-      "entries": 14650,
-      "refs": 14842
+      "entries": 139361,
+      "refs": 211347
     },
     {
       "type": "Telepon",
       "kind": "shared",
-      "entries": 0,
-      "refs": 0
+      "entries": 114455,
+      "refs": 155814
     },
     {
       "type": "Email",
       "kind": "shared",
-      "entries": 0,
-      "refs": 0
+      "entries": 2854,
+      "refs": 3512
     },
     {
       "type": "NIK",
       "kind": "unique",
-      "entries": 0,
-      "refs": 0
+      "entries": 3318,
+      "refs": 3318
     },
     {
       "type": "NPWP",
       "kind": "unique",
-      "entries": 0,
-      "refs": 0
+      "entries": 148,
+      "refs": 148
     },
     {
       "type": "No. kartu keluarga",
       "kind": "shared",
-      "entries": 0,
-      "refs": 0
+      "entries": 116,
+      "refs": 127
     },
     {
       "type": "ID pelajar",
       "kind": "unique",
-      "entries": 0,
-      "refs": 0
+      "entries": 16,
+      "refs": 16
     },
     {
       "type": "ID karyawan",
       "kind": "unique",
-      "entries": 0,
-      "refs": 0
+      "entries": 468,
+      "refs": 468
     }
   ],
   "indexTotal": {
-    "entries": 14650,
-    "refs": 14842
+    "entries": 260736,
+    "refs": 374750
   },
-  "indexCooccurrence": [],
+  "indexCooccurrence": [
+    {
+      "source": "Nama",
+      "target": "Telepon",
+      "value": 155635
+    },
+    {
+      "source": "Nama",
+      "target": "Email",
+      "value": 3476
+    },
+    {
+      "source": "Nama",
+      "target": "NIK",
+      "value": 3318
+    },
+    {
+      "source": "Telepon",
+      "target": "NIK",
+      "value": 3269
+    },
+    {
+      "source": "Telepon",
+      "target": "Email",
+      "value": 3089
+    },
+    {
+      "source": "Nama",
+      "target": "ID karyawan",
+      "value": 468
+    },
+    {
+      "source": "Telepon",
+      "target": "ID karyawan",
+      "value": 370
+    },
+    {
+      "source": "Email",
+      "target": "NIK",
+      "value": 193
+    },
+    {
+      "source": "Email",
+      "target": "ID karyawan",
+      "value": 171
+    },
+    {
+      "source": "Nama",
+      "target": "NPWP",
+      "value": 148
+    },
+    {
+      "source": "NIK",
+      "target": "NPWP",
+      "value": 147
+    },
+    {
+      "source": "Telepon",
+      "target": "NPWP",
+      "value": 143
+    },
+    {
+      "source": "Email",
+      "target": "NPWP",
+      "value": 143
+    },
+    {
+      "source": "NIK",
+      "target": "ID karyawan",
+      "value": 129
+    },
+    {
+      "source": "Nama",
+      "target": "No. kartu keluarga",
+      "value": 127
+    },
+    {
+      "source": "NIK",
+      "target": "No. kartu keluarga",
+      "value": 116
+    },
+    {
+      "source": "NPWP",
+      "target": "No. kartu keluarga",
+      "value": 114
+    },
+    {
+      "source": "Telepon",
+      "target": "No. kartu keluarga",
+      "value": 111
+    },
+    {
+      "source": "Email",
+      "target": "No. kartu keluarga",
+      "value": 111
+    },
+    {
+      "source": "NPWP",
+      "target": "ID karyawan",
+      "value": 105
+    },
+    {
+      "source": "No. kartu keluarga",
+      "target": "ID karyawan",
+      "value": 79
+    },
+    {
+      "source": "Nama",
+      "target": "ID pelajar",
+      "value": 16
+    },
+    {
+      "source": "Telepon",
+      "target": "ID pelajar",
+      "value": 15
+    },
+    {
+      "source": "Email",
+      "target": "ID pelajar",
+      "value": 1
+    }
+  ],
   "queue": {
     "pending": 252,
     "processing": 1,
-    "done": 341,
-    "skipped": 0,
+    "done": 346,
+    "skipped": 1,
     "failed": 67,
-    "total": 661
+    "total": 667
   },
   "recentDocs": [
+    {
+      "title": "P········· H···· S······ A··········· P······ B··· N·· A·· R··· R············· 2025",
+      "imported_at": "2026-05-24T01:41:50Z",
+      "mentions": 375
+    },
+    {
+      "title": "P········· H···· S······ B····· P·· S···· S········ S· G········ 1 T· 2········ 2026",
+      "imported_at": "2026-05-24T01:34:06Z",
+      "mentions": 12
+    },
+    {
+      "title": "P········· H···· S······ K········· D···· C··· K··· B·········· 2018",
+      "imported_at": "2026-05-23T19:30:34Z",
+      "mentions": 180
+    },
+    {
+      "title": "R···· H···· I········ S·· d·· S·· P········ C··· K·········· A···· 2024",
+      "imported_at": "2026-05-23T18:57:37Z",
+      "mentions": 37607
+    },
+    {
+      "title": "L······ P········ T····· B········· T······ P······ B····· P········ 2022",
+      "imported_at": "2026-05-23T17:40:43Z",
+      "mentions": 60
+    },
     {
       "title": "H···· S······ K········· D···· C··· O······ I·· T· 2024",
       "imported_at": "2026-05-23T16:46:10Z",
@@ -142,31 +288,6 @@
     {
       "title": "s·························",
       "imported_at": "2026-05-23T11:28:00Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:27:46Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:27:39Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:27:38Z",
-      "mentions": 1
-    },
-    {
-      "title": "Dokumen P········· P···· P······",
-      "imported_at": "2026-05-23T11:26:59Z",
-      "mentions": 1
-    },
-    {
-      "title": "s·························",
-      "imported_at": "2026-05-23T11:26:46Z",
       "mentions": 1
     }
   ],
@@ -1227,16 +1348,75 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.7.0",
-    "latestDate": "2026-05-23",
-    "totalReleases": 33,
+    "latestVersion": "v2.8.1",
+    "latestDate": "2026-05-24",
+    "totalReleases": 35,
     "summary": {
-      "Added": 86,
-      "Fixed": 14,
-      "Changed": 53,
+      "Added": 98,
+      "Changed": 59,
+      "Fixed": 18,
       "Removed": 4
     },
     "releases": [
+      {
+        "version": "v2.8.1",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`scripts/parse_rsud_rengasdengklok.py` — Parser untuk PDF Pengumuman Hasil Seleksi Administrasi Pegawai BLUD Non ASN RSUD Rengasdengklok 2025. Menangani tabel `pdftotext` yang wrap: nama, posisi, catatan, dan nomor urut bisa tersebar di baris tetangga.",
+              "`scripts/process_rsud_rengasdengklok.py` — Runner document + BatchProcessor untuk hasil parser RSUD Rengasdengklok, dengan facts schema-safe dan edge provenance dua arah.",
+              "Processed Pengumuman Hasil Seleksi Administrasi Pegawai BLUD Non ASN RSUD Rengasdengklok 2025 — 375 persons from 20-page PDF. Source: `fkep.unpad.ac.id`. OSINT external scan was blocked by escalation reviewer due third-party disclosure risk.",
+              "`scripts/parse_skd_bukittinggi.py` — Parser untuk PDF SSCN 2018 format `HASIL SELEKSI KOMPETENSI DASAR`. Menangani struktur berulang: halaman REKAPITULASI (skip) + halaman detail (extract person). Formasi context (lokasi, jabatan, pendidikan) di-associate ke setiap person.",
+              "`scripts/process_skd_bukittinggi.py` — Runner document + BatchProcessor untuk hasil parser SKD Bukittinggi.",
+              "Processed Pengumuman Hasil SKD CPNS Kota Bukittinggi 2018 — 180 persons from 67 formasi jabatan, 137-page PDF. Source: `admin.bukittinggikota.go.id`."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Added SKD CPNS SSCN tabular format note — SSCN-generated reports have alternating REKAPITULASI + HASIL SELEKSI pages; formasi headers appear AFTER the section title, not before.",
+              "AGENT.md / `next_manual.txt`: Added RSUD Rengasdengklok wrapped-table parser reminder and explicit handling for OSINT scanner blocks caused by external disclosure approval."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.8.0",
+        "date": "2026-05-24",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "`templates/laporan_pelatihan.json` — Template untuk laporan pelatihan/diklat PUPR atau instansi pemerintah. Keywords: laporan pelatihan, biodata peserta, daftar penceramah, widyaiswara, pelatihan teknis berjenjang. Identifiers: employee_id, phone, email. Person count: many. `has_photos: true` — setiap halaman biodata memiliki foto wajah.",
+              "Processed Laporan Pelatihan Teknis Berjenjang Tingkat Pertama Bidang Perumahan 2022 — 60 persons (40 peserta biodata + 4 panitia + 16 penceramah/instruktur) from 148-page PDF. 40 face photos extracted via `face_crop.py`.",
+              "`scripts/validate_dataset.py` — Strict document/person contract validator for post-run audits. Checks sample-aligned person fields, fact enum/source document, changelog entries, document mentions, and bidirectional person-document provenance before commit.",
+              "`scripts/parse_cpns_integrasi.py` — Parser fixed-width untuk PDF Panselnas/BKN `HASIL INTEGRASI SKD DAN SKB` CPNS 2024. Menangani tabel sangat besar, tanggal lahir dan pendidikan yang wrap vertikal, status khusus (`P/L-E2`, `P/L-U1`), serta menyimpan No Peserta sebagai exam identifier.",
+              "`scripts/process_cpns_integrasi.py` — Runner document + BatchProcessor untuk hasil parser CPNS integrasi.",
+              "Processed Rekap Hasil Integrasi SKD/SKB CPNS Kementerian Agama 2024 dari `iainkendari.ac.id` — 37,607 persons across 80 jabatan formasi from 9,652-page PDF."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "AGENT.md: Photo extraction reminder — biodata sections with photos are NOT N/A, must run face_crop per person page",
+              "AGENT.md: Added mandatory script-based strict dataset validation step before staging/commit; `samples/*.json` are now treated as schema contracts.",
+              "AGENT.md: Added CPNS SKD/SKB integration parsing rule for Panselnas/BKN fixed-width layouts and special statuses.",
+              "`next_manual.txt`: Corrected `download.py` output argument note (`tmp/` is auto-prepended) and added CPNS integration parser reminder for manual runs."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "`scripts/parse_cpns_integrasi.py` / `scripts/process_cpns_integrasi.py` / AGENT.md: CPNS integration facts now follow `samples/person.json` strict fact shape by using `type: \"other\"` and adding `source_document` during document processing.",
+              "Normalized existing Kemenag CPNS integration person facts for document `01KSB36DZSBHJ017534EXDH3BM` to add `source_document` and replace non-schema `exam_result` fact type.",
+              "`scripts/process_cpns_integrasi.py` / AGENT.md / `samples/person.json`: CPNS integration persons now receive bidirectional provenance edges (`document -> document:<doc_id>`) matching existing repo relation patterns; existing Kemenag CPNS person records were backfilled.",
+              "Added `data.changelog[]` entries to existing Kemenag CPNS person records for both fact schema normalization and document-edge provenance backfill; `scripts/process_cpns_integrasi.py` now writes changelog entries when adding document provenance edges."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.7.0",
         "date": "2026-05-23",
@@ -1660,64 +1840,29 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v0.8.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/face_crop.py`: Face detection (OpenCV Haar cascade) + crop + resize (max 240px) + AVIF encode (quality 80%) pipeline. CLI: `detect`, `process`, `crop` commands. Module: `detect_faces()`, `crop_and_save()`, `process_page()`, `crop_region()`",
-              "`data/images/` directory for storing face photo crops as `i-{uuid}.avif` files",
-              "`photos` field in person schema (`samples/person.json`): array of face photo entries with id, path, source_document, source_page, dimensions, file_size, added_at",
-              "`photos` added to VALID_PERSON_FIELDS in `scripts/validate.py`",
-              "`photos` added to ARRAY_FIELDS and `_empty_person_data()` in `scripts/person.py` with dedup-by-id merge logic",
-              "AGENT.md: Added \"Photo Extraction Pipeline\" section with three document scenarios (biodata, per-page, tabular)",
-              "AGENT.md: Added workflow step 2 (Photo Extraction) between OCR and person extraction; renumbered steps 2→3, 3→4, 4→5, 5→6, 6→7, 7→8",
-              "AGENT.md: Added `face_crop.py` to scripts reference table",
-              "AGENT.md: Added rule 27 — photo extraction mandatory after OCR",
-              "`next_sequence.txt` and `next.txt`: Added step 6 (PHOTO EXTRACTION) to mandatory checklist; renumbered subsequent steps",
-              "`templates/biodata.json`: Updated photo_attached hint to reference `scripts/face_crop.py`",
-              "Dependency: `opencv-python-headless` 4.13.0 for face detection"
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v0.7.0",
-        "date": "2026-05-22",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/title.py`: Added police/military rank prefix stripping — `RANK_PREFIXES` list with 27 Polri/TNI rank abbreviations (IPTU, AIPDA, BRIPDA, AKBP, KOMPOL, AKP, IPDA, AIPTU, BRIPKA, BRIGPOL, BRIPTU, BHARAKA, BHARATU, BHARADA, Lettu, Letda, Kapten, Mayor, Letkol, Kolonel, Serma, Serka, Sertu, Serda, Prada, Pratu, Irjen.Pol, Brigjen.Pol, Kombes.Pol). Stripped from `full_name` and stored in `extra` with `category: \"rank\"` and `label: \"Pangkat X\"`.",
-              "Processed Undangan Klarifikasi Perkara Polresta Balikpapan — 8 persons extracted (4 police investigators, 4 civilians involved in land dispute case). 6 colleague edges for police unit. 3 phone edges."
-            ]
-          },
-          {
-            "kind": "Changed",
-            "items": [
-              "AGENT.md: Added rule 2d under Name Sanitization for police/military rank prefix stripping",
-              "`templates/surat_undangan.json`: Added keywords `\"klarifikasi perkara\"` and `\"undangan klarifikasi\"` to match police summons/invitation letters"
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 173250,
-    "entitiesWithCity": 2690,
-    "geocodedEntities": 1967,
-    "uniqueCities": 593,
-    "mappedCities": 162,
+    "totalEntities": 211484,
+    "entitiesWithCity": 2730,
+    "geocodedEntities": 2006,
+    "uniqueCities": 606,
+    "mappedCities": 173,
     "clusters": [
+      {
+        "key": "JAKARTA",
+        "label": "Jakarta",
+        "province": "DKI JAKARTA",
+        "count": 216,
+        "lat": -6.2088,
+        "lng": 106.8456
+      },
       {
         "key": "SIDOARJO",
         "label": "Sidoarjo",
         "province": null,
-        "count": 214,
+        "count": 215,
         "lat": -7.4478,
         "lng": 112.7183
       },
@@ -1725,17 +1870,9 @@
         "key": "MEDAN",
         "label": "Medan",
         "province": null,
-        "count": 213,
+        "count": 214,
         "lat": 3.5952,
         "lng": 98.6722
-      },
-      {
-        "key": "JAKARTA",
-        "label": "Jakarta",
-        "province": "DKI JAKARTA",
-        "count": 210,
-        "lat": -6.2088,
-        "lng": 106.8456
       },
       {
         "key": "SURABAYA",
@@ -1765,7 +1902,7 @@
         "key": "GRESIK",
         "label": "Gresik",
         "province": null,
-        "count": 70,
+        "count": 71,
         "lat": -7.1565,
         "lng": 112.6537
       },
@@ -1810,7 +1947,7 @@
         "key": "BANDUNG",
         "label": "Bandung",
         "province": null,
-        "count": 30,
+        "count": 32,
         "lat": -6.9175,
         "lng": 107.6191
       },
@@ -1818,7 +1955,7 @@
         "key": "SEMARANG",
         "label": "Semarang",
         "province": null,
-        "count": 19,
+        "count": 20,
         "lat": -6.9667,
         "lng": 110.4167
       },
@@ -1831,20 +1968,20 @@
         "lng": 106.806
       },
       {
+        "key": "YOGYAKARTA",
+        "label": "Yogyakarta",
+        "province": null,
+        "count": 18,
+        "lat": -7.7956,
+        "lng": 110.3695
+      },
+      {
         "key": "LAMONGAN",
         "label": "Lamongan",
         "province": null,
         "count": 18,
         "lat": -7.131410514989188,
         "lng": 112.30074592146252
-      },
-      {
-        "key": "YOGYAKARTA",
-        "label": "Yogyakarta",
-        "province": null,
-        "count": 17,
-        "lat": -7.7956,
-        "lng": 110.3695
       },
       {
         "key": "TEMANGGUNG",
@@ -1884,6 +2021,14 @@
         ]
       },
       {
+        "key": "BANJARMASIN",
+        "label": "Banjarmasin",
+        "province": null,
+        "count": 14,
+        "lat": -3.3186,
+        "lng": 114.5944
+      },
+      {
         "key": "SAMARINDA",
         "label": "Samarinda",
         "province": null,
@@ -1898,14 +2043,6 @@
         "count": 14,
         "lat": -7.654964269929172,
         "lng": 109.61735310996204
-      },
-      {
-        "key": "BANJARMASIN",
-        "label": "Banjarmasin",
-        "province": null,
-        "count": 13,
-        "lat": -3.3186,
-        "lng": 114.5944
       },
       {
         "key": "BANGKALAN",
@@ -1932,6 +2069,14 @@
         "lng": 105.3062
       },
       {
+        "key": "SLEMAN",
+        "label": "Sleman",
+        "province": null,
+        "count": 12,
+        "lat": -7.716463527037873,
+        "lng": 110.38321299281007
+      },
+      {
         "key": "BALIKPAPAN",
         "label": "Balikpapan",
         "province": null,
@@ -1948,20 +2093,20 @@
         "lng": 109.17578818103475
       },
       {
-        "key": "SLEMAN",
-        "label": "Sleman",
-        "province": null,
-        "count": 11,
-        "lat": -7.716463527037873,
-        "lng": 110.38321299281007
-      },
-      {
         "key": "TUBAN",
         "label": "Tuban",
         "province": null,
         "count": 10,
         "lat": -6.9534129686812065,
         "lng": 111.89224221212113
+      },
+      {
+        "key": "KLATEN",
+        "label": "Klaten",
+        "province": null,
+        "count": 10,
+        "lat": -7.685818105806987,
+        "lng": 110.61945204176338
       },
       {
         "key": "MATARAM",
@@ -2004,12 +2149,12 @@
         "lng": 95.32771345826497
       },
       {
-        "key": "KLATEN",
-        "label": "Klaten",
-        "province": null,
+        "key": "BREBES",
+        "label": "Brebes",
+        "province": "DKI JAKARTA",
         "count": 9,
-        "lat": -7.685818105806987,
-        "lng": 110.61945204176338
+        "lat": -7.06277205117945,
+        "lng": 108.92952648130553
       },
       {
         "key": "ACEH TENGAH",
@@ -2055,14 +2200,6 @@
         "count": 8,
         "lat": -6.5694,
         "lng": 107.7631
-      },
-      {
-        "key": "BREBES",
-        "label": "Brebes",
-        "province": "DKI JAKARTA",
-        "count": 8,
-        "lat": -7.06277205117945,
-        "lng": 108.92952648130553
       },
       {
         "key": "KUNINGAN",
@@ -2177,6 +2314,30 @@
         "lng": 102.2608
       },
       {
+        "key": "PALEMBANG",
+        "label": "Palembang",
+        "province": null,
+        "count": 6,
+        "lat": -2.9761,
+        "lng": 104.7754
+      },
+      {
+        "key": "PONTIANAK",
+        "label": "Pontianak",
+        "province": null,
+        "count": 6,
+        "lat": -0.0263,
+        "lng": 109.3425
+      },
+      {
+        "key": "JEPARA",
+        "label": "Jepara",
+        "province": null,
+        "count": 6,
+        "lat": -6.549003459017641,
+        "lng": 110.76812946110833
+      },
+      {
         "key": "PONOROGO",
         "label": "Ponorogo",
         "province": null,
@@ -2225,28 +2386,12 @@
         "lng": 106.9756
       },
       {
-        "key": "PALEMBANG",
-        "label": "Palembang",
-        "province": null,
-        "count": 5,
-        "lat": -2.9761,
-        "lng": 104.7754
-      },
-      {
         "key": "BANJARBARU",
         "label": "Banjarbaru",
         "province": null,
         "count": 5,
         "lat": -3.4747673377541806,
         "lng": 114.79117548120564
-      },
-      {
-        "key": "PONTIANAK",
-        "label": "Pontianak",
-        "province": null,
-        "count": 5,
-        "lat": -0.0263,
-        "lng": 109.3425
       },
       {
         "key": "BANTUL",
@@ -2265,12 +2410,12 @@
         "lng": 102.67254936960893
       },
       {
-        "key": "JEPARA",
-        "label": "Jepara",
-        "province": null,
+        "key": "PEMALANG",
+        "label": "Pemalang",
+        "province": "DKI JAKARTA",
         "count": 5,
-        "lat": -6.549003459017641,
-        "lng": 110.76812946110833
+        "lat": -7.036804246055557,
+        "lng": 109.39517261663187
       },
       {
         "key": "SORONG",
@@ -2323,6 +2468,27 @@
         ]
       },
       {
+        "key": "coord:110.8243,-7.5755",
+        "label": "Solo",
+        "province": "DKI JAKARTA",
+        "count": 5,
+        "lat": -7.5755,
+        "lng": 110.8243,
+        "mergedCount": 2,
+        "mergedCities": [
+          {
+            "label": "Solo",
+            "count": 4,
+            "province": "DKI JAKARTA"
+          },
+          {
+            "label": "Surakarta",
+            "count": 1,
+            "province": null
+          }
+        ]
+      },
+      {
         "key": "PANDEGLANG",
         "label": "Pandeglang",
         "province": "DKI JAKARTA",
@@ -2347,6 +2513,22 @@
         "lng": 106.116
       },
       {
+        "key": "BONTANG",
+        "label": "Bontang",
+        "province": null,
+        "count": 4,
+        "lat": 0.09326488031832886,
+        "lng": 117.45806814325567
+      },
+      {
+        "key": "KUDUS",
+        "label": "Kudus",
+        "province": null,
+        "count": 4,
+        "lat": -6.790261256524975,
+        "lng": 110.8699072012289
+      },
+      {
         "key": "MADIUN",
         "label": "Madiun",
         "province": null,
@@ -2361,6 +2543,14 @@
         "count": 4,
         "lat": -5.209283365946931,
         "lng": 120.13541509179171
+      },
+      {
+        "key": "TANGERANG",
+        "label": "Tangerang",
+        "province": null,
+        "count": 4,
+        "lat": -6.1783,
+        "lng": 106.6319
       },
       {
         "key": "SUMENEP",
@@ -2467,22 +2657,6 @@
         "lng": 114.20589727388659
       },
       {
-        "key": "PEMALANG",
-        "label": "Pemalang",
-        "province": "DKI JAKARTA",
-        "count": 4,
-        "lat": -7.036804246055557,
-        "lng": 109.39517261663187
-      },
-      {
-        "key": "SOLO",
-        "label": "Solo",
-        "province": "DKI JAKARTA",
-        "count": 4,
-        "lat": -7.5755,
-        "lng": 110.8243
-      },
-      {
         "key": "PACITAN",
         "label": "Pacitan",
         "province": null,
@@ -2497,14 +2671,6 @@
         "count": 3,
         "lat": -0.8999,
         "lng": 119.8707
-      },
-      {
-        "key": "BONTANG",
-        "label": "Bontang",
-        "province": null,
-        "count": 3,
-        "lat": 0.09326488031832886,
-        "lng": 117.45806814325567
       },
       {
         "key": "BANJAR",
@@ -2523,20 +2689,20 @@
         "lng": 110.16711452957185
       },
       {
+        "key": "WONOSOBO",
+        "label": "Wonosobo",
+        "province": null,
+        "count": 3,
+        "lat": -7.416302371545865,
+        "lng": 109.907354944526
+      },
+      {
         "key": "PIDIE",
         "label": "Pidie",
         "province": null,
         "count": 3,
         "lat": 5.053555789000035,
         "lng": 96.0334283739899
-      },
-      {
-        "key": "KUDUS",
-        "label": "Kudus",
-        "province": null,
-        "count": 3,
-        "lat": -6.790261256524975,
-        "lng": 110.8699072012289
       },
       {
         "key": "SUMBAWA",
@@ -2553,14 +2719,6 @@
         "count": 3,
         "lat": -6.595259676071498,
         "lng": 107.430775994088
-      },
-      {
-        "key": "TANGERANG",
-        "label": "Tangerang",
-        "province": null,
-        "count": 3,
-        "lat": -6.1783,
-        "lng": 106.6319
       },
       {
         "key": "TANJUNG PINANG",
@@ -2729,26 +2887,18 @@
         "count": 2,
         "lat": -7.385336820860583,
         "lng": 110.97414413327868
-      },
-      {
-        "key": "CIMAHI",
-        "label": "Cimahi",
-        "province": "DKI JAKARTA",
-        "count": 2,
-        "lat": -6.8841,
-        "lng": 107.5413
       }
     ]
   },
   "sourceStats": {
-    "documentsTotal": 2893,
-    "documentsWithUrl": 2876,
-    "documentsIdDomain": 515,
+    "documentsTotal": 2898,
+    "documentsWithUrl": 2881,
+    "documentsIdDomain": 517,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 515
+        "count": 517
       }
     ],
     "fileTypes": [
@@ -2758,7 +2908,7 @@
       },
       {
         "type": "pdf",
-        "count": 1232
+        "count": 1237
       },
       {
         "type": "unknown",

@@ -208,6 +208,19 @@ button.status-pill {
   background: var(--intel-dim);
 }
 
+button.status-pill--version,
+.js-changelog-open {
+  cursor: pointer;
+}
+
+button.status-pill--version:hover,
+button.status-pill--version:focus-visible {
+  color: var(--text);
+  border-color: rgba(78, 201, 255, 0.55);
+  background: rgba(78, 201, 255, 0.14);
+  outline: none;
+}
+
 /* ── Hero ── */
 .hero {
   padding: 4px 2px 8px;
@@ -3499,7 +3512,7 @@ body.dashboard-body {
 .geo-city-list {
   flex: 1 1 0;
   margin: 0;
-  padding: 2px 4px 4px;
+  padding: 2px 10px 4px 6px;
   list-style: none;
   min-height: 0;
   overflow-y: auto;
@@ -4539,7 +4552,7 @@ body.dashboard-body {
 
 .overview-city-list {
   margin: 4px 0 0;
-  padding: 0;
+  padding-right: 10px;
   list-style: none;
   display: grid;
   gap: 6px;
@@ -5591,6 +5604,10 @@ body.dashboard-body {
   max-height: min(92vh, 880px);
 }
 
+.chart-data-modal[open] {
+  display: block;
+}
+
 .chart-data-modal::backdrop {
   background: rgba(5, 9, 14, 0.78);
   backdrop-filter: blur(5px);
@@ -5676,6 +5693,43 @@ body.dashboard-body {
   min-height: 0;
   overflow: auto;
   padding: 0 2px 10px;
+}
+
+.changelog-modal {
+  width: min(96vw, 640px);
+  max-width: 640px;
+}
+
+.changelog-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 14px 14px;
+}
+
+.changelog-modal__body > .changelog-hero,
+.changelog-modal__body > .changelog-kpis,
+.changelog-modal__body > .changelog-feed-panel {
+  flex-shrink: 0;
+}
+
+.changelog-modal .changelog-feed-panel {
+  flex: none;
+  min-height: auto;
+  overflow: visible;
+}
+
+.changelog-modal .changelog-feed {
+  display: grid;
+  gap: 6px;
+  flex: none;
+  min-height: 10rem;
+  max-height: min(52vh, 440px);
+  margin: 0;
+  padding: 6px 8px 8px 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-wrap--modal {

@@ -26,6 +26,23 @@ const CHANGELOG_KIND_LABELS = {
   Removed: "Dihapus",
 };
 
+const CHANGELOG_TARGETS = {
+  page: {
+    heroId: "changelog-hero",
+    summaryId: "changelog-summary",
+    feedId: "changelog-feed",
+    feedCountId: "changelog-feed-count",
+    filterId: "changelog-kind-filter",
+  },
+  modal: {
+    heroId: "changelog-modal-hero",
+    summaryId: "changelog-modal-summary",
+    feedId: "changelog-modal-feed",
+    feedCountId: "changelog-modal-feed-count",
+    filterId: "changelog-modal-kind-filter",
+  },
+};
+
 let dashboardDataCache = null;
 let dashboardViewMode = localStorage.getItem("dompeng:view-mode") === "technical" ? "technical" : "public";
 let dashboardQueueFilter = "all";
@@ -424,9 +441,60 @@ let chartDataModalLastFocus = null;
 
 function openChartDataModal(modalId) {
   const dialog = document.getElementById(modalId);
-  if (!dialog || typeof dialog.showModal !== "function") return;
+  if (!dialog) return;
   chartDataModalLastFocus = document.activeElement;
-  if (!dialog.open) dialog.showModal();
+  if (typeof dialog.showModal === "function") {
+    try {
+      if (!dialog.open) dialog.showModal();
+    } catch {
+      dialog.setAttribute("open", "");
+    }
+    return;
+  }
+  dialog.setAttribute("open", "");
+}
+
+function changelogFallbackReleases(changelog) {
+  if (!changelog?.latestVersion) return [];
+
+  const match = (changelog.releases || []).find((release) => release.version === changelog.latestVersion);
+  if (match?.sections?.length) {
+    return [{ ...match, sections: match.sections }];
+  }
+
+  return [{
+    version: changelog.latestVersion,
+    date: changelog.latestDate || "—",
+    sections: [{
+      kind: "Changed",
+      items: [`Versi aktif ${changelog.latestVersion}.`],
+    }],
+  }];
+}
+
+function filterChangelogReleases(changelog, kindFilter) {
+  return (changelog.releases || [])
+    .map((release) => ({
+      ...release,
+      sections: kindFilter === "all"
+        ? release.sections
+        : (release.sections || []).filter((section) => section.kind === kindFilter),
+    }))
+    .filter((release) => release.sections.length > 0);
+}
+
+function refreshChangelogModalView() {
+  const changelog = dashboardDataCache?.changelog;
+  if (!changelog) return;
+  const target = CHANGELOG_TARGETS.modal;
+  renderChangelogHero(changelog, target);
+  renderChangelogSummary(changelog, target);
+  renderChangelogFeed(changelog, target);
+}
+
+function openChangelogModal() {
+  refreshChangelogModalView();
+  openChartDataModal("changelog-modal");
 }
 
 function closeChartDataModal(dialog) {
@@ -3126,8 +3194,8 @@ function appendChangelogItemText(li, text) {
   }
 }
 
-function renderChangelogHero(changelog) {
-  const container = document.getElementById("changelog-hero");
+function renderChangelogHero(changelog, target = CHANGELOG_TARGETS.page) {
+  const container = document.getElementById(target.heroId);
   if (!container) return;
   clear(container);
 
@@ -3204,8 +3272,8 @@ function renderChangelogKindBar(summary, container) {
   container.appendChild(bar);
 }
 
-function renderChangelogSummary(changelog) {
-  const container = document.getElementById("changelog-summary");
+function renderChangelogSummary(changelog, target = CHANGELOG_TARGETS.page) {
+  const container = document.getElementById(target.summaryId);
   if (!container) return;
   clear(container);
 
@@ -3241,21 +3309,17 @@ function renderChangelogSummary(changelog) {
   container.appendChild(grid);
 }
 
-function renderChangelogFeed(changelog) {
-  const container = document.getElementById("changelog-feed");
+function renderChangelogFeed(changelog, target = CHANGELOG_TARGETS.page) {
+  const container = document.getElementById(target.feedId);
   if (!container) return;
   clear(container);
 
-  const kindFilter = document.getElementById("changelog-kind-filter")?.value || "all";
-  const releases = (changelog.releases || [])
-    .map((release) => ({
-      ...release,
-      sections: kindFilter === "all"
-        ? release.sections
-        : release.sections.filter((section) => section.kind === kindFilter),
-    }))
-    .filter((release) => release.sections.length > 0);
-  const feedCount = document.getElementById("changelog-feed-count");
+  const kindFilter = document.getElementById(target.filterId)?.value || "all";
+  let releases = filterChangelogReleases(changelog, kindFilter);
+  if (!releases.length) {
+    releases = changelogFallbackReleases(changelog);
+  }
+  const feedCount = document.getElementById(target.feedCountId);
   if (feedCount) {
     feedCount.textContent = `${fmt(releases.length)} entri`;
   }
@@ -3329,32 +3393,87 @@ function renderChangelogFeed(changelog) {
   }
 }
 
-function initChangelogFilter(changelog) {
-  const filter = document.getElementById("changelog-kind-filter");
+function initChangelogFilter(changelog, target = CHANGELOG_TARGETS.page) {
+  const filter = document.getElementById(target.filterId);
   if (!filter || filter.dataset.bound === "true") return;
   filter.dataset.bound = "true";
-  filter.addEventListener("change", () => renderChangelogFeed(changelog));
+  filter.addEventListener("change", () => renderChangelogFeed(changelog, target));
+}
+
+function initChangelogModalTriggers() {
+  if (document.documentElement.dataset.changelogModalInit === "true") return;
+  document.documentElement.dataset.changelogModalInit = "true";
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".js-changelog-open");
+    if (!trigger) return;
+    event.preventDefault();
+    openChangelogModal();
+  });
+}
+
+function syncChangelogVersionTriggers(changelog) {
+  if (!changelog?.latestVersion) return;
+
+  const versionUpper = changelog.latestVersion.toUpperCase();
+  const versionLabel = changelog.latestVersion;
+
+  const statusRow = document.getElementById("status-row");
+  if (!statusRow) return;
+
+  let pill = statusRow.querySelector(".status-pill--version");
+  if (pill && pill.tagName !== "BUTTON") {
+    const replacement = document.createElement("button");
+    replacement.type = "button";
+    replacement.id = "changelog-version-trigger";
+    replacement.className = "status-pill status-pill--sync status-pill--version js-changelog-open";
+    replacement.setAttribute("aria-label", `Versi ${versionLabel}. Buka riwayat perubahan.`);
+    replacement.setAttribute("aria-haspopup", "dialog");
+    replacement.setAttribute("aria-controls", "changelog-modal");
+    replacement.textContent = versionUpper;
+    pill.replaceWith(replacement);
+    pill = replacement;
+  }
+
+  if (!pill) {
+    pill = document.createElement("button");
+    pill.type = "button";
+    pill.id = "changelog-version-trigger";
+    pill.className = "status-pill status-pill--sync status-pill--version js-changelog-open";
+    pill.setAttribute("aria-label", `Versi ${versionLabel}. Buka riwayat perubahan.`);
+    pill.setAttribute("aria-haspopup", "dialog");
+    pill.setAttribute("aria-controls", "changelog-modal");
+    appendText(pill, versionUpper);
+    statusRow.appendChild(pill);
+  } else {
+    pill.id = "changelog-version-trigger";
+    pill.classList.add("js-changelog-open");
+    pill.setAttribute("aria-label", `Versi ${versionLabel}. Buka riwayat perubahan.`);
+    pill.setAttribute("aria-haspopup", "dialog");
+    pill.setAttribute("aria-controls", "changelog-modal");
+    pill.textContent = versionUpper;
+  }
 }
 
 function renderChangelog(changelog) {
   if (!changelog) return;
-  renderChangelogHero(changelog);
-  renderChangelogSummary(changelog);
-  renderChangelogFeed(changelog);
-  initChangelogFilter(changelog);
+  for (const target of Object.values(CHANGELOG_TARGETS)) {
+    renderChangelogHero(changelog, target);
+    renderChangelogSummary(changelog, target);
+    renderChangelogFeed(changelog, target);
+    initChangelogFilter(changelog, target);
+  }
+
+  const captionText = changelog.latestVersion
+    ? `${changelog.latestVersion} · ${changelog.latestDate} · ${fmt(changelog.totalReleases)} rilis`
+    : null;
 
   const caption = document.getElementById("changelog-caption");
-  if (caption && changelog.latestVersion) {
-    caption.textContent = `${changelog.latestVersion} · ${changelog.latestDate} · ${fmt(changelog.totalReleases)} rilis`;
-  }
+  if (caption && captionText) caption.textContent = captionText;
 
-  const statusRow = document.getElementById("status-row");
-  if (statusRow && changelog.latestVersion && !statusRow.querySelector(".status-pill--version")) {
-    const pill = document.createElement("span");
-    pill.className = "status-pill status-pill--sync status-pill--version";
-    appendText(pill, changelog.latestVersion.toUpperCase());
-    statusRow.appendChild(pill);
-  }
+  const modalCaption = document.getElementById("changelog-modal-caption");
+  if (modalCaption && captionText) modalCaption.textContent = captionText;
+
+  syncChangelogVersionTriggers(changelog);
 }
 
 function updateGeoCityFilterMeta(matchedCount, totalCount, query) {
@@ -4166,6 +4285,7 @@ async function init() {
 document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("DOMContentLoaded", initDashboardViewMode);
 document.addEventListener("DOMContentLoaded", initChartDataModals);
+document.addEventListener("DOMContentLoaded", initChangelogModalTriggers);
 window.ensureDompengGeoMap = ensureDompengGeoMap;
 window.refreshIndexViews = refreshIndexViews;
 window.refreshGeoCityViews = refreshGeoCityViews;
