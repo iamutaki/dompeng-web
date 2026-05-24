@@ -20,8 +20,10 @@ function fmtShort(n) {
     const scaled = num / divisor;
     if (scaled < 10 && Math.round(scaled) !== scaled) {
       const rounded = Math.round(scaled * 10) / 10;
-      const [whole, frac = ""] = String(rounded).split(".");
-      if (frac) return `${whole},${frac}${suffix}`;
+      const whole = Math.trunc(rounded);
+      const fracOne = Math.round(rounded * 10) % 10;
+      if (fracOne) return `${whole},${fracOne}${suffix}`;
+      return `${Math.round(rounded)}${suffix}`;
     }
     return `${Math.round(scaled)}${suffix}`;
   }
@@ -43,15 +45,16 @@ function mapCountShortLabelExpr(valueExpr) {
 
   function formatScaled(divisor, suffix) {
     const scaled = ["/", valueExpr, divisor];
-    const floored = ["floor", scaled];
-    const fracDigit = ["-", ["round", ["*", scaled, 10]], ["*", floored, 10]];
+    const roundedTenth = ["/", ["round", ["*", scaled, 10]], 10];
+    const fracOne = ["%", ["round", ["*", roundedTenth, 10]], 10];
     const withDecimal = [
       "concat",
-      ["to-string", floored],
+      ["to-string", ["floor", roundedTenth]],
       ",",
-      ["to-string", fracDigit],
+      ["to-string", fracOne],
       suffix,
     ];
+    const roundedOneDecimal = ["concat", ["to-string", ["round", roundedTenth]], suffix];
     const rounded = ["concat", ["to-string", ["round", scaled]], suffix];
     return [
       "case",
@@ -59,8 +62,15 @@ function mapCountShortLabelExpr(valueExpr) {
         "all",
         ["<", ["abs", scaled], 10],
         ["!=", ["round", scaled], scaled],
+        ["!=", fracOne, 0],
       ],
       withDecimal,
+      [
+        "all",
+        ["<", ["abs", scaled], 10],
+        ["!=", ["round", scaled], scaled],
+      ],
+      roundedOneDecimal,
       rounded,
     ];
   }
