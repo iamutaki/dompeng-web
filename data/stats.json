@@ -1,26 +1,26 @@
 {
-  "updated": "2026-05-25 03:31 UTC",
+  "updated": "2026-05-25 04:48 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 601637,
-    "graphEdges": 1070018,
-    "sourceDocuments": 3075,
+    "graphNodes": 601705,
+    "graphEdges": 1070110,
+    "sourceDocuments": 3079,
     "activeVectors": 5,
     "dominantVectorPct": 49.0,
     "dominantVectorId": "phone",
     "xrefRatio": 1.3,
-    "pipelineSuccessPct": 34.1,
-    "pipelineBacklogPct": 25.7,
+    "pipelineSuccessPct": 34.2,
+    "pipelineBacklogPct": 15.6,
     "pipelineFailurePct": 12.3,
     "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 601637,
-    "documents": 3075,
+    "persons": 601705,
+    "documents": 3079,
     "photos": 203,
     "templates": 58,
-    "history": 541,
-    "doneFiles": 272
+    "history": 547,
+    "doneFiles": 273
   },
   "coverage": [
     {
@@ -44,7 +44,7 @@
     {
       "id": "nik",
       "label": "NIK",
-      "value": 91852,
+      "value": 91883,
       "pct": 15.3
     },
     {
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 601637,
+  "coverageTotal": 601705,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 427511,
-      "refs": 601334
+      "entries": 427587,
+      "refs": 601426
     },
     {
       "type": "Telepon",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 820153,
-    "refs": 1070018
+    "entries": 820229,
+    "refs": 1070110
   },
   "indexCooccurrence": [
     {
@@ -247,14 +247,34 @@
     }
   ],
   "queue": {
-    "pending": 380,
-    "processing": 5,
-    "done": 504,
-    "skipped": 409,
+    "pending": 231,
+    "processing": 7,
+    "done": 506,
+    "skipped": 554,
     "failed": 182,
     "total": 1480
   },
   "recentDocs": [
+    {
+      "title": "D····· P············ N····· W···· L···· LHKPN",
+      "imported_at": "2026-05-25T03:50:56Z",
+      "mentions": 15
+    },
+    {
+      "title": "L······ LHKPN L····· 2022",
+      "imported_at": "2026-05-25T03:44:13Z",
+      "mentions": 31
+    },
+    {
+      "title": "D····· P············ N····· W···· L···· LHKPN",
+      "imported_at": "2026-05-25T03:39:28Z",
+      "mentions": 15
+    },
+    {
+      "title": "D····· W···· L····· 2025",
+      "imported_at": "2026-05-25T03:36:04Z",
+      "mentions": 26
+    },
     {
       "title": "D····· W···· LHKPN 2025",
       "imported_at": "2026-05-25T03:29:40Z",
@@ -284,26 +304,6 @@
       "title": "R··········· L···········",
       "imported_at": "2026-05-25T03:02:31Z",
       "mentions": 26
-    },
-    {
-      "title": "R··········· L···········",
-      "imported_at": "2026-05-25T03:01:38Z",
-      "mentions": 26
-    },
-    {
-      "title": "Lembar Penyerahan LHKPN (·····",
-      "imported_at": "2026-05-25T02:52:49Z",
-      "mentions": 1
-    },
-    {
-      "title": "A······· a············· r·····",
-      "imported_at": "2026-05-25T02:50:31Z",
-      "mentions": 8885
-    },
-    {
-      "title": "Data I···· D··· M······· K········ K······ B···· S······",
-      "imported_at": "2026-05-25T02:47:45Z",
-      "mentions": 8143
     }
   ],
   "showcaseEntities": [
@@ -1348,12 +1348,14 @@
       "Processed — LHKPN periodik queue row (sequential)": 1,
       "Processed — LHKPN recapitulation queue row (sequential)": 1,
       "Added — ad-hoc process script for district court LHKPN recapitulation": 1,
-      "Processed — LHKPN roster queue row (sequential)": 3,
+      "Processed — LHKPN roster queue row (sequential)": 5,
       "Added — ad-hoc process script for religious court LHKPN roster": 1,
       "Added — ad-hoc process script for high court LHKPN roster": 1,
       "Processed — LHKPN compliance queue row (sequential)": 1,
       "Added — ad-hoc script for district court LHKPN compliance report": 1,
       "Processed — LHKPN roster 2024 queue row (sequential)": 1,
+      "Processed — LHKASN roster queue row (sequential)": 1,
+      "Processed — LHKPN/LHKASN roster queue row (sequential)": 1,
       "Processed — Academic XLSX roster (manual)": 1,
       "Enhanced — Student roster XLSX parser: multi-sheet active rosters": 1,
       "Processed — Mahasiswa profesi ners PPTX roster (manual)": 1,
@@ -1522,6 +1524,30 @@
             "kind": "Processed — LHKPN roster queue row (sequential)",
             "items": [
               "24 persons — Doc `01KSEJWQ7GXYT7BE95MV41XJ7Z`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKASN roster queue row (sequential)",
+            "items": [
+              "26 persons — Doc `01KSEK8F2VZ7N2EY3KZBCRE0TB`, template `asn_pns`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster queue row (sequential)",
+            "items": [
+              "15 persons — Doc `01KSEKENDTS5TNWGC194Z2E2K6`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN/LHKASN roster queue row (sequential)",
+            "items": [
+              "31 persons — Doc `01KSEKQBV8Q51ERCA0Q8D38A26`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster queue row (sequential)",
+            "items": [
+              "16 persons — Doc `01KSEM3P63EAQ88YQEV29JR0J5`, template `lhkpn`."
             ]
           }
         ]
@@ -2182,7 +2208,7 @@
     ]
   },
   "geo": {
-    "totalEntities": 601637,
+    "totalEntities": 601705,
     "entitiesWithCity": 79266,
     "geocodedEntities": 74937,
     "uniqueCities": 2442,
@@ -3234,14 +3260,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3075,
-    "documentsWithUrl": 3054,
-    "documentsIdDomain": 851,
+    "documentsTotal": 3079,
+    "documentsWithUrl": 3058,
+    "documentsIdDomain": 855,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 632
+        "count": 636
       },
       {
         "suffix": "ac.id",
@@ -3291,7 +3317,7 @@
       },
       {
         "type": "pdf",
-        "count": 1354
+        "count": 1358
       },
       {
         "type": "unknown",
@@ -3331,12 +3357,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 95830
+      "bytes": 100676
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22080
+      "bytes": 22083
     },
     {
       "file": "sitemap.xml",
