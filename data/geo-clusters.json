@@ -1,9 +1,9 @@
 {
-  "totalEntities": 542624,
-  "entitiesWithCity": 66456,
-  "geocodedEntities": 62168,
-  "uniqueCities": 2413,
-  "mappedCities": 264,
+  "totalEntities": 601637,
+  "entitiesWithCity": 79266,
+  "geocodedEntities": 74937,
+  "uniqueCities": 2442,
+  "mappedCities": 265,
   "clusters": [
     {
       "key": "IBU KOTA NUSANTARA",
@@ -12,6 +12,14 @@
       "count": 14842,
       "lat": -0.972,
       "lng": 116.7131
+    },
+    {
+      "key": "PONTIANAK",
+      "label": "Pontianak",
+      "province": "Kalimantan Barat",
+      "count": 12836,
+      "lat": -0.0263,
+      "lng": 109.3425
     },
     {
       "key": "SAMBAS",
@@ -524,14 +532,6 @@
       "lng": 110.61945204176338
     },
     {
-      "key": "PONTIANAK",
-      "label": "Pontianak",
-      "province": "Kalimantan Barat",
-      "count": 70,
-      "lat": -0.0263,
-      "lng": 109.3425
-    },
-    {
       "key": "WONOGIRI",
       "label": "Wonogiri",
       "province": null,
@@ -921,6 +921,14 @@
       "lng": 109.6753
     },
     {
+      "key": "JAYAPURA",
+      "label": "Jayapura",
+      "province": null,
+      "count": 14,
+      "lat": -2.533,
+      "lng": 140.717
+    },
+    {
       "key": "GARUT",
       "label": "Garut",
       "province": null,
@@ -967,14 +975,6 @@
       "count": 13,
       "lat": -5.113,
       "lng": 105.3062
-    },
-    {
-      "key": "JAYAPURA",
-      "label": "Jayapura",
-      "province": null,
-      "count": 13,
-      "lat": -2.533,
-      "lng": 140.717
     },
     {
       "key": "BENGKULU",

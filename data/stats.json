@@ -1,72 +1,72 @@
 {
-  "updated": "2026-05-24 21:47 UTC",
+  "updated": "2026-05-25 03:31 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 542624,
-    "graphEdges": 947141,
-    "sourceDocuments": 3055,
+    "graphNodes": 601637,
+    "graphEdges": 1070018,
+    "sourceDocuments": 3075,
     "activeVectors": 5,
-    "dominantVectorPct": 52.8,
+    "dominantVectorPct": 49.0,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.29,
-    "pipelineSuccessPct": 33.1,
-    "pipelineBacklogPct": 27.1,
-    "pipelineFailurePct": 12.4,
-    "entityLinkRate": 0.67
+    "xrefRatio": 1.3,
+    "pipelineSuccessPct": 34.1,
+    "pipelineBacklogPct": 25.7,
+    "pipelineFailurePct": 12.3,
+    "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 542624,
-    "documents": 3055,
-    "photos": 100,
-    "templates": 57,
-    "history": 515,
-    "doneFiles": 208
+    "persons": 601637,
+    "documents": 3075,
+    "photos": 203,
+    "templates": 58,
+    "history": 541,
+    "doneFiles": 272
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 286361,
-      "pct": 52.8
+      "value": 294671,
+      "pct": 49.0
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 13334,
-      "pct": 2.5
+      "pct": 2.2
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
       "value": 6472,
-      "pct": 1.2
+      "pct": 1.1
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 66553,
-      "pct": 12.3
+      "value": 91852,
+      "pct": 15.3
     },
     {
       "id": "photo",
       "label": "Foto",
-      "value": 80,
+      "value": 183,
       "pct": 0.0
     }
   ],
-  "coverageTotal": 542624,
+  "coverageTotal": 601637,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 393780,
-      "refs": 542365
+      "entries": 427511,
+      "refs": 601334
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 243695,
-      "refs": 290018
+      "entries": 251625,
+      "refs": 298328
     },
     {
       "type": "Email",
@@ -77,8 +77,8 @@
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 55823,
-      "refs": 66500
+      "entries": 76004,
+      "refs": 91797
     },
     {
       "type": "NPWP",
@@ -89,14 +89,14 @@
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 5454,
-      "refs": 9531
+      "entries": 8833,
+      "refs": 19297
     },
     {
       "type": "ID pelajar",
       "kind": "index",
-      "entries": 14992,
-      "refs": 14993
+      "entries": 35127,
+      "refs": 35528
     },
     {
       "type": "ID karyawan",
@@ -106,29 +106,39 @@
     }
   ],
   "indexTotal": {
-    "entries": 734797,
-    "refs": 947141
+    "entries": 820153,
+    "refs": 1070018
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 286238
+      "value": 294538
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 66494
+      "value": 91781
     },
     {
       "source": "Telepon",
       "target": "NIK",
-      "value": 36750
+      "value": 45003
     },
     {
       "source": "Nama",
       "target": "ID pelajar",
-      "value": 14993
+      "value": 35528
+    },
+    {
+      "source": "Nama",
+      "target": "No. kartu keluarga",
+      "value": 19295
+    },
+    {
+      "source": "NIK",
+      "target": "No. kartu keluarga",
+      "value": 19179
     },
     {
       "source": "Nama",
@@ -139,16 +149,6 @@
       "source": "Telepon",
       "target": "Email",
       "value": 10343
-    },
-    {
-      "source": "Nama",
-      "target": "No. kartu keluarga",
-      "value": 9531
-    },
-    {
-      "source": "NIK",
-      "target": "No. kartu keluarga",
-      "value": 9465
     },
     {
       "source": "Nama",
@@ -163,7 +163,7 @@
     {
       "source": "Email",
       "target": "NIK",
-      "value": 5492
+      "value": 5493
     },
     {
       "source": "NIK",
@@ -177,12 +177,12 @@
     },
     {
       "source": "Telepon",
-      "target": "NPWP",
-      "value": 3485
+      "target": "ID pelajar",
+      "value": 3531
     },
     {
       "source": "Telepon",
-      "target": "ID pelajar",
+      "target": "NPWP",
       "value": 3485
     },
     {
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 399,
-    "processing": 2,
-    "done": 487,
-    "skipped": 401,
+    "pending": 380,
+    "processing": 5,
+    "done": 504,
+    "skipped": 409,
     "failed": 182,
-    "total": 1471
+    "total": 1480
   },
   "recentDocs": [
     {
-      "title": "Data S······ I··········",
-      "imported_at": "2026-05-24T21:26:44Z",
-      "mentions": 403
+      "title": "D····· W···· LHKPN 2025",
+      "imported_at": "2026-05-25T03:29:40Z",
+      "mentions": 24
     },
     {
-      "title": "Data h···· n···· T·· C···",
-      "imported_at": "2026-05-24T21:01:55Z",
-      "mentions": 18522
+      "title": "D····· P············ N····· W···· L···· LHKPN",
+      "imported_at": "2026-05-25T03:27:56Z",
+      "mentions": 12
     },
     {
-      "title": "Data p······ s······ o······· p·······",
-      "imported_at": "2026-05-24T20:56:28Z",
-      "mentions": 324
+      "title": "L······ L···········",
+      "imported_at": "2026-05-25T03:19:29Z",
+      "mentions": 11
     },
     {
-      "title": "H···· S····· 2017 — 5·· U·········· M·········",
-      "imported_at": "2026-05-24T20:55:49Z",
-      "mentions": 1892
+      "title": "D····· W···· L···· LHKPN",
+      "imported_at": "2026-05-25T03:13:27Z",
+      "mentions": 37
     },
     {
-      "title": "Data A·······",
-      "imported_at": "2026-05-24T20:48:48Z",
-      "mentions": 9195
+      "title": "D····· P············ N····· W···· L···· LHKPN",
+      "imported_at": "2026-05-25T03:10:43Z",
+      "mentions": 16
     },
     {
-      "title": "R··········· LHKPN P······· 2023 — B···· P········ U··· W· r· P········· T····· P········ e·· P········· N····· S····· e· J···· M······ N·",
-      "imported_at": "2026-05-24T20:39:53Z",
-      "mentions": 14
+      "title": "R··········· L···········",
+      "imported_at": "2026-05-25T03:02:31Z",
+      "mentions": 26
     },
     {
-      "title": "Data E···· P·········",
-      "imported_at": "2026-05-24T20:38:31Z",
-      "mentions": 223
+      "title": "R··········· L···········",
+      "imported_at": "2026-05-25T03:01:38Z",
+      "mentions": 26
     },
     {
-      "title": "D····· P·········· LHKPN P······· 2023 — K········ B········· K········ J········· K··· J······ T····",
-      "imported_at": "2026-05-24T20:31:42Z",
-      "mentions": 5
+      "title": "Lembar Penyerahan LHKPN (·····",
+      "imported_at": "2026-05-25T02:52:49Z",
+      "mentions": 1
     },
     {
-      "title": "P········· H···· S······",
-      "imported_at": "2026-05-24T20:29:14Z",
-      "mentions": 22043
+      "title": "A······· a············· r·····",
+      "imported_at": "2026-05-25T02:50:31Z",
+      "mentions": 8885
     },
     {
-      "title": "D····· P·········· LHKPN P······· 2024 — K········ B········· K········ J········· K··· J······ T····",
-      "imported_at": "2026-05-24T20:25:56Z",
-      "mentions": 5
+      "title": "Data I···· D··· M······· K········ K······ B···· S······",
+      "imported_at": "2026-05-25T02:47:45Z",
+      "mentions": 8143
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,36 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.2",
+    "latestVersion": "v2.9.7",
     "latestDate": "2026-05-25",
-    "totalReleases": 76,
+    "totalReleases": 80,
     "summary": {
+      "Processed — LHKPN rekapitulasi compilation (manual)": 1,
+      "Processed — LHKPN periodik queue row (sequential)": 1,
+      "Processed — LHKPN recapitulation queue row (sequential)": 1,
+      "Added — ad-hoc process script for district court LHKPN recapitulation": 1,
+      "Processed — LHKPN roster queue row (sequential)": 3,
+      "Added — ad-hoc process script for religious court LHKPN roster": 1,
+      "Added — ad-hoc process script for high court LHKPN roster": 1,
+      "Processed — LHKPN compliance queue row (sequential)": 1,
+      "Added — ad-hoc script for district court LHKPN compliance report": 1,
+      "Processed — LHKPN roster 2024 queue row (sequential)": 1,
+      "Processed — Academic XLSX roster (manual)": 1,
+      "Enhanced — Student roster XLSX parser: multi-sheet active rosters": 1,
+      "Processed — Mahasiswa profesi ners PPTX roster (manual)": 1,
+      "Added — Mahasiswa PPTX slide parser": 2,
+      "Processed — Academic text roster (manual)": 1,
+      "Added — Student roster TXT parser": 3,
+      "Processed — Mahasiswa KKN roster (manual)": 1,
+      "Enhanced — Student roster XLSX parser: phone column variant": 1,
+      "Processed — BIP-WNI Buku Induk Penduduk roster (manual)": 1,
+      "Enhanced — data_induk_desa parser: BIP-WNI format": 2,
+      "Processed — BPS census listing area 6171 (manual)": 1,
+      "Added — Census listing parser": 3,
+      "Processed — Daftar penerima BPUM Kalbar Tahap 24 (manual)": 1,
+      "Enhanced — BPUM Scribd variant parser": 2,
+      "Processed — Biodata mahasiswa korwil Jabodetabek (manual)": 1,
+      "Enhanced — Generic student roster XLSX parser": 1,
       "Processed — Profil pejabat struktural SKPD 2024 (queue)": 1,
       "Fixed — Profil pejabat pangkat line variants": 1,
       "Processed — Profil pejabat struktural SKPD (queue)": 1,
@@ -1423,9 +1449,208 @@
     },
     "releases": [
       {
-        "version": "v2.9.2",
+        "version": "v2.9.7",
         "date": "2026-05-25",
         "sections": [
+          {
+            "kind": "Processed — LHKPN rekapitulasi compilation (manual)",
+            "items": [
+              "27 persons — Doc `01KSEGAK5WH5G5N8ZHWFHPD9E3`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN periodik queue row (sequential)",
+            "items": [
+              "1 person — Doc `01KSEGS8WT189QWQJ56NS9RYJS`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN recapitulation queue row (sequential)",
+            "items": [
+              "26 persons — Doc `01KSEHB0NRBQ38RQHXHJ06BSWZ`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Added — ad-hoc process script for district court LHKPN recapitulation",
+            "items": [
+              "`scripts/process_pn_gunungsitoli.py` — simple inline person list with"
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster queue row (sequential)",
+            "items": [
+              "16 persons — Doc `01KSEHT10TJRKY1574R18WHFSH`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Added — ad-hoc process script for religious court LHKPN roster",
+            "items": [
+              "`scripts/process_pa_kudus.py` — extracts from table rows, matches NIKs"
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster queue row (sequential)",
+            "items": [
+              "37 persons — Doc `01KSEHZ18X7DVZDNM970PNMSCS`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Added — ad-hoc process script for high court LHKPN roster",
+            "items": [
+              "`scripts/process_pt_palembang.py` — extracts from table rows,"
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN compliance queue row (sequential)",
+            "items": [
+              "11 persons — Doc `01KSEJA383YYM50XXYFQ54KXBF`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Added — ad-hoc script for district court LHKPN compliance report",
+            "items": [
+              "`scripts/process_pn_tubei.py` — extracts from Tanda Terima forms,"
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster 2024 queue row (sequential)",
+            "items": [
+              "12 persons — Doc `01KSEJSJE1FNB9W6BS8NG28RW4`, template `lhkpn`."
+            ]
+          },
+          {
+            "kind": "Processed — LHKPN roster queue row (sequential)",
+            "items": [
+              "24 persons — Doc `01KSEJWQ7GXYT7BE95MV41XJ7Z`, template `lhkpn`."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.9.6",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Processed — Academic XLSX roster (manual)",
+            "items": [
+              "8,885 persons — Doc `01KSEGN17V49PB1AA410VW2CVB`, template `data_akademik`."
+            ]
+          },
+          {
+            "kind": "Enhanced — Student roster XLSX parser: multi-sheet active rosters",
+            "items": [
+              "`scripts/parse_student_roster_xlsx.py` — Dedupes by student identifier before name fallback, maps short `Jen` headers to level metadata, preserves education facts, and parses headerless PPG-style rows."
+            ]
+          },
+          {
+            "kind": "Processed — Mahasiswa profesi ners PPTX roster (manual)",
+            "items": [
+              "109 persons, 103 photos — Doc `01KSEG8881SSH0QPPVW2H7E2QG`, template `data_akademik`."
+            ]
+          },
+          {
+            "kind": "Added — Mahasiswa PPTX slide parser",
+            "items": [
+              "`scripts/parse_mahasiswa_pptx.py` — One student per slide (NAMA/NIM); extracts raster",
+              "`scripts/process_student_roster.py` — `photo_source` → face_crop AVIF on save; PPTX/XLSX"
+            ]
+          },
+          {
+            "kind": "Processed — Academic text roster (manual)",
+            "items": [
+              "9,438 persons — Doc `01KSEFTDNER5RYEHXHA123DQQQ`, template `data_akademik`."
+            ]
+          },
+          {
+            "kind": "Added — Student roster TXT parser",
+            "items": [
+              "`scripts/parse_student_roster_txt.py` — New parser for plain-text academic rosters with NIM/name/program/provider/status columns, including multiline rows and spreadsheet scientific-notation row anchors.",
+              "`scripts/process_student_roster.py` — Accepts parser payloads with `persons`/`meta`, preserves parser facts, and supports `extras`/`extra` inputs.",
+              "`templates/data_akademik.json` — Route notes include the text roster parser."
+            ]
+          },
+          {
+            "kind": "Processed — Mahasiswa KKN roster (manual)",
+            "items": [
+              "2,061 persons — Doc `01KSEF5X1WS6HBHHNBS81NSNBQ`, template `data_akademik`."
+            ]
+          },
+          {
+            "kind": "Enhanced — Student roster XLSX parser: phone column variant",
+            "items": [
+              "`scripts/parse_student_roster_xlsx.py` — Phone column regex extended to match \"NO. HP\" (dot-space) variant."
+            ]
+          },
+          {
+            "kind": "Processed — BIP-WNI Buku Induk Penduduk roster (manual)",
+            "items": [
+              "5,372 persons — Doc `01KSED56329NF1X9CJ3R7T37VW`, template `data_induk_desa`."
+            ]
+          },
+          {
+            "kind": "Enhanced — data_induk_desa parser: BIP-WNI format",
+            "items": [
+              "`scripts/parse_data_induk_desa.py` — Added \"cipinang\" format auto-detection for Buku Induk Penduduk WNI (sheet DESA with header NO/NIK/NKK/NAMA LENGKAP/SHDK). Parses canonical DESA sheet only (skips per-RT subset sheets).",
+              "`templates/data_induk_desa.json` — Notes updated with BIP-WNI format detection guidance."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.9.5",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Processed — BPS census listing area 6171 (manual)",
+            "items": [
+              "12,766 persons — Doc `01KSE31VBB30RHK5EANQVMQA0Z`, template `census_listing`."
+            ]
+          },
+          {
+            "kind": "Added — Census listing parser",
+            "items": [
+              "`scripts/parse_census_listing.py` — BPS census/resident listing xlsx (single sheet with area code name, header NO_URUT through K5, K3=names, K1/K4=address, geographic codes).",
+              "`scripts/process_census_listing.py` — Processor with BatchProcessor, document creation, provenance edges.",
+              "`templates/census_listing.json` — Template registry with parser/processor routing, skip_ocr=true."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.9.4",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Processed — Daftar penerima BPUM Kalbar Tahap 24 (manual)",
+            "items": [
+              "5,588 persons — Doc `01KSE21Q0DH4YYHVE257XCBRBW`, template `daftar_penerima_bpum` (Scribd variant)."
+            ]
+          },
+          {
+            "kind": "Enhanced — BPUM Scribd variant parser",
+            "items": [
+              "`scripts/parse_bpum_scribd.py` — New parser for BPUM documents without bank/nominal columns (Scribd text export with ragged multi-line rows). Anchors on NIK + row-number lines to extract name, phone, address, business type, proposer.",
+              "`scripts/process_bpum_scribd.py` — New processor using `parse_bpum_scribd` + BatchProcessor."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v2.9.3",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Processed — Biodata mahasiswa korwil Jabodetabek (manual)",
+            "items": [
+              "44 persons — Data mahasiswa IKB-PMPT Korwil Jabodetabek 2020/2021. Doc `01KSE15Q8MQHVQFNHV3QMFQ8J8`."
+            ]
+          },
+          {
+            "kind": "Enhanced — Generic student roster XLSX parser",
+            "items": [
+              "`scripts/parse_student_roster_xlsx.py` — Header auto-detection (scan first 15 rows for `NAMA`), combined POB+DOB field splitting (`TEMPAT & TANGGAL LAHIR`), gender normalization (Laki-Laki→male, Prempuan→female), additional column patterns (NIM/NPM, JURUSAN PRODI, JENIS/KELAMIN, UNIVERSITAS, SEMESTER, JENJANG, bank/rekening), cross-sheet dedup by name, extra categories (financial, origin, admin)."
+            ]
+          },
           {
             "kind": "Processed — Profil pejabat struktural SKPD 2024 (queue)",
             "items": [
@@ -1953,117 +2178,15 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.21",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Data Induk Desa XLSX parser (Desa Marawali, Scribd)",
-            "items": [
-              "`scripts/parse_data_induk_desa.py` — parser `.xlsx` roster penduduk desa: sheet canonical `DATA INDUK OK`, NIK/KK, nama, TTL, keluarga, pendidikan, pekerjaan, status kawin, alamat, BPJS; skip duplicate/subset/summary sheets.",
-              "`scripts/process_data_induk_desa.py` — document + BatchProcessor runner dengan edge person ↔ document.",
-              "Template `data_induk_desa` — keywords data induk penduduk/desa, KK/NIK, wajib KTP, BPJS.",
-              "Diproses: Scribd doc `309893958/Data-Induk-Desa-Marawali-Kecamatan-Kadatua-Buton-Selatan-LUXRIN` — 1,148 persons. Doc `01KSD07BRWRGNGSZS7SCAHCRZ5`. OSINT N/A (0 phone, 0 email)."
-            ]
-          },
-          {
-            "kind": "Fixed — Data Induk Desa occupation validation",
-            "items": [
-              "`Pekerjaan` disimpan sebagai scoped `extra` kategori `employment`, bukan top-level `occupation`, agar nilai uppercase seperti `IBU RUMAH TANGGA` tidak terkena false-positive \"looks like name\".",
-              "Backfill dokumen `01KSD07BRWRGNGSZS7SCAHCRZ5`: 1,056 person records diperbaiki dengan `data.changelog[]`; validasi dokumen `VALID`."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.20",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Fixed — parse_lhkpn_ikhtisar single-page exports",
-            "items": [
-              "DATA PRIBADI block ends at `Halaman` / EOF when sections 2+ missing (truncated PDF uploads)."
-            ]
-          },
-          {
-            "kind": "Processed — PA Tutuyan LHKPN 2021",
-            "items": [
-              "`PAK_SEKLHKPN-6.pdf` — 1 person (Sekretaris PA Tutuyan). Doc `01KSCZXPGM5FCV4YSBYFTVB5K5`. Source PDF hanya halaman 1 dari 9."
-            ]
-          },
-          {
-            "kind": "Added — Ikhtisar LHKPN (elhkpn.kpk.go.id)",
-            "items": [
-              "`scripts/parse_lhkpn_ikhtisar.py` — parser pdftotext Ikhtisar: data pribadi, keluarga (wrap-aware), total harta.",
-              "`scripts/process_lhkpn_ikhtisar.py` — document + BatchProcessor runner dengan edge person ↔ document.",
-              "Diproses: PPID Tanjung Jabung Barat — 3 persons (Kristian + istri + anak). Doc `01KSCZPJZQJPAQEX0Q1FAS65R3`. LHKPN Periodik 2022."
-            ]
-          },
-          {
-            "kind": "Fixed — queue corruption",
-            "items": [
-              "Baris antrian rusak (fragment JSON `path` dari parse error) di-mark `false` agar tidak memblokir `queue.py next`."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.19",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Daftar Jemaah Haji (Jawa Tengah Bipih 1443H, Scribd)",
-            "items": [
-              "`scripts/parse_jemaah_haji.py` — parser Scribd/pdftotext roster: No. Porsi, nama, TTL, alamat, kab/kota, CADANGAN; glue-fix `…KAB.`; wrapped-line merge.",
-              "`scripts/process_jemaah_haji.py` — document + BatchProcessor runner dengan edge person ↔ document.",
-              "Template `daftar_jemaah_haji` — keywords jemaah/bipih/pelunasan.",
-              "Diproses: Scribd `578022831/JATENG` — 16,412 persons (16,550 baris teks; ~138 baris tidak ter-parse). Doc `01KSCY84GCJA9KHW3SRB89MHCT`. OSINT skipped per user request (no email/phone in roster)."
-            ]
-          },
-          {
-            "kind": "AGENT.md — Daftar Jemaah Haji entry",
-            "items": [
-              "Aturan parsing No. Porsi → `extra` only; Scribd text fallback; glued kab/kota normalization."
-            ]
-          },
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/validate.py` — allow single-token given name `LULUS` (roster false positive vs status word `lulus`)."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.18",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added",
-            "items": [
-              "`scripts/parse_seleksi_akademik_guru.py` — parser XLSX headerless seleksi akademik guru (Scribd): nama, TTL, gender, NO HP, NO UKG, NIP/NIK, sekolah/NPSN, mapel, skor, status.",
-              "`scripts/process_seleksi_akademik_guru.py` — runner document + BatchProcessor dengan edge person ↔ document dan facts pendidikan/schema-safe.",
-              "Diproses: Scribd doc `515879667/5-6159020911061107177` — 18,727 persons. Doc `01KSCXEGDMS6SAXC80XNE3PTQM`. OSINT PhoneInfoga blocked by external-disclosure approval for 17,921 phone contacts."
-            ]
-          },
-          {
-            "kind": "Fixed",
-            "items": [
-              "`scripts/person.py` — merge changelog tidak lagi menulis key `summary` yang tidak sesuai schema.",
-              "Parser seleksi akademik memprioritaskan NIK/NIP sebelum phone detection dan menolak edge phone non-mobile/overlong."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 542624,
-    "entitiesWithCity": 66456,
-    "geocodedEntities": 62168,
-    "uniqueCities": 2413,
-    "mappedCities": 264,
+    "totalEntities": 601637,
+    "entitiesWithCity": 79266,
+    "geocodedEntities": 74937,
+    "uniqueCities": 2442,
+    "mappedCities": 265,
     "clusters": [
       {
         "key": "IBU KOTA NUSANTARA",
@@ -2072,6 +2195,14 @@
         "count": 14842,
         "lat": -0.972,
         "lng": 116.7131
+      },
+      {
+        "key": "PONTIANAK",
+        "label": "Pontianak",
+        "province": "Kalimantan Barat",
+        "count": 12836,
+        "lat": -0.0263,
+        "lng": 109.3425
       },
       {
         "key": "SAMBAS",
@@ -2584,14 +2715,6 @@
         "lng": 110.61945204176338
       },
       {
-        "key": "PONTIANAK",
-        "label": "Pontianak",
-        "province": "Kalimantan Barat",
-        "count": 70,
-        "lat": -0.0263,
-        "lng": 109.3425
-      },
-      {
         "key": "WONOGIRI",
         "label": "Wonogiri",
         "province": null,
@@ -2981,6 +3104,14 @@
         "lng": 109.6753
       },
       {
+        "key": "JAYAPURA",
+        "label": "Jayapura",
+        "province": null,
+        "count": 14,
+        "lat": -2.533,
+        "lng": 140.717
+      },
+      {
         "key": "GARUT",
         "label": "Garut",
         "province": null,
@@ -3027,14 +3158,6 @@
         "count": 13,
         "lat": -5.113,
         "lng": 105.3062
-      },
-      {
-        "key": "JAYAPURA",
-        "label": "Jayapura",
-        "province": null,
-        "count": 13,
-        "lat": -2.533,
-        "lng": 140.717
       },
       {
         "key": "BENGKULU",
@@ -3111,14 +3234,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3055,
-    "documentsWithUrl": 3034,
-    "documentsIdDomain": 842,
+    "documentsTotal": 3075,
+    "documentsWithUrl": 3054,
+    "documentsIdDomain": 851,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 623
+        "count": 632
       },
       {
         "suffix": "ac.id",
@@ -3164,23 +3287,23 @@
     "fileTypes": [
       {
         "type": "excel",
-        "count": 1417
+        "count": 1423
       },
       {
         "type": "pdf",
-        "count": 1346
+        "count": 1354
       },
       {
         "type": "unknown",
-        "count": 254
+        "count": 255
+      },
+      {
+        "type": "txt",
+        "count": 11
       },
       {
         "type": "json",
         "count": 10
-      },
-      {
-        "type": "txt",
-        "count": 7
       },
       {
         "type": "html",
@@ -3208,12 +3331,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 103607
+      "bytes": 95830
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22069
+      "bytes": 22080
     },
     {
       "file": "sitemap.xml",
