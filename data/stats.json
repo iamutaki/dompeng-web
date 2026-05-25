@@ -1,50 +1,50 @@
 {
-  "updated": "2026-05-25 04:48 UTC",
+  "updated": "2026-05-25 10:13 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 601705,
-    "graphEdges": 1070110,
-    "sourceDocuments": 3079,
+    "graphNodes": 601743,
+    "graphEdges": 1070155,
+    "sourceDocuments": 3083,
     "activeVectors": 5,
     "dominantVectorPct": 49.0,
     "dominantVectorId": "phone",
     "xrefRatio": 1.3,
-    "pipelineSuccessPct": 34.2,
-    "pipelineBacklogPct": 15.6,
+    "pipelineSuccessPct": 34.4,
+    "pipelineBacklogPct": 0.0,
     "pipelineFailurePct": 12.3,
     "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 601705,
-    "documents": 3079,
+    "persons": 601743,
+    "documents": 3083,
     "photos": 203,
     "templates": 58,
-    "history": 547,
-    "doneFiles": 273
+    "history": 552,
+    "doneFiles": 276
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 294671,
+      "value": 294673,
       "pct": 49.0
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 13334,
+      "value": 13336,
       "pct": 2.2
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 6472,
+      "value": 6473,
       "pct": 1.1
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 91883,
+      "value": 91885,
       "pct": 15.3
     },
     {
@@ -54,43 +54,43 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 601705,
+  "coverageTotal": 601743,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 427587,
-      "refs": 601426
+      "entries": 427604,
+      "refs": 601464
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 251625,
-      "refs": 298328
+      "entries": 251627,
+      "refs": 298330
     },
     {
       "type": "Email",
       "kind": "index",
-      "entries": 10972,
-      "refs": 13367
+      "entries": 10974,
+      "refs": 13369
     },
     {
       "type": "NIK",
       "kind": "index",
       "entries": 76004,
-      "refs": 91797
+      "refs": 91799
     },
     {
       "type": "NPWP",
       "kind": "index",
-      "entries": 3609,
-      "refs": 3895
+      "entries": 3610,
+      "refs": 3896
     },
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 8833,
-      "refs": 19297
+      "entries": 8832,
+      "refs": 19296
     },
     {
       "type": "ID pelajar",
@@ -101,29 +101,29 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 6472,
-      "refs": 6472
+      "entries": 6473,
+      "refs": 6473
     }
   ],
   "indexTotal": {
-    "entries": 820229,
-    "refs": 1070110
+    "entries": 820251,
+    "refs": 1070155
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 294538
+      "value": 294540
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 91781
+      "value": 91783
     },
     {
       "source": "Telepon",
       "target": "NIK",
-      "value": 45003
+      "value": 45004
     },
     {
       "source": "Nama",
@@ -133,37 +133,37 @@
     {
       "source": "Nama",
       "target": "No. kartu keluarga",
-      "value": 19295
+      "value": 19294
     },
     {
       "source": "NIK",
       "target": "No. kartu keluarga",
-      "value": 19179
+      "value": 19178
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 13328
+      "value": 13330
     },
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 10343
+      "value": 10345
     },
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 6454
+      "value": 6455
     },
     {
       "source": "Telepon",
       "target": "ID karyawan",
-      "value": 6074
+      "value": 6075
     },
     {
       "source": "Email",
       "target": "NIK",
-      "value": 5493
+      "value": 5494
     },
     {
       "source": "NIK",
@@ -173,7 +173,7 @@
     {
       "source": "Nama",
       "target": "NPWP",
-      "value": 3895
+      "value": 3896
     },
     {
       "source": "Telepon",
@@ -183,7 +183,7 @@
     {
       "source": "Telepon",
       "target": "NPWP",
-      "value": 3485
+      "value": 3486
     },
     {
       "source": "NIK",
@@ -193,7 +193,7 @@
     {
       "source": "Email",
       "target": "NPWP",
-      "value": 3368
+      "value": 3369
     },
     {
       "source": "NIK",
@@ -218,7 +218,7 @@
     {
       "source": "Email",
       "target": "ID karyawan",
-      "value": 205
+      "value": 206
     },
     {
       "source": "No. kartu keluarga",
@@ -233,7 +233,7 @@
     {
       "source": "NPWP",
       "target": "ID karyawan",
-      "value": 139
+      "value": 140
     },
     {
       "source": "Email",
@@ -247,14 +247,34 @@
     }
   ],
   "queue": {
-    "pending": 231,
-    "processing": 7,
-    "done": 506,
-    "skipped": 554,
+    "pending": 0,
+    "processing": 1,
+    "done": 509,
+    "skipped": 788,
     "failed": 182,
     "total": 1480
   },
   "recentDocs": [
+    {
+      "title": "A······ r·····",
+      "imported_at": "2026-05-25T10:03:21Z",
+      "mentions": 13
+    },
+    {
+      "title": "W···· L···· LHKPN 2023 G···········",
+      "imported_at": "2026-05-25T09:02:37Z",
+      "mentions": 16
+    },
+    {
+      "title": "A······ r·····",
+      "imported_at": "2026-05-25T05:43:12Z",
+      "mentions": 13
+    },
+    {
+      "title": "B·········",
+      "imported_at": "2026-05-25T05:39:01Z",
+      "mentions": 1
+    },
     {
       "title": "D····· P············ N····· W···· L···· LHKPN",
       "imported_at": "2026-05-25T03:50:56Z",
@@ -284,26 +304,6 @@
       "title": "D····· P············ N····· W···· L···· LHKPN",
       "imported_at": "2026-05-25T03:27:56Z",
       "mentions": 12
-    },
-    {
-      "title": "L······ L···········",
-      "imported_at": "2026-05-25T03:19:29Z",
-      "mentions": 11
-    },
-    {
-      "title": "D····· W···· L···· LHKPN",
-      "imported_at": "2026-05-25T03:13:27Z",
-      "mentions": 37
-    },
-    {
-      "title": "D····· P············ N····· W···· L···· LHKPN",
-      "imported_at": "2026-05-25T03:10:43Z",
-      "mentions": 16
-    },
-    {
-      "title": "R··········· L···········",
-      "imported_at": "2026-05-25T03:02:31Z",
-      "mentions": 26
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,11 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.7",
+    "latestVersion": "v2.9.8",
     "latestDate": "2026-05-25",
-    "totalReleases": 80,
+    "totalReleases": 81,
     "summary": {
+      "Added": 144,
       "Processed — LHKPN rekapitulasi compilation (manual)": 1,
       "Processed — LHKPN periodik queue row (sequential)": 1,
       "Processed — LHKPN recapitulation queue row (sequential)": 1,
@@ -1439,7 +1440,6 @@
       "Added — Daftar Jemaah Haji (Jawa Tengah Bipih 1443H, Scribd)": 4,
       "AGENT.md — Daftar Jemaah Haji entry": 1,
       "Fixed": 23,
-      "Added": 141,
       "Added — BPR Debitur xlsx parser (data nasabah BPR Tabris, Scribd)": 4,
       "AGENT.md — BPR Debitur xlsx entry": 1,
       "Fixed — agent prompts masih menulis `tmp/queue.csv`": 4,
@@ -1447,9 +1447,23 @@
       "Changed — full SQLite pipeline state (except tmp/input.csv)": 6,
       "Changed — full SQLite cutover (no runtime data/*.json)": 4,
       "Changed — Fase C (operational cutover)": 7,
-      "Removed": 4
+      "Removed": 4,
+      "Processed — personnel roster (sequential)": 1
     },
     "releases": [
+      {
+        "version": "v2.9.8",
+        "date": "2026-05-25",
+        "sections": [
+          {
+            "kind": "Added",
+            "items": [
+              "Added generic biodata parser/processor routing for single-subject CV/profile PDFs.",
+              "Added ASN/PNS roster parser/processor routing for simple name-position tables."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.9.7",
         "date": "2026-05-25",
@@ -2189,26 +2203,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.22",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Garansi ke season 2 (Scribd nasabah kredit multi-sheet)",
-            "items": [
-              "`scripts/parse_garansi_season2.py` — parser xlsx 3 sheet: CC laki-laki, DEPOSITO, supply toko; dedup by nama; mobile-only phone edges.",
-              "`scripts/process_garansi_season2.py` — document + BatchProcessor runner.",
-              "Template `data_nasabah_kredit` — kartu kredit / deposito / supply toko.",
-              "Diproses: Scribd `808609869/Garansi-ke-season-2` — 3,458 persons. Doc `01KSD13B8GSVYC3ANHV1ETTXJW`. OSINT skipped (3,333 phones — batch terpisah)."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 601705,
+    "totalEntities": 601743,
     "entitiesWithCity": 79266,
     "geocodedEntities": 74937,
     "uniqueCities": 2442,
@@ -2717,20 +2716,20 @@
         "lng": 123.12444836806907
       },
       {
+        "key": "PALEMBANG",
+        "label": "Palembang",
+        "province": "Sumatera Selatan",
+        "count": 75,
+        "lat": -2.9761,
+        "lng": 104.7754
+      },
+      {
         "key": "TEGAL",
         "label": "Tegal",
         "province": "JAWA TENGAH",
         "count": 75,
         "lat": -6.8694,
         "lng": 109.1402
-      },
-      {
-        "key": "PALEMBANG",
-        "label": "Palembang",
-        "province": "Sumatera Selatan",
-        "count": 74,
-        "lat": -2.9761,
-        "lng": 104.7754
       },
       {
         "key": "KLATEN",
@@ -3260,14 +3259,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3079,
-    "documentsWithUrl": 3058,
-    "documentsIdDomain": 855,
+    "documentsTotal": 3083,
+    "documentsWithUrl": 3062,
+    "documentsIdDomain": 859,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 636
+        "count": 640
       },
       {
         "suffix": "ac.id",
@@ -3317,7 +3316,7 @@
       },
       {
         "type": "pdf",
-        "count": 1358
+        "count": 1362
       },
       {
         "type": "unknown",
@@ -3357,7 +3356,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 100676
+      "bytes": 101681
     },
     {
       "file": "data/geo-clusters.json",

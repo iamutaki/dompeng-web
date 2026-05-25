@@ -1,5 +1,5 @@
 {
-  "totalEntities": 601705,
+  "totalEntities": 601743,
   "entitiesWithCity": 79266,
   "geocodedEntities": 74937,
   "uniqueCities": 2442,
@@ -508,20 +508,20 @@
       "lng": 123.12444836806907
     },
     {
+      "key": "PALEMBANG",
+      "label": "Palembang",
+      "province": "Sumatera Selatan",
+      "count": 75,
+      "lat": -2.9761,
+      "lng": 104.7754
+    },
+    {
       "key": "TEGAL",
       "label": "Tegal",
       "province": "JAWA TENGAH",
       "count": 75,
       "lat": -6.8694,
       "lng": 109.1402
-    },
-    {
-      "key": "PALEMBANG",
-      "label": "Palembang",
-      "province": "Sumatera Selatan",
-      "count": 74,
-      "lat": -2.9761,
-      "lng": 104.7754
     },
     {
       "key": "KLATEN",
