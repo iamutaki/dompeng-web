@@ -1,8 +1,8 @@
 {
-  "totalEntities": 641128,
-  "entitiesWithCity": 95759,
+  "totalEntities": 656605,
+  "entitiesWithCity": 95895,
   "geocodedEntities": 90875,
-  "uniqueCities": 2675,
+  "uniqueCities": 2748,
   "mappedCities": 269,
   "clusters": [
     {
