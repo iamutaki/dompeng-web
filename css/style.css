@@ -1775,7 +1775,9 @@ body.dashboard-body {
   max-width: none;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   height: 100dvh;
+  height: var(--dashboard-viewport-height, 100dvh);
   margin: 0;
   padding: max(8px, env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px))
     max(10px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px));
@@ -6979,6 +6981,15 @@ body.dashboard-body {
     padding: 6px max(10px, env(safe-area-inset-right, 0px)) max(8px, env(safe-area-inset-bottom, 0px))
       max(10px, env(safe-area-inset-left, 0px));
     gap: var(--dash-gap);
+  }
+
+  .page--dashboard .tab-panel--overview.is-active {
+    overflow-y: auto;
+  }
+
+  .page--dashboard .overview-layout {
+    flex: 0 0 auto;
+    overflow: visible;
   }
 
   .page--dashboard .topbar--dashboard {
