@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-27 17:21 UTC",
+  "updated": "2026-05-28 01:58 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 656605,
-    "graphEdges": 1187672,
+    "graphNodes": 656721,
+    "graphEdges": 1188018,
     "sourceDocuments": 3147,
     "activeVectors": 5,
     "dominantVectorPct": 46.4,
@@ -11,11 +11,11 @@
     "xrefRatio": 1.33,
     "pipelineSuccessPct": 30.8,
     "pipelineBacklogPct": 0.0,
-    "pipelineFailurePct": 39.2,
+    "pipelineFailurePct": 39.1,
     "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 656605,
+    "persons": 656721,
     "documents": 3147,
     "photos": 203,
     "templates": 64,
@@ -44,7 +44,7 @@
     {
       "id": "nik",
       "label": "NIK",
-      "value": 117494,
+      "value": 117608,
       "pct": 17.9
     },
     {
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 656605,
+  "coverageTotal": 656721,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 447527,
-      "refs": 656002
+      "entries": 447600,
+      "refs": 656118
     },
     {
       "type": "Telepon",
@@ -77,8 +77,8 @@
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 101589,
-      "refs": 117408
+      "entries": 101703,
+      "refs": 117522
     },
     {
       "type": "NPWP",
@@ -89,8 +89,8 @@
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 12663,
-      "refs": 31325
+      "entries": 12697,
+      "refs": 31441
     },
     {
       "type": "ID pelajar",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 894408,
-    "refs": 1187672
+    "entries": 894629,
+    "refs": 1188018
   },
   "indexCooccurrence": [
     {
@@ -118,7 +118,7 @@
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 117390
+      "value": 117504
     },
     {
       "source": "Telepon",
@@ -133,12 +133,12 @@
     {
       "source": "Nama",
       "target": "No. kartu keluarga",
-      "value": 31323
+      "value": 31439
     },
     {
       "source": "NIK",
       "target": "No. kartu keluarga",
-      "value": 31207
+      "value": 31321
     },
     {
       "source": "Nama",
@@ -249,9 +249,9 @@
   "queue": {
     "pending": 0,
     "processing": 0,
-    "done": 524,
+    "done": 525,
     "skipped": 511,
-    "failed": 667,
+    "failed": 666,
     "total": 1702
   },
   "recentDocs": [
@@ -2290,9 +2290,9 @@
     ]
   },
   "geo": {
-    "totalEntities": 656605,
-    "entitiesWithCity": 95895,
-    "geocodedEntities": 90875,
+    "totalEntities": 656721,
+    "entitiesWithCity": 96011,
+    "geocodedEntities": 90991,
     "uniqueCities": 2748,
     "mappedCities": 269,
     "clusters": [
@@ -2425,7 +2425,7 @@
         "key": "JAKARTA",
         "label": "Jakarta",
         "province": null,
-        "count": 913,
+        "count": 914,
         "lat": -6.2088,
         "lng": 106.8456
       },
@@ -2767,6 +2767,14 @@
         "lng": 114.79117548120564
       },
       {
+        "key": "BANYUMAS",
+        "label": "Banyumas",
+        "province": null,
+        "count": 129,
+        "lat": -7.455508579690273,
+        "lng": 109.17578818103475
+      },
+      {
         "key": "SUKOHARJO",
         "label": "Sukoharjo",
         "province": null,
@@ -2818,7 +2826,7 @@
         "key": "TEGAL",
         "label": "Tegal",
         "province": "JAWA TENGAH",
-        "count": 77,
+        "count": 80,
         "lat": -6.8694,
         "lng": 109.1402
       },
@@ -3012,6 +3020,14 @@
         "lng": 110.217
       },
       {
+        "key": "BREBES",
+        "label": "Brebes",
+        "province": null,
+        "count": 31,
+        "lat": -7.06277205117945,
+        "lng": 108.92952648130553
+      },
+      {
         "key": "LUWU UTARA",
         "label": "Luwu Utara",
         "province": "Sulawesi Selatan",
@@ -3034,14 +3050,6 @@
         "count": 29,
         "lat": -6.590233346882594,
         "lng": 105.74297025290407
-      },
-      {
-        "key": "BREBES",
-        "label": "Brebes",
-        "province": null,
-        "count": 28,
-        "lat": -7.06277205117945,
-        "lng": 108.92952648130553
       },
       {
         "key": "SUKABUMI",
@@ -3098,14 +3106,6 @@
         "count": 24,
         "lat": -7.901333454949657,
         "lng": 110.35488149436632
-      },
-      {
-        "key": "BANYUMAS",
-        "label": "Banyumas",
-        "province": null,
-        "count": 24,
-        "lat": -7.455508579690273,
-        "lng": 109.17578818103475
       },
       {
         "key": "BALIKPAPAN",
@@ -3257,6 +3257,14 @@
         "lng": 140.717
       },
       {
+        "key": "PURBALINGGA",
+        "label": "Purbalingga",
+        "province": null,
+        "count": 15,
+        "lat": -7.323229861975122,
+        "lng": 109.40720469770457
+      },
+      {
         "key": "GARUT",
         "label": "Garut",
         "province": null,
@@ -3287,14 +3295,6 @@
         "count": 14,
         "lat": -5.1477,
         "lng": 119.4327
-      },
-      {
-        "key": "PURBALINGGA",
-        "label": "Purbalingga",
-        "province": null,
-        "count": 14,
-        "lat": -7.323229861975122,
-        "lng": 109.40720469770457
       },
       {
         "key": "KUPANG",
@@ -3452,7 +3452,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 107862
+      "bytes": 108013
     },
     {
       "file": "data/geo-clusters.json",

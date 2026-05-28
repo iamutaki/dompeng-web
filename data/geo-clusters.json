@@ -1,7 +1,7 @@
 {
-  "totalEntities": 656605,
-  "entitiesWithCity": 95895,
-  "geocodedEntities": 90875,
+  "totalEntities": 656721,
+  "entitiesWithCity": 96011,
+  "geocodedEntities": 90991,
   "uniqueCities": 2748,
   "mappedCities": 269,
   "clusters": [
@@ -134,7 +134,7 @@
       "key": "JAKARTA",
       "label": "Jakarta",
       "province": null,
-      "count": 913,
+      "count": 914,
       "lat": -6.2088,
       "lng": 106.8456
     },
@@ -476,6 +476,14 @@
       "lng": 114.79117548120564
     },
     {
+      "key": "BANYUMAS",
+      "label": "Banyumas",
+      "province": null,
+      "count": 129,
+      "lat": -7.455508579690273,
+      "lng": 109.17578818103475
+    },
+    {
       "key": "SUKOHARJO",
       "label": "Sukoharjo",
       "province": null,
@@ -527,7 +535,7 @@
       "key": "TEGAL",
       "label": "Tegal",
       "province": "JAWA TENGAH",
-      "count": 77,
+      "count": 80,
       "lat": -6.8694,
       "lng": 109.1402
     },
@@ -721,6 +729,14 @@
       "lng": 110.217
     },
     {
+      "key": "BREBES",
+      "label": "Brebes",
+      "province": null,
+      "count": 31,
+      "lat": -7.06277205117945,
+      "lng": 108.92952648130553
+    },
+    {
       "key": "LUWU UTARA",
       "label": "Luwu Utara",
       "province": "Sulawesi Selatan",
@@ -743,14 +759,6 @@
       "count": 29,
       "lat": -6.590233346882594,
       "lng": 105.74297025290407
-    },
-    {
-      "key": "BREBES",
-      "label": "Brebes",
-      "province": null,
-      "count": 28,
-      "lat": -7.06277205117945,
-      "lng": 108.92952648130553
     },
     {
       "key": "SUKABUMI",
@@ -807,14 +815,6 @@
       "count": 24,
       "lat": -7.901333454949657,
       "lng": 110.35488149436632
-    },
-    {
-      "key": "BANYUMAS",
-      "label": "Banyumas",
-      "province": null,
-      "count": 24,
-      "lat": -7.455508579690273,
-      "lng": 109.17578818103475
     },
     {
       "key": "BALIKPAPAN",
@@ -966,6 +966,14 @@
       "lng": 140.717
     },
     {
+      "key": "PURBALINGGA",
+      "label": "Purbalingga",
+      "province": null,
+      "count": 15,
+      "lat": -7.323229861975122,
+      "lng": 109.40720469770457
+    },
+    {
       "key": "GARUT",
       "label": "Garut",
       "province": null,
@@ -996,14 +1004,6 @@
       "count": 14,
       "lat": -5.1477,
       "lng": 119.4327
-    },
-    {
-      "key": "PURBALINGGA",
-      "label": "Purbalingga",
-      "province": null,
-      "count": 14,
-      "lat": -7.323229861975122,
-      "lng": 109.40720469770457
     },
     {
       "key": "KUPANG",
