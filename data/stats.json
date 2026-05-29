@@ -1,44 +1,44 @@
 {
-  "updated": "2026-05-28 01:58 UTC",
+  "updated": "2026-05-29 04:14 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 656721,
-    "graphEdges": 1188018,
-    "sourceDocuments": 3147,
+    "graphNodes": 656786,
+    "graphEdges": 1188074,
+    "sourceDocuments": 3160,
     "activeVectors": 5,
     "dominantVectorPct": 46.4,
     "dominantVectorId": "phone",
     "xrefRatio": 1.33,
-    "pipelineSuccessPct": 30.8,
-    "pipelineBacklogPct": 0.0,
-    "pipelineFailurePct": 39.1,
+    "pipelineSuccessPct": 31.2,
+    "pipelineBacklogPct": 65.3,
+    "pipelineFailurePct": 2.0,
     "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 656721,
-    "documents": 3147,
+    "persons": 656786,
+    "documents": 3160,
     "photos": 203,
-    "templates": 64,
-    "history": 764,
+    "templates": 65,
+    "history": 545,
     "doneFiles": 52
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 304540,
+      "value": 304542,
       "pct": 46.4
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 13435,
+      "value": 13437,
       "pct": 2.0
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 21511,
+      "value": 21513,
       "pct": 3.3
     },
     {
@@ -54,25 +54,25 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 656721,
+  "coverageTotal": 656786,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 447600,
-      "refs": 656118
+      "entries": 447638,
+      "refs": 656167
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 261491,
-      "refs": 308198
+      "entries": 261493,
+      "refs": 308200
     },
     {
       "type": "Email",
       "kind": "index",
-      "entries": 11073,
-      "refs": 13469
+      "entries": 11076,
+      "refs": 13472
     },
     {
       "type": "NIK",
@@ -101,19 +101,19 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 20994,
-      "refs": 21511
+      "entries": 20996,
+      "refs": 21513
     }
   ],
   "indexTotal": {
-    "entries": 894629,
-    "refs": 1188018
+    "entries": 894674,
+    "refs": 1188074
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 304406
+      "value": 304408
     },
     {
       "source": "Nama",
@@ -143,22 +143,22 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 21364
+      "value": 21366
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 13429
+      "value": 13431
     },
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 10437
+      "value": 10439
     },
     {
       "source": "Telepon",
       "target": "ID karyawan",
-      "value": 6076
+      "value": 6077
     },
     {
       "source": "Email",
@@ -218,7 +218,7 @@
     {
       "source": "Email",
       "target": "ID karyawan",
-      "value": 206
+      "value": 207
     },
     {
       "source": "No. kartu keluarga",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 0,
-    "processing": 0,
-    "done": 525,
-    "skipped": 511,
-    "failed": 666,
-    "total": 1702
+    "pending": 1117,
+    "processing": 1,
+    "done": 534,
+    "skipped": 24,
+    "failed": 35,
+    "total": 1711
   },
   "recentDocs": [
     {
-      "title": "Data W···· D··· C······ K········ G······ K········ B·······",
-      "imported_at": "2026-05-27T17:20:45Z",
-      "mentions": 116
+      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
+      "imported_at": "2026-05-29T04:11:12Z",
+      "mentions": 9
+    },
+    {
+      "title": "S···· P········ / S···· D····",
+      "imported_at": "2026-05-29T04:09:31Z",
+      "mentions": 8
+    },
+    {
+      "title": "B·········",
+      "imported_at": "2026-05-29T04:09:14Z",
+      "mentions": 1
+    },
+    {
+      "title": "B·········",
+      "imported_at": "2026-05-29T04:09:08Z",
+      "mentions": 1
     },
     {
       "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-05-27T17:01:25Z",
-      "mentions": 14586
+      "imported_at": "2026-05-29T04:07:04Z",
+      "mentions": 6
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T17:01:16Z",
-      "mentions": 67
+      "title": "S· K····· D··· t······ K··········· L······ K············· D··· (········· P··· K····· T······ B··· d···· B····· d····· p············· d····· N·· d·· n···· H· d···· f····· t·····",
+      "imported_at": "2026-05-29T04:06:48Z",
+      "mentions": 15
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T17:01:09Z",
-      "mentions": 70
+      "title": "S· P········· P······ D··· (· p·······",
+      "imported_at": "2026-05-29T03:57:29Z",
+      "mentions": 1
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T17:01:02Z",
-      "mentions": 76
+      "title": "S· P········· P······ D··· (· p·······",
+      "imported_at": "2026-05-29T03:56:14Z",
+      "mentions": 1
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T16:52:22Z",
-      "mentions": 3
+      "title": "Data k······· m········· (········ t···· d··· — b····· n··· k········ p······· (····· + s··········· j····· a······· a······ n···· H·· d·· k···· k·······",
+      "imported_at": "2026-05-29T03:51:19Z",
+      "mentions": 1
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T16:50:45Z",
-      "mentions": 33
-    },
-    {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-27T16:49:59Z",
-      "mentions": 24
-    },
-    {
-      "title": "H···",
-      "imported_at": "2026-05-27T16:47:21Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-27T16:46:27Z",
-      "mentions": 0
+      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
+      "imported_at": "2026-05-29T03:29:39Z",
+      "mentions": 9
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,12 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.14",
-    "latestDate": "2026-05-27",
-    "totalReleases": 87,
+    "latestVersion": "v2.9.15",
+    "latestDate": "2026-05-29",
+    "totalReleases": 88,
     "summary": {
+      "Added — Post-OCR reclassification + surat_pengajuan parser": 7,
+      "Processed — Surat jawaban Dinas Pertanian Kebumen (LSD response)": 1,
       "Added — Agregat Kependudukan format (Data Agregat Kependudukan semesteran, sheet PDDK)": 2,
       "Processed — Data Agregat Kependudukan Semester I 2013 — Desa Karangasem": 1,
       "Enhanced — data_induk_desa parser: Data Penduduk per-dusun format": 3,
@@ -1473,6 +1475,30 @@
       "Processed — profile document (recheck)": 1
     },
     "releases": [
+      {
+        "version": "v2.9.15",
+        "date": "2026-05-29",
+        "sections": [
+          {
+            "kind": "Added — Post-OCR reclassification + surat_pengajuan parser",
+            "items": [
+              "`scripts/pipeline/row.py` — Post-OCR reclassification: when pre-OCR classification fails (template=None), re-attempts classification on OCR text. Fixes URLs with non-descriptive titles (UUIDs, hashes).",
+              "`templates/sk_penunjukan_petugas_dtks.json` — Added SIKS-NG keywords, `platform: true`, removed `table_expected: false`.",
+              "`scripts/parsers/parse_sk_penunjukan_petugas_dtks.py` — Label-value parser for SK penunjukan petugas DTKS (Nama/NIP/NIK/HP/Email blocks).",
+              "`scripts/processors/process_sk_penunjukan_petugas_dtks.py` — BatchProcessor runner for DTKS appointment decrees.",
+              "`scripts/parsers/parse_surat_pengajuan.py` — Parser for official government letters: inline contacts (CP drh./drg./dr. + HP), signatory with NIP.",
+              "`scripts/processors/process_surat_pengajuan.py` — BatchProcessor runner for surat pengajuan/dinas.",
+              "`templates/surat_pengajuan.json` — Added `platform: true`, `field_mapping`, updated notes for inline-contact extraction."
+            ]
+          },
+          {
+            "kind": "Processed — Surat jawaban Dinas Pertanian Kebumen (LSD response)",
+            "items": [
+              "8 persons — Doc `01KSRYRJWP5KBYXDXK5R9MN2EB`, template `surat_pengajuan`."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.9.14",
         "date": "2026-05-27",
@@ -2271,29 +2297,14 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.30",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — script-backed parser routing (stop AGENT.md growth)",
-            "items": [
-              "`scripts/pipeline_routes.py` — Resolves template → `parse_*.py` / `process_*.py` from `templates/*.json` and on-disk scripts. CLI: `show`, `list`, `script`, `scripts`.",
-              "`AGENT.md` — Removed `## Critical Context` scratchpad; added Parser routing + maintenance rules (no per-template append).",
-              "`next_manual.txt` — Step 8 uses `pipeline_routes.py` instead of a growing parser bullet list; step 18 limits AGENT.md edits to generic rules.",
-              "`templates/_schema.json` — Documents optional `parser` / `processor` / `notes` fields for route discovery."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 656721,
-    "entitiesWithCity": 96011,
+    "totalEntities": 656786,
+    "entitiesWithCity": 96020,
     "geocodedEntities": 90991,
-    "uniqueCities": 2748,
+    "uniqueCities": 2757,
     "mappedCities": 269,
     "clusters": [
       {
@@ -3355,14 +3366,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3147,
-    "documentsWithUrl": 3125,
-    "documentsIdDomain": 905,
+    "documentsTotal": 3160,
+    "documentsWithUrl": 3138,
+    "documentsIdDomain": 918,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 674
+        "count": 687
       },
       {
         "suffix": "ac.id",
@@ -3412,11 +3423,11 @@
       },
       {
         "type": "pdf",
-        "count": 1393
+        "count": 1403
       },
       {
         "type": "unknown",
-        "count": 256
+        "count": 259
       },
       {
         "type": "txt",
@@ -3452,12 +3463,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 108013
+      "bytes": 108014
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22369
+      "bytes": 22370
     },
     {
       "file": "sitemap.xml",
