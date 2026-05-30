@@ -1,51 +1,51 @@
 {
-  "updated": "2026-05-29 04:14 UTC",
+  "updated": "2026-05-30 00:40 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 656786,
-    "graphEdges": 1188074,
-    "sourceDocuments": 3160,
+    "graphNodes": 653501,
+    "graphEdges": 1182971,
+    "sourceDocuments": 3174,
     "activeVectors": 5,
-    "dominantVectorPct": 46.4,
+    "dominantVectorPct": 46.3,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.33,
-    "pipelineSuccessPct": 31.2,
-    "pipelineBacklogPct": 65.3,
-    "pipelineFailurePct": 2.0,
+    "xrefRatio": 1.34,
+    "pipelineSuccessPct": 31.6,
+    "pipelineBacklogPct": 55.9,
+    "pipelineFailurePct": 5.0,
     "entityLinkRate": 0.66
   },
   "summary": {
-    "persons": 656786,
-    "documents": 3160,
+    "persons": 653501,
+    "documents": 3174,
     "photos": 203,
-    "templates": 65,
-    "history": 545,
-    "doneFiles": 52
+    "templates": 66,
+    "history": 654,
+    "doneFiles": 0
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 304542,
-      "pct": 46.4
+      "value": 302670,
+      "pct": 46.3
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 13437,
-      "pct": 2.0
+      "value": 13426,
+      "pct": 2.1
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 21513,
+      "value": 21300,
       "pct": 3.3
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 117608,
-      "pct": 17.9
+      "value": 117380,
+      "pct": 18.0
     },
     {
       "id": "photo",
@@ -54,111 +54,111 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 656786,
+  "coverageTotal": 653501,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 447638,
-      "refs": 656167
+      "entries": 437910,
+      "refs": 653419
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 261493,
-      "refs": 308200
+      "entries": 259816,
+      "refs": 306325
     },
     {
       "type": "Email",
       "kind": "index",
-      "entries": 11076,
-      "refs": 13472
+      "entries": 11069,
+      "refs": 13461
     },
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 101703,
-      "refs": 117522
+      "entries": 101488,
+      "refs": 117294
     },
     {
       "type": "NPWP",
       "kind": "index",
-      "entries": 3610,
-      "refs": 3896
+      "entries": 3615,
+      "refs": 3901
     },
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 12697,
-      "refs": 31441
+      "entries": 12699,
+      "refs": 31417
     },
     {
       "type": "ID pelajar",
       "kind": "index",
-      "entries": 35461,
-      "refs": 35863
+      "entries": 35452,
+      "refs": 35854
     },
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 20996,
-      "refs": 21513
+      "entries": 20961,
+      "refs": 21300
     }
   ],
   "indexTotal": {
-    "entries": 894674,
-    "refs": 1188074
+    "entries": 883010,
+    "refs": 1182971
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 304408
+      "value": 302618
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 117504
+      "value": 117286
     },
     {
       "source": "Telepon",
       "target": "NIK",
-      "value": 54634
+      "value": 54601
     },
     {
       "source": "Nama",
       "target": "ID pelajar",
-      "value": 35863
+      "value": 35854
     },
     {
       "source": "Nama",
       "target": "No. kartu keluarga",
-      "value": 31439
+      "value": 31416
     },
     {
       "source": "NIK",
       "target": "No. kartu keluarga",
-      "value": 31321
+      "value": 31299
     },
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 21366
+      "value": 21299
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 13431
+      "value": 13421
     },
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 10439
+      "value": 10432
     },
     {
       "source": "Telepon",
       "target": "ID karyawan",
-      "value": 6077
+      "value": 6081
     },
     {
       "source": "Email",
@@ -168,57 +168,57 @@
     {
       "source": "NIK",
       "target": "ID karyawan",
-      "value": 5406
+      "value": 5410
     },
     {
       "source": "Nama",
       "target": "NPWP",
-      "value": 3896
+      "value": 3901
     },
     {
       "source": "Telepon",
       "target": "ID pelajar",
-      "value": 3620
+      "value": 3619
     },
     {
       "source": "Telepon",
       "target": "NPWP",
-      "value": 3486
+      "value": 3491
     },
     {
       "source": "NIK",
       "target": "NPWP",
-      "value": 3417
+      "value": 3420
     },
     {
       "source": "Email",
       "target": "NPWP",
-      "value": 3369
+      "value": 3374
     },
     {
       "source": "Email",
       "target": "ID pelajar",
-      "value": 2951
+      "value": 2950
     },
     {
       "source": "NIK",
       "target": "ID pelajar",
-      "value": 2926
+      "value": 2925
     },
     {
       "source": "NPWP",
       "target": "ID pelajar",
-      "value": 1028
+      "value": 1027
     },
     {
       "source": "Telepon",
       "target": "No. kartu keluarga",
-      "value": 344
+      "value": 347
     },
     {
       "source": "Email",
       "target": "ID karyawan",
-      "value": 207
+      "value": 211
     },
     {
       "source": "No. kartu keluarga",
@@ -227,83 +227,83 @@
     },
     {
       "source": "NPWP",
-      "target": "No. kartu keluarga",
-      "value": 140
+      "target": "ID karyawan",
+      "value": 144
     },
     {
       "source": "NPWP",
-      "target": "ID karyawan",
-      "value": 140
+      "target": "No. kartu keluarga",
+      "value": 143
     },
     {
       "source": "Email",
       "target": "No. kartu keluarga",
-      "value": 136
+      "value": 139
     },
     {
       "source": "No. kartu keluarga",
       "target": "ID karyawan",
-      "value": 108
+      "value": 111
     }
   ],
   "queue": {
-    "pending": 1117,
-    "processing": 1,
-    "done": 534,
-    "skipped": 24,
-    "failed": 35,
+    "pending": 957,
+    "processing": 0,
+    "done": 540,
+    "skipped": 128,
+    "failed": 86,
     "total": 1711
   },
   "recentDocs": [
     {
-      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-05-29T04:11:12Z",
-      "mentions": 9
-    },
-    {
-      "title": "S···· P········ / S···· D····",
-      "imported_at": "2026-05-29T04:09:31Z",
-      "mentions": 8
-    },
-    {
-      "title": "B·········",
-      "imported_at": "2026-05-29T04:09:14Z",
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T00:34:46Z",
       "mentions": 1
     },
     {
-      "title": "B·········",
-      "imported_at": "2026-05-29T04:09:08Z",
-      "mentions": 1
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T00:28:11Z",
+      "mentions": 2
     },
     {
-      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-05-29T04:07:04Z",
-      "mentions": 6
+      "title": "D····· a······ S····· P·· D······ d·· L····· — n··· d·· j······",
+      "imported_at": "2026-05-29T16:28:45Z",
+      "mentions": 188
     },
     {
-      "title": "S· K····· D··· t······ K··········· L······ K············· D··· (········· P··· K····· T······ B··· d···· B····· d····· p············· d····· N·· d·· n···· H· d···· f····· t·····",
-      "imported_at": "2026-05-29T04:06:48Z",
-      "mentions": 15
+      "title": "Data N······ 1",
+      "imported_at": "2026-05-29T04:42:20Z",
+      "mentions": 0
     },
     {
-      "title": "S· P········· P······ D··· (· p·······",
-      "imported_at": "2026-05-29T03:57:29Z",
-      "mentions": 1
+      "title": "Data N······ 1",
+      "imported_at": "2026-05-29T04:40:43Z",
+      "mentions": 0
     },
     {
-      "title": "S· P········· P······ D··· (· p·······",
-      "imported_at": "2026-05-29T03:56:14Z",
-      "mentions": 1
+      "title": "Data N······ 1",
+      "imported_at": "2026-05-29T04:31:23Z",
+      "mentions": 0
     },
     {
-      "title": "Data k······· m········· (········ t···· d··· — b····· n··· k········ p······· (····· + s··········· j····· a······· a······ n···· H·· d·· k···· k·······",
-      "imported_at": "2026-05-29T03:51:19Z",
-      "mentions": 1
+      "title": "U····· T···· K·······",
+      "imported_at": "2026-05-29T04:27:58Z",
+      "mentions": 0
     },
     {
-      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-05-29T03:29:39Z",
-      "mentions": 9
+      "title": "A······ r·····",
+      "imported_at": "2026-05-29T04:27:52Z",
+      "mentions": 4
+    },
+    {
+      "title": "Data N······ 1",
+      "imported_at": "2026-05-29T04:27:39Z",
+      "mentions": 0
+    },
+    {
+      "title": "U····· T···· K·······",
+      "imported_at": "2026-05-29T04:27:03Z",
+      "mentions": 0
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,22 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v2.9.15",
-    "latestDate": "2026-05-29",
-    "totalReleases": 88,
+    "latestVersion": "v3.1.1",
+    "latestDate": "2026-05-30",
+    "totalReleases": 91,
     "summary": {
+      "Added — Issuer/signatory extraction from Perda signature blocks": 5,
+      "Fixed — Position regex coverage": 3,
+      "Changed — Queue processing: row 597 (Pergub Jambi No. 44/2014)": 3,
+      "Changed — `scripts/` restructuring (4 phases)": 0,
+      "Struktur akhir `scripts/`": 0,
+      "Testing": 4,
+      "Added — Last-page issuer fallback (ExtractionEngine)": 19,
+      "Fixed": 28,
+      "Added — ExtractionEngine v3.0 (sole extraction path)": 10,
+      "Changed": 97,
+      "Added — `cleanse_persons.py` v3 overhaul": 1,
+      "Review findings — action items for next iteration": 9,
       "Added — Post-OCR reclassification + surat_pengajuan parser": 7,
       "Processed — Surat jawaban Dinas Pertanian Kebumen (LSD response)": 1,
       "Added — Agregat Kependudukan format (Data Agregat Kependudukan semesteran, sheet PDDK)": 2,
@@ -1357,7 +1369,6 @@
       "Added — bip template (Buku Induk Kependudukan XLS)": 3,
       "Processed — BIP Desa Sekarwangi (XLS)": 1,
       "Processed — uraian_tugas (table format)": 1,
-      "Changed": 90,
       "Added — agent intel & document summary": 1,
       "Added — uraian_tugas template (Scribd)": 4,
       "Added — §2.7 learning loop (penuh)": 4,
@@ -1462,7 +1473,6 @@
       "Fixed — queue corruption": 1,
       "Added — Daftar Jemaah Haji (Jawa Tengah Bipih 1443H, Scribd)": 4,
       "AGENT.md — Daftar Jemaah Haji entry": 1,
-      "Fixed": 23,
       "Added — BPR Debitur xlsx parser (data nasabah BPR Tabris, Scribd)": 4,
       "AGENT.md — BPR Debitur xlsx entry": 1,
       "Fixed — agent prompts masih menulis `tmp/queue.csv`": 4,
@@ -1475,6 +1485,153 @@
       "Processed — profile document (recheck)": 1
     },
     "releases": [
+      {
+        "version": "v3.1.1",
+        "date": "2026-05-30",
+        "sections": [
+          {
+            "kind": "Added — Issuer/signatory extraction from Perda signature blocks",
+            "items": [
+              "`_extract_issuers_from_text()` — scan ALL pages in reverse for signature blocks (not just last page), because many Perda have lampiran/penjelasan after the signature.",
+              "`_extract_issuers_from_page()` — extract MULTIPLE position+name pairs (e.g. Gubernur + Sekda) from a single signature page, returning one ExtractionResult per issuer.",
+              "`_extract_issuer_from_text()` / `_extract_issuer_from_last_page()` retained as legacy wrappers.",
+              "Added issuer block keyword guard (`_ISSUER_BLOCK_RE`) + position title requirement to filter false positives from non-signature pages.",
+              "`parse_simple_personnel_roster()` — when no tabular `NAMA/JABATAN` roster header found, fall back to `engine._extract_issuers_from_text()` to extract signatory persons from Perda/Pergub/Perbup documents."
+            ]
+          },
+          {
+            "kind": "Fixed — Position regex coverage",
+            "items": [
+              "Added `menteri` to `_POSITION_RE` for Kepmen/Keputusan Menteri signature blocks.",
+              "Added `republik indonesia` to `_REGION_KEYWORDS` non-person filter.",
+              "Strip trailing colon from position lines."
+            ]
+          },
+          {
+            "kind": "Changed — Queue processing: row 597 (Pergub Jambi No. 44/2014)",
+            "items": [
+              "2 persons extracted & saved: HASAN BASRI AGUS (GUBERNUR JAMBI) and RIDHAM PRISKAP (SEKRETARIS DAERAH PROVINSI JAMBI).",
+              "Document was skipped by precheck (URL keyword \"Pergub\") — processed manually via issuer fallback.",
+              "Row 598 (Kepmen ESDM No. 4518/2015): 1 person saved — SUDIRMAN SAID (MENTERI ENERGI DAN SUMBER DAYA MINERAL)."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v3.1.0",
+        "date": "2026-05-30",
+        "sections": [
+          {
+            "kind": "Changed — `scripts/` restructuring (4 phases)",
+            "items": []
+          },
+          {
+            "kind": "Struktur akhir `scripts/`",
+            "items": []
+          },
+          {
+            "kind": "Testing",
+            "items": [
+              "65/71 tests pass (3 pre-existing failures, 3 pre-existing skips) — baseline unchanged."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v3.0.0",
+        "date": "2026-05-29",
+        "sections": [
+          {
+            "kind": "Added — Last-page issuer fallback (ExtractionEngine)",
+            "items": [
+              "`scripts/extraction/engine.py` — `extract_persons()` memanggil `_extract_issuer_from_last_page(text)` sebagai fallback terakhir saat hasil ekstraksi kosong. Juga aktif saat rows-only extraction gagal.",
+              "`_extract_issuer_from_last_page()` — Memisahkan halaman dengan `\\x0c` (form feed dari OCR), mengambil halaman terakhir. Dua strategi pencarian nama:",
+              "`_is_not_person_name()` — Filter nama non-orang: jabatan (bupati, kepala, direktur, sekretaris), wilayah (kabupaten, provinsi, dinas), kata kunci dokumen (peraturan, lembaran, pasal), baris >6 kata.",
+              "Ekstraksi NIP (18 digit) sebagai `employee_id`, jabatan sebagai `occupation`.",
+              "Nama dibersihkan via `strip_titles()` sebelum `_finalize` agar confidence tidak di-reset oleh `_ai_fallback` heuristic yang bisa salah cocok multi-line.",
+              "Confidence diset ≥ 0.8 sehingga `_ai_fallback` di `_finalize` tidak mengganti nama dengan heuristic match yang lebih buruk.",
+              "Peringatan `\"Person extracted from last page as issuer/signatory\"` ditambahkan ke setiap hasil fallback.",
+              "Processed 01KST59Q2P4RADCX8462P26X54: 3 persons, template `asn_pns`.",
+              "Processed 01KST58KNET4FCS11DC2M20H7M: 1 persons, template `sk_pengangkatan`.",
+              "Processed 01KST56TEGSSQF0STWNEF9NT8A: 53 persons, template `akta_catatan_sipil`.",
+              "Processed 01KST521JCVRZ9ZVRF2VK9W3N8: 17 persons, template `asn_pns`.",
+              "Processed 01KST51TS3GWHP0XXVYYQJT4Y3: 1 persons, template `akta_catatan_sipil`.",
+              "Processed 01KST502BTCN18XDDVPT7G2K0P: 1 persons, template `rekap_izin_dpmptsp`.",
+              "Processed 01KST4ZJJH7K9TNH5QAPAWS2KH: 38 persons, template `data_penelitian`.",
+              "Processed 01KST4X9PZA5548KHR42D0J760: 1 persons, template `data_perusahaan`.",
+              "Processed 01KST4V0JWWTEREZ67MBZNWH28: 1 persons, template `biodata_asn`.",
+              "Processed 01KST4TVQNQ5RXDHA6FBRNKJ1S: 83 persons, template `data_kelompok`.",
+              "Processed 01KST4QB6W3XX19CRB1VK9MN5W: 32 persons, template `asn_pns`.",
+              "Processed 01KSSY9TRMH1MW6WRQQ91045ZQ: 1 persons, template `surat_undangan` (PERDA Toba Samosir, legal doc)."
+            ]
+          },
+          {
+            "kind": "Fixed",
+            "items": [
+              "OCR: default pdftoppm DPI 600→300 (17-page PERDA timed out at 600 DPI).",
+              "`process_platform.py`: init missing `STATS['engine_with_fallback']` KeyError.",
+              "`templates/surat_undangan.json`: tighten keywords — prevent false match on \"perundang-undangan\".",
+              "`scripts/validate.py`: fix Python 3.14 regex incompatibility (`\\1` backreference from non-capturing group).",
+              "`scripts/pipeline/row.py`: handle 0-person extraction as `skipped_non_person` (was `failed_validate`)."
+            ]
+          },
+          {
+            "kind": "Added — ExtractionEngine v3.0 (sole extraction path)",
+            "items": [
+              "`scripts/extraction/engine.py` — `ExtractionEngine.extract_persons()` sebagai entry point. Template tanpa bespoke parser otomatis menggunakan engine. AI fallback untuk field low-confidence.",
+              "`scripts/extraction/structure.py` — Klasifikasi input: `TABLE / LABEL_VALUE / FREE_TEXT / MIXED`.",
+              "`scripts/extraction/confidence.py` — `score_field()` per-field + `score_person()` weighted average; deteksi kontaminasi (nama kotor, alamat, telepon di field salah).",
+              "`scripts/extractors/*.py` — 18 shared extractors, masing-masing punya `extract_from_text()` + `extract_from_rows()`:",
+              "Multi-strategy voting — `BaseExtractor.best()` meng-cluster kandidat by normalized value, boost confidence +0.1 per strategy yang setuju (max +0.3). Mengganti \"pick highest confidence\".",
+              "Compound field_mapping parsing — 38 mapping aktif di template. Engine membaca `extraction_hints.field_mapping` dan men-route ke extractor yang tepat.",
+              "Template `field_definitions` — 7 template, 14 field definitions (type, required, min/max_length, pattern, confidence_threshold). Engine membaca di `_finalize()` untuk per-field validation warnings/demotion.",
+              "Confidence gating — `PROCESS_CONFIDENCE_THRESHOLD` env var (default 0.5). Avg confidence < threshold → outcome `extracted_low_confidence`, doc disimpan dengan label \"LOW CONFIDENCE\", tidak auto-commit.",
+              "`scripts/processors/process_platform.py` — Rewritten: `ExtractionEngine` sole path, `_result_to_person()` dengan confidence-based field demotion (high → store, medium → store+note, low → demote ke `extra[]`). `extract_tabular` fallback removed.",
+              "`scripts/parsers/parse_asn_pns.py` — Migrated ke ExtractionEngine untuk confidence-scored extraction. Legacy continuation-line logic preserved sebagai fallback."
+            ]
+          },
+          {
+            "kind": "Changed",
+            "items": [
+              "`templates/_schema.json` — Added `field_mapping` dan `field_definitions` documented fields.",
+              "37 templates updated — Added/expanded `field_mapping` and/or `field_definitions` entries (`asn_pns`, `biodata`, `bip`, `kk_2018`, `data_akademik`, `data_perusahaan`, `lhkpn`, `daftar_umkm`, `data_relawan`, `contact_person`, `dapil`, dll).",
+              "`scripts/validate.py` — `validate_full_name()` expanded: document section headers, form requirement text, legal/administrative phrases, numeric+punctuation, long descriptive sentences, address indicators (RT/RW+number, Dusun+Blok), date patterns, double-space detection. `ALLOWED_SINGLE_NAMES` reset to empty set.",
+              "`scripts/extract_tabular.py` — Added `validate_full_name()` gate di akhir extraction loop: row dengan nama invalid di-skip (defense-in-depth).",
+              "`AGENT.md` — Updated pipeline table: engine universal fallback untuk semua 65 template; outcome `extracted_low_confidence`; engine v3.0 documentation section (sole path, field_definitions, multi-strategy voting, AI fallback, confidence gating); doc file extensions `.txt` → `.md`.",
+              "`docs/PIPELINE.md` — Added ExtractionEngine v3.0 section: 4-layer architecture, 18 extractors table, multi-strategy voting, AI fallback, confidence gating, universal fallback.",
+              "`scripts/pipeline/routes.py` — Engine universal fallback untuk semua template; `process_platform` added otomatis."
+            ]
+          },
+          {
+            "kind": "Testing",
+            "items": [
+              "14/14 tests (`make test`) — pass",
+              "3/3 compare-batch — pass",
+              "A/B test passed — engine output vs legacy `extract_tabular` output equivalent"
+            ]
+          },
+          {
+            "kind": "Added — `cleanse_persons.py` v3 overhaul",
+            "items": [
+              "`cleanse_persons.py` — Cascade cleansing pipeline:"
+            ]
+          },
+          {
+            "kind": "Review findings — action items for next iteration",
+            "items": [
+              "`try_recover_name()` duplikat tapi tidak lengkap dari `looks_like_person_name()` — Fungsi mengecek ulang `NON_PERSON_WORDS` dan `NON_PERSON_PHRASES` secara manual, tapi tidak mengecek `JOB_TITLE_PATTERN` dan regex numeric. Fix: buang duplikasi, langsung panggil `looks_like_person_name()`.",
+              "TRENGGALEK step tidak handle `\"JAWA TIMUR\"` prefix — Entry condition memicu pada `'JAWA TIMUR' in name`, tapi `parts[-1]` hanya dicek `startswith('JATIM')`. Jika data berisi `\"..., JAWA TIMUR GURU\"`, occupation `\"GURU\"` hilang. Fix: tambah branch `jatim_occ.upper().startswith('JAWA TIMUR')`.",
+              "Duplicate `'KAMULAN'` di `VILLAGES` list — Muncul dua kali (line 28 & 33). Indikasi copy-paste error; mungkin ada nama desa yang seharusnya ada di slot tersebut.",
+              "Tidak ada auto-backup sebelum cleansing — Ada `--restore` tapi tidak ada `create_backup()` di awal `main()`. User yang lupa `--dry-run` tidak bisa undo. Fix: tambah `shutil.copy2(DB_PATH, BACKUP_PATH)` di awal `main()`.",
+              "`LOOSE_ADDR_KEYWORDS[:4]` fallback tanpa dokumentasi — Slice `[:4]` mengambil 4 keyword terpanjang secara arbitrary. Jika list di-reorder, behavior berubah tanpa warning. Fix: definisikan eksplisit atau hapus (loose matching di step 11 sudah cover).",
+              "`looks_like_person_name()` tidak strip sebelum cek panjang — `\"  A  \"` (satu huruf + spasi) lolos karena `len() == 5`. Fix: tambah `s = s.strip()` di awal fungsi.",
+              "Short village names (`'CARI'`, `'SAMBI'`) di `LOOSE_ADDR_KEYWORDS` bisa false-match di loose mode, tapi praktiknya minim karena hanya dipakai untuk digit-prefixed records.",
+              "Step 11 double-runs strict lalu loose — wasteful tapi tidak salah.",
+              "Regex `3[ D]?[Pp]` over-match pada `3 D` — acceptable karena konteks digit-prefix berarti kontaminasi."
+            ]
+          }
+        ]
+      },
       {
         "version": "v2.9.15",
         "date": "2026-05-29",
@@ -2234,84 +2391,21 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.33",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Monex Investindo Futures nasabah xlsx (Scribd mis-titled \"Data Indonesia\")",
-            "items": [
-              "`scripts/parse_nasabah_monex.py` — Multi-sheet branch roster (AC, nasabah, telepon, email, no identitas). Header auto-detect with optional sub-header row; dedup by name+phone+email+AC.",
-              "`scripts/process_nasabah_monex.py` — document + BatchProcessor + phone/email/document edges.",
-              "`templates/data_nasabah_monex.json` — Classify keywords for Monex/futures; skip OCR for xlsx.",
-              "`scripts/pipeline_routes.py` — Orphan hint for `parse_nasabah_monex`."
-            ]
-          },
-          {
-            "kind": "Processed — Scribd 802454668 (Data Indonesia slug)",
-            "items": [
-              "9,443 persons — 9,397 phones, 1,006 emails across 19 branch sheets. Doc `01KSD6M6HY1AC44VYG3KZTXF04`. Source title on Scribd misleading; content is PT Monex Investindo Futures customer database."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.32",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — student roster processor (SD/SMP/SMA xlsx with parent columns)",
-            "items": [
-              "`scripts/process_student_roster.py` — BatchProcessor-based process script for student roster XLSX from Scribd. Handles multi-sheet files with NISN, NIK, KK, DOB, phone, parent info. Parents stored as extra fields (not separate persons).",
-              "`templates/data_akademik.json` — Added `parser`/`processor` fields pointing to `process_student_roster.py`."
-            ]
-          },
-          {
-            "kind": "Processed — Data Daftar Ulang Peserta Didik Baru SD Negeri Lempeh TP 2025-2026",
-            "items": [
-              "Scribd xlsx — `905629927-Data-Daftar-Ulang-Peserta-Didik-Baru-Sd-Negeri-Lempeh-Tp-2025-2026` from `ppid.sarolangunkab.go.id` (mirrored via Scribd). 8 active sheets (kelas 1A–5), 221 students.",
-              "221 persons: Students with NIK (204), NISN (191), phone (211), DOB (212), gender, religion, address, parent names/occupations/education.",
-              "Doc `01KSD5B638WDNR27R1W6WC38PP`.",
-              "OSINT: 211 phones, 0 emails. 1 phone scanned (test), remaining skipped (minors' data)."
-            ]
-          },
-          {
-            "kind": "Added — student roster xlsx parser (ad-hoc, not a permanent script)",
-            "items": [
-              "Used inline Python (not a dedicated `parse_*.py`) to extract 221 student records from multi-sheet xlsx. Handles Google Form formula cells via `data_only=True`, variable header rows (row 1–3), datetime DOB normalization."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.31",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Processed — Ikhtisar LHKPN SABKI (Pemkab Sarolangun)",
-            "items": [
-              "`tmp/wCp3MdBlWc3iAGaIu2M81mdn4e7hKy9y5uRRExaQ.pdf` — LHKPN a.n. SABKI (Kasi PMD Kec. Mandiangin Timur). OCR via pdftotext, template `lhkpn`.",
-              "4 persons: SABKI + AHWANI (istri) + IMAM SYAH RENDY KURNIAWAN + AFRIZA SARAH KURNIATY (anak). NIK, NPWP, KK, phone, email, assets, family, employment.",
-              "Doc `01KSD4N4GRWNVB6M5NVD1PKR3W`."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 656786,
-    "entitiesWithCity": 96020,
-    "geocodedEntities": 90991,
-    "uniqueCities": 2757,
+    "totalEntities": 653501,
+    "entitiesWithCity": 95740,
+    "geocodedEntities": 90780,
+    "uniqueCities": 2739,
     "mappedCities": 269,
     "clusters": [
       {
         "key": "IBU KOTA NUSANTARA",
         "label": "Ibu Kota Nusantara",
         "province": "Kalimantan Timur",
-        "count": 14842,
+        "count": 14815,
         "lat": -0.972,
         "lng": 116.7131
       },
@@ -2319,7 +2413,7 @@
         "key": "PONTIANAK",
         "label": "Pontianak",
         "province": "Kalimantan Barat",
-        "count": 12842,
+        "count": 12809,
         "lat": -0.0263,
         "lng": 109.3425
       },
@@ -2327,7 +2421,7 @@
         "key": "SAMBAS",
         "label": "Sambas",
         "province": null,
-        "count": 7906,
+        "count": 7905,
         "lat": 1.4230857823487124,
         "lng": 109.34956822007936
       },
@@ -2335,7 +2429,7 @@
         "key": "MALANG",
         "label": "Malang",
         "province": null,
-        "count": 5097,
+        "count": 5090,
         "lat": -7.9797,
         "lng": 112.6304
       },
@@ -2343,7 +2437,7 @@
         "key": "PROBOLINGGO",
         "label": "Probolinggo",
         "province": "JAWA TIMUR",
-        "count": 5002,
+        "count": 5000,
         "lat": -7.773810528662421,
         "lng": 113.20546894160377
       },
@@ -2351,7 +2445,7 @@
         "key": "PASURUAN",
         "label": "Pasuruan",
         "province": null,
-        "count": 4448,
+        "count": 4436,
         "lat": -7.649572436747946,
         "lng": 112.91000464212
       },
@@ -2367,7 +2461,7 @@
         "key": "LEBAK",
         "label": "Lebak",
         "province": null,
-        "count": 4124,
+        "count": 4120,
         "lat": -6.64202012285075,
         "lng": 106.2124224818975
       },
@@ -2375,7 +2469,7 @@
         "key": "MOJOKERTO",
         "label": "Mojokerto",
         "province": null,
-        "count": 3529,
+        "count": 3524,
         "lat": -7.471389237257247,
         "lng": 112.43750790606278
       },
@@ -2383,7 +2477,7 @@
         "key": "BANDUNG",
         "label": "Bandung",
         "province": "JAWA BARAT",
-        "count": 3448,
+        "count": 3447,
         "lat": -6.9175,
         "lng": 107.6191
       },
@@ -2391,14 +2485,14 @@
         "key": "coord:101.4478,0.5071",
         "label": "Pekanbaru",
         "province": null,
-        "count": 1779,
+        "count": 1778,
         "lat": 0.5071,
         "lng": 101.4478,
         "mergedCount": 2,
         "mergedCities": [
           {
             "label": "Pekanbaru",
-            "count": 1776,
+            "count": 1775,
             "province": null
           },
           {
@@ -2420,7 +2514,7 @@
         "key": "SURABAYA",
         "label": "Surabaya",
         "province": null,
-        "count": 1121,
+        "count": 1108,
         "lat": -7.2575,
         "lng": 112.7521
       },
@@ -2428,7 +2522,7 @@
         "key": "NGANJUK",
         "label": "Nganjuk",
         "province": null,
-        "count": 1063,
+        "count": 1060,
         "lat": -7.597495579235766,
         "lng": 111.9385462072378
       },
@@ -2444,7 +2538,7 @@
         "key": "JEMBER",
         "label": "Jember",
         "province": null,
-        "count": 898,
+        "count": 897,
         "lat": -8.1706,
         "lng": 113.7028
       },
@@ -2452,7 +2546,7 @@
         "key": "SIDOARJO",
         "label": "Sidoarjo",
         "province": null,
-        "count": 894,
+        "count": 869,
         "lat": -7.4478,
         "lng": 112.7183
       },
@@ -2468,7 +2562,7 @@
         "key": "LAMONGAN",
         "label": "Lamongan",
         "province": null,
-        "count": 793,
+        "count": 791,
         "lat": -7.131410514989188,
         "lng": 112.30074592146252
       },
@@ -2476,7 +2570,7 @@
         "key": "BANYUWANGI",
         "label": "Banyuwangi",
         "province": null,
-        "count": 769,
+        "count": 768,
         "lat": -8.364660048320326,
         "lng": 114.20589727388659
       },
@@ -2484,7 +2578,7 @@
         "key": "PAMEKASAN",
         "label": "Pamekasan",
         "province": null,
-        "count": 755,
+        "count": 753,
         "lat": -7.1667,
         "lng": 113.4667
       },
@@ -2508,7 +2602,7 @@
         "key": "GRESIK",
         "label": "Gresik",
         "province": null,
-        "count": 653,
+        "count": 639,
         "lat": -7.1565,
         "lng": 112.6537
       },
@@ -2532,7 +2626,7 @@
         "key": "JOMBANG",
         "label": "Jombang",
         "province": null,
-        "count": 506,
+        "count": 504,
         "lat": -7.544634889859412,
         "lng": 112.26408497780137
       },
@@ -2540,7 +2634,7 @@
         "key": "BANGKALAN",
         "label": "Bangkalan",
         "province": null,
-        "count": 502,
+        "count": 499,
         "lat": -7.044336159120006,
         "lng": 112.92953638360994
       },
@@ -2553,14 +2647,6 @@
         "lng": 111.34341383304817
       },
       {
-        "key": "TUBAN",
-        "label": "Tuban",
-        "province": null,
-        "count": 472,
-        "lat": -6.9534129686812065,
-        "lng": 111.89224221212113
-      },
-      {
         "key": "TRENGGALEK",
         "label": "Trenggalek",
         "province": null,
@@ -2569,10 +2655,18 @@
         "lng": 111.62732146474757
       },
       {
+        "key": "TUBAN",
+        "label": "Tuban",
+        "province": null,
+        "count": 470,
+        "lat": -6.9534129686812065,
+        "lng": 111.89224221212113
+      },
+      {
         "key": "SAMPANG",
         "label": "Sampang",
         "province": null,
-        "count": 461,
+        "count": 460,
         "lat": -7.052024464132133,
         "lng": 113.25634302531333
       },
@@ -2580,7 +2674,7 @@
         "key": "BEKASI",
         "label": "Bekasi",
         "province": null,
-        "count": 455,
+        "count": 454,
         "lat": -6.2383,
         "lng": 106.9756
       },
@@ -2681,7 +2775,7 @@
         "key": "LAMPUNG TENGAH",
         "label": "Lampung Tengah",
         "province": null,
-        "count": 226,
+        "count": 224,
         "lat": -4.856302771215638,
         "lng": 105.27207781855606
       },
@@ -2692,14 +2786,6 @@
         "count": 200,
         "lat": -2.715939523837165,
         "lng": 121.92366902426565
-      },
-      {
-        "key": "BANJAR",
-        "label": "Banjar",
-        "province": "KALIMANTAN SELATAN",
-        "count": 192,
-        "lat": -7.3769887499210665,
-        "lng": 108.5672046175411
       },
       {
         "key": "coord:100.3725,-0.2996",
@@ -2770,6 +2856,14 @@
         ]
       },
       {
+        "key": "BANJAR",
+        "label": "Banjar",
+        "province": "KALIMANTAN SELATAN",
+        "count": 158,
+        "lat": -7.3769887499210665,
+        "lng": 108.5672046175411
+      },
+      {
         "key": "BANJARBARU",
         "label": "Banjarbaru",
         "province": "Kalimantan Selatan",
@@ -2797,7 +2891,7 @@
         "key": "BANDA ACEH",
         "label": "Banda Aceh",
         "province": null,
-        "count": 117,
+        "count": 116,
         "lat": 5.558704403882444,
         "lng": 95.32771345826497
       },
@@ -2837,7 +2931,7 @@
         "key": "TEGAL",
         "label": "Tegal",
         "province": "JAWA TENGAH",
-        "count": 80,
+        "count": 78,
         "lat": -6.8694,
         "lng": 109.1402
       },
@@ -2866,20 +2960,20 @@
         "lng": 110.4167
       },
       {
-        "key": "WONOGIRI",
-        "label": "Wonogiri",
-        "province": null,
-        "count": 69,
-        "lat": -7.91928517416729,
-        "lng": 110.99921317719837
-      },
-      {
         "key": "SERANG",
         "label": "Serang",
         "province": null,
         "count": 68,
         "lat": -6.12,
         "lng": 106.1503
+      },
+      {
+        "key": "WONOGIRI",
+        "label": "Wonogiri",
+        "province": null,
+        "count": 68,
+        "lat": -7.91928517416729,
+        "lng": 110.99921317719837
       },
       {
         "key": "TANGERANG",
@@ -2983,14 +3077,6 @@
         ]
       },
       {
-        "key": "LHOKSEUMAWE",
-        "label": "Lhokseumawe",
-        "province": null,
-        "count": 36,
-        "lat": 5.165266839235381,
-        "lng": 97.11119932282992
-      },
-      {
         "key": "BOYOLALI",
         "label": "Boyolali",
         "province": null,
@@ -2999,12 +3085,12 @@
         "lng": 110.65249878352462
       },
       {
-        "key": "KEBUMEN",
-        "label": "Kebumen",
+        "key": "LHOKSEUMAWE",
+        "label": "Lhokseumawe",
         "province": null,
         "count": 35,
-        "lat": -7.654964269929172,
-        "lng": 109.61735310996204
+        "lat": 5.165266839235381,
+        "lng": 97.11119932282992
       },
       {
         "key": "SERUYAN",
@@ -3021,6 +3107,14 @@
         "count": 33,
         "lat": -6.252282718246672,
         "lng": 107.3542921153967
+      },
+      {
+        "key": "KEBUMEN",
+        "label": "Kebumen",
+        "province": null,
+        "count": 32,
+        "lat": -7.654964269929172,
+        "lng": 109.61735310996204
       },
       {
         "key": "MAGELANG",
@@ -3260,6 +3354,14 @@
         "lng": 109.96612571432587
       },
       {
+        "key": "MAKASSAR",
+        "label": "Makassar",
+        "province": null,
+        "count": 15,
+        "lat": -5.1477,
+        "lng": 119.4327
+      },
+      {
         "key": "JAYAPURA",
         "label": "Jayapura",
         "province": null,
@@ -3298,14 +3400,6 @@
         "count": 14,
         "lat": -7.117636869059132,
         "lng": 110.92717766001368
-      },
-      {
-        "key": "MAKASSAR",
-        "label": "Makassar",
-        "province": null,
-        "count": 14,
-        "lat": -5.1477,
-        "lng": 119.4327
       },
       {
         "key": "KUPANG",
@@ -3366,14 +3460,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3160,
-    "documentsWithUrl": 3138,
-    "documentsIdDomain": 918,
+    "documentsTotal": 3174,
+    "documentsWithUrl": 3152,
+    "documentsIdDomain": 932,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 687
+        "count": 701
       },
       {
         "suffix": "ac.id",
@@ -3423,7 +3517,7 @@
       },
       {
         "type": "pdf",
-        "count": 1403
+        "count": 1412
       },
       {
         "type": "unknown",
@@ -3431,7 +3525,7 @@
       },
       {
         "type": "txt",
-        "count": 29
+        "count": 34
       },
       {
         "type": "json",
@@ -3463,7 +3557,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 108014
+      "bytes": 109853
     },
     {
       "file": "data/geo-clusters.json",
