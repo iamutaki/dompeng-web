@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-30 04:17 UTC",
+  "updated": "2026-05-30 04:23 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 673523,
-    "graphEdges": 1203344,
+    "graphEdges": 1202995,
     "sourceDocuments": 3212,
     "activeVectors": 5,
     "dominantVectorPct": 44.9,
@@ -59,8 +59,8 @@
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 445391,
-      "refs": 673788
+      "entries": 445244,
+      "refs": 673437
     },
     {
       "type": "Telepon",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 20965,
-      "refs": 21304
+      "entries": 20967,
+      "refs": 21306
     }
   ],
   "indexTotal": {
-    "entries": 890495,
-    "refs": 1203344
+    "entries": 890350,
+    "refs": 1202995
   },
   "indexCooccurrence": [
     {
@@ -143,7 +143,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 21303
+      "value": 21305
     },
     {
       "source": "Nama",
@@ -3550,7 +3550,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 117603
+      "bytes": 117908
     },
     {
       "file": "data/geo-clusters.json",
