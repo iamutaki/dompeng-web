@@ -1,25 +1,25 @@
 {
-  "updated": "2026-05-30 00:40 UTC",
+  "updated": "2026-05-30 04:17 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 653501,
-    "graphEdges": 1182971,
-    "sourceDocuments": 3174,
+    "graphNodes": 673523,
+    "graphEdges": 1203344,
+    "sourceDocuments": 3212,
     "activeVectors": 5,
-    "dominantVectorPct": 46.3,
+    "dominantVectorPct": 44.9,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.34,
-    "pipelineSuccessPct": 31.6,
-    "pipelineBacklogPct": 55.9,
-    "pipelineFailurePct": 5.0,
-    "entityLinkRate": 0.66
+    "xrefRatio": 1.35,
+    "pipelineSuccessPct": 26.2,
+    "pipelineBacklogPct": 62.9,
+    "pipelineFailurePct": 4.6,
+    "entityLinkRate": 0.64
   },
   "summary": {
-    "persons": 653501,
-    "documents": 3174,
+    "persons": 673523,
+    "documents": 3212,
     "photos": 203,
-    "templates": 66,
-    "history": 654,
+    "templates": 68,
+    "history": 686,
     "doneFiles": 0
   },
   "coverage": [
@@ -27,25 +27,25 @@
       "id": "phone",
       "label": "Nomor telepon",
       "value": 302670,
-      "pct": 46.3
+      "pct": 44.9
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 13426,
-      "pct": 2.1
+      "pct": 2.0
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 21300,
-      "pct": 3.3
+      "value": 21306,
+      "pct": 3.2
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 117380,
-      "pct": 18.0
+      "pct": 17.4
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 653501,
+  "coverageTotal": 673523,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 437910,
-      "refs": 653419
+      "entries": 445391,
+      "refs": 673788
     },
     {
       "type": "Telepon",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 20961,
-      "refs": 21300
+      "entries": 20965,
+      "refs": 21304
     }
   ],
   "indexTotal": {
-    "entries": 883010,
-    "refs": 1182971
+    "entries": 890495,
+    "refs": 1203344
   },
   "indexCooccurrence": [
     {
@@ -143,7 +143,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 21299
+      "value": 21303
     },
     {
       "source": "Nama",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 957,
+    "pending": 1354,
     "processing": 0,
-    "done": 540,
-    "skipped": 128,
-    "failed": 86,
-    "total": 1711
+    "done": 563,
+    "skipped": 137,
+    "failed": 98,
+    "total": 2152
   },
   "recentDocs": [
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-30T00:34:46Z",
-      "mentions": 1
-    },
-    {
-      "title": "A······ r·····",
-      "imported_at": "2026-05-30T00:28:11Z",
+      "title": "P········ W······· S······· t······ P······· T····· O·········· P··· K··· S·······",
+      "imported_at": "2026-05-30T04:09:24Z",
       "mentions": 2
     },
     {
-      "title": "D····· a······ S····· P·· D······ d·· L····· — n··· d·· j······",
-      "imported_at": "2026-05-29T16:28:45Z",
-      "mentions": 188
+      "title": "P········ D····· K··· P······· R··· t······ P··· T···· 2024",
+      "imported_at": "2026-05-30T04:07:48Z",
+      "mentions": 2
     },
     {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-29T04:42:20Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-29T04:40:43Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-29T04:31:23Z",
-      "mentions": 0
-    },
-    {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-05-29T04:27:58Z",
-      "mentions": 0
+      "title": "D····· P··· S····· P· K········ B····· T·····",
+      "imported_at": "2026-05-30T04:04:57Z",
+      "mentions": 3
     },
     {
       "title": "A······ r·····",
-      "imported_at": "2026-05-29T04:27:52Z",
-      "mentions": 4
+      "imported_at": "2026-05-30T04:02:09Z",
+      "mentions": 2
     },
     {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-29T04:27:39Z",
-      "mentions": 0
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T04:01:00Z",
+      "mentions": 2
     },
     {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-05-29T04:27:03Z",
-      "mentions": 0
+      "title": "P········ B····· K··········· B···· N···· 2· T···· 2018 t······ S·········· P···",
+      "imported_at": "2026-05-30T03:55:11Z",
+      "mentions": 3
+    },
+    {
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T03:53:47Z",
+      "mentions": 3
+    },
+    {
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T03:44:52Z",
+      "mentions": 2
+    },
+    {
+      "title": "D····· R········· K····· K·········· K········· B···· — k······· data p······ d····· n···· r········ n···· t······· w····· d·· n···· u···",
+      "imported_at": "2026-05-30T03:42:59Z",
+      "mentions": 9966
+    },
+    {
+      "title": "A······ r·····",
+      "imported_at": "2026-05-30T03:40:48Z",
+      "mentions": 3
     }
   ],
   "showcaseEntities": [
@@ -1340,13 +1340,14 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v3.1.1",
+    "latestVersion": "v3.1.2",
     "latestDate": "2026-05-30",
-    "totalReleases": 91,
+    "totalReleases": 92,
     "summary": {
+      "Added — Bibliography/reference list name extraction": 7,
       "Added — Issuer/signatory extraction from Perda signature blocks": 5,
-      "Fixed — Position regex coverage": 3,
-      "Changed — Queue processing: row 597 (Pergub Jambi No. 44/2014)": 3,
+      "Fixed — Position regex coverage & robustness": 4,
+      "Changed — Queue processing: row 597 (Pergub Jambi No. 44/2014)": 4,
       "Changed — `scripts/` restructuring (4 phases)": 0,
       "Struktur akhir `scripts/`": 0,
       "Testing": 4,
@@ -1482,9 +1483,32 @@
       "Removed": 4,
       "Processed — personnel roster (sequential)": 1,
       "Processed — membership roster (sequential)": 1,
-      "Processed — profile document (recheck)": 1
+      "Processed — profile document (recheck)": 1,
+      "Extraction": 32,
+      "Fixes applied": 5,
+      "Known issue — missed person": 1,
+      "Notes": 5,
+      "Engine improvement: pada_tanggal_anchor strategy": 4
     },
     "releases": [
+      {
+        "version": "v3.1.2",
+        "date": "2026-05-30",
+        "sections": [
+          {
+            "kind": "Added — Bibliography/reference list name extraction",
+            "items": [
+              "`_parse_bibliography_section()` — detect \"Daftar Pustaka\" heading (with OCR variants like Pustaha) and extract person names from Indonesian-format bibliography entries (`Nama, Gelar, Judul, ...`).",
+              "`_parse_bibliography_name()` — parse individual bibliography entry lines, stripping academic titles (SH, MA, Dr., Prof., etc.) to isolate the author name.",
+              "`_split_columns()` — handle multi-column OCR layout where bibliography entries appear in the right column.",
+              "`_INSTITUTIONAL_KEYWORDS_RE` — filter out institutional authors (Direktorat Jenderal, Kementerian, etc.).",
+              "`_BIBLIOGRAPHY_DEGREE_STRICT_RE` — strict degree pattern matching to avoid false positives from document text.",
+              "`parse_simple_personnel_roster()` — fallback to bibliography parsing after issuer extraction returns zero results.",
+              "Name validation uses title-case check (each word starts uppercase) instead of all-caps ratio, since bibliography names are in title case rather than roster-style ALL CAPS."
+            ]
+          }
+        ]
+      },
       {
         "version": "v3.1.1",
         "date": "2026-05-30",
@@ -1500,19 +1524,21 @@
             ]
           },
           {
-            "kind": "Fixed — Position regex coverage",
+            "kind": "Fixed — Position regex coverage & robustness",
             "items": [
               "Added `menteri` to `_POSITION_RE` for Kepmen/Keputusan Menteri signature blocks.",
               "Added `republik indonesia` to `_REGION_KEYWORDS` non-person filter.",
-              "Strip trailing colon from position lines."
+              "Strip trailing colon from position lines.",
+              "Replaced `^` anchor with `\\b` word boundary in `_POSITION_RE` so position titles still match on OCR-garbled lines (e.g. `L L BUPATI TABALONG VV` where `L L ` is OCR junk)."
             ]
           },
           {
             "kind": "Changed — Queue processing: row 597 (Pergub Jambi No. 44/2014)",
             "items": [
-              "2 persons extracted & saved: HASAN BASRI AGUS (GUBERNUR JAMBI) and RIDHAM PRISKAP (SEKRETARIS DAERAH PROVINSI JAMBI).",
+              "2 persons extracted & saved (signatories).",
               "Document was skipped by precheck (URL keyword \"Pergub\") — processed manually via issuer fallback.",
-              "Row 598 (Kepmen ESDM No. 4518/2015): 1 person saved — SUDIRMAN SAID (MENTERI ENERGI DAN SUMBER DAYA MINERAL)."
+              "Row 598: 1 person saved (signatory).",
+              "Row 601: 1 person saved (signatory)."
             ]
           }
         ]
@@ -2362,40 +2388,11 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.34",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Singowangi population roster format support (data_induk_desa)",
-            "items": [
-              "`scripts/parse_data_induk_desa.py` — Auto-detect Marawali vs Singowangi format. Singowangi: sheet \"Sheet1\", title row \"PENDUDUK <DESA>\", data starts at row 2 with fixed column mapping (NIK, KK, nama, gender, marital, POB, DOB, religion, family status, education, occupation, address, parents, kecamatan, desa).",
-              "`scripts/process_data_induk_desa.py` — Made generic: reads title/description/sheet from meta in parsed JSON instead of hardcoded Marawali values.",
-              "`templates/data_induk_desa.json` — Updated notes to mention Singowangi format auto-detection."
-            ]
-          },
-          {
-            "kind": "Workflow — skip download when file already provided",
-            "items": [
-              "`next_manual.txt` — Step 3 now explicitly says: if file already exists in `tmp/` (provided by user), skip download and proceed to step 4."
-            ]
-          },
-          {
-            "kind": "Processed — PENDUDUK SINGOWANGI SEPTEMBER 2021",
-            "items": [
-              "Scribd xlsx — Population roster Desa Singowangi, Kecamatan Kutorejo, Mojokerto. 3,487 persons with NIK, KK, family relations, education, occupation, address.",
-              "Doc `01KSD6Y5F3EGGBFP7982V9H9BS` (backfilled facts).",
-              "3,487 persons: All with NIK, KK linkage, gender, marital status, POB, DOB, religion, family role, education, occupation.",
-              "OSINT: N/A (no phone/email columns in roster)."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 653501,
+    "totalEntities": 673523,
     "entitiesWithCity": 95740,
     "geocodedEntities": 90780,
     "uniqueCities": 2739,
@@ -3460,64 +3457,60 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3174,
-    "documentsWithUrl": 3152,
-    "documentsIdDomain": 932,
-    "topSuffix": "go.id",
+    "documentsTotal": 3212,
+    "documentsWithUrl": 3190,
+    "documentsIdDomain": 3169,
+    "topSuffix": "com",
     "domainSuffixes": [
       {
+        "suffix": "com",
+        "count": 2190
+      },
+      {
         "suffix": "go.id",
-        "count": 701
+        "count": 737
       },
       {
         "suffix": "ac.id",
         "count": 212
       },
       {
+        "suffix": "id",
+        "count": 10
+      },
+      {
+        "suffix": "org",
+        "count": 8
+      },
+      {
         "suffix": "sch.id",
         "count": 5
-      },
-      {
-        "suffix": "mkri.id",
-        "count": 3
-      },
-      {
-        "suffix": "kemenagkarangasem.id",
-        "count": 3
       },
       {
         "suffix": "desa.id",
         "count": 3
       },
       {
-        "suffix": "kbjabar.id",
-        "count": 1
+        "suffix": "uk",
+        "count": 2
       },
       {
-        "suffix": "polreslingga.id",
-        "count": 1
-      },
-      {
-        "suffix": "bapelkesbatam.id",
+        "suffix": "ai",
         "count": 1
       },
       {
         "suffix": "or.id",
         "count": 1
-      },
-      {
-        "suffix": "forumanak.id",
-        "count": 1
       }
     ],
     "fileTypes": [
       {
-        "type": "excel",
-        "count": 1435
+        "type": "pdf",
+        "count": 1444
       },
       {
-        "type": "pdf",
-        "count": 1412
+        "type": "excel",
+        "count": 1435
       },
       {
         "type": "unknown",
@@ -3525,7 +3518,7 @@
       },
       {
         "type": "txt",
-        "count": 34
+        "count": 40
       },
       {
         "type": "json",
@@ -3557,7 +3550,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 109853
+      "bytes": 117603
     },
     {
       "file": "data/geo-clusters.json",
