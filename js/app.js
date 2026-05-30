@@ -3998,7 +3998,7 @@ function renderSourceStats(sourceStats, documentsTotal) {
 
   if (cap) {
     const top = stats.topSuffix ? ` · terbanyak .${stats.topSuffix}` : "";
-    cap.textContent = `${fmt(idDocs)} dokumen domain .id · ${fmt(stats.documentsWithUrl || 0)} ber-URL${top}`;
+    cap.textContent = `${fmt(idDocs)} dokumen berdomain · ${fmt(stats.documentsWithUrl || 0)} ber-URL${top}`;
   }
 
   renderRankedCountTable(mergeFileTypeRows(stats.fileTypes), typesBody, {
