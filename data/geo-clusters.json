@@ -1,8 +1,8 @@
 {
-  "totalEntities": 673523,
-  "entitiesWithCity": 95740,
-  "geocodedEntities": 90780,
-  "uniqueCities": 2739,
+  "totalEntities": 757263,
+  "entitiesWithCity": 95745,
+  "geocodedEntities": 90783,
+  "uniqueCities": 2741,
   "mappedCities": 269,
   "clusters": [
     {
@@ -817,20 +817,20 @@
       "lng": 110.35488149436632
     },
     {
+      "key": "BANJARMASIN",
+      "label": "Banjarmasin",
+      "province": null,
+      "count": 24,
+      "lat": -3.3186,
+      "lng": 114.5944
+    },
+    {
       "key": "BALIKPAPAN",
       "label": "Balikpapan",
       "province": null,
       "count": 23,
       "lat": -1.2379,
       "lng": 116.8529
-    },
-    {
-      "key": "BANJARMASIN",
-      "label": "Banjarmasin",
-      "province": null,
-      "count": 22,
-      "lat": -3.3186,
-      "lng": 114.5944
     },
     {
       "key": "TEMANGGUNG",
@@ -1006,6 +1006,14 @@
       "lng": 110.92717766001368
     },
     {
+      "key": "PALANGKA RAYA",
+      "label": "Palangka Raya",
+      "province": "Kalimantan Tengah",
+      "count": 14,
+      "lat": -2.0074642796321776,
+      "lng": 113.76747426266772
+    },
+    {
       "key": "KUPANG",
       "label": "Kupang",
       "province": "NUSA TENGGARA TIMUR",
@@ -1028,14 +1036,6 @@
       "count": 13,
       "lat": -2.2109,
       "lng": 113.9213
-    },
-    {
-      "key": "PALANGKA RAYA",
-      "label": "Palangka Raya",
-      "province": "Kalimantan Tengah",
-      "count": 13,
-      "lat": -2.0074642796321776,
-      "lng": 113.76747426266772
     },
     {
       "key": "METRO",
