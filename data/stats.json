@@ -1,33 +1,33 @@
 {
-  "updated": "2026-06-01 16:25 UTC",
+  "updated": "2026-06-01 18:28 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 910158,
-    "graphEdges": 1514533,
-    "sourceDocuments": 3853,
+    "graphNodes": 919265,
+    "graphEdges": 1523121,
+    "sourceDocuments": 3986,
     "activeVectors": 5,
-    "dominantVectorPct": 33.3,
+    "dominantVectorPct": 32.9,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.35,
-    "pipelineSuccessPct": 39.5,
-    "pipelineBacklogPct": 9.8,
-    "pipelineFailurePct": 29.0,
-    "entityLinkRate": 0.54
+    "xrefRatio": 1.36,
+    "pipelineSuccessPct": 31.0,
+    "pipelineBacklogPct": 16.1,
+    "pipelineFailurePct": 35.8,
+    "entityLinkRate": 0.53
   },
   "summary": {
-    "persons": 910158,
-    "documents": 3853,
+    "persons": 919265,
+    "documents": 3986,
     "photos": 203,
     "templates": 80,
-    "history": 1295,
+    "history": 1399,
     "doneFiles": 0
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 302672,
-      "pct": 33.3
+      "value": 302673,
+      "pct": 32.9
     },
     {
       "id": "email",
@@ -38,14 +38,14 @@
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 41739,
-      "pct": 4.6
+      "value": 41741,
+      "pct": 4.5
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 174152,
-      "pct": 19.1
+      "pct": 18.9
     },
     {
       "id": "photo",
@@ -54,19 +54,19 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 910158,
+  "coverageTotal": 919265,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 597163,
-      "refs": 906839
+      "entries": 599888,
+      "refs": 915424
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 259818,
-      "refs": 306327
+      "entries": 259819,
+      "refs": 306328
     },
     {
       "type": "Email",
@@ -101,19 +101,19 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 41275,
-      "refs": 41739
+      "entries": 41277,
+      "refs": 41741
     }
   ],
   "indexTotal": {
-    "entries": 1120053,
-    "refs": 1514533
+    "entries": 1122781,
+    "refs": 1523121
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 302620
+      "value": 302621
     },
     {
       "source": "Nama",
@@ -128,7 +128,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 38766
+      "value": 38768
     },
     {
       "source": "Nama",
@@ -247,62 +247,62 @@
     }
   ],
   "queue": {
-    "pending": 213,
-    "processing": 20,
-    "done": 859,
-    "skipped": 453,
-    "failed": 630,
-    "total": 2175
+    "pending": 486,
+    "processing": 30,
+    "done": 933,
+    "skipped": 486,
+    "failed": 1078,
+    "total": 3013
   },
   "recentDocs": [
     {
-      "title": "F······· p·········· s························ B··· b···· f··· a··· b····· data p·······",
-      "imported_at": "2026-06-01T08:55:04Z",
-      "mentions": 1
-    },
-    {
-      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-06-01T08:54:56Z",
-      "mentions": 99
-    },
-    {
       "title": "Data N······ 1",
-      "imported_at": "2026-06-01T08:54:41Z",
+      "imported_at": "2026-06-01T18:27:31Z",
       "mentions": 0
     },
     {
-      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
-      "imported_at": "2026-06-01T08:54:39Z",
-      "mentions": 317
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-01T18:27:24Z",
+      "mentions": 0
     },
     {
-      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
-      "imported_at": "2026-06-01T08:54:35Z",
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-01T18:25:50Z",
+      "mentions": 3
+    },
+    {
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-01T18:02:42Z",
+      "mentions": 0
+    },
+    {
+      "title": "P······ P········· — c···· r······ (········· c····· a··············",
+      "imported_at": "2026-06-01T18:02:37Z",
       "mentions": 1
     },
     {
       "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
-      "imported_at": "2026-06-01T08:54:14Z",
+      "imported_at": "2026-06-01T18:02:31Z",
       "mentions": 1
     },
     {
-      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
-      "imported_at": "2026-06-01T08:54:10Z",
-      "mentions": 2
-    },
-    {
-      "title": "F······· p·········· s························ B··· b···· f··· a··· b····· data p·······",
-      "imported_at": "2026-06-01T08:54:05Z",
-      "mentions": 16
+      "title": "A······ r·····",
+      "imported_at": "2026-06-01T18:02:27Z",
+      "mentions": 1
     },
     {
       "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
-      "imported_at": "2026-06-01T08:54:00Z",
-      "mentions": 246
+      "imported_at": "2026-06-01T18:01:52Z",
+      "mentions": 1
     },
     {
-      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
-      "imported_at": "2026-06-01T08:53:30Z",
+      "title": "A······ r·····",
+      "imported_at": "2026-06-01T18:00:38Z",
+      "mentions": 1
+    },
+    {
+      "title": "S· P········ P······ — a········· d······ f·· f···· o······· (············· v·········· data c··········",
+      "imported_at": "2026-06-01T17:59:51Z",
       "mentions": 1
     }
   ],
@@ -2393,10 +2393,10 @@
     ]
   },
   "geo": {
-    "totalEntities": 910158,
-    "entitiesWithCity": 141264,
+    "totalEntities": 919265,
+    "entitiesWithCity": 141265,
     "geocodedEntities": 103576,
-    "uniqueCities": 5009,
+    "uniqueCities": 5010,
     "mappedCities": 290,
     "clusters": [
       {
@@ -3718,42 +3718,42 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3853,
-    "documentsWithUrl": 3828,
-    "documentsIdDomain": 3804,
+    "documentsTotal": 3986,
+    "documentsWithUrl": 3961,
+    "documentsIdDomain": 3937,
     "topSuffix": "com",
     "domainSuffixes": [
       {
         "suffix": "com",
-        "count": 2221
+        "count": 2227
       },
       {
         "suffix": "go.id",
-        "count": 1124
+        "count": 1164
       },
       {
         "suffix": "ac.id",
-        "count": 415
+        "count": 462
       },
       {
         "suffix": "id",
-        "count": 14
+        "count": 45
       },
       {
         "suffix": "org",
-        "count": 10
+        "count": 13
       },
       {
         "suffix": "sch.id",
-        "count": 5
+        "count": 7
       },
       {
         "suffix": "or.id",
-        "count": 4
+        "count": 5
       },
       {
         "suffix": "co.id",
-        "count": 4
+        "count": 5
       },
       {
         "suffix": "desa.id",
@@ -3761,6 +3761,10 @@
       },
       {
         "suffix": "uk",
+        "count": 2
+      },
+      {
+        "suffix": "news",
         "count": 2
       },
       {
@@ -3775,7 +3779,7 @@
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 1925
+        "count": 2026
       },
       {
         "type": "excel",
@@ -3787,7 +3791,7 @@
       },
       {
         "type": "txt",
-        "count": 191
+        "count": 223
       },
       {
         "type": "json",
