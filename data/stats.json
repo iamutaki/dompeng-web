@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-01 10:00 UTC",
+  "updated": "2026-06-01 10:04 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 910158,
@@ -3819,7 +3819,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 124573
+      "bytes": 125603
     },
     {
       "file": "data/geo-clusters.json",
