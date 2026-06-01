@@ -1,51 +1,51 @@
 {
-  "updated": "2026-05-31 04:13 UTC",
+  "updated": "2026-06-01 10:00 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 836269,
-    "graphEdges": 1438087,
-    "sourceDocuments": 3358,
+    "graphNodes": 910158,
+    "graphEdges": 1514533,
+    "sourceDocuments": 3853,
     "activeVectors": 5,
-    "dominantVectorPct": 36.2,
+    "dominantVectorPct": 33.3,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.34,
-    "pipelineSuccessPct": 30.1,
-    "pipelineBacklogPct": 50.5,
-    "pipelineFailurePct": 9.8,
-    "entityLinkRate": 0.58
+    "xrefRatio": 1.35,
+    "pipelineSuccessPct": 39.5,
+    "pipelineBacklogPct": 9.8,
+    "pipelineFailurePct": 29.0,
+    "entityLinkRate": 0.54
   },
   "summary": {
-    "persons": 836269,
-    "documents": 3358,
+    "persons": 910158,
+    "documents": 3853,
     "photos": 203,
-    "templates": 77,
-    "history": 850,
+    "templates": 80,
+    "history": 1295,
     "doneFiles": 0
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 302670,
-      "pct": 36.2
+      "value": 302672,
+      "pct": 33.3
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 13427,
-      "pct": 1.6
+      "value": 13432,
+      "pct": 1.5
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 41726,
-      "pct": 5.0
+      "value": 41739,
+      "pct": 4.6
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 172169,
-      "pct": 20.6
+      "value": 174152,
+      "pct": 19.1
     },
     {
       "id": "photo",
@@ -54,37 +54,37 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 836269,
+  "coverageTotal": 910158,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 551731,
-      "refs": 832975
+      "entries": 597163,
+      "refs": 906839
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 259816,
-      "refs": 306325
+      "entries": 259818,
+      "refs": 306327
     },
     {
       "type": "Email",
       "kind": "index",
-      "entries": 11070,
-      "refs": 13462
+      "entries": 11078,
+      "refs": 13470
     },
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 156263,
-      "refs": 172083
+      "entries": 158245,
+      "refs": 174066
     },
     {
       "type": "NPWP",
       "kind": "index",
-      "entries": 3617,
-      "refs": 3903
+      "entries": 3618,
+      "refs": 3904
     },
     {
       "type": "No. kartu keluarga",
@@ -95,30 +95,30 @@
     {
       "type": "ID pelajar",
       "kind": "index",
-      "entries": 35793,
-      "refs": 36195
+      "entries": 36156,
+      "refs": 36770
     },
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 41262,
-      "refs": 41726
+      "entries": 41275,
+      "refs": 41739
     }
   ],
   "indexTotal": {
-    "entries": 1072252,
-    "refs": 1438087
+    "entries": 1120053,
+    "refs": 1514533
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 302618
+      "value": 302620
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 172074
+      "value": 174057
     },
     {
       "source": "Telepon",
@@ -128,12 +128,12 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 38753
+      "value": 38766
     },
     {
       "source": "Nama",
       "target": "ID pelajar",
-      "value": 36195
+      "value": 36770
     },
     {
       "source": "Nama",
@@ -148,22 +148,22 @@
     {
       "source": "NIK",
       "target": "ID karyawan",
-      "value": 17122
+      "value": 17125
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 13422
+      "value": 13427
     },
     {
       "source": "Telepon",
       "target": "Email",
-      "value": 10433
+      "value": 10434
     },
     {
       "source": "Telepon",
       "target": "ID karyawan",
-      "value": 6082
+      "value": 6084
     },
     {
       "source": "Email",
@@ -173,7 +173,7 @@
     {
       "source": "Nama",
       "target": "NPWP",
-      "value": 3903
+      "value": 3904
     },
     {
       "source": "Telepon",
@@ -188,7 +188,7 @@
     {
       "source": "NIK",
       "target": "NPWP",
-      "value": 3422
+      "value": 3423
     },
     {
       "source": "Email",
@@ -218,7 +218,7 @@
     {
       "source": "Email",
       "target": "ID karyawan",
-      "value": 212
+      "value": 214
     },
     {
       "source": "No. kartu keluarga",
@@ -228,7 +228,7 @@
     {
       "source": "NPWP",
       "target": "ID karyawan",
-      "value": 145
+      "value": 146
     },
     {
       "source": "NPWP",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 1098,
-    "processing": 6,
-    "done": 653,
-    "skipped": 204,
-    "failed": 212,
-    "total": 2173
+    "pending": 213,
+    "processing": 20,
+    "done": 859,
+    "skipped": 453,
+    "failed": 630,
+    "total": 2175
   },
   "recentDocs": [
     {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-31T04:10:19Z",
-      "mentions": 0
-    },
-    {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-05-31T04:09:59Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-31T04:09:47Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-05-31T04:09:25Z",
-      "mentions": 0
-    },
-    {
-      "title": "H······························· 2022",
-      "imported_at": "2026-05-31T04:08:45Z",
-      "mentions": 6762
-    },
-    {
-      "title": "H···· U···· O········ S···· K········ (···· S········· — e··· r····· r····· w··· p·········· n···· s······ p········ n············· s····· a·· m················ s·····",
-      "imported_at": "2026-05-31T04:01:18Z",
+      "title": "F······· p·········· s························ B··· b···· f··· a··· b····· data p·······",
+      "imported_at": "2026-06-01T08:55:04Z",
       "mentions": 1
     },
     {
-      "title": "Data p······· J·· D··· (······ P······· S······ — r····· b················· d····· N··· n···· a······ p········· d·· s····· p········· B·· D·· P··· B··· S······· K···· P·· K····· B······ L······",
-      "imported_at": "2026-05-31T03:48:13Z",
-      "mentions": 2356
+      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
+      "imported_at": "2026-06-01T08:54:56Z",
+      "mentions": 99
     },
     {
-      "title": "D····· p······ p········· P······ P········ M···· P···· — r····· p······ d····· n···· p······· n···· k····· d·· p······· s······",
-      "imported_at": "2026-05-31T03:29:32Z",
-      "mentions": 3781
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-01T08:54:41Z",
+      "mentions": 0
     },
     {
-      "title": "D····· p······ T·· (······ B··· Q······ — r····· g··· m······· d····· N··· N··· n···· g······ t············· l····· e····· s····· p······· m··· p········· n··· m········ j······· p········ k·······",
-      "imported_at": "2026-05-31T03:20:21Z",
-      "mentions": 12949
+      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
+      "imported_at": "2026-06-01T08:54:39Z",
+      "mentions": 317
     },
     {
-      "title": "R··········· Data K·······",
-      "imported_at": "2026-05-31T03:18:18Z",
-      "mentions": 3668
+      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
+      "imported_at": "2026-06-01T08:54:35Z",
+      "mentions": 1
+    },
+    {
+      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
+      "imported_at": "2026-06-01T08:54:14Z",
+      "mentions": 1
+    },
+    {
+      "title": "P········· h···· s······ a······················ (···· C···· P···· f······ j········ B····· d····· n··· p······ y··· l···· t······ s·······",
+      "imported_at": "2026-06-01T08:54:10Z",
+      "mentions": 2
+    },
+    {
+      "title": "F······· p·········· s························ B··· b···· f··· a··· b····· data p·······",
+      "imported_at": "2026-06-01T08:54:05Z",
+      "mentions": 16
+    },
+    {
+      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
+      "imported_at": "2026-06-01T08:54:00Z",
+      "mentions": 246
+    },
+    {
+      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
+      "imported_at": "2026-06-01T08:53:30Z",
+      "mentions": 1
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,13 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v3.1.5",
-    "latestDate": "2026-05-30",
-    "totalReleases": 95,
+    "latestVersion": "v3.1.6",
+    "latestDate": "2026-06-01",
+    "totalReleases": 96,
     "summary": {
+      "Fixed — `parse_biodata.py` for OCR-noisy Indonesian CV/biodata documents": 5,
+      "Fixed — `extractors/occupation.py` rejecting date values as occupation": 3,
+      "Changed — `templates/data_perusahaan.json`": 1,
       "Added — `pppk_paruh_waktu` template for PPPK part-time applicant rosters": 7,
       "Added — `osn_peserta_sd` template for OSN SD participant lists": 6,
       "Added — `crew_sales_target` template for XLS sales crew performance": 7,
@@ -1485,15 +1488,39 @@
       "Changed — Fase C (operational cutover)": 7,
       "Removed": 4,
       "Processed — personnel roster (sequential)": 1,
-      "Processed — membership roster (sequential)": 1,
-      "Processed — profile document (recheck)": 1,
-      "Extraction": 32,
-      "Fixes applied": 5,
-      "Known issue — missed person": 1,
-      "Notes": 5,
-      "Engine improvement: pada_tanggal_anchor strategy": 4
+      "Processed — membership roster (sequential)": 1
     },
     "releases": [
+      {
+        "version": "v3.1.6",
+        "date": "2026-06-01",
+        "sections": [
+          {
+            "kind": "Fixed — `parse_biodata.py` for OCR-noisy Indonesian CV/biodata documents",
+            "items": [
+              "Extended `_LABEL_RE` to accept `:` as primary separator; fallback detects labels without explicit separators via compiled patterns",
+              "Added 25+ Indonesian field labels (`tempat tanggal lahir`, `jabatan/pekerjaan`, `alamat kantor`, `agama`, `no. telp`, etc.)",
+              "Added OCR noise cleanup: collapse repeated dots, remove \"nana\"/\"IIEG\" artifacts, trim trailing `o` sequences",
+              "Added Indonesian date parsing (`_ID_DATE_RE`, `_ID_DATE_NO_COMMA_RE`) for `Tempat, Tanggal Lahir` format",
+              "Added `_COMPILED_LABEL_PATTERNS` for fast fallback label detection"
+            ]
+          },
+          {
+            "kind": "Fixed — `extractors/occupation.py` rejecting date values as occupation",
+            "items": [
+              "Added `_looks_like_date()` validator to Strategy 2 (numbered-row second field)",
+              "Added `_NON_OCCUPATION_RE` to reject status values (`Lulus`, `Gugur`, `%`) as occupations",
+              "Prevents dates like `18 Maret 2025` from being extracted as job titles"
+            ]
+          },
+          {
+            "kind": "Changed — `templates/data_perusahaan.json`",
+            "items": [
+              "Removed keyword `\"cv \"` (Commanditaire Vennootschap) — conflicted with Curriculum Vitae classification"
+            ]
+          }
+        ]
+      },
       {
         "version": "v3.1.5",
         "date": "2026-05-30",
@@ -2362,34 +2389,14 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.8.38",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — ExportMstAnggota DTKS/BDT social-registry xlsx (Scribd)",
-            "items": [
-              "`scripts/parse_mst_anggota_dtks.py` — Parse master anggota program kesejahteraan: No Peserta, ID BDT/DTKS, Nama Anggota, NIK, No KK, hubungan KK, kategori, pendamping, Fasdik/Faskes; dedup by NIK; residence fact for provenance.",
-              "`scripts/process_mst_anggota_dtks.py` — document + BatchProcessor runner.",
-              "`templates/mst_anggota_dtks.json` — Classify keywords (`exportmstanggota`, `id bdt`, `id keluarga dtks`); skip OCR for xlsx."
-            ]
-          },
-          {
-            "kind": "Processed — Scribd 627198677 (ExportMstAnggota)",
-            "items": [
-              "1,239 persons — DTKS/BDT roster Sawah Lunto 2021 tahap 3. Doc `01KSD8NCT7S2M7FV8RP9YCNVPF`. Post-save backfill: `residence` fact + `source_document` for validate_dataset."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 836269,
-    "entitiesWithCity": 141257,
-    "geocodedEntities": 103573,
-    "uniqueCities": 5006,
+    "totalEntities": 910158,
+    "entitiesWithCity": 141264,
+    "geocodedEntities": 103576,
+    "uniqueCities": 5009,
     "mappedCities": 290,
     "clusters": [
       {
@@ -3600,6 +3607,14 @@
         "lng": 104.0305
       },
       {
+        "key": "KARANGANYAR",
+        "label": "Karanganyar",
+        "province": null,
+        "count": 28,
+        "lat": -7.614138970463525,
+        "lng": 111.01924162577282
+      },
+      {
         "key": "CILACAP",
         "label": "Cilacap",
         "province": null,
@@ -3616,12 +3631,12 @@
         "lng": 109.39517261663187
       },
       {
-        "key": "KARANGANYAR",
-        "label": "Karanganyar",
+        "key": "CIAMIS",
+        "label": "Ciamis",
         "province": null,
-        "count": 27,
-        "lat": -7.614138970463525,
-        "lng": 111.01924162577282
+        "count": 26,
+        "lat": -7.290249924234724,
+        "lng": 108.4286452357121
       },
       {
         "key": "ACEH",
@@ -3659,14 +3674,6 @@
             "province": null
           }
         ]
-      },
-      {
-        "key": "CIAMIS",
-        "label": "Ciamis",
-        "province": null,
-        "count": 25,
-        "lat": -7.290249924234724,
-        "lng": 108.4286452357121
       },
       {
         "key": "BANTUL",
@@ -3711,34 +3718,42 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3359,
-    "documentsWithUrl": 3335,
-    "documentsIdDomain": 3311,
+    "documentsTotal": 3853,
+    "documentsWithUrl": 3828,
+    "documentsIdDomain": 3804,
     "topSuffix": "com",
     "domainSuffixes": [
       {
         "suffix": "com",
-        "count": 2206
+        "count": 2221
       },
       {
         "suffix": "go.id",
-        "count": 863
+        "count": 1124
       },
       {
         "suffix": "ac.id",
-        "count": 212
+        "count": 415
       },
       {
         "suffix": "id",
-        "count": 10
+        "count": 14
       },
       {
         "suffix": "org",
-        "count": 8
+        "count": 10
       },
       {
         "suffix": "sch.id",
         "count": 5
+      },
+      {
+        "suffix": "or.id",
+        "count": 4
+      },
+      {
+        "suffix": "co.id",
+        "count": 4
       },
       {
         "suffix": "desa.id",
@@ -3753,14 +3768,14 @@
         "count": 1
       },
       {
-        "suffix": "or.id",
+        "suffix": "web.id",
         "count": 1
       }
     ],
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 1562
+        "count": 1925
       },
       {
         "type": "excel",
@@ -3768,11 +3783,11 @@
       },
       {
         "type": "unknown",
-        "count": 261
+        "count": 262
       },
       {
         "type": "txt",
-        "count": 61
+        "count": 191
       },
       {
         "type": "json",
@@ -3804,12 +3819,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 117514
+      "bytes": 124573
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 22370
+      "bytes": 27940
     },
     {
       "file": "sitemap.xml",

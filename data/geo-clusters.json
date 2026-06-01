@@ -1,8 +1,8 @@
 {
-  "totalEntities": 836269,
-  "entitiesWithCity": 141257,
-  "geocodedEntities": 103573,
-  "uniqueCities": 5006,
+  "totalEntities": 910158,
+  "entitiesWithCity": 141264,
+  "geocodedEntities": 103576,
+  "uniqueCities": 5009,
   "mappedCities": 290,
   "clusters": [
     {
@@ -1213,6 +1213,14 @@
       "lng": 104.0305
     },
     {
+      "key": "KARANGANYAR",
+      "label": "Karanganyar",
+      "province": null,
+      "count": 28,
+      "lat": -7.614138970463525,
+      "lng": 111.01924162577282
+    },
+    {
       "key": "CILACAP",
       "label": "Cilacap",
       "province": null,
@@ -1229,12 +1237,12 @@
       "lng": 109.39517261663187
     },
     {
-      "key": "KARANGANYAR",
-      "label": "Karanganyar",
+      "key": "CIAMIS",
+      "label": "Ciamis",
       "province": null,
-      "count": 27,
-      "lat": -7.614138970463525,
-      "lng": 111.01924162577282
+      "count": 26,
+      "lat": -7.290249924234724,
+      "lng": 108.4286452357121
     },
     {
       "key": "ACEH",
@@ -1272,14 +1280,6 @@
           "province": null
         }
       ]
-    },
-    {
-      "key": "CIAMIS",
-      "label": "Ciamis",
-      "province": null,
-      "count": 25,
-      "lat": -7.290249924234724,
-      "lng": 108.4286452357121
     },
     {
       "key": "BANTUL",
