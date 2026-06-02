@@ -1,25 +1,25 @@
 {
-  "updated": "2026-06-01 18:28 UTC",
+  "updated": "2026-06-02 01:30 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 919265,
-    "graphEdges": 1523121,
-    "sourceDocuments": 3986,
+    "graphNodes": 1116076,
+    "graphEdges": 1706829,
+    "sourceDocuments": 4475,
     "activeVectors": 5,
-    "dominantVectorPct": 32.9,
+    "dominantVectorPct": 27.1,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.36,
-    "pipelineSuccessPct": 31.0,
-    "pipelineBacklogPct": 16.1,
-    "pipelineFailurePct": 35.8,
-    "entityLinkRate": 0.53
+    "xrefRatio": 1.4,
+    "pipelineSuccessPct": 33.8,
+    "pipelineBacklogPct": 1.7,
+    "pipelineFailurePct": 44.3,
+    "entityLinkRate": 0.44
   },
   "summary": {
-    "persons": 919265,
-    "documents": 3986,
+    "persons": 1116076,
+    "documents": 4475,
     "photos": 203,
     "templates": 80,
-    "history": 1399,
+    "history": 1528,
     "doneFiles": 0
   },
   "coverage": [
@@ -27,25 +27,25 @@
       "id": "phone",
       "label": "Nomor telepon",
       "value": 302673,
-      "pct": 32.9
+      "pct": 27.1
     },
     {
       "id": "email",
       "label": "Alamat email",
       "value": 13432,
-      "pct": 1.5
+      "pct": 1.2
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 41741,
-      "pct": 4.5
+      "value": 41742,
+      "pct": 3.7
     },
     {
       "id": "nik",
       "label": "NIK",
       "value": 174152,
-      "pct": 18.9
+      "pct": 15.6
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 919265,
+  "coverageTotal": 1116076,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 599888,
-      "refs": 915424
+      "entries": 694992,
+      "refs": 1099131
     },
     {
       "type": "Telepon",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 41277,
-      "refs": 41741
+      "entries": 41278,
+      "refs": 41742
     }
   ],
   "indexTotal": {
-    "entries": 1122781,
-    "refs": 1523121
+    "entries": 1217886,
+    "refs": 1706829
   },
   "indexCooccurrence": [
     {
@@ -128,7 +128,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 38768
+      "value": 38769
     },
     {
       "source": "Nama",
@@ -247,63 +247,63 @@
     }
   ],
   "queue": {
-    "pending": 486,
-    "processing": 30,
-    "done": 933,
-    "skipped": 486,
-    "failed": 1078,
+    "pending": 50,
+    "processing": 71,
+    "done": 1018,
+    "skipped": 538,
+    "failed": 1336,
     "total": 3013
   },
   "recentDocs": [
     {
       "title": "Data N······ 1",
-      "imported_at": "2026-06-01T18:27:31Z",
-      "mentions": 0
-    },
-    {
-      "title": "Data N······ 1",
-      "imported_at": "2026-06-01T18:27:24Z",
+      "imported_at": "2026-06-02T01:26:29Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-01T18:25:50Z",
-      "mentions": 3
+      "imported_at": "2026-06-02T01:19:46Z",
+      "mentions": 598
     },
     {
-      "title": "Data N······ 1",
-      "imported_at": "2026-06-01T18:02:42Z",
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:19:42Z",
+      "mentions": 128
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:19:29Z",
       "mentions": 0
     },
     {
-      "title": "P······ P········· — c···· r······ (········· c····· a··············",
-      "imported_at": "2026-06-01T18:02:37Z",
-      "mentions": 1
+      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
+      "imported_at": "2026-06-02T01:19:23Z",
+      "mentions": 228
     },
     {
-      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
-      "imported_at": "2026-06-01T18:02:31Z",
-      "mentions": 1
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:19:13Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:19:05Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:19:03Z",
+      "mentions": 0
     },
     {
       "title": "A······ r·····",
-      "imported_at": "2026-06-01T18:02:27Z",
+      "imported_at": "2026-06-02T01:18:54Z",
       "mentions": 1
     },
     {
-      "title": "Data P········· — r······· r········· s······ t····· l····· r········· d··········",
-      "imported_at": "2026-06-01T18:01:52Z",
-      "mentions": 1
-    },
-    {
-      "title": "A······ r·····",
-      "imported_at": "2026-06-01T18:00:38Z",
-      "mentions": 1
-    },
-    {
-      "title": "S· P········ P······ — a········· d······ f·· f···· o······· (············· v·········· data c··········",
-      "imported_at": "2026-06-01T17:59:51Z",
-      "mentions": 1
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T01:18:53Z",
+      "mentions": 0
     }
   ],
   "showcaseEntities": [
@@ -1340,10 +1340,13 @@
     }
   ],
   "changelog": {
-    "latestVersion": "v3.1.6",
-    "latestDate": "2026-06-01",
-    "totalReleases": 96,
+    "latestVersion": "v3.1.8",
+    "latestDate": "2026-06-02",
+    "totalReleases": 98,
     "summary": {
+      "Fixed — `process_platform` always picked first, ignoring dedicated parsers for `pengumuman_hasil_seleksi`": 4,
+      "Auto-queue run — 3,013 total items processed": 3,
+      "Fixed — three broken parser paths blocking ~400+ queue entries": 3,
       "Fixed — `parse_biodata.py` for OCR-noisy Indonesian CV/biodata documents": 5,
       "Fixed — `extractors/occupation.py` rejecting date values as occupation": 3,
       "Changed — `templates/data_perusahaan.json`": 1,
@@ -1491,6 +1494,43 @@
       "Processed — membership roster (sequential)": 1
     },
     "releases": [
+      {
+        "version": "v3.1.8",
+        "date": "2026-06-02",
+        "sections": [
+          {
+            "kind": "Fixed — `process_platform` always picked first, ignoring dedicated parsers for `pengumuman_hasil_seleksi`",
+            "items": [
+              "`scripts/pipeline/row.py` — `_pick_process_script()`: removed `platform_preferred` first-pick logic. Now always tries non-platform dedicated processors first, platform only as fallback.",
+              "`scripts/pipeline/routes.py`:",
+              "Result: 387 `needs_review` roster items (CPNS SKD/SKB result PDFs) now get routed to `process_pengumuman_skd_cpns` (dedicated SSCN parser) instead of `process_platform` (generic LLM). Queue `true` count: 859 → 1,010 (+151).",
+              "Tested: Sulteng Kemenag SKD 2019 PDF — 2,115 persons extracted (was 0)."
+            ]
+          },
+          {
+            "kind": "Auto-queue run — 3,013 total items processed",
+            "items": [
+              "168 pending items at start, 3,013 at finish (intake added during processing).",
+              "Full auto-queue ran until `queue_manager.py next` returned \"No pending rows\" twice.",
+              "436 `needs_review` items cleared to 38."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "v3.1.7",
+        "date": "2026-06-02",
+        "sections": [
+          {
+            "kind": "Fixed — three broken parser paths blocking ~400+ queue entries",
+            "items": [
+              "SKD parser vertical layout (`scripts/parsers/parse_pengumuman_skd_cpns.py`):",
+              "cpns_integrasi JSON crash (`templates/cpns_integrasi.json`, `scripts/pipeline/routes.py`):",
+              "Garbage name extraction (`scripts/lib/validate.py`, `scripts/processors/process_platform.py`):"
+            ]
+          }
+        ]
+      },
       {
         "version": "v3.1.6",
         "date": "2026-06-01",
@@ -2291,112 +2331,14 @@
             ]
           }
         ]
-      },
-      {
-        "version": "v2.9.0",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Data anggota DPRD biodata PDF (PPID Kemendagri)",
-            "items": [
-              "`scripts/parse_data_anggota_dprd.py` — Parse labeled biodata blocks (Nama, Jabatan, TTL, Alamat, Agama, Pendidikan, Partai); optional `--pdf` for `pdfimages` + `face_crop` (skip embeds &lt;280×400); Indonesian/abbrev date parsing.",
-              "`scripts/process_data_anggota_dprd.py` — document + BatchProcessor; re-crop photos with final person ULID from `photo_source`.",
-              "`templates/data_anggota_dprd.json` — Classify keywords; parser/processor routing."
-            ]
-          },
-          {
-            "kind": "Processed — PPID Kemendagri data anggota DPRD (manual)",
-            "items": [
-              "21 persons — Biodata anggota DPRD (legislative roster); 18 photos attached (3 empty slots in source PDF). Doc `01KSDG332XREJXZ0128S0DR3EF`."
-            ]
-          },
-          {
-            "kind": "Processed — PPID Kab. Buleleng LHKPN ikhtisar (queue)",
-            "items": [
-              "1 person — Ikhtisar LHKPN periodik 2024. Doc `01KSDCNYNRR460EG9K9SCHH16D`."
-            ]
-          },
-          {
-            "kind": "Processed — Disnaker Kota Bekasi LHKPN penyerahan (queue)",
-            "items": [
-              "1 person — Lembar Penyerahan LHKPN. Doc `01KSDCR587T98XVQG7TYGA3ETP`."
-            ]
-          },
-          {
-            "kind": "Processed — Kec. Teluk Bayur Berau LHKPN ikhtisar (queue)",
-            "items": [
-              "1 person — Ikhtisar LHKPN periodik 2022. Doc `01KSDCSJAX3ZAS5RJ828A7039M`."
-            ]
-          },
-          {
-            "kind": "Added — Daftar kontak member (Scribd xlsx, multi-format)",
-            "items": [
-              "`scripts/parse_daftar_kontak_member.py` — Parse roster kontak member: nama + tier program (LIN/ZYM/NUT/BIO/…), HP; format `member_id/nama`; dedup by phone+name; ~88 baris non-628 dilewati.",
-              "`scripts/process_daftar_kontak_member.py` — document + BatchProcessor runner.",
-              "`templates/daftar_kontak_member.json` — Classify keywords; parser/processor routing."
-            ]
-          },
-          {
-            "kind": "Processed — Scribd 645451148 (daftar kontak member)",
-            "items": [
-              "50,726 persons — Daftar kontak member multi-format (program tier + HP + member ID). Doc `01KSD9MR95K0AQ6FHS09XQC7KX` (47,476 created, 3,271 updated by phone dedup). Post-save `--repair` backfill facts/edges for validate_dataset."
-            ]
-          },
-          {
-            "kind": "Added — Generic XLSX student roster parser (Scribd UT Pokjar)",
-            "items": [
-              "`scripts/parse_student_roster_xlsx.py` — Generic XLSX student roster parser: auto-detect columns by case-insensitive header (nim/nisn/nrp → student_id, nama_* → full_name, alamat_* → address, NIK, gender, agama, pob, dob, phone, email, prodi, fakultas, angkatan); all unmapped columns → extras; supports multi-sheet XLSX.",
-              "`scripts/process_student_roster.py` — Made generic: auto-detect institution/study program from persons.json extras; accepts `--title` and `--institution` CLI flags; no more hardcoded school name.",
-              "`templates/data_akademik.json` — Notes updated for generic parse_student_roster_xlsx routing."
-            ]
-          },
-          {
-            "kind": "Processed — Scribd 839608051 (Daftar Peserta WT UT Pokjar Pacitan)",
-            "items": [
-              "1,666 persons — Daftar peserta workshop training mahasiswa PGSD/PGPAUD Universitas Terbuka Pokjar Pacitan (sheet 1: 24 Nov 2021). Doc `01KSD90GBA8Q0V8T9AVSEMH2BF`."
-            ]
-          }
-        ]
-      },
-      {
-        "version": "v2.8.39",
-        "date": "2026-05-24",
-        "sections": [
-          {
-            "kind": "Added — Belmawa / PDDIKTI student upload xlsx (Scribd)",
-            "items": [
-              "`scripts/parse_belmawa.py` — Parse Belmawa upload roster: `nmmhsmsmh`, `nimhsmsmh`, `nik`, `npwp`, `telpomsmh`, `emailmsmh`, `tahun_lulus`, kode PT/prodi, provinsi/kabupaten; dedup by NIK then NIM; education fact for tahun lulus.",
-              "`scripts/process_belmawa.py` — document + BatchProcessor runner (`data_akademik` template).",
-              "`templates/data_akademik.json` — Classify keywords (`belmawa`, `pddikti`, `nimhsmsmh`); notes for Belmawa parser routing."
-            ]
-          },
-          {
-            "kind": "Processed — Scribd 755903156 (Belmawa upload)",
-            "items": [
-              "2,883 persons — Mahasiswa upload Belmawa 30 Mei 2024. Doc `01KSD901PAC0KJBNSQKYEFNZPM` (created 2879, updated 4)."
-            ]
-          },
-          {
-            "kind": "Processed — PTUN Mataram LHKPN penyerahan (queue)",
-            "items": [
-              "1 person — Lembar Penyerahan e-LHKPN 2020. Doc `01KSD9699Z2B19968EK50YHYFA` (`parse_lhkpn_penyerahan`)."
-            ]
-          },
-          {
-            "kind": "Processed — Grobogan LHKPN ikhtisar (queue)",
-            "items": [
-              "5 persons — Ikhtisar LHKPN (official + family). Doc `01KSD9RKAAV6D3HFZCRHV5CZNN` (`parse_lhkpn_ikhtisar`)."
-            ]
-          }
-        ]
       }
     ]
   },
   "geo": {
-    "totalEntities": 919265,
-    "entitiesWithCity": 141265,
+    "totalEntities": 1116076,
+    "entitiesWithCity": 146313,
     "geocodedEntities": 103576,
-    "uniqueCities": 5010,
+    "uniqueCities": 5023,
     "mappedCities": 290,
     "clusters": [
       {
@@ -3718,26 +3660,26 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 3986,
-    "documentsWithUrl": 3961,
-    "documentsIdDomain": 3937,
+    "documentsTotal": 4475,
+    "documentsWithUrl": 4450,
+    "documentsIdDomain": 4426,
     "topSuffix": "com",
     "domainSuffixes": [
       {
         "suffix": "com",
-        "count": 2227
+        "count": 2229
       },
       {
         "suffix": "go.id",
-        "count": 1164
+        "count": 1580
       },
       {
         "suffix": "ac.id",
-        "count": 462
+        "count": 516
       },
       {
         "suffix": "id",
-        "count": 45
+        "count": 60
       },
       {
         "suffix": "org",
@@ -3748,11 +3690,11 @@
         "count": 7
       },
       {
-        "suffix": "or.id",
-        "count": 5
+        "suffix": "co.id",
+        "count": 6
       },
       {
-        "suffix": "co.id",
+        "suffix": "or.id",
         "count": 5
       },
       {
@@ -3760,11 +3702,11 @@
         "count": 3
       },
       {
-        "suffix": "uk",
-        "count": 2
+        "suffix": "news",
+        "count": 3
       },
       {
-        "suffix": "news",
+        "suffix": "uk",
         "count": 2
       },
       {
@@ -3779,19 +3721,19 @@
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 2026
+        "count": 2459
       },
       {
         "type": "excel",
         "count": 1439
       },
       {
-        "type": "unknown",
-        "count": 262
+        "type": "txt",
+        "count": 279
       },
       {
-        "type": "txt",
-        "count": 223
+        "type": "unknown",
+        "count": 262
       },
       {
         "type": "json",
@@ -3823,7 +3765,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 125603
+      "bytes": 124672
     },
     {
       "file": "data/geo-clusters.json",
