@@ -1,25 +1,25 @@
 {
-  "updated": "2026-06-02 01:30 UTC",
+  "updated": "2026-06-02 18:03 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 1116076,
-    "graphEdges": 1706829,
-    "sourceDocuments": 4475,
+    "graphNodes": 1220691,
+    "graphEdges": 1826438,
+    "sourceDocuments": 6342,
     "activeVectors": 5,
-    "dominantVectorPct": 27.1,
+    "dominantVectorPct": 24.8,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.4,
-    "pipelineSuccessPct": 33.8,
-    "pipelineBacklogPct": 1.7,
-    "pipelineFailurePct": 44.3,
-    "entityLinkRate": 0.44
+    "xrefRatio": 1.45,
+    "pipelineSuccessPct": 33.1,
+    "pipelineBacklogPct": 5.8,
+    "pipelineFailurePct": 36.3,
+    "entityLinkRate": 0.42
   },
   "summary": {
-    "persons": 1116076,
-    "documents": 4475,
+    "persons": 1220691,
+    "documents": 6342,
     "photos": 203,
     "templates": 80,
-    "history": 1528,
+    "history": 2355,
     "doneFiles": 0
   },
   "coverage": [
@@ -27,25 +27,25 @@
       "id": "phone",
       "label": "Nomor telepon",
       "value": 302673,
-      "pct": 27.1
+      "pct": 24.8
     },
     {
       "id": "email",
       "label": "Alamat email",
-      "value": 13432,
-      "pct": 1.2
+      "value": 13433,
+      "pct": 1.1
     },
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 41742,
-      "pct": 3.7
+      "value": 41787,
+      "pct": 3.4
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 174152,
-      "pct": 15.6
+      "value": 192529,
+      "pct": 15.8
     },
     {
       "id": "photo",
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 1116076,
+  "coverageTotal": 1220691,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 694992,
-      "refs": 1099131
+      "entries": 719058,
+      "refs": 1200242
     },
     {
       "type": "Telepon",
@@ -71,26 +71,26 @@
     {
       "type": "Email",
       "kind": "index",
-      "entries": 11078,
-      "refs": 13470
+      "entries": 11079,
+      "refs": 13471
     },
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 158245,
-      "refs": 174066
+      "entries": 176585,
+      "refs": 192443
     },
     {
       "type": "NPWP",
       "kind": "index",
-      "entries": 3618,
-      "refs": 3904
+      "entries": 3621,
+      "refs": 3907
     },
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 12700,
-      "refs": 31418
+      "entries": 12772,
+      "refs": 31490
     },
     {
       "type": "ID pelajar",
@@ -101,13 +101,13 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 41278,
-      "refs": 41742
+      "entries": 41308,
+      "refs": 41787
     }
   ],
   "indexTotal": {
-    "entries": 1217886,
-    "refs": 1706829
+    "entries": 1260398,
+    "refs": 1826438
   },
   "indexCooccurrence": [
     {
@@ -118,7 +118,7 @@
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 174057
+      "value": 192432
     },
     {
       "source": "Telepon",
@@ -128,7 +128,7 @@
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 38769
+      "value": 38814
     },
     {
       "source": "Nama",
@@ -138,22 +138,22 @@
     {
       "source": "Nama",
       "target": "No. kartu keluarga",
-      "value": 31417
+      "value": 31489
     },
     {
       "source": "NIK",
       "target": "No. kartu keluarga",
-      "value": 31300
+      "value": 31367
     },
     {
       "source": "NIK",
       "target": "ID karyawan",
-      "value": 17125
+      "value": 17127
     },
     {
       "source": "Nama",
       "target": "Email",
-      "value": 13427
+      "value": 13428
     },
     {
       "source": "Telepon",
@@ -173,7 +173,7 @@
     {
       "source": "Nama",
       "target": "NPWP",
-      "value": 3904
+      "value": 3907
     },
     {
       "source": "Telepon",
@@ -188,7 +188,7 @@
     {
       "source": "NIK",
       "target": "NPWP",
-      "value": 3423
+      "value": 3425
     },
     {
       "source": "Email",
@@ -218,7 +218,7 @@
     {
       "source": "Email",
       "target": "ID karyawan",
-      "value": 214
+      "value": 215
     },
     {
       "source": "No. kartu keluarga",
@@ -247,62 +247,62 @@
     }
   ],
   "queue": {
-    "pending": 50,
-    "processing": 71,
-    "done": 1018,
-    "skipped": 538,
-    "failed": 1336,
-    "total": 3013
+    "pending": 264,
+    "processing": 259,
+    "done": 1515,
+    "skipped": 879,
+    "failed": 1664,
+    "total": 4581
   },
   "recentDocs": [
     {
-      "title": "Data N······ 1",
-      "imported_at": "2026-06-02T01:26:29Z",
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T18:02:32Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:46Z",
-      "mentions": 598
-    },
-    {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:42Z",
-      "mentions": 128
-    },
-    {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:29Z",
-      "mentions": 0
-    },
-    {
-      "title": "D····· h··············· K·········· K········· B···· — d····· p······ r········· d····· n···· r········ n···· t······· w···· s········ d·· n···· u····",
-      "imported_at": "2026-06-02T01:19:23Z",
-      "mentions": 228
-    },
-    {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:13Z",
+      "imported_at": "2026-06-02T18:02:14Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:05Z",
+      "imported_at": "2026-06-02T18:01:57Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:19:03Z",
+      "imported_at": "2026-06-02T18:01:19Z",
       "mentions": 0
     },
     {
-      "title": "A······ r·····",
-      "imported_at": "2026-06-02T01:18:54Z",
-      "mentions": 1
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T18:01:02Z",
+      "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T01:18:53Z",
+      "imported_at": "2026-06-02T18:00:49Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T18:00:32Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T17:59:18Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T17:59:13Z",
+      "mentions": 0
+    },
+    {
+      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
+      "imported_at": "2026-06-02T17:59:13Z",
       "mentions": 0
     }
   ],
@@ -2335,10 +2335,10 @@
     ]
   },
   "geo": {
-    "totalEntities": 1116076,
-    "entitiesWithCity": 146313,
+    "totalEntities": 1220691,
+    "entitiesWithCity": 154220,
     "geocodedEntities": 103576,
-    "uniqueCities": 5023,
+    "uniqueCities": 5949,
     "mappedCities": 290,
     "clusters": [
       {
@@ -3660,26 +3660,26 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 4475,
-    "documentsWithUrl": 4450,
-    "documentsIdDomain": 4426,
-    "topSuffix": "com",
+    "documentsTotal": 6342,
+    "documentsWithUrl": 6317,
+    "documentsIdDomain": 6293,
+    "topSuffix": "go.id",
     "domainSuffixes": [
       {
-        "suffix": "com",
-        "count": 2229
+        "suffix": "go.id",
+        "count": 3215
       },
       {
-        "suffix": "go.id",
-        "count": 1580
+        "suffix": "com",
+        "count": 2250
       },
       {
         "suffix": "ac.id",
-        "count": 516
+        "count": 690
       },
       {
         "suffix": "id",
-        "count": 60
+        "count": 96
       },
       {
         "suffix": "org",
@@ -3716,12 +3716,16 @@
       {
         "suffix": "web.id",
         "count": 1
+      },
+      {
+        "suffix": "net",
+        "count": 1
       }
     ],
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 2459
+        "count": 4030
       },
       {
         "type": "excel",
@@ -3729,7 +3733,7 @@
       },
       {
         "type": "txt",
-        "count": 279
+        "count": 575
       },
       {
         "type": "unknown",
@@ -3765,12 +3769,12 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 124672
+      "bytes": 121530
     },
     {
       "file": "data/geo-clusters.json",
       "role": "Cluster kota dan koordinat untuk tab Peta.",
-      "bytes": 27940
+      "bytes": 27941
     },
     {
       "file": "sitemap.xml",
