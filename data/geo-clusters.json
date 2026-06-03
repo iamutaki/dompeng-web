@@ -1,8 +1,8 @@
 {
-  "totalEntities": 1242683,
-  "entitiesWithCity": 154252,
-  "geocodedEntities": 103579,
-  "uniqueCities": 5967,
+  "totalEntities": 1338131,
+  "entitiesWithCity": 154269,
+  "geocodedEntities": 103584,
+  "uniqueCities": 5972,
   "mappedCities": 290,
   "clusters": [
     {
@@ -526,7 +526,7 @@
       "key": "coord:119.4327,-5.1477",
       "label": "Sulawesi Selatan",
       "province": null,
-      "count": 226,
+      "count": 230,
       "lat": -5.1477,
       "lng": 119.4327,
       "mergedCount": 2,
@@ -538,7 +538,7 @@
         },
         {
           "label": "Makassar",
-          "count": 15,
+          "count": 19,
           "province": null
         }
       ]
