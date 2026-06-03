@@ -1,22 +1,22 @@
 {
-  "updated": "2026-06-03 16:56 UTC",
+  "updated": "2026-06-03 17:05 UTC",
   "redacted": true,
   "intel": {
     "graphNodes": 1221889,
     "graphEdges": 1827636,
-    "sourceDocuments": 7044,
+    "sourceDocuments": 7057,
     "activeVectors": 5,
     "dominantVectorPct": 24.8,
     "dominantVectorId": "phone",
     "xrefRatio": 1.45,
     "pipelineSuccessPct": 30.1,
-    "pipelineBacklogPct": 16.1,
+    "pipelineBacklogPct": 18.2,
     "pipelineFailurePct": 33.9,
     "entityLinkRate": 0.42
   },
   "summary": {
     "persons": 1221889,
-    "documents": 7044,
+    "documents": 7057,
     "photos": 203,
     "templates": 80,
     "history": 2359,
@@ -247,8 +247,8 @@
     }
   ],
   "queue": {
-    "pending": 811,
-    "processing": 121,
+    "pending": 919,
+    "processing": 13,
     "done": 1519,
     "skipped": 880,
     "failed": 1708,
@@ -257,52 +257,52 @@
   "recentDocs": [
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:52Z",
+      "imported_at": "2026-06-03T17:02:13Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:52Z",
+      "imported_at": "2026-06-03T17:02:09Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:43Z",
+      "imported_at": "2026-06-03T17:02:04Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:29Z",
+      "imported_at": "2026-06-03T17:02:01Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:26Z",
+      "imported_at": "2026-06-03T17:01:56Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:19Z",
+      "imported_at": "2026-06-03T17:01:53Z",
       "mentions": 0
     },
     {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:16Z",
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-03T17:01:50Z",
       "mentions": 0
     },
     {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:53:12Z",
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-03T17:01:47Z",
       "mentions": 0
     },
     {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:52:52Z",
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-03T17:01:43Z",
       "mentions": 0
     },
     {
-      "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-03T16:52:15Z",
+      "title": "Data N······ 1",
+      "imported_at": "2026-06-03T17:01:39Z",
       "mentions": 0
     }
   ],
@@ -3660,14 +3660,14 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 7044,
-    "documentsWithUrl": 7019,
-    "documentsIdDomain": 6995,
+    "documentsTotal": 7057,
+    "documentsWithUrl": 7032,
+    "documentsIdDomain": 7008,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 3792
+        "count": 3796
       },
       {
         "suffix": "com",
@@ -3675,7 +3675,7 @@
       },
       {
         "suffix": "ac.id",
-        "count": 794
+        "count": 803
       },
       {
         "suffix": "id",
@@ -3725,7 +3725,7 @@
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 4601
+        "count": 4608
       },
       {
         "type": "excel",
@@ -3733,7 +3733,7 @@
       },
       {
         "type": "txt",
-        "count": 706
+        "count": 712
       },
       {
         "type": "unknown",
@@ -3769,7 +3769,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 121544
+      "bytes": 121546
     },
     {
       "file": "data/geo-clusters.json",
