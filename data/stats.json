@@ -1,25 +1,25 @@
 {
-  "updated": "2026-06-02 18:03 UTC",
+  "updated": "2026-06-03 16:56 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 1220691,
-    "graphEdges": 1826438,
-    "sourceDocuments": 6342,
+    "graphNodes": 1221889,
+    "graphEdges": 1827636,
+    "sourceDocuments": 7044,
     "activeVectors": 5,
     "dominantVectorPct": 24.8,
     "dominantVectorId": "phone",
     "xrefRatio": 1.45,
-    "pipelineSuccessPct": 33.1,
-    "pipelineBacklogPct": 5.8,
-    "pipelineFailurePct": 36.3,
+    "pipelineSuccessPct": 30.1,
+    "pipelineBacklogPct": 16.1,
+    "pipelineFailurePct": 33.9,
     "entityLinkRate": 0.42
   },
   "summary": {
-    "persons": 1220691,
-    "documents": 6342,
+    "persons": 1221889,
+    "documents": 7044,
     "photos": 203,
     "templates": 80,
-    "history": 2355,
+    "history": 2359,
     "doneFiles": 0
   },
   "coverage": [
@@ -54,13 +54,13 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 1220691,
+  "coverageTotal": 1221889,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 719058,
-      "refs": 1200242
+      "entries": 719479,
+      "refs": 1201440
     },
     {
       "type": "Telepon",
@@ -106,8 +106,8 @@
     }
   ],
   "indexTotal": {
-    "entries": 1260398,
-    "refs": 1826438
+    "entries": 1260819,
+    "refs": 1827636
   },
   "indexCooccurrence": [
     {
@@ -247,62 +247,62 @@
     }
   ],
   "queue": {
-    "pending": 264,
-    "processing": 259,
-    "done": 1515,
-    "skipped": 879,
-    "failed": 1664,
-    "total": 4581
+    "pending": 811,
+    "processing": 121,
+    "done": 1519,
+    "skipped": 880,
+    "failed": 1708,
+    "total": 5039
   },
   "recentDocs": [
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:02:32Z",
+      "imported_at": "2026-06-03T16:53:52Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:02:14Z",
+      "imported_at": "2026-06-03T16:53:52Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:01:57Z",
+      "imported_at": "2026-06-03T16:53:43Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:01:19Z",
+      "imported_at": "2026-06-03T16:53:29Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:01:02Z",
+      "imported_at": "2026-06-03T16:53:26Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:00:49Z",
+      "imported_at": "2026-06-03T16:53:19Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T18:00:32Z",
+      "imported_at": "2026-06-03T16:53:16Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T17:59:18Z",
+      "imported_at": "2026-06-03T16:53:12Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T17:59:13Z",
+      "imported_at": "2026-06-03T16:52:52Z",
       "mentions": 0
     },
     {
       "title": "P········· H···· S·· C··· F······ T···· 2019 P···· D··",
-      "imported_at": "2026-06-02T17:59:13Z",
+      "imported_at": "2026-06-03T16:52:15Z",
       "mentions": 0
     }
   ],
@@ -2335,7 +2335,7 @@
     ]
   },
   "geo": {
-    "totalEntities": 1220691,
+    "totalEntities": 1221889,
     "entitiesWithCity": 154220,
     "geocodedEntities": 103576,
     "uniqueCities": 5949,
@@ -3660,26 +3660,26 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 6342,
-    "documentsWithUrl": 6317,
-    "documentsIdDomain": 6293,
+    "documentsTotal": 7044,
+    "documentsWithUrl": 7019,
+    "documentsIdDomain": 6995,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 3215
+        "count": 3792
       },
       {
         "suffix": "com",
-        "count": 2250
+        "count": 2259
       },
       {
         "suffix": "ac.id",
-        "count": 690
+        "count": 794
       },
       {
         "suffix": "id",
-        "count": 96
+        "count": 108
       },
       {
         "suffix": "org",
@@ -3725,7 +3725,7 @@
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 4030
+        "count": 4601
       },
       {
         "type": "excel",
@@ -3733,7 +3733,7 @@
       },
       {
         "type": "txt",
-        "count": 575
+        "count": 706
       },
       {
         "type": "unknown",
@@ -3769,7 +3769,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 121530
+      "bytes": 121544
     },
     {
       "file": "data/geo-clusters.json",
