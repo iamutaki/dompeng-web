@@ -123,22 +123,6 @@ function filterCityClusters(clusters, query) {
   return (clusters || []).filter((city) => cityMatchesFilter(city, q));
 }
 
-function getIndexFilters() {
-  return {
-    query: normalizeFilterQuery(document.getElementById("analytics-index-search")?.value),
-    kind: document.getElementById("analytics-index-kind-filter")?.value || "all",
-  };
-}
-
-function filterIndexRows(indexRows, filters = getIndexFilters()) {
-  return (indexRows || []).filter((row) => {
-    if (filters.kind !== "all" && row.kind !== filters.kind) return false;
-    if (!filters.query) return true;
-    const mode = row.kind === "unique" ? "unik" : "silang";
-    return `${row.type} ${mode} ${row.kind}`.toLowerCase().includes(filters.query);
-  });
-}
-
 function sumIndexTotals(rows) {
   return (rows || []).reduce(
     (acc, row) => ({
@@ -535,6 +519,90 @@ function initChartDataModals() {
 /** Buka modal tabel saat chart tidak tersedia (mis. ECharts gagal dimuat). */
 function showChartFallbackTable(modalId) {
   openChartDataModal(modalId);
+}
+
+/**
+ * Modal detail indeks — menampilkan statistik lengkap per tipe indeks
+ * saat baris leaderboard diklik.  Termasuk entri, referensi, rasio,
+ * persentase, dan bar proporsi visual.
+ */
+function openIndexDetailModal(row, totalEntries) {
+  const dialog = document.getElementById("index-detail-modal");
+  if (!dialog) return;
+
+  const shared = row.kind !== "unique";
+  const entries = row.entries || 0;
+  const refs = row.refs || 0;
+  const ratio = indexVolumeRatio(entries, refs);
+  const pctVal = totalEntries > 0 ? ((entries / totalEntries) * 100).toFixed(1) : "0.0";
+
+  const codeEl = document.getElementById("index-detail-modal-code");
+  const titleEl = document.getElementById("index-detail-modal-title");
+  const metaEl = document.getElementById("index-detail-modal-meta");
+  const bodyEl = document.getElementById("index-detail-modal-body");
+
+  if (codeEl) codeEl.textContent = shared ? "SILANG" : "UNIK";
+  if (titleEl) titleEl.textContent = row.type;
+  if (metaEl) metaEl.textContent = `${fmt(entries)} entri · ${fmt(refs)} referensi · rasio ${ratio}`;
+
+  if (bodyEl) {
+    clear(bodyEl);
+
+    const stats = document.createElement("div");
+    stats.className = "idx-detail-stats";
+
+    const items = [
+      { label: "Entri", value: fmt(entries), accent: true },
+      { label: "Persentase", value: `${pctVal}%`, accent: false },
+      { label: "Referensi", value: fmt(refs), accent: false },
+      { label: "Rasio ref/entri", value: ratio, accent: false },
+      { label: "Mode", value: shared ? "Silang" : "Unik", accent: false },
+      { label: "Total semua tipe", value: fmt(totalEntries), accent: false },
+    ];
+
+    for (const item of items) {
+      const card = document.createElement("div");
+      card.className = `idx-detail-stat${item.accent ? " idx-detail-stat--accent" : ""}`;
+
+      const lbl = document.createElement("span");
+      lbl.className = "idx-detail-stat__label";
+      appendText(lbl, item.label);
+
+      const v = document.createElement("span");
+      v.className = "idx-detail-stat__value";
+      appendText(v, item.value);
+
+      card.append(lbl, v);
+      stats.appendChild(card);
+    }
+
+    bodyEl.appendChild(stats);
+
+    // Bar proporsi visual
+    const barWrap = document.createElement("div");
+    barWrap.className = "idx-detail-bar";
+
+    const barLabel = document.createElement("span");
+    barLabel.className = "idx-detail-bar__label";
+    appendText(barLabel, "Proporsi dari total entri");
+
+    const barTrack = document.createElement("div");
+    barTrack.className = "idx-detail-bar__track";
+
+    const barFill = document.createElement("span");
+    barFill.className = `idx-detail-bar__fill idx-detail-bar__fill--${shared ? "shared" : "unique"}`;
+    barFill.style.width = `${Math.max(3, parseFloat(pctVal))}%`;
+
+    const barPct = document.createElement("span");
+    barPct.className = "idx-detail-bar__pct";
+    appendText(barPct, `${pctVal}%`);
+
+    barTrack.append(barFill, barPct);
+    barWrap.append(barLabel, barTrack);
+    bodyEl.appendChild(barWrap);
+  }
+
+  openChartDataModal("index-detail-modal");
 }
 
 function renderAccessibleDataTables(data) {
@@ -1146,21 +1214,29 @@ function allocateProportionalIntegers(parts, targetTotal) {
 }
 
 /**
- * Sankey ringkasan — alur konservatif tanpa double-counting:
- * dokumen → entitas → geo (partisi eksklusif: terpetakan / belum terpetakan);
- * dokumen → antrian URL.
+ * Sankey ringkasan — alur konservatif, total = jumlah entitas:
  *
- * Indeks pencarian sengaja TIDAK digambar di Sankey karena merupakan
- * dimensi yang saling tumpang tindih dengan geo — satu entitas bisa
- * punya geo DAN banyak index entries, sehingga tidak bisa menjadi
- * cabang eksklusif tanpa melanggar konservasi alur.  Data indeks sudah
- * ditampilkan di tab Indeks dan volume panel.
+ *   Data sumber → Entitas terindeks → partisi eksklusif:
+ *     ├── Terpetakan kota   (geo OK)
+ *     ├── Punya indeks      (tidak terpetakan, tapi punya entri indeks)
+ *     └── Belum lengkap     (tidak terpetakan, tanpa entri indeks)
+ *   Data sumber → Antrian URL → status
+ *
+ * Setiap cabang dari "Entitas terindeks" saling eksklusif, sehingga
+ * total alur keluar = persons (tidak ada double-counting).
+ * Lebar cabang "Punya indeks" mewakili JUMLAH ENTITAS yang punya
+ * indeks (bukan jumlah entri indeks); proporsi tipe indeks digambar
+ * sebagai sub-cabang proporsional.
  */
 function buildOverviewSankeyData(data) {
   const summary = data.summary || {};
   const queue = data.queue || {};
   const geo = data.geo || {};
   const persons = summary.persons || data.coverageTotal || 0;
+  const indexRows = [...(data.indexRows || [])]
+    .filter((row) => (row.entries || 0) > 0)
+    .sort((a, b) => (b.entries || 0) - (a.entries || 0))
+    .slice(0, 5);
 
   const nodeMap = new Map();
   const links = [];
@@ -1186,24 +1262,55 @@ function buildOverviewSankeyData(data) {
     links.push({ source, target, value: v, ...meta });
   }
 
-  const nDoc = node("Dokumen publik", COLORS.cyan, 0);
+  // ── Alur A: Entitas → partisi eksklusif ────────────────────
+  const nSrc = node("Data sumber", COLORS.cyan, 0);
   const nEnt = node("Entitas terindeks", COLORS.intel, 1);
 
-  addLink(nDoc, nEnt, persons);
+  addLink(nSrc, nEnt, persons);
 
   const geocoded = geo.geocodedEntities || 0;
+  const indexEntrySum = indexRows.reduce((sum, row) => sum + (row.entries || 0), 0);
+
+  // Partisi eksklusif: terpetakan / punya indeks / belum lengkap
+  // "Punya indeks" = entitas yang TIDAK terpetakan tapi punya entri indeks.
+  // Kita estimasi dari rasio indexEntrySum/persons.
+  const indexCoverageRatio = persons > 0 ? Math.min(indexEntrySum / persons, 1) : 0;
   const notGeocoded = Math.max(0, persons - geocoded);
+  const withIndex = Math.round(notGeocoded * indexCoverageRatio);
+  const incomplete = Math.max(0, notGeocoded - withIndex);
+
   if (geocoded > 0) {
     addLink(nEnt, node("Terpetakan kota", COLORS.cyan, 2), geocoded, { metric: "geo" });
   }
-  if (notGeocoded > 0) {
-    addLink(nEnt, node("Belum terpetakan", COLORS.muted, 2), notGeocoded, { metric: "geo" });
+  if (withIndex > 0 && indexRows.length) {
+    const nIdx = node("Punya indeks", COLORS.purple, 2);
+    addLink(nEnt, nIdx, withIndex, { metric: "index_hub", actual: indexEntrySum });
+    // Sub-cabang proporsional: distribusi tipe indeks dalam anggaran withIndex
+    const scaled = allocateProportionalIntegers(
+      indexRows.map((row) => row.entries),
+      withIndex,
+    );
+    for (let i = 0; i < indexRows.length; i++) {
+      const flow = scaled[i];
+      if (flow <= 0) continue;
+      const row = indexRows[i];
+      const color = [COLORS.intel, COLORS.cyan, COLORS.amber, COLORS.pink, COLORS.purple][i % 5];
+      addLink(nIdx, node(`Indeks · ${row.type}`, color, 3), flow, {
+        metric: "index_entries",
+        actual: row.entries,
+        indexEntrySum,
+      });
+    }
+  }
+  if (incomplete > 0) {
+    addLink(nEnt, node("Belum lengkap", COLORS.muted, 2), incomplete, { metric: "geo" });
   }
 
+  // ── Alur B: Antrian URL ────────────────────────────────────
   const queueTotal = queue.total || 0;
   if (queueTotal > 0) {
     const nQueue = node("Antrian URL", COLORS.amber, 1);
-    addLink(nDoc, nQueue, queueTotal, { metric: "queue" });
+    addLink(nSrc, nQueue, queueTotal, { metric: "queue" });
     for (const item of SANKEY_QUEUE_STATUS) {
       const v = queue[item.key] || 0;
       if (v > 0) {
@@ -1219,7 +1326,18 @@ function formatSankeyTooltip(params) {
   if (params.dataType === "edge") {
     const d = params.data;
     let html = `${d.source} → ${d.target}<br/><strong>${fmt(d.value)}</strong>`;
-    if (d.metric === "queue") {
+    if (d.metric === "index_entries" && d.actual != null) {
+      html += `<br/><span style="opacity:0.88">Entri indeks aktual: <strong>${fmt(d.actual)}</strong></span>`;
+      if (d.indexEntrySum) {
+        const share = ((d.actual / d.indexEntrySum) * 100).toFixed(1);
+        html += `<br/><span style="opacity:0.75">≈ ${share}% dari entri indeks</span>`;
+      }
+    } else if (d.metric === "index_hub") {
+      html += `<br/><span style="opacity:0.88">Entitas punya indeks (estimasi proporsi)</span>`;
+      if (d.actual != null) {
+        html += `<br/><span style="opacity:0.75">Total entri indeks aktual: ${fmt(d.actual)}</span>`;
+      }
+    } else if (d.metric === "queue") {
       html += `<br/><span style="opacity:0.75">Jumlah URL antrian, bukan jumlah dokumen</span>`;
     }
     return html;
@@ -1297,6 +1415,13 @@ function buildOverviewSankey(data) {
 }
 
 function sankeyTableNote(link) {
+  if (link.metric === "index_entries" && link.actual != null) {
+    return `Entri indeks aktual: ${fmt(link.actual)}`;
+  }
+  if (link.metric === "index_hub") {
+    const actual = link.actual != null ? ` (entri aktual: ${fmt(link.actual)})` : "";
+    return `Entitas punya indeks (estimasi)${actual}`;
+  }
   if (link.metric === "queue") return "Satuan: URL antrian (bukan dokumen)";
   if (link.metric === "queue_status") return "Status antrian";
   if (link.metric === "geo") return "Partisi entitas";
@@ -3036,64 +3161,49 @@ function indexVolumeBarHeight(value, max) {
   return Math.max(4, Math.round((value / max) * 100));
 }
 
-function createIndexVolumeColumn(row, maxEntries, maxRefs) {
+function createIndexLeaderboardRow(row, maxEntries, totalEntries) {
   const shared = row.kind !== "unique";
   const entries = row.entries || 0;
   const refs = row.refs || 0;
   const ratio = indexVolumeRatio(entries, refs);
-  const ratioHigh = entries > 0 && refs > entries;
+  const pctVal = totalEntries > 0 ? ((entries / totalEntries) * 100).toFixed(1) : "0.0";
+  const barPct = maxEntries > 0 ? Math.max(3, (entries / maxEntries) * 100) : 3;
 
-  const col = document.createElement("article");
-  col.className = `index-volume-col index-volume-col--${shared ? "shared" : "unique"}`;
-  col.setAttribute("role", "listitem");
-  col.title = `${row.type}: ${fmt(entries)} entri, ${fmt(refs)} referensi, rasio ${ratio}`;
+  const tr = document.createElement("div");
+  tr.className = "index-lb-row";
+  tr.setAttribute("role", "listitem");
+  tr.title = `${row.type}: ${fmt(entries)} entri, ${fmt(refs)} referensi (${shared ? "silang" : "unik"}), rasio ${ratio}`;
 
-  const bars = document.createElement("div");
-  bars.className = "index-volume-col__bars";
-  bars.setAttribute("aria-hidden", "true");
+  const label = document.createElement("span");
+  label.className = "index-lb-row__label";
+  appendText(label, row.type);
 
-  for (const [tone, val, max, label] of [
-    ["entries", entries, maxEntries, "Entri"],
-    ["refs", refs, maxRefs, "Referensi"],
-  ]) {
-    const bar = document.createElement("div");
-    bar.className = `index-volume-col__bar index-volume-col__bar--${tone}`;
-    bar.title = `${label}: ${fmt(val)}`;
+  const bar = document.createElement("div");
+  bar.className = "index-lb-row__bar";
+  bar.setAttribute("aria-hidden", "true");
 
-    const fill = document.createElement("span");
-    fill.className = "index-volume-col__fill";
-    fill.style.height = `${indexVolumeBarHeight(val, max)}%`;
+  const fill = document.createElement("span");
+  fill.className = `index-lb-row__fill index-lb-row__fill--${shared ? "shared" : "unique"}`;
+  fill.style.width = `${barPct}%`;
 
-    bar.appendChild(fill);
-    bars.appendChild(bar);
-  }
+  bar.appendChild(fill);
 
-  const meta = document.createElement("div");
-  meta.className = "index-volume-col__meta";
+  const val = document.createElement("span");
+  val.className = "index-lb-row__val";
+  appendText(val, fmt(entries));
 
-  const nums = document.createElement("p");
-  nums.className = "index-volume-col__nums";
-  appendText(nums, `${indexVolumeCompact(entries)} · ${indexVolumeCompact(refs)}`);
+  const pctSpan = document.createElement("span");
+  pctSpan.className = "index-lb-row__pct";
+  appendText(pctSpan, `${pctVal}%`);
 
-  const title = document.createElement("h3");
-  title.className = "index-volume-col__title";
-  appendText(title, row.type);
+  tr.append(label, bar, val, pctSpan);
 
-  const foot = document.createElement("p");
-  foot.className = `index-volume-col__foot${ratioHigh ? " index-volume-col__foot--high" : ""}`;
-  const kind = document.createElement("span");
-  kind.className = "index-volume-col__kind";
-  kind.title = shared ? "Indeks silang" : "Indeks unik";
-  appendText(kind, shared ? "S" : "U");
-  appendText(foot, ` · ${ratio}`);
-  foot.prepend(kind);
+  tr.addEventListener("click", () => openIndexDetailModal(row, totalEntries));
 
-  meta.append(nums, title, foot);
-  col.append(bars, meta);
-  return col;
+  return tr;
 }
 
-/** 8 kolom vertikal: bar tipis entri (cyan) + referensi (amber) per tipe. */
+/** Leaderboard horizontal bars — 1 baris per tipe indeks, proporsi entri. */
 function buildIndexBarChart(indexRows) {
   const cols = document.getElementById("index-volume-cols");
   const emptyEl = document.getElementById("index-volume-empty");
@@ -3116,10 +3226,10 @@ function buildIndexBarChart(indexRows) {
   if (emptyEl) emptyEl.hidden = true;
 
   const maxEntries = Math.max(...indexChartRowsCache.map((row) => row.entries || 0), 1);
-  const maxRefs = Math.max(...indexChartRowsCache.map((row) => row.refs || 0), 1);
+  const totalEntries = indexChartRowsCache.reduce((sum, row) => sum + (row.entries || 0), 0);
 
   for (const row of indexChartRowsCache) {
-    cols.appendChild(createIndexVolumeColumn(row, maxEntries, maxRefs));
+    cols.appendChild(createIndexLeaderboardRow(row, maxEntries, totalEntries));
   }
 
   return cols;
@@ -3580,56 +3690,32 @@ function initCityFilter() {
   bind(document.getElementById("geo-city-filter"));
 }
 
-function initIndexFilters(data) {
-  const search = document.getElementById("analytics-index-search");
-  const kind = document.getElementById("analytics-index-kind-filter");
-  const refreshNow = () => refreshIndexViews(data);
-  const refreshSearch = debounce(refreshNow, DASHBOARD_FILTER_DEBOUNCE_MS);
-  if (search && search.dataset.bound !== "true") {
-    search.dataset.bound = "true";
-    search.addEventListener("input", refreshSearch);
-  }
-  if (kind && kind.dataset.bound !== "true") {
-    kind.dataset.bound = "true";
-    kind.addEventListener("change", refreshNow);
-  }
+function initIndexFilters() {
+  /* Filter input/search removed — co-occurrence pane replaces the table. */
 }
 
 function refreshIndexViews(data) {
   if (!data) return;
   const allRows = data.indexRows || [];
-  const filtered = filterIndexRows(allRows);
-  const filters = getIndexFilters();
-  const hasFilter = Boolean(filters.query) || filters.kind !== "all";
-
-  const meta = document.getElementById("analytics-index-filter-meta");
-  if (meta) {
-    meta.textContent = hasFilter ? `${fmt(filtered.length)} dari ${fmt(allRows.length)} tipe` : `${fmt(allRows.length)} tipe`;
-  }
+  const totals = data.indexTotal;
 
   const capIdx = document.getElementById("analytics-index-caption");
   if (capIdx) {
-    const shared = filtered.filter((r) => r.kind === "shared").length;
-    const unique = filtered.length - shared;
-    capIdx.textContent = hasFilter
-      ? `${fmt(filtered.length)} tipe cocok · ${shared} silang · ${unique} unik`
-      : `${shared} tipe silang · ${filtered.length - shared} tipe unik`;
+    const shared = allRows.filter((r) => r.kind === "shared").length;
+    capIdx.textContent = `${shared} tipe silang · ${allRows.length - shared} tipe unik · ${allRows.length} keterkaitan`;
   }
 
   const capIndex = document.getElementById("index-caption");
-  const totals = hasFilter ? sumIndexTotals(filtered) : data.indexTotal;
   if (capIndex && totals) {
     const ratio = totals.entries > 0 ? (totals.refs / totals.entries).toFixed(2) : "—";
-    capIndex.textContent = hasFilter
-      ? `${fmt(filtered.length)} tipe · ${fmt(totals.entries)} entri · rasio ${ratio}×`
-      : `${fmt(totals.entries)} entri · ${fmt(totals.refs)} referensi · rasio ${ratio}×`;
+    capIndex.textContent = `${fmt(totals.entries)} entri · ${fmt(totals.refs)} referensi · rasio ${ratio}×`;
   }
 
-  renderIndexFieldTable(filtered);
-  buildIndexBarChart(filtered);
+  buildIndexBarChart(allRows);
   window.requestAnimationFrame(resizeIndexBarChart);
   renderIndexStats(totals || { entries: 0, refs: 0 });
-  renderIntelMetrics(data.intel, data.queue, filtered);
+  renderCooccurrenceList(data.indexCooccurrence);
+  renderIntelMetrics(data.intel, data.queue, allRows);
 
   const tableWrap = document.getElementById("index-chart-table");
   if (tableWrap) {
@@ -3641,7 +3727,7 @@ function refreshIndexViews(data) {
         { key: "entries", label: "Entri", numeric: true },
         { key: "refs", label: "Ref", numeric: true },
       ],
-      filtered.map((row) => ({
+      allRows.map((row) => ({
         type: row.type,
         kind: row.kind === "unique" ? "UNIK" : "SILANG",
         entries: fmt(row.entries),
@@ -4013,45 +4099,59 @@ function renderCoverageTable(coverage, total) {
   }
 }
 
-function renderIndexFieldTable(indexRows) {
-  const tbody = document.getElementById("analytics-index-body");
-  if (!tbody) return;
-  clear(tbody);
+function renderCooccurrenceList(cooccurrence) {
+  const container = document.getElementById("index-cooccurrence-list");
+  if (!container) return;
+  clear(container);
 
-  const rows = indexRows || [];
-  if (!rows.length) {
-    const tr = document.createElement("tr");
-    const cell = document.createElement("td");
-    cell.colSpan = 4;
-    cell.className = "analytics-empty analytics-empty--filter";
-    appendText(cell, "Tidak ada tipe indeks yang cocok.");
-    tr.appendChild(cell);
-    tbody.appendChild(tr);
+  const items = [...(cooccurrence || [])].sort((a, b) => (b.value || 0) - (a.value || 0));
+  if (!items.length) {
+    const empty = document.createElement("p");
+    empty.className = "analytics-empty";
+    appendText(empty, "Tidak ada data keterkaitan.");
+    container.appendChild(empty);
     return;
   }
 
-  for (const row of rows) {
-    const tr = document.createElement("tr");
+  const maxVal = Math.max(...items.map((c) => c.value || 0), 1);
 
-    const type = document.createElement("td");
-    appendText(type, row.type);
+  for (const item of items) {
+    const row = document.createElement("div");
+    row.className = "index-xrf-row";
+    row.setAttribute("role", "listitem");
 
-    const kind = document.createElement("td");
-    const kindTag = document.createElement("span");
-    kindTag.className = `index-kind index-kind--${row.kind === "unique" ? "unique" : "shared"}`;
-    appendText(kindTag, row.kind === "unique" ? "UNIK" : "SILANG");
-    kind.appendChild(kindTag);
+    const pair = document.createElement("span");
+    pair.className = "index-xrf-row__pair";
 
-    const entries = document.createElement("td");
-    entries.className = "num";
-    appendText(entries, fmt(row.entries));
+    const src = document.createElement("span");
+    src.className = "index-xrf-row__source";
+    appendText(src, item.source);
 
-    const refs = document.createElement("td");
-    refs.className = "num";
-    appendText(refs, fmt(row.refs));
+    const arrow = document.createElement("span");
+    arrow.className = "index-xrf-row__arrow";
+    appendText(arrow, "↔");
 
-    tr.append(type, kind, entries, refs);
-    tbody.appendChild(tr);
+    const tgt = document.createElement("span");
+    tgt.className = "index-xrf-row__target";
+    appendText(tgt, item.target);
+
+    pair.append(src, arrow, tgt);
+
+    const bar = document.createElement("div");
+    bar.className = "index-xrf-row__bar";
+    bar.setAttribute("aria-hidden", "true");
+
+    const fill = document.createElement("span");
+    fill.className = "index-xrf-row__fill";
+    fill.style.width = `${Math.max(3, ((item.value || 0) / maxVal) * 100)}%`;
+    bar.appendChild(fill);
+
+    const val = document.createElement("span");
+    val.className = "index-xrf-row__val";
+    appendText(val, fmt(item.value));
+
+    row.append(pair, bar, val);
+    container.appendChild(row);
   }
 }
 
