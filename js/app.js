@@ -1146,19 +1146,21 @@ function allocateProportionalIntegers(parts, targetTotal) {
 }
 
 /**
- * Sankey ringkasan — alur yang konservatif per cabang:
- * dokumen → entitas → geo (partisi) + indeks (proporsi entri, bukan total mentah);
- * dokumen → antrian URL. Vektor coverage sengaja tidak digambar (tumpang tindih antar field).
+ * Sankey ringkasan — alur konservatif tanpa double-counting:
+ * dokumen → entitas → geo (partisi eksklusif: terpetakan / belum terpetakan);
+ * dokumen → antrian URL.
+ *
+ * Indeks pencarian sengaja TIDAK digambar di Sankey karena merupakan
+ * dimensi yang saling tumpang tindih dengan geo — satu entitas bisa
+ * punya geo DAN banyak index entries, sehingga tidak bisa menjadi
+ * cabang eksklusif tanpa melanggar konservasi alur.  Data indeks sudah
+ * ditampilkan di tab Indeks dan volume panel.
  */
 function buildOverviewSankeyData(data) {
   const summary = data.summary || {};
   const queue = data.queue || {};
   const geo = data.geo || {};
   const persons = summary.persons || data.coverageTotal || 0;
-  const indexRows = [...(data.indexRows || [])]
-    .filter((row) => (row.entries || 0) > 0)
-    .sort((a, b) => (b.entries || 0) - (a.entries || 0))
-    .slice(0, 5);
 
   const nodeMap = new Map();
   const links = [];
@@ -1198,34 +1200,6 @@ function buildOverviewSankeyData(data) {
     addLink(nEnt, node("Belum terpetakan", COLORS.muted, 2), notGeocoded, { metric: "geo" });
   }
 
-  const indexEntrySum = indexRows.reduce((sum, row) => sum + (row.entries || 0), 0);
-  if (persons > 0 && indexRows.length && indexEntrySum > 0) {
-    const nIdx = node("Indeks pencarian", COLORS.purple, 2);
-    const scaled = allocateProportionalIntegers(
-      indexRows.map((row) => row.entries),
-      persons,
-    );
-    let indexHubFlow = 0;
-    for (let i = 0; i < indexRows.length; i++) {
-      const flow = scaled[i];
-      if (flow <= 0) continue;
-      const row = indexRows[i];
-      const color = [COLORS.intel, COLORS.cyan, COLORS.amber, COLORS.pink, COLORS.purple][i % 5];
-      addLink(nIdx, node(`Indeks · ${row.type}`, color, 3), flow, {
-        metric: "index_entries",
-        actual: row.entries,
-        indexEntrySum,
-      });
-      indexHubFlow += flow;
-    }
-    if (indexHubFlow > 0) {
-      addLink(nEnt, nIdx, indexHubFlow, {
-        metric: "index_hub",
-        actual: indexEntrySum,
-      });
-    }
-  }
-
   const queueTotal = queue.total || 0;
   if (queueTotal > 0) {
     const nQueue = node("Antrian URL", COLORS.amber, 1);
@@ -1245,16 +1219,7 @@ function formatSankeyTooltip(params) {
   if (params.dataType === "edge") {
     const d = params.data;
     let html = `${d.source} → ${d.target}<br/><strong>${fmt(d.value)}</strong>`;
-    if (d.metric === "index_entries" && d.actual != null) {
-      html += `<br/><span style="opacity:0.88">Entri indeks aktual: <strong>${fmt(d.actual)}</strong></span>`;
-      if (d.indexEntrySum) {
-        const share = ((d.actual / d.indexEntrySum) * 100).toFixed(1);
-        html += `<br/><span style="opacity:0.75">≈ ${share}% dari entri indeks yang digambar</span>`;
-      }
-    } else if (d.metric === "index_hub" && d.actual != null) {
-      html += `<br/><span style="opacity:0.88">Total entri indeks (semua tipe): <strong>${fmt(d.actual)}</strong></span>`;
-      html += `<br/><span style="opacity:0.75">Lebar cabang = proporsi entri, dibatasi skala entitas</span>`;
-    } else if (d.metric === "queue") {
+    if (d.metric === "queue") {
       html += `<br/><span style="opacity:0.75">Jumlah URL antrian, bukan jumlah dokumen</span>`;
     }
     return html;
@@ -1332,12 +1297,6 @@ function buildOverviewSankey(data) {
 }
 
 function sankeyTableNote(link) {
-  if (link.metric === "index_entries" && link.actual != null) {
-    return `Entri indeks aktual: ${fmt(link.actual)}`;
-  }
-  if (link.metric === "index_hub" && link.actual != null) {
-    return `Total entri semua tipe: ${fmt(link.actual)}`;
-  }
   if (link.metric === "queue") return "Satuan: URL antrian (bukan dokumen)";
   if (link.metric === "queue_status") return "Status antrian";
   if (link.metric === "geo") return "Partisi entitas";
