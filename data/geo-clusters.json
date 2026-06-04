@@ -1,8 +1,8 @@
 {
-  "totalEntities": 1317751,
-  "entitiesWithCity": 152372,
-  "geocodedEntities": 103589,
-  "uniqueCities": 6067,
+  "totalEntities": 1492243,
+  "entitiesWithCity": 153298,
+  "geocodedEntities": 103591,
+  "uniqueCities": 6148,
   "mappedCities": 290,
   "clusters": [
     {
@@ -1017,20 +1017,20 @@
       ]
     },
     {
+      "key": "BOYOLALI",
+      "label": "Boyolali",
+      "province": null,
+      "count": 39,
+      "lat": -7.416522443495546,
+      "lng": 110.65249878352462
+    },
+    {
       "key": "MAGELANG",
       "label": "Magelang",
       "province": null,
       "count": 38,
       "lat": -7.4706,
       "lng": 110.217
-    },
-    {
-      "key": "BOYOLALI",
-      "label": "Boyolali",
-      "province": null,
-      "count": 38,
-      "lat": -7.416522443495546,
-      "lng": 110.65249878352462
     },
     {
       "key": "coord:128.1814,-3.6954",
@@ -1165,6 +1165,14 @@
       "lng": 108.557
     },
     {
+      "key": "KARANGANYAR",
+      "label": "Karanganyar",
+      "province": null,
+      "count": 30,
+      "lat": -7.614138970463525,
+      "lng": 111.01924162577282
+    },
+    {
       "key": "LUWU UTARA",
       "label": "Luwu Utara",
       "province": "Sulawesi Selatan",
@@ -1195,14 +1203,6 @@
       "count": 29,
       "lat": -6.590233346882594,
       "lng": 105.74297025290407
-    },
-    {
-      "key": "KARANGANYAR",
-      "label": "Karanganyar",
-      "province": null,
-      "count": 29,
-      "lat": -7.614138970463525,
-      "lng": 111.01924162577282
     },
     {
       "key": "CILACAP",
