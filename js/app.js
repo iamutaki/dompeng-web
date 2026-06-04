@@ -1306,18 +1306,9 @@ function buildOverviewSankeyData(data) {
     addLink(nEnt, node("Belum lengkap", COLORS.muted, 2), incomplete, { metric: "geo" });
   }
 
-  // ── Alur B: Antrian URL ────────────────────────────────────
-  const queueTotal = queue.total || 0;
-  if (queueTotal > 0) {
-    const nQueue = node("Antrian URL", COLORS.amber, 1);
-    addLink(nSrc, nQueue, queueTotal, { metric: "queue" });
-    for (const item of SANKEY_QUEUE_STATUS) {
-      const v = queue[item.key] || 0;
-      if (v > 0) {
-        addLink(nQueue, node(item.label, item.color, 2), v, { metric: "queue_status" });
-      }
-    }
-  }
+  // Catatan: data antrian URL sudah ditampilkan di KPI card, radar chart,
+  // dan pipeline bar (Profil antrian URL). Tidak perlu di Sankey karena
+  // skala yang sangat berbeda membuatnya nyaris tak terlihat.
 
   return { nodes: [...nodeMap.values()], links };
 }
@@ -1337,8 +1328,6 @@ function formatSankeyTooltip(params) {
       if (d.actual != null) {
         html += `<br/><span style="opacity:0.75">Total entri indeks aktual: ${fmt(d.actual)}</span>`;
       }
-    } else if (d.metric === "queue") {
-      html += `<br/><span style="opacity:0.75">Jumlah URL antrian, bukan jumlah dokumen</span>`;
     }
     return html;
   }
@@ -1422,8 +1411,6 @@ function sankeyTableNote(link) {
     const actual = link.actual != null ? ` (entri aktual: ${fmt(link.actual)})` : "";
     return `Entitas punya indeks (estimasi)${actual}`;
   }
-  if (link.metric === "queue") return "Satuan: URL antrian (bukan dokumen)";
-  if (link.metric === "queue_status") return "Status antrian";
   if (link.metric === "geo") return "Partisi entitas";
   return "";
 }
@@ -3765,7 +3752,7 @@ function refreshQueueViews(data) {
     const summary = data.summary || {};
     const queue = data.queue || {};
     const geo = data.geo || {};
-    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan · ${fmt(queue.total)} URL antrian`;
+    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan`;
   }
 
   if (document.getElementById("overview-sankey-chart") && tabChartsReady.has("overview")) {
@@ -4328,7 +4315,7 @@ function renderOverviewDashboard(data) {
     const summary = data.summary || {};
     const queue = data.queue || {};
     const geo = data.geo || {};
-    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan · ${fmt(queue.total)} URL antrian`;
+    capSankey.textContent = `${fmt(summary.documents)} dokumen → ${fmt(summary.persons)} entitas · ${fmt(geo.geocodedEntities)} terpetakan`;
   }
 
   const capGeo = document.getElementById("overview-geo-caption");

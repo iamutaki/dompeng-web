@@ -1,8 +1,8 @@
 {
-  "totalEntities": 1338131,
-  "entitiesWithCity": 154269,
-  "geocodedEntities": 103584,
-  "uniqueCities": 5972,
+  "totalEntities": 1317751,
+  "entitiesWithCity": 152372,
+  "geocodedEntities": 103589,
+  "uniqueCities": 6067,
   "mappedCities": 290,
   "clusters": [
     {
@@ -46,14 +46,14 @@
       "key": "coord:98.6722,3.5952",
       "label": "Medan",
       "province": null,
-      "count": 5175,
+      "count": 5174,
       "lat": 3.5952,
       "lng": 98.6722,
       "mergedCount": 2,
       "mergedCities": [
         {
           "label": "Medan",
-          "count": 3980,
+          "count": 3979,
           "province": null
         },
         {
@@ -181,7 +181,7 @@
       "key": "coord:106.8456,-6.2088",
       "label": "Jakarta",
       "province": null,
-      "count": 1122,
+      "count": 1120,
       "lat": -6.2088,
       "lng": 106.8456,
       "mergedCount": 2,
@@ -193,7 +193,7 @@
         },
         {
           "label": "Dki Jakarta",
-          "count": 171,
+          "count": 169,
           "province": null
         }
       ]
@@ -282,7 +282,7 @@
       "key": "BLITAR",
       "label": "Blitar",
       "province": null,
-      "count": 672,
+      "count": 673,
       "lat": -8.094766713715375,
       "lng": 112.16697121377153
     },
@@ -526,7 +526,7 @@
       "key": "coord:119.4327,-5.1477",
       "label": "Sulawesi Selatan",
       "province": null,
-      "count": 230,
+      "count": 233,
       "lat": -5.1477,
       "lng": 119.4327,
       "mergedCount": 2,
@@ -538,7 +538,7 @@
         },
         {
           "label": "Makassar",
-          "count": 19,
+          "count": 22,
           "province": null
         }
       ]
@@ -787,20 +787,20 @@
       "lng": 109.1402
     },
     {
+      "key": "SEMARANG",
+      "label": "Semarang",
+      "province": null,
+      "count": 77,
+      "lat": -6.9667,
+      "lng": 110.4167
+    },
+    {
       "key": "WONOGIRI",
       "label": "Wonogiri",
       "province": null,
       "count": 76,
       "lat": -7.91928517416729,
       "lng": 110.99921317719837
-    },
-    {
-      "key": "SEMARANG",
-      "label": "Semarang",
-      "province": null,
-      "count": 76,
-      "lat": -6.9667,
-      "lng": 110.4167
     },
     {
       "key": "KLATEN",
@@ -830,7 +830,7 @@
       "key": "TEBING TINGGI",
       "label": "Tebing Tinggi",
       "province": null,
-      "count": 66,
+      "count": 65,
       "lat": 3.3282698019426245,
       "lng": 99.15603085467856
     },
@@ -856,18 +856,10 @@
       ]
     },
     {
-      "key": "BENGKULU",
-      "label": "Bengkulu",
-      "province": "BENGKULU",
-      "count": 59,
-      "lat": -3.7928,
-      "lng": 102.2608
-    },
-    {
       "key": "coord:114.5944,-3.3186",
       "label": "Kalimantan Selatan",
       "province": null,
-      "count": 58,
+      "count": 60,
       "lat": -3.3186,
       "lng": 114.5944,
       "mergedCount": 2,
@@ -879,10 +871,18 @@
         },
         {
           "label": "Banjarmasin",
-          "count": 26,
+          "count": 28,
           "province": null
         }
       ]
+    },
+    {
+      "key": "BENGKULU",
+      "label": "Bengkulu",
+      "province": "BENGKULU",
+      "count": 59,
+      "lat": -3.7928,
+      "lng": 102.2608
     },
     {
       "key": "coord:113.9213,-2.2109",
@@ -1197,6 +1197,22 @@
       "lng": 105.74297025290407
     },
     {
+      "key": "KARANGANYAR",
+      "label": "Karanganyar",
+      "province": null,
+      "count": 29,
+      "lat": -7.614138970463525,
+      "lng": 111.01924162577282
+    },
+    {
+      "key": "CILACAP",
+      "label": "Cilacap",
+      "province": null,
+      "count": 28,
+      "lat": -7.4889272895910715,
+      "lng": 108.88983867499971
+    },
+    {
       "key": "ACEH TENGAH",
       "label": "Aceh Tengah",
       "province": null,
@@ -1211,22 +1227,6 @@
       "count": 28,
       "lat": 1.0456,
       "lng": 104.0305
-    },
-    {
-      "key": "KARANGANYAR",
-      "label": "Karanganyar",
-      "province": null,
-      "count": 28,
-      "lat": -7.614138970463525,
-      "lng": 111.01924162577282
-    },
-    {
-      "key": "CILACAP",
-      "label": "Cilacap",
-      "province": null,
-      "count": 27,
-      "lat": -7.4889272895910715,
-      "lng": 108.88983867499971
     },
     {
       "key": "PEMALANG",
