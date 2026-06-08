@@ -1,33 +1,33 @@
 {
-  "updated": "2026-06-04 12:24 UTC",
+  "updated": "2026-06-08 04:49 UTC",
   "redacted": true,
   "intel": {
-    "graphNodes": 1492243,
-    "graphEdges": 2116967,
-    "sourceDocuments": 9703,
+    "graphNodes": 1545287,
+    "graphEdges": 2175462,
+    "sourceDocuments": 11348,
     "activeVectors": 5,
-    "dominantVectorPct": 20.3,
+    "dominantVectorPct": 19.6,
     "dominantVectorId": "phone",
-    "xrefRatio": 1.58,
-    "pipelineSuccessPct": 36.2,
-    "pipelineBacklogPct": 19.8,
-    "pipelineFailurePct": 27.7,
-    "entityLinkRate": 0.34
+    "xrefRatio": 1.6,
+    "pipelineSuccessPct": 45.2,
+    "pipelineBacklogPct": 11.3,
+    "pipelineFailurePct": 23.3,
+    "entityLinkRate": 0.33
   },
   "summary": {
-    "persons": 1492243,
-    "documents": 9703,
+    "persons": 1545287,
+    "documents": 11348,
     "photos": 204,
     "templates": 80,
-    "history": 4592,
+    "history": 5654,
     "doneFiles": 0
   },
   "coverage": [
     {
       "id": "phone",
       "label": "Nomor telepon",
-      "value": 302680,
-      "pct": 20.3
+      "value": 302682,
+      "pct": 19.6
     },
     {
       "id": "email",
@@ -38,14 +38,14 @@
     {
       "id": "employee_id",
       "label": "ID karyawan",
-      "value": 58339,
-      "pct": 3.9
+      "value": 65118,
+      "pct": 4.2
     },
     {
       "id": "nik",
       "label": "NIK",
-      "value": 194190,
-      "pct": 13.0
+      "value": 194215,
+      "pct": 12.6
     },
     {
       "id": "photo",
@@ -54,19 +54,19 @@
       "pct": 0.0
     }
   ],
-  "coverageTotal": 1492243,
+  "coverageTotal": 1545287,
   "indexRows": [
     {
       "type": "Nama",
       "kind": "index",
-      "entries": 788925,
-      "refs": 1471934
+      "entries": 805083,
+      "refs": 1523618
     },
     {
       "type": "Telepon",
       "kind": "index",
-      "entries": 259827,
-      "refs": 306336
+      "entries": 259829,
+      "refs": 306338
     },
     {
       "type": "Email",
@@ -77,20 +77,20 @@
     {
       "type": "NIK",
       "kind": "index",
-      "entries": 178239,
-      "refs": 194104
+      "entries": 178264,
+      "refs": 194129
     },
     {
       "type": "NPWP",
       "kind": "index",
-      "entries": 3858,
-      "refs": 4165
+      "entries": 3862,
+      "refs": 4169
     },
     {
       "type": "No. kartu keluarga",
       "kind": "index",
-      "entries": 12772,
-      "refs": 31490
+      "entries": 12773,
+      "refs": 31491
     },
     {
       "type": "ID pelajar",
@@ -101,29 +101,29 @@
     {
       "type": "ID karyawan",
       "kind": "index",
-      "entries": 49826,
-      "refs": 58339
+      "entries": 54312,
+      "refs": 65118
     }
   ],
   "indexTotal": {
-    "entries": 1340747,
-    "refs": 2116967
+    "entries": 1361423,
+    "refs": 2175462
   },
   "indexCooccurrence": [
     {
       "source": "Nama",
       "target": "Telepon",
-      "value": 302628
+      "value": 302630
     },
     {
       "source": "Nama",
       "target": "NIK",
-      "value": 194090
+      "value": 194115
     },
     {
       "source": "Nama",
       "target": "ID karyawan",
-      "value": 57990
+      "value": 64731
     },
     {
       "source": "Telepon",
@@ -138,17 +138,17 @@
     {
       "source": "Nama",
       "target": "No. kartu keluarga",
-      "value": 31489
+      "value": 31490
     },
     {
       "source": "NIK",
       "target": "No. kartu keluarga",
-      "value": 31367
+      "value": 31368
     },
     {
       "source": "NIK",
       "target": "ID karyawan",
-      "value": 17173
+      "value": 17180
     },
     {
       "source": "Nama",
@@ -163,7 +163,7 @@
     {
       "source": "Telepon",
       "target": "ID karyawan",
-      "value": 6089
+      "value": 6090
     },
     {
       "source": "Email",
@@ -173,7 +173,7 @@
     {
       "source": "Nama",
       "target": "NPWP",
-      "value": 4147
+      "value": 4151
     },
     {
       "source": "Telepon",
@@ -188,7 +188,7 @@
     {
       "source": "NIK",
       "target": "NPWP",
-      "value": 3461
+      "value": 3462
     },
     {
       "source": "Email",
@@ -228,12 +228,12 @@
     {
       "source": "NPWP",
       "target": "ID karyawan",
-      "value": 183
+      "value": 184
     },
     {
       "source": "NPWP",
       "target": "No. kartu keluarga",
-      "value": 144
+      "value": 145
     },
     {
       "source": "Email",
@@ -243,67 +243,67 @@
     {
       "source": "No. kartu keluarga",
       "target": "ID karyawan",
-      "value": 112
+      "value": 113
     }
   ],
   "queue": {
-    "pending": 1766,
-    "processing": 12,
-    "done": 3226,
-    "skipped": 1441,
-    "failed": 2465,
+    "pending": 1007,
+    "processing": 1,
+    "done": 4023,
+    "skipped": 1804,
+    "failed": 2075,
     "total": 8910
   },
   "recentDocs": [
     {
       "title": "D····· A······ — c···· s······ l···· w··· N··· j······· u··· k····",
-      "imported_at": "2026-06-04T12:23:47Z",
-      "mentions": 0
+      "imported_at": "2026-06-08T04:48:48Z",
+      "mentions": 109
     },
     {
       "title": "A······ r·····",
-      "imported_at": "2026-06-04T12:23:16Z",
-      "mentions": 2
+      "imported_at": "2026-06-08T04:47:17Z",
+      "mentions": 11
     },
     {
       "title": "A······ r·····",
-      "imported_at": "2026-06-04T12:22:47Z",
-      "mentions": 2
+      "imported_at": "2026-06-08T04:47:05Z",
+      "mentions": 11
     },
     {
-      "title": "D····· a······ S····· P·· D······ d·· L····· — n··· d·· j······",
-      "imported_at": "2026-06-04T12:22:23Z",
-      "mentions": 0
+      "title": "D····· A······ — c···· s······ l···· w··· N··· j······· u··· k····",
+      "imported_at": "2026-06-08T04:44:30Z",
+      "mentions": 1
+    },
+    {
+      "title": "D····· A······ — c···· s······ l···· w··· N··· j······· u··· k····",
+      "imported_at": "2026-06-08T04:44:23Z",
+      "mentions": 1
     },
     {
       "title": "A······ r·····",
-      "imported_at": "2026-06-04T12:21:51Z",
-      "mentions": 2
+      "imported_at": "2026-06-08T04:42:37Z",
+      "mentions": 4
     },
     {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-06-04T12:21:28Z",
-      "mentions": 0
+      "title": "A······ r·····",
+      "imported_at": "2026-06-08T04:42:27Z",
+      "mentions": 4
     },
     {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-06-04T12:20:53Z",
-      "mentions": 0
+      "title": "A······ r·····",
+      "imported_at": "2026-06-08T04:40:15Z",
+      "mentions": 6
     },
     {
-      "title": "P······· R····",
-      "imported_at": "2026-06-04T12:20:29Z",
-      "mentions": 0
+      "title": "A······ r·····",
+      "imported_at": "2026-06-08T04:40:10Z",
+      "mentions": 6
     },
     {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-06-04T12:20:06Z",
-      "mentions": 0
-    },
-    {
-      "title": "U····· T···· K·······",
-      "imported_at": "2026-06-04T12:19:40Z",
-      "mentions": 0
+      "title": "A······ r·····",
+      "imported_at": "2026-06-08T04:39:54Z",
+      "mentions": 4
     }
   ],
   "showcaseEntities": [
@@ -818,12 +818,12 @@
         }
       ],
       "identifierCount": 7,
-      "edgeCount": 10,
+      "edgeCount": 11,
       "relations": {
         "phone": 2,
         "email": 1,
         "family": 5,
-        "document": 2
+        "document": 3
       },
       "relationLinks": [
         {
@@ -865,12 +865,16 @@
         {
           "relation": "document",
           "label": "Dokumen 2"
+        },
+        {
+          "relation": "document",
+          "label": "Dokumen 3"
         }
       ],
       "documents": [],
       "documentCount": 0,
       "hasPhoto": false,
-      "notesCount": 3,
+      "notesCount": 4,
       "resolutionScore": 7
     },
     {
@@ -2414,11 +2418,11 @@
     ]
   },
   "geo": {
-    "totalEntities": 1492243,
-    "entitiesWithCity": 153298,
-    "geocodedEntities": 103591,
-    "uniqueCities": 6148,
-    "mappedCities": 290,
+    "totalEntities": 1545287,
+    "entitiesWithCity": 154520,
+    "geocodedEntities": 103604,
+    "uniqueCities": 6273,
+    "mappedCities": 291,
     "clusters": [
       {
         "key": "IBU KOTA NUSANTARA",
@@ -2941,7 +2945,7 @@
         "key": "coord:119.4327,-5.1477",
         "label": "Sulawesi Selatan",
         "province": null,
-        "count": 233,
+        "count": 236,
         "lat": -5.1477,
         "lng": 119.4327,
         "mergedCount": 2,
@@ -2953,7 +2957,7 @@
           },
           {
             "label": "Makassar",
-            "count": 22,
+            "count": 25,
             "province": null
           }
         ]
@@ -3186,6 +3190,14 @@
         "lng": 123.12444836806907
       },
       {
+        "key": "TEGAL",
+        "label": "Tegal",
+        "province": "JAWA TENGAH",
+        "count": 79,
+        "lat": -6.8694,
+        "lng": 109.1402
+      },
+      {
         "key": "DELI SERDANG",
         "label": "Deli Serdang",
         "province": null,
@@ -3194,18 +3206,10 @@
         "lng": 98.69483263066542
       },
       {
-        "key": "TEGAL",
-        "label": "Tegal",
-        "province": "JAWA TENGAH",
-        "count": 78,
-        "lat": -6.8694,
-        "lng": 109.1402
-      },
-      {
         "key": "SEMARANG",
         "label": "Semarang",
         "province": null,
-        "count": 77,
+        "count": 78,
         "lat": -6.9667,
         "lng": 110.4167
       },
@@ -3348,7 +3352,7 @@
         "key": "BLORA",
         "label": "Blora",
         "province": null,
-        "count": 53,
+        "count": 54,
         "lat": -7.074438334017534,
         "lng": 111.38743501291204
       },
@@ -3546,14 +3550,14 @@
         "key": "coord:99.059,2.9614",
         "label": "Pematang Siantar",
         "province": null,
-        "count": 32,
+        "count": 33,
         "lat": 2.9614175749560467,
         "lng": 99.05903381327893,
         "mergedCount": 2,
         "mergedCities": [
           {
             "label": "Pematang Siantar",
-            "count": 22,
+            "count": 23,
             "province": null
           },
           {
@@ -3564,20 +3568,20 @@
         ]
       },
       {
+        "key": "CIREBON",
+        "label": "Cirebon",
+        "province": null,
+        "count": 32,
+        "lat": -6.7063,
+        "lng": 108.557
+      },
+      {
         "key": "SUKABUMI",
         "label": "Sukabumi",
         "province": null,
         "count": 31,
         "lat": -6.9277,
         "lng": 106.929
-      },
-      {
-        "key": "CIREBON",
-        "label": "Cirebon",
-        "province": null,
-        "count": 31,
-        "lat": -6.7063,
-        "lng": 108.557
       },
       {
         "key": "KARANGANYAR",
@@ -3739,18 +3743,18 @@
     ]
   },
   "sourceStats": {
-    "documentsTotal": 9703,
-    "documentsWithUrl": 9678,
-    "documentsIdDomain": 9654,
+    "documentsTotal": 11348,
+    "documentsWithUrl": 11323,
+    "documentsIdDomain": 11296,
     "topSuffix": "go.id",
     "domainSuffixes": [
       {
         "suffix": "go.id",
-        "count": 6367
+        "count": 8001
       },
       {
         "suffix": "com",
-        "count": 2278
+        "count": 2286
       },
       {
         "suffix": "ac.id",
@@ -3784,7 +3788,7 @@
     "fileTypes": [
       {
         "type": "pdf",
-        "count": 7131
+        "count": 8726
       },
       {
         "type": "excel",
@@ -3792,7 +3796,7 @@
       },
       {
         "type": "txt",
-        "count": 835
+        "count": 885
       },
       {
         "type": "unknown",
@@ -3828,7 +3832,7 @@
     {
       "file": "data/stats.json",
       "role": "Agregat dashboard: indeks, geo, antrian, changelog.",
-      "bytes": 122578
+      "bytes": 122517
     },
     {
       "file": "data/geo-clusters.json",

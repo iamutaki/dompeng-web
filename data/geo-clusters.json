@@ -1,9 +1,9 @@
 {
-  "totalEntities": 1492243,
-  "entitiesWithCity": 153298,
-  "geocodedEntities": 103591,
-  "uniqueCities": 6148,
-  "mappedCities": 290,
+  "totalEntities": 1545287,
+  "entitiesWithCity": 154520,
+  "geocodedEntities": 103604,
+  "uniqueCities": 6273,
+  "mappedCities": 291,
   "clusters": [
     {
       "key": "IBU KOTA NUSANTARA",
@@ -526,7 +526,7 @@
       "key": "coord:119.4327,-5.1477",
       "label": "Sulawesi Selatan",
       "province": null,
-      "count": 233,
+      "count": 236,
       "lat": -5.1477,
       "lng": 119.4327,
       "mergedCount": 2,
@@ -538,7 +538,7 @@
         },
         {
           "label": "Makassar",
-          "count": 22,
+          "count": 25,
           "province": null
         }
       ]
@@ -771,6 +771,14 @@
       "lng": 123.12444836806907
     },
     {
+      "key": "TEGAL",
+      "label": "Tegal",
+      "province": "JAWA TENGAH",
+      "count": 79,
+      "lat": -6.8694,
+      "lng": 109.1402
+    },
+    {
       "key": "DELI SERDANG",
       "label": "Deli Serdang",
       "province": null,
@@ -779,18 +787,10 @@
       "lng": 98.69483263066542
     },
     {
-      "key": "TEGAL",
-      "label": "Tegal",
-      "province": "JAWA TENGAH",
-      "count": 78,
-      "lat": -6.8694,
-      "lng": 109.1402
-    },
-    {
       "key": "SEMARANG",
       "label": "Semarang",
       "province": null,
-      "count": 77,
+      "count": 78,
       "lat": -6.9667,
       "lng": 110.4167
     },
@@ -933,7 +933,7 @@
       "key": "BLORA",
       "label": "Blora",
       "province": null,
-      "count": 53,
+      "count": 54,
       "lat": -7.074438334017534,
       "lng": 111.38743501291204
     },
@@ -1131,14 +1131,14 @@
       "key": "coord:99.059,2.9614",
       "label": "Pematang Siantar",
       "province": null,
-      "count": 32,
+      "count": 33,
       "lat": 2.9614175749560467,
       "lng": 99.05903381327893,
       "mergedCount": 2,
       "mergedCities": [
         {
           "label": "Pematang Siantar",
-          "count": 22,
+          "count": 23,
           "province": null
         },
         {
@@ -1149,20 +1149,20 @@
       ]
     },
     {
+      "key": "CIREBON",
+      "label": "Cirebon",
+      "province": null,
+      "count": 32,
+      "lat": -6.7063,
+      "lng": 108.557
+    },
+    {
       "key": "SUKABUMI",
       "label": "Sukabumi",
       "province": null,
       "count": 31,
       "lat": -6.9277,
       "lng": 106.929
-    },
-    {
-      "key": "CIREBON",
-      "label": "Cirebon",
-      "province": null,
-      "count": 31,
-      "lat": -6.7063,
-      "lng": 108.557
     },
     {
       "key": "KARANGANYAR",
