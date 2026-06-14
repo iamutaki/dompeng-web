@@ -1272,12 +1272,19 @@ function buildOverviewSankeyData(data) {
   const indexEntrySum = indexRows.reduce((sum, row) => sum + (row.entries || 0), 0);
 
   // Partisi eksklusif: terpetakan / punya indeks / belum lengkap
-  // "Punya indeks" = entitas yang TIDAK terpetakan tapi punya entri indeks.
-  // Kita estimasi dari rasio indexEntrySum/persons.
-  const indexCoverageRatio = persons > 0 ? Math.min(indexEntrySum / persons, 1) : 0;
-  const notGeocoded = Math.max(0, persons - geocoded);
-  const withIndex = Math.round(notGeocoded * indexCoverageRatio);
-  const incomplete = Math.max(0, notGeocoded - withIndex);
+  // Gunakan data presisi dari pipeline (sankeyPartition) jika tersedia.
+  // Fallback ke estimasi proporsional untuk data lama.
+  const partition = data.sankeyPartition;
+  let withIndex, incomplete;
+  if (partition && partition.notGeocodedWithIndex != null) {
+    withIndex = partition.notGeocodedWithIndex;
+    incomplete = partition.notGeocodedWithoutIndex;
+  } else {
+    const indexCoverageRatio = persons > 0 ? Math.min(indexEntrySum / persons, 1) : 0;
+    const notGeocoded = Math.max(0, persons - geocoded);
+    withIndex = Math.round(notGeocoded * indexCoverageRatio);
+    incomplete = Math.max(0, notGeocoded - withIndex);
+  }
 
   if (geocoded > 0) {
     addLink(nEnt, node("Terpetakan kota", COLORS.cyan, 2), geocoded, { metric: "geo" });
